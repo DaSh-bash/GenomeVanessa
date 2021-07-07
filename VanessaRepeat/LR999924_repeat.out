@@ -1,7 +1,5 @@
-yes: standard output: Broken pipe
-yes: write error
-chrom     begin  end    count_rpt length_rpt count_SINE length_SINE count_DNA	length_DNA     count_TcM      length_TcM     count_LINE     length_DNA     count_LTR      length_LTR     count_nonLTR   length_nonLTR
-LR999924.1	1	100000	181 78340 0  22	2312	22	2312	36	2312	72	61056	72	61056
+chrom begin end count_rpt length_rpt count_SINE length_SINE count_DNA length_DNA count_TcM length_TcM count_LINE length_LINE count_LTR length_LTR count_nonLTR length_nonLTR
+LR999924.1	1	100000 181 78340 0  22	2312	22 2312	36	2312	72	61056	72	61056
 LR999924.1	100001	200000	129 30952 4 1040 17	3193	7	929	11	3193	22	15257	19	14690
 LR999924.1	200001	300000	66 7205 8 1518 6	476	0		1	476	7	2184	7	2184
 LR999924.1	300001	400000	58 6967 7 1335 4	1692	0		2	1692	11	1566	8	1325
@@ -171,5 +169,3 @@ LR999924.1	16600001	16700000	120 18342 23 4095 5	1837	0		9	1837	16	5704	14	5566
 LR999924.1	16700001	16800000	98 10182 11 1582 10	1445	0		1	1445	12	2592	11	1968
 LR999924.1	16800001	16900000	81 11760 12 2517 6	723	0		1	723	12	4352	12	4352
 LR999924.1	16900001	17000000	51 6572 3 842 7	2467	0		1	2467	6	678	5	637
-LR999924.1	17000001		0  0  0		0		0		0		0	
-repeat_per_chromosome.sh: line 48: one: command not found
