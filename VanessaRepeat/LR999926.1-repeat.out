@@ -1,4 +1,4 @@
-chrom     begin  end    count_rpt length_rpt count_SINE length_SINE count_DNA	length_DNA     count_TcM      length_TcM     count_LINE     length_DNA     count_LTR      length_LTR     count_nonLTR   length_nonLTR
+chrom begin end count_rpt length_rpt count_SINE length_SINE count_DNA length_DNA count_TcM length_TcM count_LINE length_LINE count_LTR length_LTR count_nonLTR length_nonLTR
 LR999926.1	1	100000	157 24414 7 1153 14	2390	2	378	12	2390	22	4448	21	4385
 LR999926.1	100001	200000	127 19591 10 2423 6	1351	0		3	1351	11	5414	8	2798
 LR999926.1	200001	300000	93 12420 3 227 8	769	1	73	1	769	4	5211	4	5211
