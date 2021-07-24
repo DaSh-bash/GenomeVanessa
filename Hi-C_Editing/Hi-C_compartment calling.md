@@ -20,9 +20,12 @@ chr_list=ʽcut -f1 chrom.sizesʽ - didn't work
 cut -f1 chrom.sizes > chr_list.out
 
 
-java -jar juicer_tools_linux_0.8.jar -p \
+java -jar /Users/dariashipilina/Documents/GitHub/juicer_tools_1.22.01.jar -p \
 eigenvector KR pacbio.prim.assembly.final.hic LR999924.1 BP 250000 \
 EIG/pacbio.prim.assembly.final_KR_250k_eigen_LR999924.1.txt
+
+
+/Users/dariashipilina/Desktop/CompartmentCalling/straw/python/straw
 
 #### Script for looped calculation:
 
@@ -44,3 +47,6 @@ male.mm9.chrom.sizes EIG/mES-rep1_30_KR_250k_eigen_$chr.bw
 fi
 done
 ##loop end##
+
+
+java -jar /Users/dariashipilina/Documents/GitHub/juicer_tools_1.22.01.jar arrowhead pacbio.prim.assembly.final.hic test.bed

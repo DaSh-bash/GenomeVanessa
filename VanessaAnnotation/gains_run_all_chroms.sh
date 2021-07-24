@@ -9,7 +9,7 @@ Help()
    echo
    echo "Script calculates number and length of repeats from RepeatMasker .out file"
    echo "Creates file per chromosome"
-   echo "Currently supported categories: SINE, LINE, DNA transposons, LTR, NonLTR"
+   echo ""
    echo
    echo "Syntax: bash repeats_run_all_chroms.sh [-h] <window_size> <input_repeats> <input_index>"
    echo
@@ -49,7 +49,7 @@ INDEX=$3
 
 while IFS=$'\t' read -r -a myArray
 do
-	for line in "${myArray[0]}" 
+	for line in "${myArray[0]}"
 	do
 		len="${myArray[1]}"
 		windows_num_tmp=$(expr $len / $1 )
@@ -57,7 +57,4 @@ do
 		nohup bash gain_per_chromosome.sh $1 $len $line $2 > $line_gain_count.out &
 		#wait
 	done
-done < "$3" 
-
-
-
+done < "$3"
