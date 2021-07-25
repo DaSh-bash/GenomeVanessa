@@ -1,2 +1,6 @@
-# Vanessa Genome
-Scripts related to Vanessa genome assembly
+# Vanessa Genome Project
+Scripts and data related to Vanessa genome assembly
+
+### Following files are shared in Google docs:
+  1. Sketches of the figures 
+
