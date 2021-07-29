@@ -11,10 +11,11 @@ paste tmp Gained_Gene_Locations_genenamesonly.tsv > Gained_Gene_Locations_Simpli
 
 while IFS=$'\t' read -r -a myArray
 do
-	for line in "${myArray[0]}"
+	for line in "${myArray[3]}"
 	do
-		begin="${myArray[1]}"
-		end="${myArray[2]}"
+		echo "$line"
+		#begin="${myArray[1]}"
+		#end="${myArray[2]}"
 		#echo "$(awk '$5 == a && $6>b && $7<c {print}'  a="$line" b="$begin" c="$end" repeat_annot_test.out | wc -l)"
 
 		#count_gain=$(awk '$1 == a && $2>b && $3<c {print}'  a="$line" b="$begin" c="$end" $REP | wc -l)
@@ -24,5 +25,5 @@ do
 		#echo "$line $begin $end $count_gain"    #$length_rpt $count_SINE $length_SINE $count_DNA $length_DNA $count_TcMar $length_TcMar $count_LINE $length_DNA $count_LTR $length_LTR $count_nonLTR $length_nonLTR"
 
 	done
-done < windows_$3.tmp
+done < Gained_Gene_Locations_Simplified_sorted.gff
 rm *tmp
