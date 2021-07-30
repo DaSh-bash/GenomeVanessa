@@ -49,14 +49,12 @@ INDEX=$3
 
 while IFS=$'\t' read -r -a myArray
 do
-	for line in "${myArray[0]}" 
+	for line in "${myArray[0]}"
 	do
 		len="${myArray[1]}"
 		windows_num_tmp=$(expr $len / $1 )
 		windows_num=$(expr $windows_num_tmp + 1)
-		nohup bash repeat_per_chromosome.sh $1 $len $line $2 > $line_repeat_count.out &
+		nohup bash repeat_per_chromosome.sh $1 $len $line $2 > $line-repeat_count.out &
 		#wait
 	done
-done < "$3" 
-
-
+done < "$3"

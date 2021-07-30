@@ -20,4 +20,4 @@ We use catalog of monarch candidate genes to see if any of the members of the sa
 
 5. NO losses, NO gains
 grep -Fwf monarch.candidates.gene.names.txt orthologs_of_vanessa_loss_monarch.txt
- grep -Fwf monarch.candidates.gene.names.txt orthologs_of_vanessa_gain_monarch.txt
+grep -Fwf monarch.candidates.gene.names.txt orthologs_of_vanessa_gain_monarch.txt
