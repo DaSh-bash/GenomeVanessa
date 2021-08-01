@@ -1,0 +1,21 @@
+## Usage of window scripts
+
+ bash windowed_gene_density_per_chromosom.sh 100000 170000 LR999924.1 repeat_annot_test.out
+
+
+Some development:
+ count_gene=$(grep "$line" /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/maker_run3/makerrun3.all.nofasta.gff | awk '$3=="gene"' |  wc -l)
+   length_gene=$(grep "$line" /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/maker_run3/makerrun3.all.nofasta.gff | awk '$3=="gene" {sum+=$5-$4} END {print sum}')
+
+
+
+/proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/input/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.fai
+
+
+/proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/maker_run3/functional_annot/makerrun3.all.nofasta.norepeats.doubleQC.sort.gff
+
+
+bash windowed_gene_density_run_all_chroms.sh 100000 /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/maker_run3/functional_annot/makerrun3.all.nofasta.norepeats.doubleQC.sort.gff /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/input/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.fai
+
+
+cat *genecount.tsv | sed '/chrom/d' > gene_density_100kb_doublQC.tsv
