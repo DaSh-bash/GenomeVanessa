@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+#!/bin/bashq
+=======
 #!/bin/bash
+>>>>>>> 4e7cd50f1fa278f4bd7f0db01d44b2713e4800ea
 
 ################################################################################
 # Help                                                                         #
@@ -8,9 +12,15 @@ Help()
    # Display Help
    echo
    echo "TO BE UPDATED"
+<<<<<<< HEAD
+   echo "Script gene number and length of repeats from  file"
+   echo "Operater of per chromosome basis"
+ #  echo "Currently supported categories: SINE, LINE, DNA transposons, LTR, NonLTR"
+=======
    echo "Script calculates number and length of repeats from RepeatMasker .out file"
    echo "Operater of per chromosome basis"
    echo "Currently supported categories: SINE, LINE, DNA transposons, LTR, NonLTR"
+>>>>>>> 4e7cd50f1fa278f4bd7f0db01d44b2713e4800ea
    echo
    echo "Syntax: bash repeat_per_chromosome1.0.sh [-h] <window_size> <chromosome_length> <chromosome_ID> <input>"
    echo
