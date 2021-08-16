@@ -1,0 +1,23 @@
+chrom begin end CDS_length
+LR999954.1 1 2000000 1969685
+LR999954.1 2000001 4000000 1998620
+LR999954.1 4000001 6000000 943659
+LR999954.1 6000001 7379297 1472368
+rm: cannot remove ‘end_LR999937.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999938.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999939.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999940.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999941.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999942.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999943.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999944.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999945.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999946.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999947.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999948.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999949.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999950.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999951.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999952.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999953.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999954.1.tmp’: No such file or directory

@@ -1,0 +1,101 @@
+## Usage of window scripts
+
+ bash windowed_gene_density_per_chromosom.sh 100000 170000 LR999924.1 repeat_annot_test.out
+
+
+Some development:
+ count_gene=$(grep "$line" /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/maker_run3/makerrun3.all.nofasta.gff | awk '$3=="gene"' |  wc -l)
+   length_gene=$(grep "$line" /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/maker_run3/makerrun3.all.nofasta.gff | awk '$3=="gene" {sum+=$5-$4} END {print sum}')
+
+
+
+/proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/input/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.fai
+
+
+/proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/maker_run3/functional_annot/makerrun3.all.nofasta.norepeats.doubleQC.sort.gff
+
+
+bash windowed_gene_density_run_all_chroms.sh 100000 /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/maker_run3/functional_annot/makerrun3.all.nofasta.norepeats.doubleQC.sort.gff /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/input/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.fai
+
+bash windowed_gene_density_run_all_chroms.sh 100000 /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/maker_run3/functional_annot/makerrun3.all.nofasta.norepeats.doubleQC.sort.gff /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/input/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.fai
+
+
+cat *genecount.tsv | sed '/chrom/d' > gene_density_100kb_doublQC.tsv
+
+
+bash windowed_gene_density_per_chromosom.sh 100000 170000 LR999924.1 Gained_Gene_Locations_Orthogroups.gff
+
+
+bash windowed_gene_exp_density_run_all_chroms.sh 100000 ../Gained_Gene_Locations_Orthogroups.gff /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/input/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.fai
+
+
+
+# Create windows
+#seq 1 $1 $2 > begin_$3.tmp
+#seq $1 $1 $2 > end_$3.tmp
+#echo $2 >> end_$3.tmp
+#yes "$3" | head -n $windows_num > chrom_$3.tmp
+#paste chrom_$3.tmp begin_$3.tmp end_$3.tmp > windows_$3.tmp
+
+
+# Fill in the table
+#echo "chrom begin end count_rpt length_rpt count_SINE length_SINE count_DNA length_DNA count_TcM length_TcM count_LINE length_DNA count_LTR length_$
+
+
+while IFS=$'\t' read -r -a myArray
+do
+  	for line in "${myArray[0]}"
+        do
+          	begin="${myArray[1]}"
+                end="${myArray[2]}"
+                chrom="$1"
+                echo "$line"
+                echo "$1"
+                echo "$(awk '$1 == a && $5 == "b" {print}'  a="$line" b=$1 $REP )"
+                #count_rpt=$(awk '$5 == a && $6>b && $7<c {print}'  a="$line" b="$begin" c="$end" $REP | wc -l)
+                #length_rpt=$(awk '$5 == a && $6>b && $7<c {sum+=$7-$6} END {print sum}'  a="$line" b="$begin" c="$end" $REP)
+
+                #echo "$line $begin $end $count_rpt $length_rpt $count_SINE $length_SINE $count_DNA $length_DNA $count_TcMar $length_TcMar $count_LI$
+
+        done
+done < orthogroup.ref.list
+#rm *tmp
+
+
+
+awk 'ORS=NR%83?"\t":RS' orthotest.tsv
+
+bash orthogroups_run_all_chroms.sh Gained_Gene_Locations_Orthogroups.gff /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/input/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.fai
+
+bash orthogroup_counter.sh LR999924.1 Gained_Gene_Locations_Orthogroups.gff
+<<<<<<< HEAD
+=======
+
+bash ../repeats_run_all_chroms.sh 2000000  /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/input/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.fai
+
+bash ../repeats_run_all_chroms.sh 2000000 /proj/uppstore2017185/b2014034_nobackup/Dasha/RepeatMasker_Vanessa/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/input/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.fai
+
+bash ../repeats_run_all_chroms.sh 100000 /proj/uppstore2017185/b2014034_nobackup/Dasha/RepeatMasker_Vanessa/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/input/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.fai
+
+
+makerrun3.all.nofasta.norepeats.doubleQC.CDS.gff
+
+
+bash windowed_CDS_length_run_all_chroms.sh 2000000 /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/maker_run3/functional_annot/makerrun3.all.nofasta.norepeats.doubleQC.CDS.gff /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/input/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.fai
+
+
+## Windowed GC content
+
+bedtools makewindows -g /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/input/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.fai -w 2000000 > GCA_905220365.1_ilVanCard2.1_genomic_chroms.2MB.windows.bed
+
+bedtools nuc -fi GCA_905220365.1_ilVanCard2.1_genomic_chroms.fasta -bed GCA_905220365.1_ilVanCard2.1_genomic_chroms.2MB.windows.bed > GCA_905220365.1_ilVanCard2.1_genomic_chroms.2MB.GC.tsv
+
+
+
+
+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
+
+T1u2R3d4U5s6
+
+T1u2R4d5U6s7
+>>>>>>> 4e7cd50f1fa278f4bd7f0db01d44b2713e4800ea
