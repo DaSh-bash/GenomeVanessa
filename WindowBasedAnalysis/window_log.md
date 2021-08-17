@@ -1,3 +1,6 @@
+/proj/uppstore2017185/b2014034_nobackup/Dasha/Scripts_GitHub/GenomeVanessa/WindowBasedAnalysis
+
+
 ## Usage of window scripts
 
  bash windowed_gene_density_per_chromosom.sh 100000 170000 LR999924.1 repeat_annot_test.out
