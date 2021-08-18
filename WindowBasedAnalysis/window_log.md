@@ -102,3 +102,6 @@ T1u2R3d4U5s6
 
 T1u2R4d5U6s7
 >>>>>>> 4e7cd50f1fa278f4bd7f0db01d44b2713e4800ea
+
+
+cat *genecount.tsv | sed '/chrom/d' > gene_density_100kb_doublQC.tsv
