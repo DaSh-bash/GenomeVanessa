@@ -71,8 +71,7 @@ awk 'ORS=NR%83?"\t":RS' orthotest.tsv
 bash orthogroups_run_all_chroms.sh Gained_Gene_Locations_Orthogroups.gff /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/input/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.fai
 
 bash orthogroup_counter.sh LR999924.1 Gained_Gene_Locations_Orthogroups.gff
-<<<<<<< HEAD
-=======
+
 
 bash ../repeats_run_all_chroms.sh 2000000  /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/input/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.fai
 
@@ -101,7 +100,9 @@ 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
 T1u2R3d4U5s6
 
 T1u2R4d5U6s7
->>>>>>> 4e7cd50f1fa278f4bd7f0db01d44b2713e4800ea
 
 
 cat *genecount.tsv | sed '/chrom/d' > gene_density_100kb_doublQC.tsv
+
+
+## Figuring out CDS
