@@ -1,0 +1,63 @@
+yes: standard output: Broken pipe
+yes: write error
+chrom begin end CDS_length
+LR999949.1 1 2000000 61039
+LR999949.1 2000001 4000000 37090
+LR999949.1 4000001 6000000 56969
+LR999949.1 6000001 8000000 72583
+LR999949.1 8000001 10000000 46178
+LR999949.1 10000001 11199261 39009
+rm: cannot remove ‘end_LR999930.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999931.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999932.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999933.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999934.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999935.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999936.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999937.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999938.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999939.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999940.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999941.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999942.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999943.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999944.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999945.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999946.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999947.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999948.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999949.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999950.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999951.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999952.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999953.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999954.1.tmp’: No such file or directory
+rm: cannot remove ‘end_LR999955.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999924.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999925.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999926.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999927.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999928.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999929.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999930.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999931.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999932.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999933.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999934.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999935.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999936.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999937.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999942.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999943.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999944.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999945.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999946.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999947.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999948.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999949.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999950.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999951.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999952.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999953.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999954.1.tmp’: No such file or directory
+rm: cannot remove ‘windows_LR999955.1.tmp’: No such file or directory
