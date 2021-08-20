@@ -106,3 +106,36 @@ cat *genecount.tsv | sed '/chrom/d' > gene_density_100kb_doublQC.tsv
 
 
 ## Figuring out CDS
+
+
+
+
+chrom begin end count_rpt length_rpt count_SINE length_SINE count_DNA length_DNA count_TcM length_TcM count_LINE length_LINE count_LTR length_LTR count_nonLTR length_nonLTR
+LR999924.1 1 100000 181 78340
+Fri Aug 20 12:40:32 CEST 2021
+LR999924.1 1 100000 0
+Fri Aug 20 12:40:34 CEST 2021
+LR999924.1 1 100000 181 78340 0  22 2312 22 2312 36 10175 0 61056 72 61056
+Fri Aug 20 12:40:41 CEST 2021
+LR999924.1 100001 170000 129 30952
+Fri Aug 20 12:40:42 CEST 2021
+LR999924.1 100001 170000 4 1040
+Fri Aug 20 12:40:44 CEST 2021
+LR999924.1 100001 170000 129 30952 4 1040 17 3193 7 929 11 4408 3 15257 19 14690
+Fri Aug 20 12:40:51 CEST 2021
+
+
+
+count_rpt=$(awk '$5 == a && $6>b && $7<c {print}'  a="$line" b="$begin" c="$end" $REP | wc -l)
+length_rpt=$(awk '$5 == a && $6>b && $7<c { count++ , sum+=$7-$6} END {print sum}'  a="$line" b="$begin" c="$end" $REP)
+
+                echo "$line $begin $end $count_rpt $length_rpt"
+                date
+
+                count_SINE=$(awk '/SINE/ && $5 == a && $6>b && $7<c {print}'  a="$line" b="$begin" c="$end" $REP | wc -l)
+                length_SINE=$(awk '/SINE/ && $5 == a && $6>b && $7<c {sum+=$7-$6} END {print sum}'  a="$line" b="$begin" c="$end" $REP)
+
+                echo "$line $begin $end $count_SINE $length_SINE"
+                date
+
+awk '$5 == LR999924.1 && $6>10000 && $7<20000 {count++ , sum+=$7-$6} END {print count, sum}' /proj/uppstore2017185/b2014034_nobackup/Dasha/RepeatMasker_Vanessa/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out
