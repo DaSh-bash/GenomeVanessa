@@ -1,0 +1,621 @@
+---
+title: "rec_rate_mareymap"
+author: "KN"
+date: '2021-05_10'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+https://github.com/aursiber/MareyMap
+
+install.packages(MareyMap)
+install.packages(tcltk)
+install.packages(tkrplot)
+install.packages(tools)
+
+```{r setup2, echo=FALSE}
+#library(MareyMap)
+library(ggplot2)
+library(viridis)
+library("tidyr")
+library(plyr)
+library(dplyr)
+
+
+
+#startMareyMapGUI()
+
+
+```
+
+```{r data, echo=FALSE}
+
+#input is the output from MareyMapGUI
+rec_rate <- read.table("window_based_data/output_marey_map_all.table", header = T, na.strings = "NA")
+# the factors are not strings so gsub does not work on the whole df, gsub("chr", "", rec_rate)
+rec_rate$map <- gsub('chr', '', rec_rate$map)
+head(rec_rate)
+str(rec_rate)
+
+#get chr length from ~/Desktop/link_map_vanessa/output/qc_result/qualimap_dtol_210323/scaffold_length
+chr_length <- read.table("window_based_data/scaffold_length", header = T)
+colnames(chr_length) <- c("map", "chr_length")
+
+#add the length of the previous chromosome so get the genomic position (for whole genome plot), use cumsum to get the position and then subtract with marker position later
+#exclude the W  LR999940.1
+chr_length <- chr_length[chr_length$map!= "LR999940.1",]
+chr_length$chr_start <- cumsum(append(unique(chr_length$chr_length),0,0)[1:31])
+
+print(paste("Total length of genome, excl W:",sum(chr_length$chr_length)))
+
+
+rec_rate <- join(rec_rate, chr_length)
+rec_rate$genome_pos <- rec_rate$phys+rec_rate$chr_start
+
+#the relative position on the chromosome for each marker, in percent
+rec_rate$rel_pos <- (rec_rate$phys/rec_rate$chr_length)*100
+
+#column for chromosome type
+rec_rate$chr_type <- "Autosome"
+rec_rate[rec_rate$map=="LR999924.1","chr_type"] <- "Z"
+summary(rec_rate)
+
+# rec_rate[is.na(rec_rate)] <- 0
+# rec_rate$rrate <- (rec_rate$loess + rec_rate$spline)
+# rec_rate[rec_rate$rrate<0,10]=0
+
+#mean rac_rate according to regression
+rec_rate_mean <- cbind(aggregate(rec_rate$loess, by = list(rec_rate$map), mean, na.rm=T),
+                       aggregate(rec_rate$loess, by = list(rec_rate$map), sd, na.rm=T)[2],
+aggregate(rec_rate$slidingwindow, by = list(rec_rate$map), mean, na.rm=T)[2],
+aggregate(rec_rate$slidingwindow, by = list(rec_rate$map), sd, na.rm=T)[2],
+aggregate(rec_rate$slidingwindow.3, by = list(rec_rate$map), mean, na.rm=T)[2],
+aggregate(rec_rate$slidingwindow.3, by = list(rec_rate$map), sd, na.rm=T)[2],
+aggregate(rec_rate$slidingwindow.2, by = list(rec_rate$map), mean, na.rm=T)[2],
+aggregate(rec_rate$slidingwindow.2, by = list(rec_rate$map), sd, na.rm=T)[2],
+aggregate(rec_rate$slidingwindow.4, by = list(rec_rate$map), mean, na.rm=T)[2],
+aggregate(rec_rate$slidingwindow.4, by = list(rec_rate$map), sd, na.rm=T)[2],
+aggregate(rec_rate$gen, by = list(rec_rate$map), max, na.rm=T)[2])
+
+colnames(rec_rate_mean) <- c("map", "loess", "loess_sd", "1mb","1mb_sd", "2mb","2mb_sd", "no_overlap_1mb","no_overlap_1mb_sd",  "no_overlap_2mb", "no_overlap_2mb_sd" , "map_length")
+
+rec_rate_mean <- join(rec_rate_mean, chr_length)
+rec_rate_mean$chr_length <- rec_rate_mean$chr_length/1000000
+rec_rate_mean$rate <-rec_rate_mean$map_length/rec_rate_mean$chr_length
+rec_rate_mean$markers <- as.vector(apply(rec_rate[c("map")], 2, table))
+rec_rate_mean$marker_density <- rec_rate_mean$markers/rec_rate_mean$chr_length
+rec_rate_mean$chr_type <- "Autosome"
+rec_rate_mean[rec_rate_mean$map=="LR999924.1","chr_type"] <- "Z"
+summary(rec_rate_mean)
+
+#number of markers in each chrom
+print(paste("Markers in map:", length(rec_rate$mkr)))
+
+#total mean rec rate
+print(paste("Mean recombination rate:", round(mean(rec_rate_mean$rate),3)))
+#difference Z and autosomes
+print(paste("Recombination rate Z:", round(rec_rate_mean$rate[1],3)))
+print(paste("Recombination rate mean automomes:", round(mean(rec_rate_mean$rate[2:31]),3)))
+
+#total ean rec rate
+print("Window based (2Mb):")
+print(paste("Mean recombination rate (chr based):", round(mean(rec_rate_mean$`2mb`),3)))
+print(paste("sd recombination rate (chr based):", round(sd(rec_rate_mean$`2mb`),3)))
+
+print(paste("Mean recombination rate (overall windows):", round(mean(rec_rate$slidingwindow.3, na.rm = T),3)))
+print(paste("sd (overall windows):", round(sd(rec_rate$slidingwindow.3, na.rm = T),3)))
+
+#difference Z and autosomes
+print(paste("Recombination rate Z:", round(rec_rate_mean$`2mb`[1],3)))
+print(paste("Recombination rate mean automomes:", round(mean(rec_rate_mean$`2mb`[2:31]),3)))
+
+
+```
+
+```{r write_tables, eval=FALSE}
+write.table(rec_rate_mean, "tables/summary_per_chromosome.table", quote = F)
+
+write.table(rec_rate, "tables/rec_rate_markers.table")
+
+```
+
+
+```{r tests}
+#test 
+rate_lm <- lm(rec_rate_mean$rate~rec_rate_mean$chr_length + rec_rate_mean$marker_density)
+summary(rate_lm)
+
+cor.test(rec_rate_mean$rate, rec_rate_mean$chr_length)
+cor.test(rec_rate_mean$rate, rec_rate_mean$marker_density)
+
+rate_lm_window <- lm(rec_rate_mean$`2mb`~rec_rate_mean$chr_length + rec_rate_mean$marker_density)
+summary(rate_lm_window)
+anova(rate_lm_window)
+
+par(mfrow=c(2,2))
+plot(rate_lm_window)
+
+cor.test(rec_rate_mean$`2mb`, rec_rate_mean$chr_length)
+cor.test(rec_rate_mean$`2mb`, rec_rate_mean$marker_density)
+
+cor.test(rec_rate_mean$loess, rec_rate_mean$chr_length)
+cor.test(rec_rate_mean$loess, rec_rate_mean$marker_density)
+
+#test relative position
+#df$c4 <- cut(df$c2, c(-Inf,4,9,Inf), c("low", "medium", "high"))
+
+rec_rate$pos_group <- cut(sqrt((rec_rate$rel_pos-50)^2), c(-Inf,10,20,30,40,Inf), c(1,2,3,4,5))
+
+lm_groups <- lm(rec_rate$slidingwindow.3~rec_rate$pos_group)
+anova(lm_groups)
+
+pairwise.t.test(rec_rate$slidingwindow.3, rec_rate$pos_group, )
+
+boxplot(rec_rate$slidingwindow.3, rec_rate$pos_group)
+
+#ggboxplot(, x = "group", y = "weight") +
+  # stat_pvalue_manual(pwc, hide.ns = TRUE, label = "p.adj.signif") +
+  # labs(
+  #   subtitle = get_test_label(res.aov, detailed = TRUE),
+  #   caption = get_pwc_label(pwc)
+  #   )
+
+t.test(rec_rate$slidingwindow.3~rec_rate$chr_type)
+```
+
+```{r plots_exploring}
+#plot marey maps
+ggplot(rec_rate, aes(rec_rate$phys, rec_rate$gen)) +
+  geom_point() +
+  facet_wrap(~rec_rate$map, scales="free") +
+  ylab("cM") +
+  xlab("Mb") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+
+#plot recombination rate per Mb (loess)
+ggplot(rec_rate, aes(rec_rate$phys, rec_rate$loess)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap(~rec_rate$map, scales = "free") +
+  ylab("cM/Mb") +
+  xlab("Mb") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+
+#plot recombination rate per Mb (2 Mb window)
+ggplot(rec_rate, aes(rec_rate$phys, rec_rate$slidingwindow.3)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap(~rec_rate$map, scales = "free") +
+  ylab("cM/Mb") +
+  xlab("Mb") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+#for one chromosme
+#plot recombination rate per Mb (2 Mb window)
+ggplot(rec_rate[rec_rate$map=="LR999945.1",], aes(rec_rate[rec_rate$map=="LR999945.1",]$phys, rec_rate[rec_rate$map=="LR999945.1",]$slidingwindow.3)) +
+  geom_point() +
+  geom_line() +
+  #facet_wrap(~rec_rate$map, scales = "free") +
+  labs(title = "LR999945.1") +
+  ylab("cM/Mb") +
+  xlab("Mb") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+
+#in one plot
+ggplot(rec_rate, aes(rec_rate$phys, log(rec_rate$slidingwindow.3))) +
+  geom_point() +
+  geom_line(aes(colour=rec_rate$map)) +
+  #facet_wrap(~rec_rate$map, scales = "free") +
+  guides(colour=FALSE) +
+  ylab("cM/Mb") +
+  xlab("Mb") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+
+
+#chr length and rate 
+ggplot(rec_rate_mean, aes(rec_rate_mean$chr_length,rec_rate_mean$rate)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Correlation rec rate (maplength/chr size) and chromosome size") +
+  ylab("cM/Mb") +
+  xlab("Chromosome length (Mbp)") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+#chr length and rate 
+ggplot(rec_rate_mean, aes(rec_rate_mean$chr_length,rec_rate_mean$loess)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Correlation rec rate (loess) and chromosome size") +
+  ylab("cM/Mb") +
+  xlab("Chromosome length (Mbp)") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+#chr length and rate 
+ggplot(rec_rate_mean, aes(rec_rate_mean$chr_length,rec_rate_mean$`2mb`)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Correlation rec rate (2Mb windows) and chromosome size") +
+  ylab("cM/Mb") +
+  xlab("Chromosome length (Mbp)") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+ggplot(rec_rate_mean, aes(rec_rate_mean$chr_length,rec_rate_mean$marker_density)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Correlation marker density and chromosome size") +
+  ylab("Marker density") +
+  xlab("Chromosome length (Mbp)") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+  
+  
+ggplot(rec_rate_mean, aes(rec_rate_mean$marker_density, rec_rate_mean$rate)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Correlation marker density and recombination rate") +
+  ylab("cM/Mb") +
+  xlab("Marker density (per Mb)") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+
+ggplot(rec_rate_mean, aes(rec_rate_mean$marker_density, rec_rate_mean$`2mb`)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Correlation marker density and recombination rate (window)") +
+  ylab("cM/Mb") +
+  xlab("Marker density (per Mb)") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+
+#coorelation differetn measures of rec rate
+ggplot(rec_rate_mean, aes(rec_rate_mean$rate, rec_rate_mean$`2mb`)) +
+  geom_point() +
+  #geom_smooth(method = "lm") +
+  labs(title = "Correlation recombination rate maplength/chrsize and window based") +
+  ylab("cM/Mb (windows)") +
+  xlab("cM/Mb (maplength/chrsize)") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+
+#correlation different measures of rec rate
+ggplot(rec_rate_mean, aes(rec_rate_mean$rate, rec_rate_mean$loess)) +
+  geom_point() +
+  #geom_smooth(method = "lm") +
+  labs(title = "Correlation recombination rate maplength/chrsize and loess") +
+  ylab("cM/Mb (loess)") +
+  xlab("cM/Mb (maplength/chrsize)") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+#coorelation differetn measures of rec rate
+ggplot(rec_rate_mean, aes(rec_rate_mean$loess, rec_rate_mean$`2mb`)) +
+  geom_point() +
+  #geom_smooth(method = "lm") +
+  labs(title = "Correlation recombination rate loess and window based") +
+  ylab("cM/Mb (window based)") +
+  xlab("cM/Mb (loess)") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+```
+
+```{r plots_manuscript}
+
+#chr length and rate orange
+ggplot(rec_rate_mean, aes(rec_rate_mean$chr_length,rec_rate_mean$`2mb`)) +
+  #geom_point() +
+  geom_smooth(method = "lm", colour="#FAAB36", fill="#FAAB36") +
+  geom_pointrange(aes(ymin=rec_rate_mean$`2mb`-rec_rate_mean$`2mb_sd`, ymax=rec_rate_mean$`2mb`+rec_rate_mean$`2mb_sd`), size=0.1) +
+  labs(title = "Correlation rec rate (2Mb windows) and chromosome size") +
+  ylab("cM/Mb") +
+  xlab("Chromosome length (Mbp)") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 0.2, colour = "grey"),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+#chr length and rate blue
+ggplot(rec_rate_mean, aes(rec_rate_mean$chr_length,rec_rate_mean$`2mb`)) +
+  #geom_point() +
+  geom_smooth(method = "lm", colour="#249EA0", fill="#249EA0") +
+  geom_pointrange(aes(ymin=rec_rate_mean$`2mb`-rec_rate_mean$`2mb_sd`, ymax=rec_rate_mean$`2mb`+rec_rate_mean$`2mb_sd`), size=0.1) +
+  labs(title = "Correlation rec rate (2Mb windows) and chromosome size") +
+  ylab("cM/Mb") +
+  xlab("Chromosome length (Mbp)") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 0.2, colour = "grey"),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+#chr length and rate blue, points only contour filled Z red
+ggplot(rec_rate_mean, aes(rec_rate_mean$chr_length,rec_rate_mean$`2mb`)) +
+  geom_smooth(method = "lm", colour="#249EA0", fill="#249EA0") +
+  geom_pointrange(aes(ymin=rec_rate_mean$`2mb`-rec_rate_mean$`2mb_sd`, ymax=rec_rate_mean$`2mb`+rec_rate_mean$`2mb_sd`), size=0.2) +
+  geom_point(aes(colour=rec_rate_mean$chr_type, fill=rec_rate_mean$chr_type),size=3, shape=21) +
+  labs(title = "Correlation rec rate (2Mb windows) and chromosome size") +
+  ylab("cM/Mb") +
+  xlab("Chromosome length (Mbp)") +
+  scale_color_discrete(type = c("black", "#FD5900")) +
+  scale_fill_discrete(type = c("white", "#FD5900")) +
+  #scale_shape_manual(values=c(21,22)) +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 0.2, colour = "grey"),
+        axis.text = element_text(size = 12),
+        axis.title.x = element_text(size = 12),
+        axis.title.y = element_text(size = 12),
+        legend.text = element_text(size = 12),
+        legend.title = element_blank())
+
+#chr length and rate blue, points only contour (blue) filled Z dark blue
+ggplot(rec_rate_mean, aes(rec_rate_mean$chr_length,rec_rate_mean$`2mb`)) +
+  geom_smooth(method = "lm", colour="#249EA0", fill="#249EA0") +
+  geom_pointrange(aes(ymin=rec_rate_mean$`2mb`-rec_rate_mean$`2mb_sd`, ymax=rec_rate_mean$`2mb`+rec_rate_mean$`2mb_sd`), size=0.2) +
+  geom_point(aes(colour=rec_rate_mean$chr_type, fill=rec_rate_mean$chr_type),size=3, shape=21) +
+  ylab("cM/Mb") +
+  xlab("Chromosome length (Mb)") +
+  scale_color_discrete(type = c("#249EA0", "#005F60")) +
+  scale_fill_discrete(type = c("white", "#005F60")) +
+  #scale_shape_manual(values=c(21,22)) +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 0.2, colour = "grey"),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10),
+        legend.title = element_blank(),
+        legend.key = element_blank(),
+        legend.position = c(0.8,0.8)) #+
+
+#saved as pdf
+
+
+#regional variation
+#plot recombination rate per Mb (2 Mb window) filled z
+ggplot(rec_rate, aes(rec_rate$rel_pos, rec_rate$slidingwindow.3)) +
+  geom_point(aes(colour=rec_rate$chr_type, fill=rec_rate$chr_type), shape=21) +
+  #geom_line() +
+  geom_smooth(method = "loess", colour="#249EA0", fill="#249EA0") +
+  ylab("cM/Mb") +
+  xlab("Relative position") +
+  scale_y_continuous(expand = c(0.01,0.05)) +
+  scale_x_continuous(expand = c(0.01,0.05)) +
+  scale_colour_discrete(type = c("dark grey", "#FD5900")) +
+  scale_fill_discrete(type = c("white", "#FD5900")) +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1, colour = "grey"),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10),
+        legend.title = element_blank())
+
+#folded
+ggplot(rec_rate, aes((sqrt((rec_rate$rel_pos-50)^2)), rec_rate$slidingwindow.3)) +
+  geom_point(aes(colour=rec_rate$chr_type, fill=rec_rate$chr_type), shape=21) +
+  #geom_line() +
+  geom_smooth(method = "loess", colour="#249EA0", fill="#249EA0") +
+  ylab("cM/Mb") +
+  xlab("Relative position") +
+  scale_y_continuous(expand = c(0.01,0.05)) +
+  scale_x_continuous(expand = c(0.01,0.05)) +
+  scale_colour_discrete(type = c("dark grey", "#FD5900")) +
+  scale_fill_discrete(type = c("white", "#FD5900")) +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1, colour = "grey"),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10),
+        legend.title = element_blank())
+
+#folded regional rec rate autosome blue, z filled dark blue
+ggplot(rec_rate, aes((sqrt((rec_rate$rel_pos-50)^2)), rec_rate$slidingwindow.3)) +
+  geom_point(aes(colour=rec_rate$chr_type, fill=rec_rate$chr_type), shape=21) +
+  #geom_line() +
+  geom_smooth(method = "loess", colour="#249EA0", fill="#249EA0") +
+  ylab("cM/Mb") +
+  xlab("Relative position") +
+  scale_y_continuous(expand = c(0.01,0.05)) +
+  scale_x_continuous(expand = c(0.01,0.05)) +
+  scale_colour_discrete(type = c("#249EA0", "#005F60")) +
+  scale_fill_discrete(type = c("white", "#005F60")) +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 0.2, colour = "grey"),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10),
+        legend.key=element_blank(),
+        legend.title = element_blank())
+
+
+#create black and white palett
+palette <- rep(c("light grey", "white"), length.out = length(unique(rec_rate$map)))
+
+palette_blue <- rep(c("#a7d8d9", "#d3eded"), length.out = length(unique(rec_rate$map)))
+
+
+#plot recombination rate per Mb (2 Mb window)
+ggplot(rec_rate, aes(rec_rate$genome_pos, rec_rate$slidingwindow.3)) +
+  geom_rect(aes(xmin=rec_rate$chr_start, xmax=rec_rate$chr_start+rec_rate$chr_length, ymin=0, ymax=16, fill=rec_rate$map, alpha=0.5)) +
+  geom_point(size=0.4) +
+  geom_line(size=0.2) +
+  scale_fill_manual(values = palette_blue) +
+  scale_colour_discrete(type = c("dark grey", "#FD5900")) +
+  guides(fill=FALSE, alpha=FALSE) +
+  ylab("cM/Mb") +
+  xlab("Mb") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 0.2, colour = "grey"),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+ggplot(rec_rate, aes(rec_rate$genome_pos, rec_rate$slidingwindow.3)) +
+  geom_rect(aes(xmin=rec_rate$chr_start, xmax=rec_rate$chr_start+rec_rate$chr_length, ymin=0, ymax=16, fill=rec_rate$map, alpha=0.5)) +
+  geom_point(size=0.4) +
+  #geom_line(size=0.2) +
+  geom_smooth(method = "loess", span=0.1,colour="#249EA0", fill="#249EA0") +
+  scale_fill_manual(values = palette_blue) +
+  guides(fill=FALSE, alpha=FALSE) +
+  ylab("cM/Mb") +
+  xlab("Mb") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 0.2, colour = "grey"),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+#across the genome, blue with marked Z
+ggplot(rec_rate, aes(rec_rate$genome_pos/1000000, rec_rate$slidingwindow.3)) +
+  geom_rect(aes(xmin=rec_rate$chr_start/1000000, xmax=rec_rate$chr_start/1000000+rec_rate$chr_length/1000000, ymin=0, ymax=16, fill=rec_rate$map, alpha=0.5)) +
+  geom_rect(aes(xmin=rec_rate$chr_start[1], xmax=rec_rate$chr_length[1]/1000000, ymin=0, ymax=16, alpha=0.5,colour="#FD5900", fill=rec_rate$map), size=1) +
+  geom_point(size=0.4) +
+  #geom_line(size=0.2) +
+  geom_smooth(method = "loess", span=0.1,colour="#249EA0", fill="#249EA0") +
+  scale_fill_manual(values = palette_blue) +
+  guides(fill=FALSE, alpha=FALSE, colour=FALSE) +
+  ylab("cM/Mb") +
+  xlab("Mb") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 0.2, colour = "grey"),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+
+ggplot(rec_rate, aes(rec_rate$genome_pos, rec_rate$slidingwindow.3)) +
+  annotate(geom = "rect", xmin=rec_rate$chr_start, xmax=rec_rate$chr_start+rec_rate$chr_length, ymin=-0.2, ymax=16, fill="light grey", colour="white") +
+  geom_point(size=0.4) +
+  geom_smooth(method = "loess", span=0.1, colour="#249EA0", fill="#249EA0") +
+  #geom_line(size=0.2) +
+  #scale_fill_manual() +
+  #guides(fill=FALSE, alpha=FALSE) +
+  ylab("cM/Mb") +
+  xlab("Mb") +
+  scale_y_continuous(expand = c(0.01,0.05)) +
+  scale_x_continuous(expand = c(0.01,0.05)) +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 0.5, colour = "grey"),
+        axis.text = element_text(size = 12),
+        axis.title.x = element_text(size = 12),
+        axis.title.y = element_text(size = 12),
+        legend.text = element_text(size = 12))
+
+ggplot(rec_rate, aes(rec_rate$pos_group, rec_rate$slidingwindow.3)) +
+  geom_boxplot(fill="#249EA0", colour="dark grey") +
+  ylab("cM/Mb") +
+  xlab("Distance from chromosome center (10% bins)") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 0.5, colour = "grey"),
+        axis.text = element_text(size = 12),
+        axis.title.x = element_text(size = 12),
+        axis.title.y = element_text(size = 12),
+        legend.text = element_text(size = 12))
+
+#regional rec rate per chromosome
+ListChr <- unique(rec_rate$map)
+
+for (i in ListChr){
+  plotTitle=paste("Chr",i)
+  print(ggplot(rec_rate[rec_rate$map==i,], aes(rec_rate[rec_rate$map==i,]$phys, rec_rate[rec_rate$map==i,]$slidingwindow.3)) +
+  geom_point() +
+  geom_line() +
+  #facet_wrap(~rec_rate$map, scales = "free") +
+  labs(title = plotTitle) +
+  ylab("cM/Mb") +
+  xlab("Mb") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10)))
+}
+
+
+
+
+```
