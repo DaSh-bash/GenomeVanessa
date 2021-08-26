@@ -139,3 +139,8 @@ length_rpt=$(awk '$5 == a && $6>b && $7<c { count++ , sum+=$7-$6} END {print sum
                 date
 
 awk '$5 == LR999924.1 && $6>10000 && $7<20000 {count++ , sum+=$7-$6} END {print count, sum}' /proj/uppstore2017185/b2014034_nobackup/Dasha/RepeatMasker_Vanessa/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out
+
+Simple_repeat
+
+
+bash repeats_run_all_chroms.sh 100000 ../../../../GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out vanessa.index
