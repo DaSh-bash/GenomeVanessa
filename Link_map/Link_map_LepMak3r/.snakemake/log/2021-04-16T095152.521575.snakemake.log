@@ -1,0 +1,41 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	1	best_likelihoods
+	1	best_likelihoods2
+	31	calculate_distances
+	1	join_singles
+	1	map_summary
+	1550	order_markers
+	1	order_summary
+	1	parent_call
+	1550	reorder_markers
+	1	reorder_summary
+	20	separate_chromosomes
+	31	trim_edge_clusters
+	1	trim_summary
+	3191
+Select jobs to execute...
+
+[Fri Apr 16 09:51:54 2021]
+Job 2: 
+        Creating Lep-Map3 data file from VCF and pedigree files
+        
+
+[Fri Apr 16 09:51:55 2021]
+Error in rule parent_call:
+    jobid: 2
+    output: data.call.gz
+    shell:
+        java -cp LM3 ParentCall2 data=pedigree_vanessa_sex.txt posteriorFile=/proj/uppstore2017185/b2014034_nobackup/Karin/link_map_vanessa/output/bwa_noradtag_filtered/post.gz ZLimit=2 removeNonInformative=1 | gzip > data.call.gz
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job parent_call since they might be corrupted:
+data.call.gz
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /crex/proj/uppstore2017185/b2014034_nobackup/Karin/link_map_vanessa/output/07_LepMak3r_DTOL/.snakemake/log/2021-04-16T095152.521575.snakemake.log

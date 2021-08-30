@@ -1,0 +1,82 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	1	best_likelihoods2
+	31	calculate_distances
+	1550	reorder_markers
+	1	reorder_summary
+	29	trim_edge_clusters
+	1	trim_summary
+	1614
+Select jobs to execute...
+
+[Tue Apr 20 12:12:36 2021]
+Job 2276: 
+        Reordering ordermarkers/best.trim/ordered.14.trimmed, iteration: 34
+        
+
+[Tue Apr 20 12:15:39 2021]
+Finished job 2276.
+1 of 1614 steps (0.06%) done
+Select jobs to execute...
+
+[Tue Apr 20 12:15:39 2021]
+Job 2498: 
+        Removing edge clusters >10cM apart from the other markers in first+last 15% of ordermarkers/iterations/ordered.19..
+        
+
+
+[Tue Apr 20 12:15:39 2021]
+Job 2549: 
+        Removing edge clusters >10cM apart from the other markers in first+last 15% of ordermarkers/iterations/ordered.20..
+        
+
+
+[Tue Apr 20 12:15:39 2021]
+Job 2906: 
+        Removing edge clusters >10cM apart from the other markers in first+last 15% of ordermarkers/iterations/ordered.27..
+        
+
+
+[Tue Apr 20 12:15:39 2021]
+Job 1784: 
+        Removing edge clusters >10cM apart from the other markers in first+last 15% of ordermarkers/iterations/ordered.5..
+        
+
+[Tue Apr 20 12:15:39 2021]
+Error in rule trim_edge_clusters:
+    jobid: 2906
+    output: ordermarkers/best.trim/ordered.27.trimmed
+    log: ordermarkers/logs/trimming/ordered.27.removed, ordermarkers/logs/trimming/ordered.27.trim.pdf (check log file(s) for error message)
+    shell:
+        
+        LG=$(grep -F ordermarkers/iterations/ordered.27. ordermarkers/best.likelihoods)
+        Rscript scripts/LepMak3rQA.r $(pwd) $LG 10 20
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Tue Apr 20 12:15:41 2021]
+Finished job 2549.
+2 of 1614 steps (0.12%) done
+[Tue Apr 20 12:15:41 2021]
+Error in rule trim_edge_clusters:
+    jobid: 1784
+    output: ordermarkers/best.trim/ordered.5.trimmed
+    log: ordermarkers/logs/trimming/ordered.5.removed, ordermarkers/logs/trimming/ordered.5.trim.pdf (check log file(s) for error message)
+    shell:
+        
+        LG=$(grep -F ordermarkers/iterations/ordered.5. ordermarkers/best.likelihoods)
+        Rscript scripts/LepMak3rQA.r $(pwd) $LG 10 20
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Tue Apr 20 12:15:41 2021]
+Finished job 2498.
+3 of 1614 steps (0.19%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /crex/proj/uppstore2017185/b2014034_nobackup/Karin/link_map_vanessa/output/07_LepMak3r_DTOL/.snakemake/log/2021-04-20T121212.868054.snakemake.log

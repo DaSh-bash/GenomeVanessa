@@ -1,0 +1,2 @@
+sp	num.chr	map.length	markers	mapped.markers	good.markers	mb.tot	density.good	prop.good	rec.rate
+vcar	31	1390.639	1913	1913	1696	388.281925	0.819952240566038	0.886565603763722	3.58151876371788

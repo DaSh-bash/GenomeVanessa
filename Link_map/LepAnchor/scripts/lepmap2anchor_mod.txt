@@ -1,0 +1,31 @@
+#script converting lepmap output (recombination intervals) to LepAnchor input
+#Use from LepAnchor directory
+
+#path to lepmap output
+INPUT_PATH=../link_map_LepMak3r
+
+#to get intervals for LepAnchor use first raw output from LepMap
+INPUT_DIR=$INPUT_PATH/intervals
+
+#path to lepanchor dir
+OUTPUT_PATH=input/intervals_for_lepanchor
+
+#number of linkage groups
+LG=31
+
+
+
+mkdir $OUTPUT_PATH
+
+#zcat data_f.call.gz | awk '(NR>=7){print $1"\t"$2}' > snps.txt
+
+for X in $(seq 1 1 $LG)
+do
+awk -vn=$X '(NR==FNR){map[NR-1]=$0}(NR!=FNR){$1=map[$1] "\t" n;print}' $INPUT_PATH/snps.txt $INPUT_DIR/ordered.$X.intervals  > $OUTPUT_PATH/order${X}_i.input
+done
+
+cat $OUTPUT_PATH/*input > $OUTPUT_PATH/map_all_chr_raw.txt
+
+#to filter away the removed pruned markers
+cat ../rec_rate_estimation/mapped_rearr/* |awk '{print $3,$1,$2,$4}' |awk 'NR==FNR{a[$1];b[$4];next} ($1 in a && $2 in b) {print $0}' - input/intervals_for_lepanchor/map_all_chr_raw.txt > input/map_all_chr.txt 
+

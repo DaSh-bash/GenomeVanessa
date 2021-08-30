@@ -1,0 +1,247 @@
+---
+title: "order_vanessa_zlim_dtol"
+author: "KN"
+date: "24 april 2021"
+output:
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Summary LepMap3 OrderMarkers
+Pedigree: 1 wildcought female + 90 offspring (5 filtered du to low coverage (< 0.1 Mreads))
+Raw data filtration:  Clonefilter, ProcessRadtags.
+Mapping to DTOL
+
+
+```{r libraries, echo=FALSE, include=FALSE}
+library(ggplot2)
+library(viridis)
+library("tidyr")
+library(dplyr)
+
+```
+
+#LepMap 
+ParentCall with default settings, zlimit=2
+(Filtering2 with dataTolerance=)
+
+
+#OrderMarker, trimming and reorder using informativeMask=1 (only male informative) 
+
+
+```{r filtered_trimmed, echo=FALSE}
+#THIS MUST BE CHANGED!!
+plot_title="DTOL"
+
+#THIS MUST BE CHANGED!!
+map_ordered <- read.table("mapped/order_all2.table", header=T)
+str(map_ordered)
+
+paste("Result from OrderMarker for:", plot_title)
+
+#No markers per scaffold and lg
+#apply(df[c("Q1", "Q2")], 2, table)
+
+#No markers in map
+paste("Number of markers in LG:", length(map_ordered$marker_nr))
+apply(map_ordered[c("lg")], 2, table)
+
+apply(map_ordered[c("scaffold")], 2, table)
+
+#maplength
+print("Map length per LG:")
+aggregate(map_ordered$male_position, list(map_ordered$lg), max)
+#total length
+paste("Total map length:",
+sum(aggregate(map_ordered$male_position, list(map_ordered$lg), max)[,2]))
+
+map_ordered$scaffold <- as.factor(map_ordered$scaffold)
+map_ordered$lg <- as.factor(map_ordered$lg)
+
+plot(map_ordered$lg)
+
+ggplot(map_ordered, aes(map_ordered$scaffold, fill=map_ordered$lg)) +
+  geom_bar() +
+  scale_fill_discrete(guide_legend(title="LG")) +
+  labs(title = plot_title) +
+  xlab("HiC-scaffold") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+
+ggplot(map_ordered, aes(map_ordered$lg, fill=map_ordered$scaffold)) +
+  geom_bar() +
+  scale_fill_discrete(guide_legend(title="Scaffold")) +
+  labs(title = plot_title) +
+  xlab("Linkage group by LepMap3") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+
+
+#in one plot
+ggplot(map_ordered, aes(map_ordered$position, map_ordered$male_position, colour=map_ordered$scaffold)) +
+  geom_point() +
+  facet_wrap(~map_ordered$lg) +
+  scale_colour_discrete(guide_legend(title="Scaffold")) +
+  labs(title = plot_title) +
+  xlab("Position (bp)") +
+  ylab("Distance (cM)") +
+  theme_classic()
+
+#in one plot
+ggplot(map_ordered, aes(map_ordered$position, map_ordered$male_position, colour=map_ordered$lg)) +
+  geom_point() +
+  facet_wrap(~map_ordered$scaffold) +
+  scale_colour_discrete(guide_legend(title="lg")) +
+  labs(title = plot_title) +
+  xlab("Position (bp)") +
+  ylab("Distance (cM)") +
+  theme_classic()
+
+
+#in maporder
+ggplot(map_ordered, aes(as.numeric(rownames(map_ordered)), map_ordered$male_position)) +
+  geom_point(aes(colour=map_ordered$scaffold)) +
+  facet_wrap(~map_ordered$lg, scales = "free_x") +
+  guides(colour=FALSE) +
+  labs(title = plot_title) +
+  xlab("Position (bp)") +
+  ylab("Distance (cM)") +
+  theme_classic()
+
+
+#separate fig for all
+for (i in 1:31){
+
+marey_title=paste(plot_title,"LG",i)
+print(ggplot(map_ordered[map_ordered$lg== i, ], aes(map_ordered[map_ordered$lg==i, ]$position, map_ordered[map_ordered$lg==i, ]$male_position, colour=map_ordered[map_ordered$lg==i, ]$scaffold)) +
+  geom_point() +
+  #facet_wrap(~map_lg1$lg) +
+  scale_colour_discrete(guide_legend(title="Scaffold")) +
+  xlab("Position (bp)") +
+  ylab("Distance (cM)") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 1),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        legend.text = element_text(size = 10)) +
+  labs(title = marey_title))
+}
+# 
+# 
+
+```
+
+```{r maps}
+library(scales)
+
+#V1=scaffold, V2=position, V3=lg, V4=index, V5=min_int, V6=max_int
+map=read.table("mapped_int/order_int_all2.table")
+head(map)
+
+#summary(lm(map$V6~map$V2 + map$V1))
+
+#plot(map[map$V1=="HiC_scaffold_19",]$V2, map[map$V1=="HiC_scaffold_19",]$V6)
+
+#summary(lm(map$V6~map$V2 + map$V1))
+
+NN=unique(map$V3)
+MM=1
+#unique(map$V4)
+
+cl=rainbow(length(MM))
+
+
+for(lg in NN) {
+        print(lg)
+        #png(paste0("marey", lg, ".png"))
+        ymax = 0
+        for (m in MM) {
+                map_tmp = map[map$V3==lg & map$V4==m,]
+                ymax = max(ymax, max(map_tmp$V5))
+        }
+
+        index = 1
+        for (m in MM) {
+                map_tmp = map[map$V3==lg & map$V4==m,]
+                if (glm(map_tmp$V2 ~ map_tmp$V5)$coefficients[2] < 0) {
+                        map_tmp$V5 = max(map_tmp$V5) - map_tmp$V5
+                        map_tmp$V6 = max(map_tmp$V6) - map_tmp$V6
+                }
+                if (index == 1) {
+                        plot(map_tmp$V2, map_tmp$V5, xlab="Position (Mb)",ylab="Recombination Distance",xaxt="n", main=paste0("LG", lg), col=alpha(cl[index],0.3), pch=20, cex=1.0, ylim=c(0,ymax))
+                        points(map_tmp$V2, map_tmp$V6, col=alpha(cl[index],0.3), pch=20, cex=1.0)
+                        arrows(map_tmp$V2, map_tmp$V5, map_tmp$V2, map_tmp$V6, length=0.0, col=alpha(cl[index],0.5),lwd=1.5)
+                }
+                else {
+                        points(map_tmp$V2, map_tmp$V5, col=alpha(cl[index],0.3), pch=20, cex=1.0)
+                        points(map_tmp$V2, map_tmp$V6, col=alpha(cl[index],0.3), pch=20, cex=1.0)
+                        arrows(map_tmp$V2, map_tmp$V5, map_tmp$V2, map_tmp$V6, length=0.0, col=alpha(cl[index],0.5),lwd=1.5)
+                }
+                index = index + 1
+        }
+        #dev.off()
+}
+
+
+
+
+```
+
+```{r after_pruning, echo=FALSE}
+#THIS MUST BE CHANGED!!
+plot_title="DTOL_post"
+
+#THIS MUST BE CHANGED!!
+map_ordered <- read.table("input_rec_rate_est2.table")
+str(map_ordered)
+
+paste("Result from OrderMarker for:", plot_title)
+
+ggplot(map_ordered, aes(map_ordered$V4, map_ordered$V3, colour=map_ordered$V1)) +
+  geom_point() +
+  facet_wrap(~map_ordered$V1, scales = "free") +
+  scale_colour_discrete(guide_legend(title="Scaffold")) +
+  labs(title = plot_title) +
+  xlab("Position (bp)") +
+  ylab("Distance (cM)") +
+  theme_classic()
+
+
+```
+
+```{r map_for_cleaning, echo=FALSE}
+#THIS MUST BE CHANGED!!
+plot_title="DTOL_for_cleaning"
+
+#THIS MUST BE CHANGED!!
+map_ordered <- read.table("input_rec_rate_est2_thin_rearr.table")
+str(map_ordered)
+
+paste("Result from OrderMarker for:", plot_title)
+
+ggplot(map_ordered, aes(map_ordered$V4, map_ordered$V3, colour=map_ordered$V1)) +
+  geom_point() +
+  facet_wrap(~map_ordered$V1, scales = "free") +
+  scale_colour_discrete(guide_legend(title="Scaffold")) +
+  labs(title = plot_title) +
+  xlab("Position (bp)") +
+  ylab("Distance (cM)") +
+  theme_classic()
+
+
+```

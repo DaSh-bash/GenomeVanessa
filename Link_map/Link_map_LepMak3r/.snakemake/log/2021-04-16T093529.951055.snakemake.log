@@ -1,0 +1,3 @@
+KeyError in line 7 of /crex/proj/uppstore2017185/b2014034_nobackup/Karin/link_map_vanessa/output/07_LepMak3r_DTOL/Snakefile:
+'vcf'
+  File "/crex/proj/uppstore2017185/b2014034_nobackup/Karin/link_map_vanessa/output/07_LepMak3r_DTOL/Snakefile", line 7, in <module>

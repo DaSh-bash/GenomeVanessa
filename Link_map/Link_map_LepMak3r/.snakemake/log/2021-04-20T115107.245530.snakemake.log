@@ -1,0 +1,106 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	1	best_likelihoods
+	1	best_likelihoods2
+	31	calculate_distances
+	1	order_markers
+	1	order_summary
+	1550	reorder_markers
+	1	reorder_summary
+	31	trim_edge_clusters
+	1	trim_summary
+	1619
+Select jobs to execute...
+
+[Tue Apr 20 11:54:53 2021]
+Job 1460: 
+        Ordering the markers with useKosambi=1 on linkage group: 29, iteration: 30
+        
+
+[Tue Apr 20 11:55:39 2021]
+Finished job 1460.
+1 of 1619 steps (0.06%) done
+Select jobs to execute...
+
+[Tue Apr 20 11:55:39 2021]
+Job 30: 
+        Iteration likelihood summary >> ordermarkers/likelihoods.summary
+        Recombination summary >> ordermarkers/recombination.summary
+        
+
+[Tue Apr 20 12:02:01 2021]
+Finished job 30.
+2 of 1619 steps (0.12%) done
+Select jobs to execute...
+
+[Tue Apr 20 12:02:01 2021]
+Job 29: 
+        Identifying orders with best likelihoods for each LG >> ordermarkers/best.likelihoods
+        
+
+[Tue Apr 20 12:02:01 2021]
+Finished job 29.
+3 of 1619 steps (0.19%) done
+Select jobs to execute...
+
+[Tue Apr 20 12:02:01 2021]
+Job 2345: 
+        Removing edge clusters >10cM apart from the other markers in first+last 15% of ordermarkers/iterations/ordered.16..
+        
+
+
+[Tue Apr 20 12:02:01 2021]
+Job 2243: 
+        Removing edge clusters >10cM apart from the other markers in first+last 15% of ordermarkers/iterations/ordered.14..
+        
+
+
+[Tue Apr 20 12:02:01 2021]
+Job 2090: 
+        Removing edge clusters >10cM apart from the other markers in first+last 15% of ordermarkers/iterations/ordered.11..
+        
+
+
+[Tue Apr 20 12:02:01 2021]
+Job 2600: 
+        Removing edge clusters >10cM apart from the other markers in first+last 15% of ordermarkers/iterations/ordered.21..
+        
+
+[Tue Apr 20 12:02:02 2021]
+Error in rule trim_edge_clusters:
+    jobid: 2600
+    output: ordermarkers/best.trim/ordered.21.trimmed
+    log: ordermarkers/logs/trimming/ordered.21.removed, ordermarkers/logs/trimming/ordered.21.trim.pdf (check log file(s) for error message)
+    shell:
+        
+        LG=$(grep -F ordermarkers/iterations/ordered.21. ordermarkers/best.likelihoods)
+        Rscript scripts/LepMak3rQA.r $(pwd) $LG 10 20
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Tue Apr 20 12:02:03 2021]
+Finished job 2345.
+4 of 1619 steps (0.25%) done
+[Tue Apr 20 12:02:03 2021]
+Error in rule trim_edge_clusters:
+    jobid: 2090
+    output: ordermarkers/best.trim/ordered.11.trimmed
+    log: ordermarkers/logs/trimming/ordered.11.removed, ordermarkers/logs/trimming/ordered.11.trim.pdf (check log file(s) for error message)
+    shell:
+        
+        LG=$(grep -F ordermarkers/iterations/ordered.11. ordermarkers/best.likelihoods)
+        Rscript scripts/LepMak3rQA.r $(pwd) $LG 10 20
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Tue Apr 20 12:02:03 2021]
+Finished job 2243.
+5 of 1619 steps (0.31%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /crex/proj/uppstore2017185/b2014034_nobackup/Karin/link_map_vanessa/output/07_LepMak3r_DTOL/.snakemake/log/2021-04-20T115107.245530.snakemake.log

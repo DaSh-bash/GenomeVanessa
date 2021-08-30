@@ -1,0 +1,3634 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	1	best_likelihoods
+	1	best_likelihoods2
+	31	calculate_distances
+	542	order_markers
+	1	order_summary
+	1550	reorder_markers
+	1	reorder_summary
+	31	trim_edge_clusters
+	1	trim_summary
+	2160
+Select jobs to execute...
+
+[Sun Apr 18 21:29:43 2021]
+Job 741: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 11
+        
+
+[Sun Apr 18 21:32:46 2021]
+Finished job 741.
+1 of 2160 steps (0.05%) done
+Select jobs to execute...
+
+[Sun Apr 18 21:32:46 2021]
+Job 351: 
+        Ordering the markers with useKosambi=1 on linkage group: 7, iteration: 21
+        
+
+[Sun Apr 18 21:34:50 2021]
+Finished job 351.
+2 of 2160 steps (0.09%) done
+Select jobs to execute...
+
+[Sun Apr 18 21:34:50 2021]
+Job 321: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 41
+        
+
+[Sun Apr 18 21:37:39 2021]
+Finished job 321.
+3 of 2160 steps (0.14%) done
+Select jobs to execute...
+
+[Sun Apr 18 21:37:39 2021]
+Job 306: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 26
+        
+
+[Sun Apr 18 21:40:28 2021]
+Finished job 306.
+4 of 2160 steps (0.19%) done
+Select jobs to execute...
+
+[Sun Apr 18 21:40:28 2021]
+Job 1476: 
+        Ordering the markers with useKosambi=1 on linkage group: 29, iteration: 46
+        
+
+[Sun Apr 18 21:41:05 2021]
+Finished job 1476.
+5 of 2160 steps (0.23%) done
+Select jobs to execute...
+
+[Sun Apr 18 21:41:05 2021]
+Job 1116: 
+        Ordering the markers with useKosambi=1 on linkage group: 22, iteration: 36
+        
+
+[Sun Apr 18 21:43:12 2021]
+Finished job 1116.
+6 of 2160 steps (0.28%) done
+Select jobs to execute...
+
+[Sun Apr 18 21:43:12 2021]
+Job 816: 
+        Ordering the markers with useKosambi=1 on linkage group: 16, iteration: 36
+        
+
+[Sun Apr 18 21:45:56 2021]
+Finished job 816.
+7 of 2160 steps (0.32%) done
+Select jobs to execute...
+
+[Sun Apr 18 21:45:56 2021]
+Job 909: 
+        Ordering the markers with useKosambi=1 on linkage group: 18, iteration: 29
+        
+
+[Sun Apr 18 21:48:25 2021]
+Finished job 909.
+8 of 2160 steps (0.37%) done
+Select jobs to execute...
+
+[Sun Apr 18 21:48:25 2021]
+Job 414: 
+        Ordering the markers with useKosambi=1 on linkage group: 8, iteration: 34
+        
+
+[Sun Apr 18 21:51:09 2021]
+Finished job 414.
+9 of 2160 steps (0.42%) done
+Select jobs to execute...
+
+[Sun Apr 18 21:51:09 2021]
+Job 45: 
+        Ordering the markers with useKosambi=1 on linkage group: 1, iteration: 15
+        
+
+[Sun Apr 18 21:54:48 2021]
+Finished job 45.
+10 of 2160 steps (0.46%) done
+Select jobs to execute...
+
+[Sun Apr 18 21:54:49 2021]
+Job 1296: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 16
+        
+
+[Sun Apr 18 21:56:54 2021]
+Finished job 1296.
+11 of 2160 steps (0.51%) done
+Select jobs to execute...
+
+[Sun Apr 18 21:56:54 2021]
+Job 352: 
+        Ordering the markers with useKosambi=1 on linkage group: 7, iteration: 22
+        
+
+[Sun Apr 18 21:58:56 2021]
+Finished job 352.
+12 of 2160 steps (0.56%) done
+Select jobs to execute...
+
+[Sun Apr 18 21:58:56 2021]
+Job 322: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 42
+        
+
+[Sun Apr 18 22:01:33 2021]
+Finished job 322.
+13 of 2160 steps (0.60%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:01:34 2021]
+Job 1011: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 31
+        
+
+[Sun Apr 18 22:03:31 2021]
+Finished job 1011.
+14 of 2160 steps (0.65%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:03:31 2021]
+Job 1297: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 17
+        
+
+[Sun Apr 18 22:05:42 2021]
+Finished job 1297.
+15 of 2160 steps (0.69%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:05:42 2021]
+Job 46: 
+        Ordering the markers with useKosambi=1 on linkage group: 1, iteration: 16
+        
+
+[Sun Apr 18 22:09:13 2021]
+Finished job 46.
+16 of 2160 steps (0.74%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:09:13 2021]
+Job 742: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 12
+        
+
+[Sun Apr 18 22:11:54 2021]
+Finished job 742.
+17 of 2160 steps (0.79%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:11:54 2021]
+Job 1295: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 15
+        
+
+[Sun Apr 18 22:14:01 2021]
+Finished job 1295.
+18 of 2160 steps (0.83%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:14:01 2021]
+Job 1117: 
+        Ordering the markers with useKosambi=1 on linkage group: 22, iteration: 37
+        
+
+[Sun Apr 18 22:16:04 2021]
+Finished job 1117.
+19 of 2160 steps (0.88%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:16:04 2021]
+Job 817: 
+        Ordering the markers with useKosambi=1 on linkage group: 16, iteration: 37
+        
+
+[Sun Apr 18 22:18:46 2021]
+Finished job 817.
+20 of 2160 steps (0.93%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:18:46 2021]
+Job 1012: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 32
+        
+
+[Sun Apr 18 22:20:44 2021]
+Finished job 1012.
+21 of 2160 steps (0.97%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:20:44 2021]
+Job 740: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 10
+        
+
+[Sun Apr 18 22:23:24 2021]
+Finished job 740.
+22 of 2160 steps (1%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:23:24 2021]
+Job 307: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 27
+        
+
+[Sun Apr 18 22:26:03 2021]
+Finished job 307.
+23 of 2160 steps (1%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:26:03 2021]
+Job 350: 
+        Ordering the markers with useKosambi=1 on linkage group: 7, iteration: 20
+        
+
+[Sun Apr 18 22:28:06 2021]
+Finished job 350.
+24 of 2160 steps (1%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:28:06 2021]
+Job 608: 
+        Ordering the markers with useKosambi=1 on linkage group: 12, iteration: 28
+        
+
+[Sun Apr 18 22:30:59 2021]
+Finished job 608.
+25 of 2160 steps (1%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:30:59 2021]
+Job 320: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 40
+        
+
+[Sun Apr 18 22:33:41 2021]
+Finished job 320.
+26 of 2160 steps (1%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:33:42 2021]
+Job 923: 
+        Ordering the markers with useKosambi=1 on linkage group: 18, iteration: 43
+        
+
+[Sun Apr 18 22:35:48 2021]
+Finished job 923.
+27 of 2160 steps (1%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:35:48 2021]
+Job 428: 
+        Ordering the markers with useKosambi=1 on linkage group: 8, iteration: 48
+        
+
+[Sun Apr 18 22:38:45 2021]
+Finished job 428.
+28 of 2160 steps (1%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:38:45 2021]
+Job 1208: 
+        Ordering the markers with useKosambi=1 on linkage group: 24, iteration: 28
+        
+
+[Sun Apr 18 22:40:19 2021]
+Finished job 1208.
+29 of 2160 steps (1%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:40:19 2021]
+Job 44: 
+        Ordering the markers with useKosambi=1 on linkage group: 1, iteration: 14
+        
+
+[Sun Apr 18 22:43:46 2021]
+Finished job 44.
+30 of 2160 steps (1%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:43:46 2021]
+Job 1119: 
+        Ordering the markers with useKosambi=1 on linkage group: 22, iteration: 39
+        
+
+[Sun Apr 18 22:45:47 2021]
+Finished job 1119.
+31 of 2160 steps (1%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:45:47 2021]
+Job 1314: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 34
+        
+
+[Sun Apr 18 22:47:47 2021]
+Finished job 1314.
+32 of 2160 steps (1%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:47:47 2021]
+Job 639: 
+        Ordering the markers with useKosambi=1 on linkage group: 13, iteration: 9
+        
+
+[Sun Apr 18 22:50:44 2021]
+Finished job 639.
+33 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:50:44 2021]
+Job 1010: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 30
+        
+
+[Sun Apr 18 22:52:35 2021]
+Finished job 1010.
+34 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:52:35 2021]
+Job 1194: 
+        Ordering the markers with useKosambi=1 on linkage group: 24, iteration: 14
+        
+
+[Sun Apr 18 22:54:13 2021]
+Finished job 1194.
+35 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:54:13 2021]
+Job 564: 
+        Ordering the markers with useKosambi=1 on linkage group: 11, iteration: 34
+        
+
+[Sun Apr 18 22:57:04 2021]
+Finished job 564.
+36 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:57:04 2021]
+Job 1209: 
+        Ordering the markers with useKosambi=1 on linkage group: 24, iteration: 29
+        
+
+[Sun Apr 18 22:58:39 2021]
+Finished job 1209.
+37 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 22:58:39 2021]
+Job 815: 
+        Ordering the markers with useKosambi=1 on linkage group: 16, iteration: 35
+        
+
+[Sun Apr 18 23:01:19 2021]
+Finished job 815.
+38 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:01:19 2021]
+Job 1195: 
+        Ordering the markers with useKosambi=1 on linkage group: 24, iteration: 15
+        
+
+[Sun Apr 18 23:02:54 2021]
+Finished job 1195.
+39 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:02:54 2021]
+Job 1115: 
+        Ordering the markers with useKosambi=1 on linkage group: 22, iteration: 35
+        
+
+[Sun Apr 18 23:04:55 2021]
+Finished job 1115.
+40 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:04:55 2021]
+Job 610: 
+        Ordering the markers with useKosambi=1 on linkage group: 12, iteration: 30
+        
+
+[Sun Apr 18 23:08:58 2021]
+Finished job 610.
+41 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:09:15 2021]
+Job 167: 
+        Ordering the markers with useKosambi=1 on linkage group: 3, iteration: 37
+        
+
+[Sun Apr 18 23:11:34 2021]
+Finished job 167.
+42 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:11:34 2021]
+Job 1554: 
+        Ordering the markers with useKosambi=1 on linkage group: 31, iteration: 24
+        
+
+[Sun Apr 18 23:12:28 2021]
+Finished job 1554.
+43 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:12:28 2021]
+Job 534: 
+        Ordering the markers with useKosambi=1 on linkage group: 11, iteration: 4
+        
+
+[Sun Apr 18 23:15:24 2021]
+Finished job 534.
+44 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:15:24 2021]
+Job 699: 
+        Ordering the markers with useKosambi=1 on linkage group: 14, iteration: 19
+        
+
+[Sun Apr 18 23:18:21 2021]
+Finished job 699.
+45 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:18:21 2021]
+Job 430: 
+        Ordering the markers with useKosambi=1 on linkage group: 8, iteration: 50
+        
+
+[Sun Apr 18 23:21:07 2021]
+Finished job 430.
+46 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:21:07 2021]
+Job 1210: 
+        Ordering the markers with useKosambi=1 on linkage group: 24, iteration: 30
+        
+
+[Sun Apr 18 23:22:45 2021]
+Finished job 1210.
+47 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:23:27 2021]
+Job 926: 
+        Ordering the markers with useKosambi=1 on linkage group: 18, iteration: 46
+        
+
+[Sun Apr 18 23:25:31 2021]
+Finished job 926.
+48 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:28:32 2021]
+Job 1316: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 36
+        
+
+[Sun Apr 18 23:31:08 2021]
+Finished job 1316.
+49 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:31:37 2021]
+Job 205: 
+        Ordering the markers with useKosambi=1 on linkage group: 4, iteration: 25
+        
+
+[Sun Apr 18 23:34:32 2021]
+Finished job 205.
+50 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:34:33 2021]
+Job 1211: 
+        Ordering the markers with useKosambi=1 on linkage group: 24, iteration: 31
+        
+
+[Sun Apr 18 23:36:06 2021]
+Finished job 1211.
+51 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:36:06 2021]
+Job 432: 
+        Ordering the markers with useKosambi=1 on linkage group: 9, iteration: 2
+        
+
+[Sun Apr 18 23:38:56 2021]
+Finished job 432.
+52 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:38:56 2021]
+Job 1212: 
+        Ordering the markers with useKosambi=1 on linkage group: 24, iteration: 32
+        
+
+[Sun Apr 18 23:40:33 2021]
+Finished job 1212.
+53 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:40:33 2021]
+Job 1315: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 35
+        
+
+[Sun Apr 18 23:42:37 2021]
+Finished job 1315.
+54 of 2160 steps (2%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:42:53 2021]
+Job 612: 
+        Ordering the markers with useKosambi=1 on linkage group: 12, iteration: 32
+        
+
+[Sun Apr 18 23:45:50 2021]
+Finished job 612.
+55 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:45:50 2021]
+Job 1120: 
+        Ordering the markers with useKosambi=1 on linkage group: 22, iteration: 40
+        
+
+[Sun Apr 18 23:47:52 2021]
+Finished job 1120.
+56 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:47:52 2021]
+Job 642: 
+        Ordering the markers with useKosambi=1 on linkage group: 13, iteration: 12
+        
+
+[Sun Apr 18 23:50:33 2021]
+Finished job 642.
+57 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:50:33 2021]
+Job 640: 
+        Ordering the markers with useKosambi=1 on linkage group: 13, iteration: 10
+        
+
+[Sun Apr 18 23:53:20 2021]
+Finished job 640.
+58 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:53:20 2021]
+Job 927: 
+        Ordering the markers with useKosambi=1 on linkage group: 18, iteration: 47
+        
+
+[Sun Apr 18 23:55:35 2021]
+Finished job 927.
+59 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:55:35 2021]
+Job 1122: 
+        Ordering the markers with useKosambi=1 on linkage group: 22, iteration: 42
+        
+
+[Sun Apr 18 23:57:48 2021]
+Finished job 1122.
+60 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Sun Apr 18 23:57:48 2021]
+Job 207: 
+        Ordering the markers with useKosambi=1 on linkage group: 4, iteration: 27
+        
+
+[Mon Apr 19 00:01:07 2021]
+Finished job 207.
+61 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:01:07 2021]
+Job 305: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 25
+        
+
+[Mon Apr 19 00:04:02 2021]
+Finished job 305.
+62 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:04:02 2021]
+Job 613: 
+        Ordering the markers with useKosambi=1 on linkage group: 12, iteration: 33
+        
+
+[Mon Apr 19 00:07:04 2021]
+Finished job 613.
+63 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:07:04 2021]
+Job 643: 
+        Ordering the markers with useKosambi=1 on linkage group: 13, iteration: 13
+        
+
+[Mon Apr 19 00:10:00 2021]
+Finished job 643.
+64 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:10:00 2021]
+Job 928: 
+        Ordering the markers with useKosambi=1 on linkage group: 18, iteration: 48
+        
+
+[Mon Apr 19 00:12:08 2021]
+Finished job 928.
+65 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:12:08 2021]
+Job 634: 
+        Ordering the markers with useKosambi=1 on linkage group: 13, iteration: 4
+        
+
+[Mon Apr 19 00:15:28 2021]
+Finished job 634.
+66 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:15:28 2021]
+Job 208: 
+        Ordering the markers with useKosambi=1 on linkage group: 4, iteration: 28
+        
+
+[Mon Apr 19 00:18:39 2021]
+Finished job 208.
+67 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:18:39 2021]
+Job 433: 
+        Ordering the markers with useKosambi=1 on linkage group: 9, iteration: 3
+        
+
+[Mon Apr 19 00:21:53 2021]
+Finished job 433.
+68 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:21:53 2021]
+Job 1213: 
+        Ordering the markers with useKosambi=1 on linkage group: 24, iteration: 33
+        
+
+[Mon Apr 19 00:23:36 2021]
+Finished job 1213.
+69 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:23:36 2021]
+Job 1294: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 14
+        
+
+[Mon Apr 19 00:25:49 2021]
+Finished job 1294.
+70 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:25:49 2021]
+Job 929: 
+        Ordering the markers with useKosambi=1 on linkage group: 18, iteration: 49
+        
+
+[Mon Apr 19 00:28:06 2021]
+Finished job 929.
+71 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:28:07 2021]
+Job 739: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 9
+        
+
+[Mon Apr 19 00:31:02 2021]
+Finished job 739.
+72 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:31:02 2021]
+Job 1214: 
+        Ordering the markers with useKosambi=1 on linkage group: 24, iteration: 34
+        
+
+[Mon Apr 19 00:32:46 2021]
+Finished job 1214.
+73 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:32:46 2021]
+Job 349: 
+        Ordering the markers with useKosambi=1 on linkage group: 7, iteration: 19
+        
+
+[Mon Apr 19 00:34:55 2021]
+Finished job 349.
+74 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:34:55 2021]
+Job 645: 
+        Ordering the markers with useKosambi=1 on linkage group: 13, iteration: 15
+        
+
+[Mon Apr 19 00:37:56 2021]
+Finished job 645.
+75 of 2160 steps (3%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:37:56 2021]
+Job 930: 
+        Ordering the markers with useKosambi=1 on linkage group: 18, iteration: 50
+        
+
+[Mon Apr 19 00:40:15 2021]
+Finished job 930.
+76 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:40:15 2021]
+Job 1215: 
+        Ordering the markers with useKosambi=1 on linkage group: 24, iteration: 35
+        
+
+[Mon Apr 19 00:41:58 2021]
+Finished job 1215.
+77 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:41:58 2021]
+Job 1178: 
+        Ordering the markers with useKosambi=1 on linkage group: 23, iteration: 48
+        
+
+[Mon Apr 19 00:46:49 2021]
+Finished job 1178.
+78 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:46:49 2021]
+Job 894: 
+        Ordering the markers with useKosambi=1 on linkage group: 18, iteration: 14
+        
+
+[Mon Apr 19 00:49:03 2021]
+Finished job 894.
+79 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:49:03 2021]
+Job 1479: 
+        Ordering the markers with useKosambi=1 on linkage group: 29, iteration: 49
+        
+
+[Mon Apr 19 00:49:40 2021]
+Finished job 1479.
+80 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:49:40 2021]
+Job 399: 
+        Ordering the markers with useKosambi=1 on linkage group: 8, iteration: 19
+        
+
+[Mon Apr 19 00:52:41 2021]
+Finished job 399.
+81 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:52:41 2021]
+Job 1217: 
+        Ordering the markers with useKosambi=1 on linkage group: 24, iteration: 37
+        
+
+[Mon Apr 19 00:54:27 2021]
+Finished job 1217.
+82 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:54:27 2021]
+Job 1218: 
+        Ordering the markers with useKosambi=1 on linkage group: 24, iteration: 38
+        
+
+[Mon Apr 19 00:56:15 2021]
+Finished job 1218.
+83 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:56:15 2021]
+Job 648: 
+        Ordering the markers with useKosambi=1 on linkage group: 13, iteration: 18
+        
+
+[Mon Apr 19 00:59:15 2021]
+Finished job 648.
+84 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 00:59:16 2021]
+Job 933: 
+        Ordering the markers with useKosambi=1 on linkage group: 19, iteration: 3
+        
+
+[Mon Apr 19 01:01:40 2021]
+Finished job 933.
+85 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:01:40 2021]
+Job 932: 
+        Ordering the markers with useKosambi=1 on linkage group: 19, iteration: 2
+        
+
+[Mon Apr 19 01:04:05 2021]
+Finished job 932.
+86 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:04:06 2021]
+Job 574: 
+        Ordering the markers with useKosambi=1 on linkage group: 11, iteration: 44
+        
+
+[Mon Apr 19 01:07:10 2021]
+Finished job 574.
+87 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:07:10 2021]
+Job 1216: 
+        Ordering the markers with useKosambi=1 on linkage group: 24, iteration: 36
+        
+
+[Mon Apr 19 01:08:55 2021]
+Finished job 1216.
+88 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:08:55 2021]
+Job 650: 
+        Ordering the markers with useKosambi=1 on linkage group: 13, iteration: 20
+        
+
+[Mon Apr 19 01:12:07 2021]
+Finished job 650.
+89 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:12:07 2021]
+Job 931: 
+        Ordering the markers with useKosambi=1 on linkage group: 19, iteration: 1
+        
+
+[Mon Apr 19 01:14:36 2021]
+Finished job 931.
+90 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:14:36 2021]
+Job 935: 
+        Ordering the markers with useKosambi=1 on linkage group: 19, iteration: 5
+        
+
+[Mon Apr 19 01:16:59 2021]
+Finished job 935.
+91 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:16:59 2021]
+Job 576: 
+        Ordering the markers with useKosambi=1 on linkage group: 11, iteration: 46
+        
+
+[Mon Apr 19 01:20:05 2021]
+Finished job 576.
+92 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:20:05 2021]
+Job 621: 
+        Ordering the markers with useKosambi=1 on linkage group: 12, iteration: 41
+        
+
+[Mon Apr 19 01:23:15 2021]
+Finished job 621.
+93 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:23:15 2021]
+Job 319: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 39
+        
+
+[Mon Apr 19 01:26:12 2021]
+Finished job 319.
+94 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:26:12 2021]
+Job 651: 
+        Ordering the markers with useKosambi=1 on linkage group: 13, iteration: 21
+        
+
+[Mon Apr 19 01:29:11 2021]
+Finished job 651.
+95 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:29:11 2021]
+Job 1206: 
+        Ordering the markers with useKosambi=1 on linkage group: 24, iteration: 26
+        
+
+[Mon Apr 19 01:30:59 2021]
+Finished job 1206.
+96 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:31:00 2021]
+Job 1131: 
+        Ordering the markers with useKosambi=1 on linkage group: 23, iteration: 1
+        
+
+[Mon Apr 19 01:34:30 2021]
+Finished job 1131.
+97 of 2160 steps (4%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:34:30 2021]
+Job 43: 
+        Ordering the markers with useKosambi=1 on linkage group: 1, iteration: 13
+        
+
+[Mon Apr 19 01:38:31 2021]
+Finished job 43.
+98 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:38:31 2021]
+Job 1326: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 46
+        
+
+[Mon Apr 19 01:40:47 2021]
+Finished job 1326.
+99 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:40:47 2021]
+Job 1221: 
+        Ordering the markers with useKosambi=1 on linkage group: 24, iteration: 41
+        
+
+[Mon Apr 19 01:42:32 2021]
+Finished job 1221.
+100 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:42:32 2021]
+Job 1132: 
+        Ordering the markers with useKosambi=1 on linkage group: 23, iteration: 2
+        
+
+[Mon Apr 19 01:46:00 2021]
+Finished job 1132.
+101 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:46:01 2021]
+Job 1009: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 29
+        
+
+[Mon Apr 19 01:48:02 2021]
+Finished job 1009.
+102 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:48:02 2021]
+Job 1327: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 47
+        
+
+[Mon Apr 19 01:50:18 2021]
+Finished job 1327.
+103 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:50:18 2021]
+Job 814: 
+        Ordering the markers with useKosambi=1 on linkage group: 16, iteration: 34
+        
+
+[Mon Apr 19 01:53:18 2021]
+Finished job 814.
+104 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:53:18 2021]
+Job 765: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 35
+        
+
+[Mon Apr 19 01:56:16 2021]
+Finished job 765.
+105 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:56:16 2021]
+Job 1474: 
+        Ordering the markers with useKosambi=1 on linkage group: 29, iteration: 44
+        
+
+[Mon Apr 19 01:56:55 2021]
+Finished job 1474.
+106 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 01:56:55 2021]
+Job 622: 
+        Ordering the markers with useKosambi=1 on linkage group: 12, iteration: 42
+        
+
+[Mon Apr 19 02:00:26 2021]
+Finished job 622.
+107 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:00:50 2021]
+Job 1207: 
+        Ordering the markers with useKosambi=1 on linkage group: 24, iteration: 27
+        
+
+[Mon Apr 19 02:02:38 2021]
+Finished job 1207.
+108 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:03:12 2021]
+Job 577: 
+        Ordering the markers with useKosambi=1 on linkage group: 11, iteration: 47
+        
+
+[Mon Apr 19 02:06:24 2021]
+Finished job 577.
+109 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:06:28 2021]
+Job 1114: 
+        Ordering the markers with useKosambi=1 on linkage group: 22, iteration: 34
+        
+
+[Mon Apr 19 02:09:08 2021]
+Finished job 1114.
+110 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:09:08 2021]
+Job 442: 
+        Ordering the markers with useKosambi=1 on linkage group: 9, iteration: 12
+        
+
+[Mon Apr 19 02:11:56 2021]
+Finished job 442.
+111 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:11:56 2021]
+Job 1222: 
+        Ordering the markers with useKosambi=1 on linkage group: 24, iteration: 42
+        
+
+[Mon Apr 19 02:13:32 2021]
+Finished job 1222.
+112 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:13:32 2021]
+Job 548: 
+        Ordering the markers with useKosambi=1 on linkage group: 11, iteration: 18
+        
+
+[Mon Apr 19 02:16:14 2021]
+Finished job 548.
+113 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:16:14 2021]
+Job 1478: 
+        Ordering the markers with useKosambi=1 on linkage group: 29, iteration: 48
+        
+
+[Mon Apr 19 02:16:47 2021]
+Finished job 1478.
+114 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:16:47 2021]
+Job 49: 
+        Ordering the markers with useKosambi=1 on linkage group: 1, iteration: 19
+        
+
+[Mon Apr 19 02:20:15 2021]
+Finished job 49.
+115 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:20:15 2021]
+Job 520: 
+        Ordering the markers with useKosambi=1 on linkage group: 10, iteration: 40
+        
+
+[Mon Apr 19 02:22:57 2021]
+Finished job 520.
+116 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:22:57 2021]
+Job 415: 
+        Ordering the markers with useKosambi=1 on linkage group: 8, iteration: 35
+        
+
+[Mon Apr 19 02:25:33 2021]
+Finished job 415.
+117 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:25:33 2021]
+Job 1508: 
+        Ordering the markers with useKosambi=1 on linkage group: 30, iteration: 28
+        
+
+[Mon Apr 19 02:26:06 2021]
+Finished job 1508.
+118 of 2160 steps (5%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:26:06 2021]
+Job 1448: 
+        Ordering the markers with useKosambi=1 on linkage group: 29, iteration: 18
+        
+
+[Mon Apr 19 02:26:37 2021]
+Finished job 1448.
+119 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:26:38 2021]
+Job 1133: 
+        Ordering the markers with useKosambi=1 on linkage group: 23, iteration: 3
+        
+
+[Mon Apr 19 02:29:34 2021]
+Finished job 1133.
+120 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:29:34 2021]
+Job 1493: 
+        Ordering the markers with useKosambi=1 on linkage group: 30, iteration: 13
+        
+
+[Mon Apr 19 02:30:09 2021]
+Finished job 1493.
+121 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:30:09 2021]
+Job 218: 
+        Ordering the markers with useKosambi=1 on linkage group: 4, iteration: 38
+        
+
+[Mon Apr 19 02:33:07 2021]
+Finished job 218.
+122 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:33:07 2021]
+Job 1028: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 48
+        
+
+[Mon Apr 19 02:35:09 2021]
+Finished job 1028.
+123 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:35:09 2021]
+Job 1418: 
+        Ordering the markers with useKosambi=1 on linkage group: 28, iteration: 38
+        
+
+[Mon Apr 19 02:36:27 2021]
+Finished job 1418.
+124 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:36:27 2021]
+Job 758: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 28
+        
+
+[Mon Apr 19 02:39:32 2021]
+Finished job 758.
+125 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:39:32 2021]
+Job 473: 
+        Ordering the markers with useKosambi=1 on linkage group: 9, iteration: 43
+        
+
+[Mon Apr 19 02:42:37 2021]
+Finished job 473.
+126 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:42:37 2021]
+Job 759: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 29
+        
+
+[Mon Apr 19 02:45:33 2021]
+Finished job 759.
+127 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:45:33 2021]
+Job 549: 
+        Ordering the markers with useKosambi=1 on linkage group: 11, iteration: 19
+        
+
+[Mon Apr 19 02:48:13 2021]
+Finished job 549.
+128 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:48:13 2021]
+Job 744: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 14
+        
+
+[Mon Apr 19 02:50:43 2021]
+Finished job 744.
+129 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:50:43 2021]
+Job 1413: 
+        Ordering the markers with useKosambi=1 on linkage group: 28, iteration: 33
+        
+
+[Mon Apr 19 02:51:53 2021]
+Finished job 1413.
+130 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:51:53 2021]
+Job 1449: 
+        Ordering the markers with useKosambi=1 on linkage group: 29, iteration: 19
+        
+
+[Mon Apr 19 02:52:26 2021]
+Finished job 1449.
+131 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:52:26 2021]
+Job 474: 
+        Ordering the markers with useKosambi=1 on linkage group: 9, iteration: 44
+        
+
+[Mon Apr 19 02:55:18 2021]
+Finished job 474.
+132 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:55:18 2021]
+Job 1509: 
+        Ordering the markers with useKosambi=1 on linkage group: 30, iteration: 29
+        
+
+[Mon Apr 19 02:55:53 2021]
+Finished job 1509.
+133 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:55:54 2021]
+Job 1293: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 13
+        
+
+[Mon Apr 19 02:57:53 2021]
+Finished job 1293.
+134 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:57:53 2021]
+Job 1014: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 34
+        
+
+[Mon Apr 19 02:59:52 2021]
+Finished job 1014.
+135 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 02:59:52 2021]
+Job 738: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 8
+        
+
+[Mon Apr 19 03:02:49 2021]
+Finished job 738.
+136 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:03:10 2021]
+Job 1299: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 19
+        
+
+[Mon Apr 19 03:05:26 2021]
+Finished job 1299.
+137 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:05:27 2021]
+Job 348: 
+        Ordering the markers with useKosambi=1 on linkage group: 7, iteration: 18
+        
+
+[Mon Apr 19 03:07:38 2021]
+Finished job 348.
+138 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:07:41 2021]
+Job 1029: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 49
+        
+
+[Mon Apr 19 03:09:45 2021]
+Finished job 1029.
+139 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:09:50 2021]
+Job 1419: 
+        Ordering the markers with useKosambi=1 on linkage group: 28, iteration: 39
+        
+
+[Mon Apr 19 03:11:13 2021]
+Finished job 1419.
+140 of 2160 steps (6%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:11:13 2021]
+Job 459: 
+        Ordering the markers with useKosambi=1 on linkage group: 9, iteration: 29
+        
+
+[Mon Apr 19 03:14:20 2021]
+Finished job 459.
+141 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:14:24 2021]
+Job 318: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 38
+        
+
+[Mon Apr 19 03:17:21 2021]
+Finished job 318.
+142 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:17:21 2021]
+Job 1030: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 50
+        
+
+[Mon Apr 19 03:19:24 2021]
+Finished job 1030.
+143 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:19:24 2021]
+Job 760: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 30
+        
+
+[Mon Apr 19 03:22:22 2021]
+Finished job 760.
+144 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:22:23 2021]
+Job 745: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 15
+        
+
+[Mon Apr 19 03:25:20 2021]
+Finished job 745.
+145 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:25:20 2021]
+Job 42: 
+        Ordering the markers with useKosambi=1 on linkage group: 1, iteration: 12
+        
+
+[Mon Apr 19 03:29:14 2021]
+Finished job 42.
+146 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:29:16 2021]
+Job 1450: 
+        Ordering the markers with useKosambi=1 on linkage group: 29, iteration: 20
+        
+
+[Mon Apr 19 03:29:53 2021]
+Finished job 1450.
+147 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:29:53 2021]
+Job 220: 
+        Ordering the markers with useKosambi=1 on linkage group: 4, iteration: 40
+        
+
+[Mon Apr 19 03:33:04 2021]
+Finished job 220.
+148 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:33:04 2021]
+Job 475: 
+        Ordering the markers with useKosambi=1 on linkage group: 9, iteration: 45
+        
+
+[Mon Apr 19 03:36:09 2021]
+Finished job 475.
+149 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:36:09 2021]
+Job 893: 
+        Ordering the markers with useKosambi=1 on linkage group: 18, iteration: 13
+        
+
+[Mon Apr 19 03:38:21 2021]
+Finished job 893.
+150 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:38:21 2021]
+Job 1555: 
+        Ordering the markers with useKosambi=1 on linkage group: 31, iteration: 25
+        
+
+[Mon Apr 19 03:39:18 2021]
+Finished job 1555.
+151 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:39:18 2021]
+Job 1510: 
+        Ordering the markers with useKosambi=1 on linkage group: 30, iteration: 30
+        
+
+[Mon Apr 19 03:39:55 2021]
+Finished job 1510.
+152 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:39:55 2021]
+Job 325: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 45
+        
+
+[Mon Apr 19 03:42:50 2021]
+Finished job 325.
+153 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:42:50 2021]
+Job 1420: 
+        Ordering the markers with useKosambi=1 on linkage group: 28, iteration: 40
+        
+
+[Mon Apr 19 03:44:06 2021]
+Finished job 1420.
+154 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:44:07 2021]
+Job 1300: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 20
+        
+
+[Mon Apr 19 03:46:20 2021]
+Finished job 1300.
+155 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:46:20 2021]
+Job 1031: 
+        Ordering the markers with useKosambi=1 on linkage group: 21, iteration: 1
+        
+
+[Mon Apr 19 03:48:18 2021]
+Finished job 1031.
+156 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:48:18 2021]
+Job 1421: 
+        Ordering the markers with useKosambi=1 on linkage group: 28, iteration: 41
+        
+
+[Mon Apr 19 03:49:36 2021]
+Finished job 1421.
+157 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:49:36 2021]
+Job 1008: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 28
+        
+
+[Mon Apr 19 03:52:16 2021]
+Finished job 1008.
+158 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:52:16 2021]
+Job 761: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 31
+        
+
+[Mon Apr 19 03:55:09 2021]
+Finished job 761.
+159 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:55:09 2021]
+Job 1136: 
+        Ordering the markers with useKosambi=1 on linkage group: 23, iteration: 6
+        
+
+[Mon Apr 19 03:58:37 2021]
+Finished job 1136.
+160 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 03:58:37 2021]
+Job 326: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 46
+        
+
+[Mon Apr 19 04:01:35 2021]
+Finished job 326.
+161 of 2160 steps (7%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:01:36 2021]
+Job 813: 
+        Ordering the markers with useKosambi=1 on linkage group: 16, iteration: 33
+        
+
+[Mon Apr 19 04:04:38 2021]
+Finished job 813.
+162 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:04:38 2021]
+Job 221: 
+        Ordering the markers with useKosambi=1 on linkage group: 4, iteration: 41
+        
+
+[Mon Apr 19 04:07:48 2021]
+Finished job 221.
+163 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:07:48 2021]
+Job 476: 
+        Ordering the markers with useKosambi=1 on linkage group: 9, iteration: 46
+        
+
+[Mon Apr 19 04:10:57 2021]
+Finished job 476.
+164 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:10:57 2021]
+Job 1451: 
+        Ordering the markers with useKosambi=1 on linkage group: 29, iteration: 21
+        
+
+[Mon Apr 19 04:11:34 2021]
+Finished job 1451.
+165 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:11:35 2021]
+Job 723: 
+        Ordering the markers with useKosambi=1 on linkage group: 14, iteration: 43
+        
+
+[Mon Apr 19 04:14:46 2021]
+Finished job 723.
+166 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:14:49 2021]
+Job 1511: 
+        Ordering the markers with useKosambi=1 on linkage group: 30, iteration: 31
+        
+
+[Mon Apr 19 04:15:27 2021]
+Finished job 1511.
+167 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:15:27 2021]
+Job 1292: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 12
+        
+
+[Mon Apr 19 04:17:43 2021]
+Finished job 1292.
+168 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:17:59 2021]
+Job 461: 
+        Ordering the markers with useKosambi=1 on linkage group: 9, iteration: 31
+        
+
+[Mon Apr 19 04:21:07 2021]
+Finished job 461.
+169 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:21:13 2021]
+Job 737: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 7
+        
+
+[Mon Apr 19 04:24:08 2021]
+Finished job 737.
+170 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:24:08 2021]
+Job 462: 
+        Ordering the markers with useKosambi=1 on linkage group: 9, iteration: 32
+        
+
+[Mon Apr 19 04:27:19 2021]
+Finished job 462.
+171 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:27:19 2021]
+Job 327: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 47
+        
+
+[Mon Apr 19 04:30:14 2021]
+Finished job 327.
+172 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:30:14 2021]
+Job 1032: 
+        Ordering the markers with useKosambi=1 on linkage group: 21, iteration: 2
+        
+
+[Mon Apr 19 04:32:14 2021]
+Finished job 1032.
+173 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:32:18 2021]
+Job 347: 
+        Ordering the markers with useKosambi=1 on linkage group: 7, iteration: 17
+        
+
+[Mon Apr 19 04:34:27 2021]
+Finished job 347.
+174 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:34:27 2021]
+Job 1422: 
+        Ordering the markers with useKosambi=1 on linkage group: 28, iteration: 42
+        
+
+[Mon Apr 19 04:35:44 2021]
+Finished job 1422.
+175 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:35:44 2021]
+Job 762: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 32
+        
+
+[Mon Apr 19 04:38:39 2021]
+Finished job 762.
+176 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:38:39 2021]
+Job 747: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 17
+        
+
+[Mon Apr 19 04:41:27 2021]
+Finished job 747.
+177 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:41:28 2021]
+Job 317: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 37
+        
+
+[Mon Apr 19 04:44:33 2021]
+Finished job 317.
+178 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:44:33 2021]
+Job 477: 
+        Ordering the markers with useKosambi=1 on linkage group: 9, iteration: 47
+        
+
+[Mon Apr 19 04:47:44 2021]
+Finished job 477.
+179 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:47:44 2021]
+Job 1452: 
+        Ordering the markers with useKosambi=1 on linkage group: 29, iteration: 22
+        
+
+[Mon Apr 19 04:48:20 2021]
+Finished job 1452.
+180 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:48:20 2021]
+Job 192: 
+        Ordering the markers with useKosambi=1 on linkage group: 4, iteration: 12
+        
+
+[Mon Apr 19 04:51:34 2021]
+Finished job 192.
+181 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:51:34 2021]
+Job 41: 
+        Ordering the markers with useKosambi=1 on linkage group: 1, iteration: 11
+        
+
+[Mon Apr 19 04:55:25 2021]
+Finished job 41.
+182 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:55:25 2021]
+Job 478: 
+        Ordering the markers with useKosambi=1 on linkage group: 9, iteration: 48
+        
+
+[Mon Apr 19 04:58:35 2021]
+Finished job 478.
+183 of 2160 steps (8%) done
+Select jobs to execute...
+
+[Mon Apr 19 04:58:35 2021]
+Job 698: 
+        Ordering the markers with useKosambi=1 on linkage group: 14, iteration: 18
+        
+
+[Mon Apr 19 05:01:48 2021]
+Finished job 698.
+184 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:01:48 2021]
+Job 535: 
+        Ordering the markers with useKosambi=1 on linkage group: 11, iteration: 5
+        
+
+[Mon Apr 19 05:04:56 2021]
+Finished job 535.
+185 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:04:57 2021]
+Job 1389: 
+        Ordering the markers with useKosambi=1 on linkage group: 28, iteration: 9
+        
+
+[Mon Apr 19 05:06:14 2021]
+Finished job 1389.
+186 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:06:15 2021]
+Job 1391: 
+        Ordering the markers with useKosambi=1 on linkage group: 28, iteration: 11
+        
+
+[Mon Apr 19 05:07:30 2021]
+Finished job 1391.
+187 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:07:31 2021]
+Job 1392: 
+        Ordering the markers with useKosambi=1 on linkage group: 28, iteration: 12
+        
+
+[Mon Apr 19 05:08:47 2021]
+Finished job 1392.
+188 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:08:47 2021]
+Job 1401: 
+        Ordering the markers with useKosambi=1 on linkage group: 28, iteration: 21
+        
+
+[Mon Apr 19 05:10:25 2021]
+Finished job 1401.
+189 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:10:26 2021]
+Job 1018: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 38
+        
+
+[Mon Apr 19 05:12:33 2021]
+Finished job 1018.
+190 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:12:33 2021]
+Job 748: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 18
+        
+
+[Mon Apr 19 05:15:29 2021]
+Finished job 748.
+191 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:15:30 2021]
+Job 1138: 
+        Ordering the markers with useKosambi=1 on linkage group: 23, iteration: 8
+        
+
+[Mon Apr 19 05:18:54 2021]
+Finished job 1138.
+192 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:18:55 2021]
+Job 553: 
+        Ordering the markers with useKosambi=1 on linkage group: 11, iteration: 23
+        
+
+[Mon Apr 19 05:22:04 2021]
+Finished job 553.
+193 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:22:07 2021]
+Job 1423: 
+        Ordering the markers with useKosambi=1 on linkage group: 28, iteration: 43
+        
+
+[Mon Apr 19 05:23:24 2021]
+Finished job 1423.
+194 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:23:24 2021]
+Job 479: 
+        Ordering the markers with useKosambi=1 on linkage group: 9, iteration: 49
+        
+
+[Mon Apr 19 05:26:48 2021]
+Finished job 479.
+195 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:27:07 2021]
+Job 1454: 
+        Ordering the markers with useKosambi=1 on linkage group: 29, iteration: 24
+        
+
+[Mon Apr 19 05:27:43 2021]
+Finished job 1454.
+196 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:27:43 2021]
+Job 854: 
+        Ordering the markers with useKosambi=1 on linkage group: 17, iteration: 24
+        
+
+[Mon Apr 19 05:30:34 2021]
+Finished job 854.
+197 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:30:34 2021]
+Job 1033: 
+        Ordering the markers with useKosambi=1 on linkage group: 21, iteration: 3
+        
+
+[Mon Apr 19 05:32:43 2021]
+Finished job 1033.
+198 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:32:43 2021]
+Job 1034: 
+        Ordering the markers with useKosambi=1 on linkage group: 21, iteration: 4
+        
+
+[Mon Apr 19 05:34:52 2021]
+Finished job 1034.
+199 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:34:52 2021]
+Job 1303: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 23
+        
+
+[Mon Apr 19 05:37:06 2021]
+Finished job 1303.
+200 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:37:06 2021]
+Job 1424: 
+        Ordering the markers with useKosambi=1 on linkage group: 28, iteration: 44
+        
+
+[Mon Apr 19 05:38:22 2021]
+Finished job 1424.
+201 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:38:22 2021]
+Job 853: 
+        Ordering the markers with useKosambi=1 on linkage group: 17, iteration: 23
+        
+
+[Mon Apr 19 05:41:12 2021]
+Finished job 853.
+202 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:41:12 2021]
+Job 749: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 19
+        
+
+[Mon Apr 19 05:44:16 2021]
+Finished job 749.
+203 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:44:16 2021]
+Job 1304: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 24
+        
+
+[Mon Apr 19 05:46:54 2021]
+Finished job 1304.
+204 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:46:54 2021]
+Job 764: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 34
+        
+
+[Mon Apr 19 05:49:48 2021]
+Finished job 764.
+205 of 2160 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:49:49 2021]
+Job 1306: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 26
+        
+
+[Mon Apr 19 05:52:05 2021]
+Finished job 1306.
+206 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:52:05 2021]
+Job 193: 
+        Ordering the markers with useKosambi=1 on linkage group: 4, iteration: 13
+        
+
+[Mon Apr 19 05:55:18 2021]
+Finished job 193.
+207 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:55:18 2021]
+Job 1019: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 39
+        
+
+[Mon Apr 19 05:57:25 2021]
+Finished job 1019.
+208 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:57:25 2021]
+Job 1020: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 40
+        
+
+[Mon Apr 19 05:59:30 2021]
+Finished job 1020.
+209 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 05:59:30 2021]
+Job 1007: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 27
+        
+
+[Mon Apr 19 06:01:33 2021]
+Finished job 1007.
+210 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:01:33 2021]
+Job 555: 
+        Ordering the markers with useKosambi=1 on linkage group: 11, iteration: 25
+        
+
+[Mon Apr 19 06:04:43 2021]
+Finished job 555.
+211 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:04:43 2021]
+Job 1140: 
+        Ordering the markers with useKosambi=1 on linkage group: 23, iteration: 10
+        
+
+[Mon Apr 19 06:08:07 2021]
+Finished job 1140.
+212 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:08:07 2021]
+Job 1455: 
+        Ordering the markers with useKosambi=1 on linkage group: 29, iteration: 25
+        
+
+[Mon Apr 19 06:08:43 2021]
+Finished job 1455.
+213 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:08:43 2021]
+Job 812: 
+        Ordering the markers with useKosambi=1 on linkage group: 16, iteration: 32
+        
+
+[Mon Apr 19 06:11:42 2021]
+Finished job 812.
+214 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:11:42 2021]
+Job 480: 
+        Ordering the markers with useKosambi=1 on linkage group: 9, iteration: 50
+        
+
+[Mon Apr 19 06:14:47 2021]
+Finished job 480.
+215 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:14:47 2021]
+Job 1472: 
+        Ordering the markers with useKosambi=1 on linkage group: 29, iteration: 42
+        
+
+[Mon Apr 19 06:15:23 2021]
+Finished job 1472.
+216 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:15:23 2021]
+Job 191: 
+        Ordering the markers with useKosambi=1 on linkage group: 4, iteration: 11
+        
+
+[Mon Apr 19 06:18:33 2021]
+Finished job 191.
+217 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:18:34 2021]
+Job 722: 
+        Ordering the markers with useKosambi=1 on linkage group: 14, iteration: 42
+        
+
+[Mon Apr 19 06:21:46 2021]
+Finished job 722.
+218 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:21:46 2021]
+Job 465: 
+        Ordering the markers with useKosambi=1 on linkage group: 9, iteration: 35
+        
+
+[Mon Apr 19 06:24:49 2021]
+Finished job 465.
+219 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:24:50 2021]
+Job 1500: 
+        Ordering the markers with useKosambi=1 on linkage group: 30, iteration: 20
+        
+
+[Mon Apr 19 06:25:28 2021]
+Finished job 1500.
+220 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:25:28 2021]
+Job 855: 
+        Ordering the markers with useKosambi=1 on linkage group: 17, iteration: 25
+        
+
+[Mon Apr 19 06:28:28 2021]
+Finished job 855.
+221 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:28:29 2021]
+Job 50: 
+        Ordering the markers with useKosambi=1 on linkage group: 1, iteration: 20
+        
+
+[Mon Apr 19 06:32:20 2021]
+Finished job 50.
+222 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:32:20 2021]
+Job 169: 
+        Ordering the markers with useKosambi=1 on linkage group: 3, iteration: 39
+        
+
+[Mon Apr 19 06:34:51 2021]
+Finished job 169.
+223 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:34:51 2021]
+Job 911: 
+        Ordering the markers with useKosambi=1 on linkage group: 18, iteration: 31
+        
+
+[Mon Apr 19 06:37:00 2021]
+Finished job 911.
+224 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:37:00 2021]
+Job 416: 
+        Ordering the markers with useKosambi=1 on linkage group: 8, iteration: 36
+        
+
+[Mon Apr 19 06:40:03 2021]
+Finished job 416.
+225 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:40:03 2021]
+Job 1426: 
+        Ordering the markers with useKosambi=1 on linkage group: 28, iteration: 46
+        
+
+[Mon Apr 19 06:41:18 2021]
+Finished job 1426.
+226 of 2160 steps (10%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:41:18 2021]
+Job 766: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 36
+        
+
+[Mon Apr 19 06:44:15 2021]
+Finished job 766.
+227 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:44:15 2021]
+Job 1021: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 41
+        
+
+[Mon Apr 19 06:46:18 2021]
+Finished job 1021.
+228 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:46:18 2021]
+Job 1456: 
+        Ordering the markers with useKosambi=1 on linkage group: 29, iteration: 26
+        
+
+[Mon Apr 19 06:46:54 2021]
+Finished job 1456.
+229 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:46:54 2021]
+Job 1036: 
+        Ordering the markers with useKosambi=1 on linkage group: 21, iteration: 6
+        
+
+[Mon Apr 19 06:48:56 2021]
+Finished job 1036.
+230 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:48:56 2021]
+Job 481: 
+        Ordering the markers with useKosambi=1 on linkage group: 10, iteration: 1
+        
+
+[Mon Apr 19 06:51:55 2021]
+Finished job 481.
+231 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:51:56 2021]
+Job 1425: 
+        Ordering the markers with useKosambi=1 on linkage group: 28, iteration: 45
+        
+
+[Mon Apr 19 06:53:25 2021]
+Finished job 1425.
+232 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:53:25 2021]
+Job 190: 
+        Ordering the markers with useKosambi=1 on linkage group: 4, iteration: 10
+        
+
+[Mon Apr 19 06:56:33 2021]
+Finished job 190.
+233 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:56:33 2021]
+Job 1035: 
+        Ordering the markers with useKosambi=1 on linkage group: 21, iteration: 5
+        
+
+[Mon Apr 19 06:58:35 2021]
+Finished job 1035.
+234 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 06:58:35 2021]
+Job 466: 
+        Ordering the markers with useKosambi=1 on linkage group: 9, iteration: 36
+        
+
+[Mon Apr 19 07:01:44 2021]
+Finished job 466.
+235 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:01:44 2021]
+Job 856: 
+        Ordering the markers with useKosambi=1 on linkage group: 17, iteration: 26
+        
+
+[Mon Apr 19 07:04:36 2021]
+Finished job 856.
+236 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:04:36 2021]
+Job 296: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 16
+        
+
+[Mon Apr 19 07:07:28 2021]
+Finished job 296.
+237 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:07:28 2021]
+Job 1285: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 5
+        
+
+[Mon Apr 19 07:09:41 2021]
+Finished job 1285.
+238 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:09:41 2021]
+Job 806: 
+        Ordering the markers with useKosambi=1 on linkage group: 16, iteration: 26
+        
+
+[Mon Apr 19 07:12:41 2021]
+Finished job 806.
+239 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:12:41 2021]
+Job 1001: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 21
+        
+
+[Mon Apr 19 07:14:45 2021]
+Finished job 1001.
+240 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:14:46 2021]
+Job 35: 
+        Ordering the markers with useKosambi=1 on linkage group: 1, iteration: 5
+        
+
+[Mon Apr 19 07:18:36 2021]
+Finished job 35.
+241 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:18:36 2021]
+Job 730: 
+        Ordering the markers with useKosambi=1 on linkage group: 14, iteration: 50
+        
+
+[Mon Apr 19 07:21:46 2021]
+Finished job 730.
+242 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:21:46 2021]
+Job 311: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 31
+        
+
+[Mon Apr 19 07:24:40 2021]
+Finished job 311.
+243 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:24:41 2021]
+Job 341: 
+        Ordering the markers with useKosambi=1 on linkage group: 7, iteration: 11
+        
+
+[Mon Apr 19 07:26:46 2021]
+Finished job 341.
+244 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:26:46 2021]
+Job 731: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 1
+        
+
+[Mon Apr 19 07:29:43 2021]
+Finished job 731.
+245 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:29:44 2021]
+Job 340: 
+        Ordering the markers with useKosambi=1 on linkage group: 7, iteration: 10
+        
+
+[Mon Apr 19 07:31:52 2021]
+Finished job 340.
+246 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:31:53 2021]
+Job 1286: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 6
+        
+
+[Mon Apr 19 07:34:06 2021]
+Finished job 1286.
+247 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:34:06 2021]
+Job 310: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 30
+        
+
+[Mon Apr 19 07:37:04 2021]
+Finished job 310.
+248 of 2160 steps (11%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:37:04 2021]
+Job 717: 
+        Ordering the markers with useKosambi=1 on linkage group: 14, iteration: 37
+        
+
+[Mon Apr 19 07:40:12 2021]
+Finished job 717.
+249 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:40:13 2021]
+Job 34: 
+        Ordering the markers with useKosambi=1 on linkage group: 1, iteration: 4
+        
+
+[Mon Apr 19 07:44:03 2021]
+Finished job 34.
+250 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:44:04 2021]
+Job 1107: 
+        Ordering the markers with useKosambi=1 on linkage group: 22, iteration: 27
+        
+
+[Mon Apr 19 07:46:17 2021]
+Finished job 1107.
+251 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:46:17 2021]
+Job 807: 
+        Ordering the markers with useKosambi=1 on linkage group: 16, iteration: 27
+        
+
+[Mon Apr 19 07:49:18 2021]
+Finished job 807.
+252 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:49:18 2021]
+Job 1002: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 22
+        
+
+[Mon Apr 19 07:51:17 2021]
+Finished job 1002.
+253 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:51:17 2021]
+Job 1000: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 20
+        
+
+[Mon Apr 19 07:53:23 2021]
+Finished job 1000.
+254 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:53:24 2021]
+Job 36: 
+        Ordering the markers with useKosambi=1 on linkage group: 1, iteration: 6
+        
+
+[Mon Apr 19 07:57:01 2021]
+Finished job 36.
+255 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:57:01 2021]
+Job 312: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 32
+        
+
+[Mon Apr 19 07:59:56 2021]
+Finished job 312.
+256 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 07:59:56 2021]
+Job 342: 
+        Ordering the markers with useKosambi=1 on linkage group: 7, iteration: 12
+        
+
+[Mon Apr 19 08:02:06 2021]
+Finished job 342.
+257 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:02:07 2021]
+Job 895: 
+        Ordering the markers with useKosambi=1 on linkage group: 18, iteration: 15
+        
+
+[Mon Apr 19 08:04:19 2021]
+Finished job 895.
+258 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:04:19 2021]
+Job 700: 
+        Ordering the markers with useKosambi=1 on linkage group: 14, iteration: 20
+        
+
+[Mon Apr 19 08:07:28 2021]
+Finished job 700.
+259 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:07:28 2021]
+Job 772: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 42
+        
+
+[Mon Apr 19 08:10:23 2021]
+Finished job 772.
+260 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:10:23 2021]
+Job 183: 
+        Ordering the markers with useKosambi=1 on linkage group: 4, iteration: 3
+        
+
+[Mon Apr 19 08:13:38 2021]
+Finished job 183.
+261 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:13:38 2021]
+Job 680: 
+        Ordering the markers with useKosambi=1 on linkage group: 13, iteration: 50
+        
+
+[Mon Apr 19 08:16:40 2021]
+Finished job 680.
+262 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:16:40 2021]
+Job 1265: 
+        Ordering the markers with useKosambi=1 on linkage group: 25, iteration: 35
+        
+
+[Mon Apr 19 08:18:21 2021]
+Finished job 1265.
+263 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:18:21 2021]
+Job 961: 
+        Ordering the markers with useKosambi=1 on linkage group: 19, iteration: 31
+        
+
+[Mon Apr 19 08:20:45 2021]
+Finished job 961.
+264 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:20:46 2021]
+Job 298: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 18
+        
+
+[Mon Apr 19 08:23:41 2021]
+Finished job 298.
+265 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:23:41 2021]
+Job 1287: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 7
+        
+
+[Mon Apr 19 08:25:55 2021]
+Finished job 1287.
+266 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:25:55 2021]
+Job 718: 
+        Ordering the markers with useKosambi=1 on linkage group: 14, iteration: 38
+        
+
+[Mon Apr 19 08:29:05 2021]
+Finished job 718.
+267 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:29:05 2021]
+Job 1108: 
+        Ordering the markers with useKosambi=1 on linkage group: 22, iteration: 28
+        
+
+[Mon Apr 19 08:31:24 2021]
+Finished job 1108.
+268 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:31:24 2021]
+Job 808: 
+        Ordering the markers with useKosambi=1 on linkage group: 16, iteration: 28
+        
+
+[Mon Apr 19 08:34:23 2021]
+Finished job 808.
+269 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:34:23 2021]
+Job 732: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 2
+        
+
+[Mon Apr 19 08:37:19 2021]
+Finished job 732.
+270 of 2160 steps (12%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:37:19 2021]
+Job 1003: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 23
+        
+
+[Mon Apr 19 08:39:27 2021]
+Finished job 1003.
+271 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:39:27 2021]
+Job 1289: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 9
+        
+
+[Mon Apr 19 08:41:43 2021]
+Finished job 1289.
+272 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:41:43 2021]
+Job 300: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 20
+        
+
+[Mon Apr 19 08:44:38 2021]
+Finished job 300.
+273 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:44:38 2021]
+Job 734: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 4
+        
+
+[Mon Apr 19 08:47:35 2021]
+Finished job 734.
+274 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:47:35 2021]
+Job 1470: 
+        Ordering the markers with useKosambi=1 on linkage group: 29, iteration: 40
+        
+
+[Mon Apr 19 08:48:11 2021]
+Finished job 1470.
+275 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:48:11 2021]
+Job 810: 
+        Ordering the markers with useKosambi=1 on linkage group: 16, iteration: 30
+        
+
+[Mon Apr 19 08:53:14 2021]
+Finished job 810.
+276 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:53:14 2021]
+Job 1005: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 25
+        
+
+[Mon Apr 19 08:55:20 2021]
+Finished job 1005.
+277 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:55:20 2021]
+Job 344: 
+        Ordering the markers with useKosambi=1 on linkage group: 7, iteration: 14
+        
+
+[Mon Apr 19 08:57:29 2021]
+Finished job 344.
+278 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 08:57:29 2021]
+Job 39: 
+        Ordering the markers with useKosambi=1 on linkage group: 1, iteration: 9
+        
+
+[Mon Apr 19 09:01:22 2021]
+Finished job 39.
+279 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:01:23 2021]
+Job 314: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 34
+        
+
+[Mon Apr 19 09:04:20 2021]
+Finished job 314.
+280 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:04:20 2021]
+Job 315: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 35
+        
+
+[Mon Apr 19 09:07:15 2021]
+Finished job 315.
+281 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:07:15 2021]
+Job 38: 
+        Ordering the markers with useKosambi=1 on linkage group: 1, iteration: 8
+        
+
+[Mon Apr 19 09:11:07 2021]
+Finished job 38.
+282 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:11:07 2021]
+Job 345: 
+        Ordering the markers with useKosambi=1 on linkage group: 7, iteration: 15
+        
+
+[Mon Apr 19 09:13:16 2021]
+Finished job 345.
+283 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:13:16 2021]
+Job 735: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 5
+        
+
+[Mon Apr 19 09:16:07 2021]
+Finished job 735.
+284 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:16:07 2021]
+Job 1290: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 10
+        
+
+[Mon Apr 19 09:18:15 2021]
+Finished job 1290.
+285 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:18:15 2021]
+Job 1004: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 24
+        
+
+[Mon Apr 19 09:20:16 2021]
+Finished job 1004.
+286 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:20:16 2021]
+Job 721: 
+        Ordering the markers with useKosambi=1 on linkage group: 14, iteration: 41
+        
+
+[Mon Apr 19 09:23:20 2021]
+Finished job 721.
+287 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:23:21 2021]
+Job 809: 
+        Ordering the markers with useKosambi=1 on linkage group: 16, iteration: 29
+        
+
+[Mon Apr 19 09:26:20 2021]
+Finished job 809.
+288 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:26:21 2021]
+Job 1111: 
+        Ordering the markers with useKosambi=1 on linkage group: 22, iteration: 31
+        
+
+[Mon Apr 19 09:28:33 2021]
+Finished job 1111.
+289 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:28:33 2021]
+Job 1109: 
+        Ordering the markers with useKosambi=1 on linkage group: 22, iteration: 29
+        
+
+[Mon Apr 19 09:30:44 2021]
+Finished job 1109.
+290 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:30:45 2021]
+Job 811: 
+        Ordering the markers with useKosambi=1 on linkage group: 16, iteration: 31
+        
+
+[Mon Apr 19 09:33:40 2021]
+Finished job 811.
+291 of 2160 steps (13%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:33:40 2021]
+Job 1006: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 26
+        
+
+[Mon Apr 19 09:35:39 2021]
+Finished job 1006.
+292 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:35:39 2021]
+Job 40: 
+        Ordering the markers with useKosambi=1 on linkage group: 1, iteration: 10
+        
+
+[Mon Apr 19 09:39:29 2021]
+Finished job 40.
+293 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:39:29 2021]
+Job 842: 
+        Ordering the markers with useKosambi=1 on linkage group: 17, iteration: 12
+        
+
+[Mon Apr 19 09:42:17 2021]
+Finished job 842.
+294 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:42:17 2021]
+Job 316: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 36
+        
+
+[Mon Apr 19 09:45:23 2021]
+Finished job 316.
+295 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:45:28 2021]
+Job 1288: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 8
+        
+
+[Mon Apr 19 09:47:37 2021]
+Finished job 1288.
+296 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:47:37 2021]
+Job 346: 
+        Ordering the markers with useKosambi=1 on linkage group: 7, iteration: 16
+        
+
+[Mon Apr 19 09:49:37 2021]
+Finished job 346.
+297 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:49:37 2021]
+Job 835: 
+        Ordering the markers with useKosambi=1 on linkage group: 17, iteration: 5
+        
+
+[Mon Apr 19 09:52:23 2021]
+Finished job 835.
+298 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:52:25 2021]
+Job 955: 
+        Ordering the markers with useKosambi=1 on linkage group: 19, iteration: 25
+        
+
+[Mon Apr 19 09:54:47 2021]
+Finished job 955.
+299 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 09:54:47 2021]
+Job 235: 
+        Ordering the markers with useKosambi=1 on linkage group: 5, iteration: 5
+        
+
+[Mon Apr 19 10:01:02 2021]
+Finished job 235.
+300 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:01:02 2021]
+Job 655: 
+        Ordering the markers with useKosambi=1 on linkage group: 13, iteration: 25
+        
+
+[Mon Apr 19 10:04:03 2021]
+Finished job 655.
+301 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:04:03 2021]
+Job 1501: 
+        Ordering the markers with useKosambi=1 on linkage group: 30, iteration: 21
+        
+
+[Mon Apr 19 10:04:40 2021]
+Finished job 1501.
+302 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:04:40 2021]
+Job 1037: 
+        Ordering the markers with useKosambi=1 on linkage group: 21, iteration: 7
+        
+
+[Mon Apr 19 10:06:38 2021]
+Finished job 1037.
+303 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:06:38 2021]
+Job 331: 
+        Ordering the markers with useKosambi=1 on linkage group: 7, iteration: 1
+        
+
+[Mon Apr 19 10:08:42 2021]
+Finished job 331.
+304 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:08:42 2021]
+Job 332: 
+        Ordering the markers with useKosambi=1 on linkage group: 7, iteration: 2
+        
+
+[Mon Apr 19 10:10:47 2021]
+Finished job 332.
+305 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:10:48 2021]
+Job 1291: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 11
+        
+
+[Mon Apr 19 10:12:57 2021]
+Finished job 1291.
+306 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:12:58 2021]
+Job 557: 
+        Ordering the markers with useKosambi=1 on linkage group: 11, iteration: 27
+        
+
+[Mon Apr 19 10:15:56 2021]
+Finished job 557.
+307 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:15:57 2021]
+Job 1307: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 27
+        
+
+[Mon Apr 19 10:18:05 2021]
+Finished job 1307.
+308 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:18:05 2021]
+Job 1502: 
+        Ordering the markers with useKosambi=1 on linkage group: 30, iteration: 22
+        
+
+[Mon Apr 19 10:18:39 2021]
+Finished job 1502.
+309 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:18:39 2021]
+Job 752: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 22
+        
+
+[Mon Apr 19 10:21:13 2021]
+Finished job 752.
+310 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:21:14 2021]
+Job 482: 
+        Ordering the markers with useKosambi=1 on linkage group: 10, iteration: 2
+        
+
+[Mon Apr 19 10:23:47 2021]
+Finished job 482.
+311 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:23:47 2021]
+Job 736: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 6
+        
+
+[Mon Apr 19 10:26:16 2021]
+Finished job 736.
+312 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:26:16 2021]
+Job 189: 
+        Ordering the markers with useKosambi=1 on linkage group: 4, iteration: 9
+        
+
+[Mon Apr 19 10:29:04 2021]
+Finished job 189.
+313 of 2160 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:29:04 2021]
+Job 733: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 3
+        
+
+[Mon Apr 19 10:31:45 2021]
+Finished job 733.
+314 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:31:45 2021]
+Job 767: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 37
+        
+
+[Mon Apr 19 10:34:18 2021]
+Finished job 767.
+315 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:34:19 2021]
+Job 467: 
+        Ordering the markers with useKosambi=1 on linkage group: 9, iteration: 37
+        
+
+[Mon Apr 19 10:37:16 2021]
+Finished job 467.
+316 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:37:16 2021]
+Job 857: 
+        Ordering the markers with useKosambi=1 on linkage group: 17, iteration: 27
+        
+
+[Mon Apr 19 10:39:57 2021]
+Finished job 857.
+317 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:40:00 2021]
+Job 343: 
+        Ordering the markers with useKosambi=1 on linkage group: 7, iteration: 13
+        
+
+[Mon Apr 19 10:41:51 2021]
+Finished job 343.
+318 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:41:51 2021]
+Job 1022: 
+        Ordering the markers with useKosambi=1 on linkage group: 20, iteration: 42
+        
+
+[Mon Apr 19 10:43:46 2021]
+Finished job 1022.
+319 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:43:46 2021]
+Job 313: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 33
+        
+
+[Mon Apr 19 10:46:51 2021]
+Finished job 313.
+320 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:47:06 2021]
+Job 377: 
+        Ordering the markers with useKosambi=1 on linkage group: 7, iteration: 47
+        
+
+[Mon Apr 19 10:49:19 2021]
+Finished job 377.
+321 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 10:49:20 2021]
+Job 37: 
+        Ordering the markers with useKosambi=1 on linkage group: 1, iteration: 7
+        
+
+[Mon Apr 19 11:11:58 2021]
+Finished job 37.
+322 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 11:13:52 2021]
+Job 558: 
+        Ordering the markers with useKosambi=1 on linkage group: 11, iteration: 28
+        
+
+[Mon Apr 19 11:17:49 2021]
+Finished job 558.
+323 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 11:17:49 2021]
+Job 1143: 
+        Ordering the markers with useKosambi=1 on linkage group: 23, iteration: 13
+        
+
+[Mon Apr 19 11:20:50 2021]
+Finished job 1143.
+324 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 11:20:50 2021]
+Job 1308: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 28
+        
+
+[Mon Apr 19 11:22:50 2021]
+Finished job 1308.
+325 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 11:22:50 2021]
+Job 805: 
+        Ordering the markers with useKosambi=1 on linkage group: 16, iteration: 25
+        
+
+[Mon Apr 19 12:03:04 2021]
+Finished job 805.
+326 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 12:03:50 2021]
+Job 483: 
+        Ordering the markers with useKosambi=1 on linkage group: 10, iteration: 3
+        
+
+[Mon Apr 19 12:10:19 2021]
+Finished job 483.
+327 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 12:10:19 2021]
+Job 1480: 
+        Ordering the markers with useKosambi=1 on linkage group: 29, iteration: 50
+        
+
+[Mon Apr 19 12:10:50 2021]
+Finished job 1480.
+328 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 12:10:50 2021]
+Job 1556: 
+        Ordering the markers with useKosambi=1 on linkage group: 31, iteration: 26
+        
+
+[Mon Apr 19 12:16:10 2021]
+Finished job 1556.
+329 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 12:16:10 2021]
+Job 1458: 
+        Ordering the markers with useKosambi=1 on linkage group: 29, iteration: 28
+        
+
+[Mon Apr 19 12:16:43 2021]
+Finished job 1458.
+330 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 12:16:43 2021]
+Job 768: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 38
+        
+
+[Mon Apr 19 12:22:40 2021]
+Finished job 768.
+331 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 12:22:40 2021]
+Job 468: 
+        Ordering the markers with useKosambi=1 on linkage group: 9, iteration: 38
+        
+
+[Mon Apr 19 12:40:22 2021]
+Finished job 468.
+332 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 12:40:22 2021]
+Job 858: 
+        Ordering the markers with useKosambi=1 on linkage group: 17, iteration: 28
+        
+
+[Mon Apr 19 12:49:42 2021]
+Finished job 858.
+333 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 12:49:42 2021]
+Job 1038: 
+        Ordering the markers with useKosambi=1 on linkage group: 21, iteration: 8
+        
+
+[Mon Apr 19 12:54:58 2021]
+Finished job 1038.
+334 of 2160 steps (15%) done
+Select jobs to execute...
+
+[Mon Apr 19 12:54:58 2021]
+Job 1507: 
+        Ordering the markers with useKosambi=1 on linkage group: 30, iteration: 27
+        
+
+[Mon Apr 19 13:05:16 2021]
+Finished job 1507.
+335 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 13:05:16 2021]
+Job 1105: 
+        Ordering the markers with useKosambi=1 on linkage group: 22, iteration: 25
+        
+
+[Mon Apr 19 13:15:36 2021]
+Finished job 1105.
+336 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 13:15:36 2021]
+Job 198: 
+        Ordering the markers with useKosambi=1 on linkage group: 4, iteration: 18
+        
+
+[Mon Apr 19 13:31:01 2021]
+Finished job 198.
+337 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 13:31:02 2021]
+Job 715: 
+        Ordering the markers with useKosambi=1 on linkage group: 14, iteration: 35
+        
+
+[Mon Apr 19 13:46:27 2021]
+Finished job 715.
+338 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 13:46:27 2021]
+Job 843: 
+        Ordering the markers with useKosambi=1 on linkage group: 17, iteration: 13
+        
+
+[Mon Apr 19 13:56:44 2021]
+Finished job 843.
+339 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 13:56:44 2021]
+Job 334: 
+        Ordering the markers with useKosambi=1 on linkage group: 7, iteration: 4
+        
+
+[Mon Apr 19 14:14:15 2021]
+Finished job 334.
+340 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 14:14:15 2021]
+Job 559: 
+        Ordering the markers with useKosambi=1 on linkage group: 11, iteration: 29
+        
+
+[Mon Apr 19 14:19:31 2021]
+Finished job 559.
+341 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 14:19:31 2021]
+Job 246: 
+        Ordering the markers with useKosambi=1 on linkage group: 5, iteration: 16
+        
+
+[Mon Apr 19 14:22:15 2021]
+Finished job 246.
+342 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 14:22:15 2021]
+Job 1144: 
+        Ordering the markers with useKosambi=1 on linkage group: 23, iteration: 14
+        
+
+[Mon Apr 19 14:32:36 2021]
+Finished job 1144.
+343 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 14:32:36 2021]
+Job 1284: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 4
+        
+
+[Mon Apr 19 14:43:04 2021]
+Finished job 1284.
+344 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 14:43:04 2021]
+Job 1309: 
+        Ordering the markers with useKosambi=1 on linkage group: 26, iteration: 29
+        
+
+[Mon Apr 19 14:48:21 2021]
+Finished job 1309.
+345 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 14:48:21 2021]
+Job 729: 
+        Ordering the markers with useKosambi=1 on linkage group: 14, iteration: 49
+        
+
+[Mon Apr 19 14:53:31 2021]
+Finished job 729.
+346 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 14:53:31 2021]
+Job 1039: 
+        Ordering the markers with useKosambi=1 on linkage group: 21, iteration: 9
+        
+
+[Mon Apr 19 14:58:44 2021]
+Finished job 1039.
+347 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 14:58:44 2021]
+Job 1459: 
+        Ordering the markers with useKosambi=1 on linkage group: 29, iteration: 29
+        
+
+[Mon Apr 19 15:09:02 2021]
+Finished job 1459.
+348 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 15:09:02 2021]
+Job 769: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 39
+        
+
+[Mon Apr 19 15:14:12 2021]
+Finished job 769.
+349 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 15:14:12 2021]
+Job 339: 
+        Ordering the markers with useKosambi=1 on linkage group: 7, iteration: 9
+        
+
+[Mon Apr 19 15:19:22 2021]
+Finished job 339.
+350 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 15:19:22 2021]
+Job 1519: 
+        Ordering the markers with useKosambi=1 on linkage group: 30, iteration: 39
+        
+
+[Mon Apr 19 15:24:34 2021]
+Finished job 1519.
+351 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 15:24:34 2021]
+Job 309: 
+        Ordering the markers with useKosambi=1 on linkage group: 6, iteration: 29
+        
+
+[Mon Apr 19 15:34:51 2021]
+Finished job 309.
+352 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 15:34:52 2021]
+Job 859: 
+        Ordering the markers with useKosambi=1 on linkage group: 17, iteration: 29
+        
+
+[Mon Apr 19 18:06:59 2021]
+Finished job 859.
+353 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 18:31:10 2021]
+Job 33: 
+        Ordering the markers with useKosambi=1 on linkage group: 1, iteration: 3
+        
+
+[Mon Apr 19 23:13:03 2021]
+Finished job 33.
+354 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Mon Apr 19 23:24:43 2021]
+Job 335: 
+        Ordering the markers with useKosambi=1 on linkage group: 7, iteration: 5
+        
+
+[Tue Apr 20 00:27:44 2021]
+Finished job 335.
+355 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Tue Apr 20 00:42:29 2021]
+Job 560: 
+        Ordering the markers with useKosambi=1 on linkage group: 11, iteration: 30
+        
+
+[Tue Apr 20 01:52:04 2021]
+Finished job 560.
+356 of 2160 steps (16%) done
+Select jobs to execute...
+
+[Tue Apr 20 01:56:42 2021]
+Job 755: 
+        Ordering the markers with useKosambi=1 on linkage group: 15, iteration: 25
+        
+
+Warning: the following output files of rule order_markers were not present when the DAG was created:
+{'ordermarkers/iterations/ordered.15.25'}
+[Tue Apr 20 02:46:23 2021]
+Finished job 755.
+357 of 2160 steps (17%) done
+Select jobs to execute...
+
+[Tue Apr 20 02:57:31 2021]
+Job 666: 
+        Ordering the markers with useKosambi=1 on linkage group: 13, iteration: 36
+        
+
+Warning: the following output files of rule order_markers were not present when the DAG was created:
+{'ordermarkers/iterations/ordered.13.36'}
+[Tue Apr 20 03:55:07 2021]
+Finished job 666.
+358 of 2160 steps (17%) done
+Select jobs to execute...
+
+[Tue Apr 20 04:35:00 2021]
+Job 536: 
+        Ordering the markers with useKosambi=1 on linkage group: 11, iteration: 6
+        
+
+Warning: the following output files of rule order_markers were not present when the DAG was created:
+{'ordermarkers/iterations/ordered.11.6'}
+[Tue Apr 20 06:57:06 2021]
+Finished job 536.
+359 of 2160 steps (17%) done
+Select jobs to execute...
+
+[Tue Apr 20 07:18:30 2021]
+Job 1040: 
+        Ordering the markers with useKosambi=1 on linkage group: 21, iteration: 10
+        
+
+Warning: the following output files of rule order_markers were not present when the DAG was created:
+{'ordermarkers/iterations/ordered.21.10'}
+[Tue Apr 20 08:16:19 2021]
+Finished job 1040.
+360 of 2160 steps (17%) done
+Select jobs to execute...
+
+[Tue Apr 20 08:34:39 2021]
+Job 1460: 
+        Ordering the markers with useKosambi=1 on linkage group: 29, iteration: 30
+        
+
+Warning: the following output files of rule order_markers were not present when the DAG was created:
+{'ordermarkers/iterations/ordered.29.30'}
