@@ -1,0 +1,53 @@
+Linear mixed model fit by REML ['lmerMod']
+Formula: rec_rate ~ chr_length + (1 | chr_type) + pos_group + GC + density_SINE +  
+    density_DNA + density_TcM + density_LINE + density_LTR +      density_nonLTR + density_genes
+   Data: rr_repeats_genes_wide_sc
+
+REML criterion at convergence: 960.2
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-1.8278 -0.5414 -0.0864  0.3754  4.4233 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ chr_type (Intercept) 0.000    0.000   
+ Residual             5.027    2.242   
+Number of obs: 217, groups:  chr_type, 3
+
+Fixed effects:
+               Estimate Std. Error t value
+(Intercept)     2.93246    0.45331   6.469
+chr_length     -0.48336    0.29868  -1.618
+pos_group2      0.73708    0.49675   1.484
+pos_group3      0.18968    0.56368   0.337
+pos_group4      1.65990    0.63254   2.624
+pos_group5      0.26948    0.75397   0.357
+GC              0.22708    0.45726   0.497
+density_SINE    1.25147    0.43409   2.883
+density_DNA     0.23164    0.35567   0.651
+density_TcM     0.17149    0.28788   0.596
+density_LINE    0.65415    0.42754   1.530
+density_LTR     0.40221    0.45113   0.892
+density_nonLTR -1.94311    0.69246  -2.806
+density_genes   0.01084    0.22583   0.048
+optimizer (nloptwrap) convergence code: 0 (OK)
+boundary (singular) fit: see ?isSingular
+
+                    2.5 %      97.5 %
+.sig01          0.0000000  0.62235725
+.sigma          1.9795000  2.38975812
+(Intercept)     2.0653189  3.79857070
+chr_length     -1.0520672  0.08535663
+pos_group2     -0.2087877  1.68294060
+pos_group3     -0.8836253  1.26299417
+pos_group4      0.4554834  2.86432379
+pos_group5     -1.1661659  1.70512224
+GC             -0.6435804  1.09774404
+density_SINE    0.4249229  2.07802243
+density_DNA    -0.4455967  0.90887260
+density_TcM    -0.3766527  0.71963708
+density_LINE   -0.1599300  1.46822819
+density_LTR    -0.4567898  1.26121332
+density_nonLTR -3.2616209 -0.62459414
+density_genes  -0.4191618  0.44084284

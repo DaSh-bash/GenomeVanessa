@@ -1,0 +1,56 @@
+
+Call:
+lm(formula = rr_repeats_genes_wide_sc$rec_rate ~ rr_repeats_genes_wide_sc$chr_length + 
+    rr_repeats_genes_wide_sc$chr_type + rr_repeats_genes_wide_sc$pos_group + 
+    rr_repeats_genes_wide_sc$GC + rr_repeats_genes_wide_sc$density_SINE + 
+    rr_repeats_genes_wide_sc$density_DNA + rr_repeats_genes_wide_sc$density_TcM + 
+    rr_repeats_genes_wide_sc$density_LINE + rr_repeats_genes_wide_sc$density_LTR + 
+    rr_repeats_genes_wide_sc$density_nonLTR + rr_repeats_genes_wide_sc$density_genes)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.2129 -1.2491 -0.2023  0.8660  9.7243 
+
+Coefficients:
+                                        Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                              3.07511    0.50335   6.109  5.1e-09 ***
+rr_repeats_genes_wide_sc$chr_length     -0.45965    0.30816  -1.492   0.1374    
+rr_repeats_genes_wide_sc$chr_typeW      -2.59282    3.72675  -0.696   0.4874    
+rr_repeats_genes_wide_sc$chr_typeZ       0.05573    0.83002   0.067   0.9465    
+rr_repeats_genes_wide_sc$pos_group2      0.73143    0.49996   1.463   0.1450    
+rr_repeats_genes_wide_sc$pos_group3      0.18302    0.56608   0.323   0.7468    
+rr_repeats_genes_wide_sc$pos_group4      1.59879    0.64140   2.493   0.0135 *  
+rr_repeats_genes_wide_sc$pos_group5      0.09249    0.80266   0.115   0.9084    
+rr_repeats_genes_wide_sc$GC              0.22352    0.46093   0.485   0.6283    
+rr_repeats_genes_wide_sc$density_SINE    1.09336    0.49139   2.225   0.0272 *  
+rr_repeats_genes_wide_sc$density_DNA     0.11714    0.39306   0.298   0.7660    
+rr_repeats_genes_wide_sc$density_TcM     0.14018    0.29316   0.478   0.6330    
+rr_repeats_genes_wide_sc$density_LINE    0.67489    0.43554   1.550   0.1228    
+rr_repeats_genes_wide_sc$density_LTR     0.66441    0.59040   1.125   0.2618    
+rr_repeats_genes_wide_sc$density_nonLTR -1.68656    0.78732  -2.142   0.0334 *  
+rr_repeats_genes_wide_sc$density_genes   0.01194    0.22973   0.052   0.9586    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 2.251 on 201 degrees of freedom
+  (10 observations deleted due to missingness)
+Multiple R-squared:  0.252,	Adjusted R-squared:  0.1962 
+F-statistic: 4.514 on 15 and 201 DF,  p-value: 2.342e-07
+
+                                             2.5 %     97.5 %
+(Intercept)                              2.0825825  4.0676470
+rr_repeats_genes_wide_sc$chr_length     -1.0672932  0.1480029
+rr_repeats_genes_wide_sc$chr_typeW      -9.9413652  4.7557207
+rr_repeats_genes_wide_sc$chr_typeZ      -1.5809239  1.6923869
+rr_repeats_genes_wide_sc$pos_group2     -0.2544049  1.7172608
+rr_repeats_genes_wide_sc$pos_group3     -0.9331910  1.2992297
+rr_repeats_genes_wide_sc$pos_group4      0.3340514  2.8635291
+rr_repeats_genes_wide_sc$pos_group5     -1.4902240  1.6752029
+rr_repeats_genes_wide_sc$GC             -0.6853610  1.1323947
+rr_repeats_genes_wide_sc$density_SINE    0.1244211  2.0623081
+rr_repeats_genes_wide_sc$density_DNA    -0.6579048  0.8921869
+rr_repeats_genes_wide_sc$density_TcM    -0.4378729  0.7182362
+rr_repeats_genes_wide_sc$density_LINE   -0.1839251  1.5337146
+rr_repeats_genes_wide_sc$density_LTR    -0.4997528  1.8285790
+rr_repeats_genes_wide_sc$density_nonLTR -3.2390216 -0.1341019
+rr_repeats_genes_wide_sc$density_genes  -0.4410561  0.4649403

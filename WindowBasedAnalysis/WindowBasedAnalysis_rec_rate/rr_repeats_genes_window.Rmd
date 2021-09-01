@@ -139,10 +139,15 @@ rr_repeats_genes_long$prop_var <- rr_repeats_genes_long$length_var/(rr_repeats_g
 rr_repeats_genes_long$rel_pos <- ((rr_repeats_genes_long$begin+rr_repeats_genes_long$end)/2)/rr_repeats_genes_long$chr_length
 str(rr_repeats_genes_long)
 
+#grouped by position, folded
+rr_repeats_genes_long$pos_group <- cut(sqrt(((rr_repeats_genes_long$rel_pos*100)-50)^2), c(-Inf,10,20,30,40,Inf), c(1,2,3,4,5))
+
 #get wide format for 
 rr_repeats_genes_wide <- pivot_wider(rr_repeats_genes_long, names_from = gen_feat, values_from = c(count_var, length_var, density_var, prop_var))
 colnames(rr_repeats_genes_wide) <- gsub("_var", "", colnames(rr_repeats_genes_wide))
 str(rr_repeats_genes_wide)
+
+
 
 ```
 
@@ -183,6 +188,15 @@ write.table(repeat_chr_level, file = "tables/chr_level.table")
 
 
 ```{r tests}
+
+pos_groups_test <- pairwise.t.test(rr_repeats_genes_long$rec_rate, rr_repeats_genes_long$pos_group, p.adjust.method = "holm")
+
+capture.output(pos_groups_test, file = "result_regional_pos_pairwise_t_test.txt")
+boxplot(rr_repeats_genes_long$rec_rate~rr_repeats_genes_long$pos_group)
+
+lm_groups <- lm(rr_repeats_genes_long$rec_rate~rr_repeats_genes_long$pos_group + rr_repeats_genes_long$chr_length)
+anova(lm_groups)
+summary(lm_groups)
 
 #function to get the results in a table
 #https://stackoverflow.com/questions/34326906/extracting-and-formatting-results-of-cor-test-on-multiple-pairs-of-columns
@@ -424,7 +438,7 @@ ggplot(corr_df, aes(var1, var2, fill=estimate_noW, colour=cut(p.value_noW, c(-In
 #assign colour variables
 col_Z <- "#009294"   #"#005F60"
 col_W <- "#FAAB36"
-col_autosome <- "dark grey"
+col_autosome <- "grey"
 
 col_rec_rate <- "#249EA0"
 col_repeats <- "#FD5900"
@@ -634,9 +648,9 @@ boxplot(rr_repeats_window$length_nonLTR/rr_repeats_window$count_nonLTR~rr_repeat
 #function definition
 plot_regional_distribution <- function(VAR_df, VAR){
   ggplot(VAR_df, aes(sqrt((rel_pos-0.5)^2), VAR)) +
-  geom_point(aes(colour=chr_type, fill=chr_type),size=1, shape=21) +
+  geom_point(aes(colour=chr_type, fill=chr_type),size=1, shape=21, colour="black", stroke=0.1) +
   geom_smooth(method="loess", colour=col_VAR, fill=col_VAR) +
-  scale_colour_discrete(type = c(col_autosome, col_W, col_Z)) +
+  #scale_colour_discrete(type = c(col_autosome, col_W, col_Z)) +
   scale_fill_discrete(type = c(col_autosome, col_W, col_Z)) +
   #facet_wrap(~chrom, scales = "free_x") +
   #scale_x_continuous(breaks = seq(1,max(rr_repeats$begin), 2000000)) +
@@ -662,6 +676,20 @@ plot_regional_distribution <- function(VAR_df, VAR){
 y_axis_title <- "Recombination rate (cM/Mb)"
 col_VAR="dark grey"
 regional_rr <- plot_regional_distribution(rr_repeats_genes_long, rr_repeats_genes_long$rec_rate)
+regional_rr
+
+
+mean_rr_pos <- aggregate(rr_repeats_genes_long$rec_rate, by=list(rr_repeats_genes_long$pos_group), mean, na.rm=T)
+mean_rr_pos$sd <- aggregate(rr_repeats_genes_long$rec_rate, by=list(rr_repeats_genes_long$pos_group), sd, na.rm=T)$x 
+
+regional_rr +
+  geom_errorbar(data=mean_rr_pos, aes(x=(as.numeric(Group.1)/10)-0.05, y=x, ymin=mean_rr_pos$x-mean_rr_pos$sd, ymax=mean_rr_pos$x+mean_rr_pos$sd), 
+                colour="black", width=.01,) +
+  geom_point(data=mean_rr_pos, aes(x=(as.numeric(Group.1)/10)-0.05, y=x), size=3, shape=21, fill="white", colour="dark grey")
+
+ggsave("regional_distr_pos_group", path = "plots/")
+
+
 
 #GC-content
 y_axis_title <- "GC-content (%)"
@@ -860,56 +888,44 @@ corr_prop_rr <-
 ```{r lm}
 rr_repeats_genes_wide <- as.data.frame(rr_repeats_genes_wide)
 
-rr_repeats_genes_wide_sc <- cbind(rr_repeats_genes_wide[,c("chrom", "chr_type", "rec_rate")], scale(rr_repeats_genes_wide$chr_length), scale(rr_repeats_genes_wide$GC), scale(select(rr_repeats_genes_wide, starts_with("density_"))), scale(select(rr_repeats_genes_wide, starts_with("prop_"))))
+rr_repeats_genes_wide_sc <- cbind(rr_repeats_genes_wide[,c("chrom", "chr_type", "rec_rate", "pos_group")], scale(rr_repeats_genes_wide$chr_length), scale(rr_repeats_genes_wide$GC), scale(select(rr_repeats_genes_wide, starts_with("density_"))), scale(select(rr_repeats_genes_wide, starts_with("prop_"))))
 
-colnames(rr_repeats_genes_wide_sc)[4] <- "chr_length"
-colnames(rr_repeats_genes_wide_sc)[5] <- "GC"
+colnames(rr_repeats_genes_wide_sc)
+colnames(rr_repeats_genes_wide_sc)[5] <- "chr_length"
+colnames(rr_repeats_genes_wide_sc)[6] <- "GC"
 
-
-rr_repeats_genes_wide_sc$rel_pos <- rr_repeats_genes_wide$rel_pos
- 
-
-mod1 <- glm(rr_repeats_genes_wide$rec_rate~rr_repeats_genes_wide$chr_length + rr_repeats_genes_wide$density_SINE + rr_repeats_genes_wide$density_DNA + rr_repeats_genes_wide$density_TcM + rr_repeats_genes_wide$density_LINE + rr_repeats_genes_wide$density_LTR + rr_repeats_genes_wide$density_nonLTR + rr_repeats_genes_wide$density_genes)
-
-mod1_sc <- glm(rr_repeats_genes_wide_sc$rec_rate~rr_repeats_genes_wide_sc$chr_length + rr_repeats_genes_wide_sc$density_SINE + rr_repeats_genes_wide_sc$density_DNA + rr_repeats_genes_wide_sc$density_TcM + rr_repeats_genes_wide_sc$density_LINE + rr_repeats_genes_wide_sc$density_LTR + rr_repeats_genes_wide_sc$density_nonLTR + rr_repeats_genes_wide_sc$density_genes)
-
-mod2_sc <- glm(rr_repeats_genes_wide_sc$rec_rate~rr_repeats_genes_wide_sc$chr_length + rr_repeats_genes_wide_sc$chr_length:rr_repeats_genes_wide_sc$chr_type + rr_repeats_genes_wide_sc$density_SINE + rr_repeats_genes_wide_sc$density_DNA + rr_repeats_genes_wide_sc$density_TcM + rr_repeats_genes_wide_sc$density_LINE + rr_repeats_genes_wide_sc$density_LTR + rr_repeats_genes_wide_sc$density_nonLTR + rr_repeats_genes_wide_sc$density_genes)
-
-mod3_sc <- glm(rr_repeats_genes_wide_sc$rec_rate~rr_repeats_genes_wide_sc$chr_length + rr_repeats_genes_wide_sc$chr_type + rr_repeats_genes_wide_sc$rel_pos + rr_repeats_genes_wide_sc$density_SINE + rr_repeats_genes_wide_sc$density_DNA + rr_repeats_genes_wide_sc$density_TcM + rr_repeats_genes_wide_sc$density_LINE + rr_repeats_genes_wide_sc$density_LTR + rr_repeats_genes_wide_sc$density_nonLTR + rr_repeats_genes_wide_sc$density_genes)
-
-#with GC
-#glm
-mod4_sc <- glm(rr_repeats_genes_wide_sc$rec_rate~rr_repeats_genes_wide_sc$chr_length + rr_repeats_genes_wide_sc$chr_type + rr_repeats_genes_wide_sc$rel_pos + rr_repeats_genes_wide_sc$GC + rr_repeats_genes_wide_sc$density_SINE + rr_repeats_genes_wide_sc$density_DNA + rr_repeats_genes_wide_sc$density_TcM + rr_repeats_genes_wide_sc$density_LINE + rr_repeats_genes_wide_sc$density_LTR + rr_repeats_genes_wide_sc$density_nonLTR + rr_repeats_genes_wide_sc$prop_genes + rr_repeats_genes_wide_sc$density_genes)
 
 #lm
-mod4_sc_lm <- lm(rr_repeats_genes_wide_sc$rec_rate~rr_repeats_genes_wide_sc$chr_length + rr_repeats_genes_wide_sc$chr_type + rr_repeats_genes_wide_sc$rel_pos + rr_repeats_genes_wide_sc$GC + rr_repeats_genes_wide_sc$density_SINE + rr_repeats_genes_wide_sc$density_DNA + rr_repeats_genes_wide_sc$density_TcM + rr_repeats_genes_wide_sc$density_LINE + rr_repeats_genes_wide_sc$density_LTR + rr_repeats_genes_wide_sc$density_nonLTR + rr_repeats_genes_wide_sc$prop_genes + rr_repeats_genes_wide_sc$density_genes)
+mod_sc_lm <- lm(rr_repeats_genes_wide_sc$rec_rate~rr_repeats_genes_wide_sc$chr_length + rr_repeats_genes_wide_sc$chr_type + rr_repeats_genes_wide_sc$pos_group + rr_repeats_genes_wide_sc$GC + rr_repeats_genes_wide_sc$density_SINE + rr_repeats_genes_wide_sc$density_DNA + rr_repeats_genes_wide_sc$density_TcM + rr_repeats_genes_wide_sc$density_LINE + rr_repeats_genes_wide_sc$density_LTR + rr_repeats_genes_wide_sc$density_nonLTR + rr_repeats_genes_wide_sc$density_genes)
 
+summary(mod_sc_lm)
+capture.output(summary(mod_sc_lm), file = "tables/lm_model.txt")
+confint(mod_sc_lm)
+capture.output(confint(mod_sc_lm), file = "tables/lm_model.txt", append = T)
 
-plot(mod2)
-
-#without W
-rr_repeats_genes_wide_sc_noW <- rr_repeats_genes_wide_sc[rr_repeats_genes_wide_sc$chr_type!="W",]
+plot(mod_sc_lm)
 
 library(lme4)
+mmod1 <- lmer(rec_rate~chr_length + (1|chr_type) + pos_group + GC + density_SINE + density_DNA + density_TcM + density_LINE + density_LTR + density_nonLTR + density_genes, rr_repeats_genes_wide_sc)
 
+summary(mmod1)
+capture.output(summary(mmod1), file = "tables/lmer_mixmodel.txt")
+confint(mmod1)
+capture.output(confint(mmod1), file = "tables/lmer_mixmodel.txt", append = T)
 
-mmod1 <- lmer(rec_rate~chr_length + (1|chr_type) + density_SINE + density_DNA + density_TcM + density_LINE + density_LTR + density_nonLTR + density_genes, rr_repeats_genes_wide_sc)
-
-mmod1_noW <- lmer(rec_rate~chr_length + (1|chr_type) + density_SINE + density_DNA + density_TcM + density_LINE + density_LTR + density_nonLTR + density_genes, rr_repeats_genes_wide_sc[rr_repeats_genes_wide$chr_type!="W",])
-
+plot(mod_sc_lm)
 
 mmod2 <- lmer(rec_rate~(1|chr_length) + (1|chr_type) + density_SINE + density_DNA + density_TcM + density_LINE + density_LTR + density_nonLTR + density_genes, rr_repeats_genes_wide_sc)
+summary(mmod1)
 
-mmod1_incl_pos <- lmer(rec_rate~chr_length + (1|chr_type) + rel_pos + density_SINE + density_DNA + density_TcM + density_LINE + density_LTR + density_nonLTR + density_genes, rr_repeats_genes_wide_sc)
-summary(mmod1_incl_pos)
-
-#incl GC
-mmod1_incl_pos_gc <- lmer(rec_rate~chr_length + (1|chr_type) + rel_pos + GC + density_SINE + density_DNA + density_TcM + density_LINE + density_LTR + density_nonLTR + density_genes, rr_repeats_genes_wide_sc)
-summary(mmod1_incl_pos_gc)
-
-#noW
-mmod1_incl_pos_gc_noW <- lmer(rec_rate~chr_length + (1|chr_type) + rel_pos + GC + density_SINE + density_DNA + density_TcM + density_LINE + density_LTR + density_nonLTR + density_genes, rr_repeats_genes_wide_sc_noW)
-summary(mmod1_incl_pos_gc_noW)
 
 ```
+
+```{r 100kb_wind}
+
+multi_100kb.df <- read.table("../JointAnalysis/LR999924.1-counts-merged.tsv", header = T)
+head(multi_100kb.df)
+
+```
+
 

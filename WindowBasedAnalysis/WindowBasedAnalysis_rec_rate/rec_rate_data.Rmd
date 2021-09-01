@@ -120,7 +120,7 @@ print(paste("Recombination rate mean automomes:", round(mean(rec_rate_mean$`2mb`
 write.table(rec_rate_mean, "tables/summary_per_chromosome.table", quote = F)
 
 write.table(rec_rate, "tables/rec_rate_markers.table")
-
+rec_rate <- read.table("tables/rec_rate_markers.table", header = T)
 ```
 
 

@@ -1,5 +1,12 @@
-LepAnchor was run on the cluster with the script: 
+LepAnchor notes 
 
+#downloaded from
+git clone https://git.code.sf.net/p/lep-anchor/code lep-anchor-code
+mkdir bin
+javac src/*.java -d bin/
+
+
+#LepAnchor was run on the cluster with the script:
 module load bioinfo-tools
 module load R/4.0.0
 module load R_packages/4.0.0
@@ -10,7 +17,7 @@ REF_FASTA=/proj/uppstore2017185/b2014034_nobackup/Karin/link_map_vanessa/data/va
 
 ./lepanchor_wrapper2.sh -t 4 -f $REF_FASTA -n 31 -m map_all_chr.txt
 
-
+Run time 00:05:36
 
 
 The new ref assembly: 
