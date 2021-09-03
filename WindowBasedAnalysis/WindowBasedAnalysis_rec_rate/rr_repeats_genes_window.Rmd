@@ -19,7 +19,8 @@ library("tidyr")
 library(plyr)
 library(dplyr)
 library(data.table)
-
+library(rstatix)
+library(lme4)
 
 ```
 
@@ -85,8 +86,10 @@ str(rr_repeats_window)
 summary(rr_repeats_window)
 #rr_repeats_window[,c(4:17)][is.na(rr_repeats_window[,c(4:17)])] <- 0
 
+#add GC
 rr_repeats_window$GC <- read.table("window_based_data/GCA_905220365.1_ilVanCard2.1_genomic_chroms.2MB.GC.tsv")[,5]
-  
+
+#add gene and CDS
 gene_dens <- read.table("window_based_data/gene_density_2Mb_doublQC.tsv", header = T, fill = TRUE)
 colnames(gene_dens)[1] <- "chrom"
 #change NA to 0 (count or length are 0)
@@ -102,32 +105,83 @@ gene_dens$length_CDS <- gene_dens_CDS$CDS_length
 
 
 rr_repeats_genes <- join(rr_repeats_window, gene_dens, type = "inner")
+str(rr_repeats_genes)
+rr_repeats_genes$length_genes <- as.integer(rr_repeats_genes$length_genes)
+rr_repeats_genes$length_CDS <- as.integer(rr_repeats_genes$length_CDS)
 
 
+#add chromosome type
 rr_repeats_genes$chr_type <- "Autosome"
 rr_repeats_genes$chr_type[rr_repeats_genes$chrom=="LR999924.1"] <- "Z"
 rr_repeats_genes$chr_type[rr_repeats_genes$chrom=="LR999940.1"] <- "W"
 
 
-str(rr_repeats_genes)
-rr_repeats_genes$length_genes <- as.integer(rr_repeats_genes$length_genes)
-rr_repeats_genes$length_CDS <- as.integer(rr_repeats_genes$length_CDS)
+#add gene gains and simple repeats
+#bin gained genes in 2 Mb bins (sum of counts) for each chromosome
+counts_merged_100kb <- read.table("tables/counts_merged_100kb_compl.csv", header = T)
+head(counts_merged_100kb)
 
-#select columns based on string
-#select(rr_repeats_window, starts_with("length"))
-#or colnames(rr_repeats_genes[, grepl("length_", colnames(rr_repeats_genes))])
-#long format
-# rr_repeats_genes_long <- pivot_longer(rr_repeats_genes, select(rr_repeats_genes, starts_with("length")), names_to = "repeat_class", values_to = "proportion")
-# str(rr_repeats_genes_long)
+for(i in c(1:length(unique(counts_merged_100kb$chrom)))) {
+  #to get sum per window
+  
+  gains_bin_temp <- aggregate(counts_merged_100kb[counts_merged_100kb$chrom==unique(counts_merged_100kb$chrom)[i],"count_gene_ex"], #the data frame
+                 by=list(cut(counts_merged_100kb[counts_merged_100kb$chrom==unique(counts_merged_100kb$chrom)[i],"end"],seq(0, max(counts_merged_100kb$end[counts_merged_100kb$chrom==unique(counts_merged_100kb$chrom)[i]])+2000000, 2000000))), #the bins (see below) 
+                 sum, na.rm=T ) #the aggregating function
+  
+  gains_bin_temp$length_gains <- aggregate(counts_merged_100kb[counts_merged_100kb$chrom==unique(counts_merged_100kb$chrom)[i],"length_gene_ex"], #the data frame
+                 by=list(cut(counts_merged_100kb[counts_merged_100kb$chrom==unique(counts_merged_100kb$chrom)[i],"end"],seq(0, max(counts_merged_100kb$end[counts_merged_100kb$chrom==unique(counts_merged_100kb$chrom)[i]])+2000000, 2000000))), #the bins (see below) 
+                 sum, na.rm=T )$x #the aggregating function
+  
+  gains_bin_temp$count_simple <- aggregate(counts_merged_100kb[counts_merged_100kb$chrom==unique(counts_merged_100kb$chrom)[i],"count_simple"], #the data frame
+                 by=list(cut(counts_merged_100kb[counts_merged_100kb$chrom==unique(counts_merged_100kb$chrom)[i],"end"],seq(0, max(counts_merged_100kb$end[counts_merged_100kb$chrom==unique(counts_merged_100kb$chrom)[i]])+2000000, 2000000))), #the bins (see below) 
+                 sum, na.rm=T )$x #the aggregating function
+
+  gains_bin_temp$length_simple <- aggregate(counts_merged_100kb[counts_merged_100kb$chrom==unique(counts_merged_100kb$chrom)[i],"length_simple"], #the data frame
+                 by=list(cut(counts_merged_100kb[counts_merged_100kb$chrom==unique(counts_merged_100kb$chrom)[i],"end"],seq(0, max(counts_merged_100kb$end[counts_merged_100kb$chrom==unique(counts_merged_100kb$chrom)[i]])+2000000, 2000000))), #the bins (see below) 
+                 sum, na.rm=T )$x #the aggregating function
+
+  gains_bin_temp$end <- aggregate(counts_merged_100kb[counts_merged_100kb$chrom==unique(counts_merged_100kb$chrom)[i],"end"], #get the position
+                 by=list(cut(counts_merged_100kb[counts_merged_100kb$chrom==unique(counts_merged_100kb$chrom)[i],"end"],seq(1, max(counts_merged_100kb$end[counts_merged_100kb$chrom==unique(counts_merged_100kb$chrom)[i]])+2000000, 2000000))), #the bins (see below) 
+                 max, na.rm=T )$x #the aggregating function
+
+  gains_bin_temp$chrom <- unique(counts_merged_100kb$chrom)[i]
+  
+  if (i==1){
+    gains_bin <- gains_bin_temp #saves the df for the first chromosome
+  } else {
+    gains_bin <- rbind(gains_bin, gains_bin_temp) #append the df for the other chromosomes
+    } 
+}
+
+head(gains_bin)
+
+#check length
+length(gains_bin$Group.1)
+length(rr_repeats_genes$chrom)
+
+#add to large 2Mb dataframe
+rr_repeats_genes <- join(rr_repeats_genes,gains_bin)
+
+rr_repeats_genes$Group.1 <- NULL
+colnames(rr_repeats_genes)[colnames(rr_repeats_genes)=="x"] <- "count_gains"
+
+rr_repeats_genes$count_gains <- as.integer(rr_repeats_genes$count_gains)
+rr_repeats_genes$length_gains <- as.integer(rr_repeats_genes$length_gains)
+rr_repeats_genes$length_simple <- as.integer(rr_repeats_genes$length_simple)
+rr_repeats_genes$count_simple <- as.integer(rr_repeats_genes$count_simple)
+
+#add gains/no_gains as factor
+rr_repeats_genes$gene_ex_bin <- "1"
+rr_repeats_genes[rr_repeats_genes$count_gains==0,"gene_ex_bin"] <- "0"
 
 
-# rr_repeats_genes_long <- melt(setDT(rr_repeats_genes), measure.vars = list(names(select(rr_repeats_genes, starts_with("count"))),names(select(rr_repeats_genes, starts_with("length")))), variable.name = "gen_feat", value.name = c("count_var", "length_var"))
-
+##convert to long format
 rr_repeats_genes_long <- melt(setDT(rr_repeats_genes), measure = patterns("count_", "length_"), variable.name = "gen_feat", value.name = c("count_var", "length_var"))
 
 str(rr_repeats_genes_long)
 levels(rr_repeats_genes_long$gen_feat) <- names(select(rr_repeats_genes, starts_with("length"))) %>% stringr::str_remove(".+_")
 str(rr_repeats_genes_long)
+
 
 #get density of repeats per kilobase: count*1000/sequence length
 rr_repeats_genes_long$density_var <- rr_repeats_genes_long$count_var*1000/(rr_repeats_genes_long$end-rr_repeats_genes_long$begin+1)
@@ -137,17 +191,31 @@ rr_repeats_genes_long$prop_var <- rr_repeats_genes_long$length_var/(rr_repeats_g
 
 #relative position (begin + end)/2 (in the middle of the window)
 rr_repeats_genes_long$rel_pos <- ((rr_repeats_genes_long$begin+rr_repeats_genes_long$end)/2)/rr_repeats_genes_long$chr_length
-str(rr_repeats_genes_long)
 
 #grouped by position, folded
 rr_repeats_genes_long$pos_group <- cut(sqrt(((rr_repeats_genes_long$rel_pos*100)-50)^2), c(-Inf,10,20,30,40,Inf), c(1,2,3,4,5))
+str(rr_repeats_genes_long)
 
 #get wide format for 
 rr_repeats_genes_wide <- pivot_wider(rr_repeats_genes_long, names_from = gen_feat, values_from = c(count_var, length_var, density_var, prop_var))
 colnames(rr_repeats_genes_wide) <- gsub("_var", "", colnames(rr_repeats_genes_wide))
 str(rr_repeats_genes_wide)
 
+#change level order (for plotting)
+#factor(sizes, levels = c("small", "medium", "large"))
+levels(rr_repeats_genes_long$gen_feat)
+# "rpt"    "SINE"   "DNA"    "TcM"    "LINE"   "LTR"    "nonLTR" "genes"  "CDS"    "gains"  "simple"
+rr_repeats_genes_long$gen_feat <-  factor(rr_repeats_genes_long$gen_feat, levels = c("genes", "CDS", "gains", "rpt", "LINE", "SINE", "nonLTR", "LTR", "DNA", "TcM", "simple"))
 
+#double check that levelnames are correct
+par(mfrow=c(3,1))
+boxplot(rr_repeats_genes_long$count_var~rr_repeats_genes_long$gen_feat)
+boxplot(select(rr_repeats_genes, starts_with("count")))
+boxplot(select(rr_repeats_genes_wide, starts_with("count")))
+
+boxplot(rr_repeats_genes_long$length_var~rr_repeats_genes_long$gen_feat)
+boxplot(select(rr_repeats_genes, starts_with("length")))
+boxplot(select(rr_repeats_genes_wide, starts_with("length")))
 
 ```
 
@@ -160,6 +228,7 @@ write.table(rr_repeats_genes_long, file="tables/rec_rate_vs_repeats_genes_2Mb_wi
 
 write.table(rr_repeats_genes_wide, file="tables/rec_rate_vs_repeats_genes_2Mb_windows.table") 
 
+#rr_repeats_genes_wide <- read.table("tables/rec_rate_vs_repeats_genes_2Mb_windows.table", header = T)
 
 #chromosome level dataframe
 repeat_chr_level <- pivot_wider(aggregate(density_var~chrom+gen_feat, rr_repeats_genes_long, mean), names_from = gen_feat, values_from = density_var)
@@ -178,6 +247,8 @@ repeat_chr_level$rr_mean <- aggregate(rr_repeats_genes_long$rec_rate, by=list(rr
 repeat_chr_level$rr_sd <- aggregate(rr_repeats_genes_long$rec_rate, by=list(rr_repeats_genes_long$chrom), sd,na.rm=T)$x
 repeat_chr_level$GC <- aggregate(rr_repeats_genes_long$GC, by=list(rr_repeats_genes_long$chrom), mean, na.rm=T)$x
 
+repeat_chr_level
+
 write.table(repeat_chr_level, file = "tables/chr_level.table")
 
 
@@ -187,11 +258,11 @@ write.table(repeat_chr_level, file = "tables/chr_level.table")
 
 
 
-```{r tests}
+```{r corr_tests}
 
 pos_groups_test <- pairwise.t.test(rr_repeats_genes_long$rec_rate, rr_repeats_genes_long$pos_group, p.adjust.method = "holm")
 
-capture.output(pos_groups_test, file = "result_regional_pos_pairwise_t_test.txt")
+capture.output(pos_groups_test, file = "tables/result_regional_pos_pairwise_t_test.txt")
 boxplot(rr_repeats_genes_long$rec_rate~rr_repeats_genes_long$pos_group)
 
 lm_groups <- lm(rr_repeats_genes_long$rec_rate~rr_repeats_genes_long$pos_group + rr_repeats_genes_long$chr_length)
@@ -216,7 +287,6 @@ corrFunc <- function(var1, var2, data) {
 #incl_W
 #transfor into dataframe first
 COR_TEST <- as.data.frame(rr_repeats_genes_wide)
-COR_TEST$density_CDS <- NULL
 
 ## Pairs of variables for which we want correlations
 
@@ -236,6 +306,10 @@ corrs_tot_repeat_dens = do.call(rbind, mapply(corrFunc, vars[,1], vars[,2], More
 vars = data.frame(v1=names((COR_TEST)["density_genes"]), v2=names(select(COR_TEST, starts_with(c("density_","prop_")))))
 corrs_gene_dens = do.call(rbind, mapply(corrFunc, vars[,1], vars[,2], MoreArgs=list(data=COR_TEST), 
                               SIMPLIFY=FALSE))
+#gained gene dens
+vars = data.frame(v1=names((COR_TEST)["density_gains"]), v2=names(select(COR_TEST, starts_with(c("density_","prop_")))))
+corrs_gains_dens = do.call(rbind, mapply(corrFunc, vars[,1], vars[,2], MoreArgs=list(data=COR_TEST), 
+                              SIMPLIFY=FALSE))
 
 #gc
 vars = data.frame(v1=names((COR_TEST)["GC"]), v2=names(select(COR_TEST, starts_with(c("density_","prop_")))))
@@ -252,14 +326,13 @@ corrs_prop = do.call(rbind, mapply(corrFunc, vars[,1], vars[,2], MoreArgs=list(d
                               SIMPLIFY=FALSE))
 
 
-corrs_W <- rbind(corrs_rec, corrs_tot_repeat_dens, corrs_gene_dens, corrs_prop, corrs_gc, corrs_gc_rr)
+corrs_W <- rbind(corrs_rec, corrs_tot_repeat_dens, corrs_gene_dens, corrs_gains_dens, corrs_prop, corrs_gc, corrs_gc_rr)
 
 
 
 #############################
 #without W
 COR_TEST <- as.data.frame(rr_repeats_genes_wide[rr_repeats_genes_wide$chr_type!="W",])
-COR_TEST$density_CDS <- NULL
 
 #rec_rate
 #rec_rate
@@ -279,6 +352,11 @@ vars = data.frame(v1=names((COR_TEST)["density_genes"]), v2=names(select(COR_TES
 corrs_gene_dens = do.call(rbind, mapply(corrFunc, vars[,1], vars[,2], MoreArgs=list(data=COR_TEST), 
                               SIMPLIFY=FALSE))
 
+#gained gene dens
+vars = data.frame(v1=names((COR_TEST)["density_gains"]), v2=names(select(COR_TEST, starts_with(c("density_","prop_")))))
+corrs_gains_dens = do.call(rbind, mapply(corrFunc, vars[,1], vars[,2], MoreArgs=list(data=COR_TEST), 
+                              SIMPLIFY=FALSE))
+
 #gc
 vars = data.frame(v1=names((COR_TEST)["GC"]), v2=names(select(COR_TEST, starts_with(c("density_","prop_")))))
 corrs_gc = do.call(rbind, mapply(corrFunc, vars[,1], vars[,2], MoreArgs=list(data=COR_TEST), 
@@ -294,7 +372,7 @@ corrs_prop = do.call(rbind, mapply(corrFunc, vars[,1], vars[,2], MoreArgs=list(d
                               SIMPLIFY=FALSE))
 
 
-corrs_noW <- rbind(corrs_rec, corrs_tot_repeat_dens, corrs_gene_dens, corrs_prop, corrs_gc, corrs_gc_rr)
+corrs_noW <- rbind(corrs_rec, corrs_tot_repeat_dens, corrs_gene_dens, corrs_gains_dens, corrs_prop, corrs_gc, corrs_gc_rr)
 colnames(corrs_noW) <- c("var1", "var2", "estimate_noW", "p.value_noW", "statistic_noW", "method")
 
 #join(corrs_W, corrs_noW)
@@ -302,13 +380,15 @@ colnames(corrs_noW) <- c("var1", "var2", "estimate_noW", "p.value_noW", "statist
 write.table(join(corrs_W, corrs_noW), "tables/correlations_spearman.table")
 #write.table(join(corrs_W, corrs_noW), "correlations_kendall.table")
 
+#########
 #cor test versus length/genetic feature is rec rate corr to repeat length?
 cor.test(rr_repeats_genes_wide$rec_rate,rr_repeats_genes_wide$length_rpt/rr_repeats_genes_wide$count_rpt)
 #t = -3.6812, df = 215, p-value = 0.0002936, coeff -0.2435007 
-
+capture.output(cor.test(rr_repeats_genes_wide$rec_rate,rr_repeats_genes_wide$length_rpt/rr_repeats_genes_wide$count_rpt), file = "tables/corr_rr_length_per_rpt.txt")
 #without W - non sign
 cor.test(rr_repeats_genes_wide[rr_repeats_genes_wide$chr_type!="W",]$rec_rate,rr_repeats_genes_wide[rr_repeats_genes_wide$chr_type!="W",]$length_rpt/rr_repeats_genes_wide[rr_repeats_genes_wide$chr_type!="W",]$count_rpt)
 #t = -0.031845, df = 208, p-value = 0.9746, coeff -0.002208071 
+capture.output(cor.test(rr_repeats_genes_wide[rr_repeats_genes_wide$chr_type!="W",]$rec_rate,rr_repeats_genes_wide[rr_repeats_genes_wide$chr_type!="W",]$length_rpt/rr_repeats_genes_wide[rr_repeats_genes_wide$chr_type!="W",]$count_rpt), file = "tables/corr_rr_length_per_rpt.txt", append = T)
 
 ######
 #Cor with chr length
@@ -350,8 +430,14 @@ corr_df_long <- melt(setDT(corr_df), measure = patterns("estimate", "p.value", "
 
 levels(corr_df_long$W) <- c("W", "noW")
 
+#skip the prop CDS vs repeats, similar to dens CDS
+corr_df_long <- corr_df_long[corr_df_long$var1!="prop_CDS",]
+corr_df_long$var2 <- as.factor(corr_df_long$var2)
+corr_df_long$var2 <- factor(corr_df_long$var2, levels = c("density_genes", "density_CDS", "density_gains", "density_rpt","density_LINE", "density_SINE", "density_nonLTR","density_LTR", "density_DNA", "density_TcM","density_simple", "prop_genes", "prop_CDS", "prop_gains", "prop_rpt", "prop_LINE", "prop_SINE", "prop_nonLTR", "prop_LTR", "prop_DNA", "prop_TcM","prop_simple", "rec_rate"))
+
+
 corr_plot_reduced <- 
-ggplot(subset(corr_df_long[var1!="prop_genes",], var2=="density_rpt" | var2=="prop_rpt" | var2=="density_genes" | var2=="prop_CDS"), aes(var1, var2, fill=estimate)) + 
+ggplot(subset(corr_df_long, var2=="density_rpt" | var2=="prop_rpt" | var2=="density_genes" | var2=="prop_CDS"), aes(var1, var2, fill=estimate)) + 
   geom_tile(size=0) +
   facet_wrap(~W) +
   geom_text(aes(label=round(estimate, 2), colour=cut(p.value, c(-Inf, 0.05, Inf)))) +
@@ -378,7 +464,7 @@ ggplot(corr_df_long, aes(var1, var2, fill=estimate)) +
   geom_tile(size=0) +
   facet_wrap(~W) +
   geom_text(aes(label=round(estimate, 2), colour=cut(p.value, c(-Inf, 0.05, Inf)))) +
-  scale_fill_gradient2(low = "blue", high = "orange") +
+  scale_fill_gradient2(low = "#009294", high = "orange") +
   scale_colour_manual(name="p.value", 
                       values = c("(-Inf, 0.05]" = "black",
                                  "(0.05, Inf]" = "light grey")) +
@@ -394,26 +480,178 @@ ggplot(corr_df_long, aes(var1, var2, fill=estimate)) +
         strip.placement = "outside", 
         strip.background = element_blank())
 
+corr_plot_rpt_classes
 
-ggplot(corr_df, aes(var1, var2, fill=estimate_noW, colour=cut(p.value_noW, c(-Inf, 0.05, Inf)))) + 
-  geom_tile(size=2) +
-  scale_fill_gradient2(low = col_rec_rate, high = col_gene) +
+corr_plot_rpt_density <- 
+ggplot(corr_df_long[corr_df_long$var2 %like% "density",], aes(var1, factor(var2, levels = rev(levels(var2))), fill=estimate)) + 
+  geom_tile(size=0) +
+  facet_wrap(~W) +
+  geom_text(aes(label=round(estimate, 2), size = 20, colour=cut(p.value, c(-Inf, 0.05, Inf)))) +
+  scale_fill_gradient2(low = "#2468a0", high = "orange") +
   scale_colour_manual(name="p.value", 
                       values = c("(-Inf, 0.05]" = "black",
-                                 "(0.05, Inf]" = "white")) +
+                                 "(0.05, Inf]" = "light grey"), 
+                      labels = c("< 0.05", "> 0.05")) +
+  scale_x_discrete(position = "top") +
+  guides(size = "none") +
+    ggtitle(label = "Density") +
     theme(panel.background = element_blank(),
-        axis.line = element_line(size = 0.2, colour = "grey"),
-        axis.text = element_text(size = 10),
+        axis.line = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text = element_text(size = 10, colour = "black"),
         axis.title = element_blank(),
         legend.text = element_text(size = 10),
         legend.title = element_text(size = 10),
-        legend.key = element_blank())
-        #legend.position = c(0.8,0.8)) #+
+        legend.key = element_blank(),
+        strip.placement = "outside", 
+        strip.background = element_blank())
 
-  
+corr_plot_rpt_density
+
+
+corr_plot_rpt_occ_length <- 
+ggplot(corr_df_long[corr_df_long$var2 %like% "prop",], aes(var1, factor(var2, levels = rev(levels(var2))), fill=estimate)) + 
+  geom_tile(size=0) +
+  facet_wrap(~W) +
+  geom_text(aes(label=round(estimate, 2),size = 20, colour=cut(p.value, c(-Inf, 0.05, Inf)))) +
+  scale_fill_gradient2(low = "#2468a0", high = "orange") +
+  scale_colour_manual(name="p.value", 
+                      values = c("(-Inf, 0.05]" = "black",
+                                 "(0.05, Inf]" = "light grey"), 
+                      labels = c("< 0.05", "> 0.05")) +
+  guides(size = "none") +
+  scale_x_discrete(position = "top") +
+  ggtitle(label = "Occupied length") +
+    theme(panel.background = element_blank(),
+        axis.line = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text = element_text(size = 10, colour = "black"),
+        axis.title = element_blank(),
+        legend.text = element_text(size = 10),
+        legend.title = element_text(size = 10),
+        legend.key = element_blank(),
+        strip.placement = "outside", 
+        strip.background = element_blank())
+
+
+corr_plot_rpt_occ_length
+corr_plot_rpt_density
+ggsave(filename = "plots_supplement/corr_plot_density_2Mb.pdf", plot = corr_plot_rpt_density, "pdf", width = 290, height = 180, units = "mm", dpi =  300)
+ggsave(filename = "plots_supplement/corr_plot_density_2Mb", plot = corr_plot_rpt_density, "jpeg",width = 290, height = 180, units = "mm")
+ggsave(filename = "plots_supplement/corr_plot_occ_length_2Mb.pdf", plot = corr_plot_rpt_occ_length, "pdf", width = 290, height = 180, units = "mm", dpi =  300)
+ggsave(filename = "plots_supplement/corr_plot_occ_length_2Mb", plot = corr_plot_rpt_occ_length, "jpeg", width = 290, height = 180, units = "mm")
+
 
 ```
 
+
+```{r lm}
+rr_repeats_genes_wide <- as.data.frame(rr_repeats_genes_wide)
+
+rr_repeats_genes_wide_sc <- cbind(rr_repeats_genes_wide[,c("chrom", "chr_type", "rec_rate", "pos_group")], scale(rr_repeats_genes_wide$chr_length), scale(rr_repeats_genes_wide$GC), scale(select(rr_repeats_genes_wide, starts_with("density_"))), scale(select(rr_repeats_genes_wide, starts_with("prop_"))))
+
+colnames(rr_repeats_genes_wide_sc)
+colnames(rr_repeats_genes_wide_sc)[5] <- "chr_length"
+colnames(rr_repeats_genes_wide_sc)[6] <- "GC"
+
+
+#lm
+#rec rate as responsvariable
+mod_sc_lm <- lm(rr_repeats_genes_wide_sc$rec_rate~rr_repeats_genes_wide_sc$chr_length + rr_repeats_genes_wide_sc$chr_type + rr_repeats_genes_wide_sc$pos_group + rr_repeats_genes_wide_sc$GC + rr_repeats_genes_wide_sc$density_SINE + rr_repeats_genes_wide_sc$density_DNA + rr_repeats_genes_wide_sc$density_TcM + rr_repeats_genes_wide_sc$density_LINE + rr_repeats_genes_wide_sc$density_LTR + rr_repeats_genes_wide_sc$density_nonLTR + rr_repeats_genes_wide_sc$density_genes + rr_repeats_genes_wide_sc$density_gains)
+
+summary(mod_sc_lm)
+capture.output(summary(mod_sc_lm), file = "tables/lm_model.txt")
+
+confint(mod_sc_lm)
+capture.output(confint(mod_sc_lm), file = "tables/lm_model.txt", append = T)
+
+plot(mod_sc_lm)
+
+mod_sc_lm_int <- lm(rr_repeats_genes_wide_sc$rec_rate~rr_repeats_genes_wide_sc$chr_length + rr_repeats_genes_wide_sc$chr_type + rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_genes + rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_gains + rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_LTR + rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_nonLTR + rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_LINE + rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_SINE + rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_simple + rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_DNA + rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_TcM + rr_repeats_genes_wide_sc$pos_group + rr_repeats_genes_wide_sc$GC)
+summary(mod_sc_lm_int)
+capture.output(summary(mod_sc_lm), file = "tables/lm_model_int.txt")
+
+#gained genes as responsvariable
+mod_sc_lm_gains <- lm(rr_repeats_genes_wide_sc$density_gains~rr_repeats_genes_wide_sc$chr_length + rr_repeats_genes_wide_sc$rec_rate + rr_repeats_genes_wide_sc$chr_type + rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_genes + rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_LTR + rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_nonLTR + rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_LINE + rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_SINE + rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_simple + rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_DNA + rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_TcM + rr_repeats_genes_wide_sc$pos_group + rr_repeats_genes_wide_sc$GC)
+
+summary(mod_sc_lm_gains)
+capture.output(summary(mod_sc_lm_gains), file = "tables/lm_model_gains.txt")
+confint(mod_sc_lm_gains)
+capture.output(confint(mod_sc_lm_gains), file = "tables/lm_model_gains.txt", append = T)
+
+plot(mod_sc_lm_gains)
+
+library(lme4)
+mmod1 <- lmer(rec_rate~chr_length + (1|chr_type) + pos_group + GC + density_SINE + density_DNA + density_TcM + density_LINE + density_LTR + density_nonLTR + density_genes + density_gains, rr_repeats_genes_wide_sc)
+
+summary(mmod1)
+capture.output(summary(mmod1), file = "tables/lmer_mixmodel.txt")
+confint(mmod1)
+capture.output(confint(mmod1), file = "tables/lmer_mixmodel.txt", append = T)
+
+#gains
+mmod1_gains <- lmer(density_gains~chr_length + (1|chr_type) + pos_group + GC + density_SINE + density_DNA + density_TcM + density_LINE + density_LTR + density_nonLTR + density_genes + rec_rate, rr_repeats_genes_wide_sc)
+
+summary(mmod1_gains)
+
+mmod2 <- lmer(rec_rate~(1|chr_length) + (1|chr_type) + density_SINE + density_DNA + density_TcM + density_LINE + density_LTR + density_nonLTR + density_genes, rr_repeats_genes_wide_sc)
+summary(mmod2)
+
+
+```
+
+
+```{r wilcox_test}
+stats.wilc.test_2Mb <- rr_repeats_genes_long %>%
+  group_by(gen_feat) %>%
+  wilcox_test(density_var ~ gene_ex_bin, detailed = T) %>%
+  adjust_pvalue(method = "BH") %>%
+  add_significance()
+
+
+#stats.t.test_2Mb <- rr_repeats_genes_long %>%
+  # group_by(gen_feat) %>%
+  # t_test(density_var ~ gene_ex_bin) %>%
+  # adjust_pvalue(method = "BH") %>%
+  # add_significance()
+
+stats.wilc.test_2Mb_noW <- rr_repeats_genes_long[rr_repeats_genes_long$chr_type!="W",] %>%
+  group_by(gen_feat) %>%
+  wilcox_test(density_var ~ gene_ex_bin, detailed = T) %>%
+  adjust_pvalue(method = "BH") %>%
+  add_significance()
+
+write.table(stats.wilc.test_2Mb, file="tables/wilc.test_2Mb.txt")
+write.table(stats.wilc.test_2Mb_noW, file="tables/wilc.test_2Mb_noW.txt")
+
+
+#rec rate in bins gains vs no gains
+wilcox.test(rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains==0, "rec_rate"],rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains>0, "rec_rate"],conf.int = T)
+t.test(rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains==0, "rec_rate"],rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains>0, "rec_rate"],conf.int = T)
+boxplot(rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains==0, "rec_rate"],rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains>0, "rec_rate"])
+
+#GC in bins gains vs no gains
+wilcox.test(rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains==0, "GC"],rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains>0, "GC"],conf.int = T)
+t.test(rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains==0, "GC"],rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains>0, "GC"],conf.int = T)
+boxplot(rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains==0, "GC"],rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains>0, "GC"])
+
+#SINE in bins gains vs no gains
+wilcox.test(rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains==0, "density_SINE"],rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains>0, "density_SINE"],conf.int = T)
+t.test(rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains==0, "density_SINE"],rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains>0, "density_SINE"],conf.int = T)
+boxplot(rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains==0, "density_SINE"],rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains>0, "density_SINE"])
+
+
+#LINE in bins gains vs no gains
+wilcox.test(rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains==0, "density_LINE"],rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains>0, "density_LINE"],conf.int = T)
+t.test(rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains==0, "density_LINE"],rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains>0, "density_LINE"],conf.int = T)
+boxplot(rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains==0, "density_LINE"], rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains>0, "density_LINE"])
+
+#LTR in bins gains vs no gains
+wilcox.test(rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains==0, "density_LTR"],rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains>0, "density_LTR"],conf.int = T)
+t.test(rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains==0, "density_LTR"],rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains>0, "density_LTR"],conf.int = T)
+boxplot(rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains==0, "density_LTR"], rr_repeats_genes_wide[rr_repeats_genes_wide$density_gains>0, "density_LTR"])
+
+```
 
 ```{r plots_chr_level}
 
@@ -439,15 +677,17 @@ ggplot(corr_df, aes(var1, var2, fill=estimate_noW, colour=cut(p.value_noW, c(-In
 col_Z <- "#009294"   #"#005F60"
 col_W <- "#FAAB36"
 col_autosome <- "grey"
+col_all <- "#424242" #very dark grey
 
-col_rec_rate <- "#249EA0"
-col_repeats <- "#FD5900"
+col_rec_rate <- "#249EA0" 
+col_repeats <- "#FD5900" 
 col_gene <- "#FAAB36"
 
 #assign variable or dataframe for one plot
 VAR <- df$your_variable
-#assign colour of regression lines and autosomes
-VAR_colour <- "dark grey"
+
+#assign colour of regression lines
+VAR_colour <- "#424242" #very dark grey
 
 y_axis_title <- "Recombination rate (cM/Mb)" 
 x_axis_title <- "Chromosome length (Mb)"
@@ -462,22 +702,22 @@ plot_chr_level <- function(VAR){
 
   ggplot(VAR_mean, aes(unique(rr_repeats_genes_long$chr_length)/1000000, VAR_mean$x)) +
   geom_smooth(method = "lm", colour=VAR_colour, fill=VAR_colour) +
-  geom_pointrange(aes(ymin=VAR_mean$x-VAR_sd$x, ymax=VAR_mean$x+VAR_sd$x), size=0.2) +
-  geom_point(aes(fill=unique(rr_repeats_genes_long[,c("chrom","chr_type")])$chr_type), size=3, shape=21) +
+  geom_pointrange(aes(ymin=VAR_mean$x-VAR_sd$x, ymax=VAR_mean$x+VAR_sd$x), size=0.03) +
+  geom_point(aes(fill=unique(rr_repeats_genes_long[,c("chrom","chr_type")])$chr_type), size=1.1, shape=21, stroke=0.02) +
   ylab(y_axis_title) +
   xlab(x_axis_title) +
   #scale_colour_discrete(type = c("black", col_W, col_Z)) +
   scale_fill_discrete(type = c(col_autosome, col_W, col_Z)) +
   theme(panel.background = element_blank(),
-        axis.line = element_line(size = 0.2, colour = "grey"),
-        axis.text = element_text(size = 10),
-        axis.title.x = element_text(size = 10),
-        axis.title.y = element_text(size = 10),
-        legend.text = element_text(size = 10),
+        axis.line = element_line(size = 0.25, colour = "grey"),
+        axis.text = element_text(size = 5),
+        axis.title.x = element_text(size = 5),
+        axis.title.y = element_text(size = 5),
+        legend.text = element_text(size = 5),
         legend.title = element_blank(),
         legend.key = element_blank(),
         legend.position = c(0.8,0.8),
-        axis.ticks = element_line(size = 0.2, colour = "grey")) #+
+        axis.ticks = element_line(size = 0.25, colour = "grey")) #+
 
 }
 
@@ -485,15 +725,15 @@ plot_chr_level <- function(VAR){
 #change this VAR depending on which variable to run
 #rec rate
 VAR_df <- rr_repeats_genes_long
-VAR_colour <- col_autosome
+VAR_colour <- "#424242"
 y_axis_title <- "Recombination rate (cM/Mb)" 
 x_axis_title <- "Chromosome length (Mb)"
 
 rr_chr_len <- plot_chr_level(VAR_df$rec_rate)
-
+rr_chr_len
 #gc
 VAR_df <- rr_repeats_genes_long
-VAR_colour <- col_autosome
+#VAR_colour <- "dark grey"
 y_axis_title <- "GC-content (%)" 
 x_axis_title <- "Chromosome length (Mb)"
 
@@ -501,16 +741,16 @@ gc_chr_len <- plot_chr_level(VAR_df$GC*100)
 
 #total repeat density
 VAR_df <- rr_repeats_genes_long[rr_repeats_genes_long$gen_feat=="rpt",]
-VAR_colour <- col_autosome
-y_axis_title <- "Repeat density (counts per kb)" 
+#VAR_colour <- "dark grey"
+y_axis_title <- "Repeats (counts per kb)" 
 x_axis_title <- "Chromosome length (Mb)"
 
 rpt_dens_chr_len <- plot_chr_level(VAR_df$density_var)
   
 #repeat proportion
 VAR_df <- rr_repeats_genes_long[rr_repeats_genes_long$gen_feat=="rpt",]
-VAR_colour <- col_autosome
-y_axis_title <- "Repeat proportion" 
+#VAR_colour <- "dark grey"
+y_axis_title <- "Repeat occupied length" 
 x_axis_title <- "Chromosome length (Mb)"
 
 rpt_prop_chr_len <- plot_chr_level(VAR_df$prop_var)
@@ -518,26 +758,33 @@ rpt_prop_chr_len <- plot_chr_level(VAR_df$prop_var)
 #gene density
 #repeat density vs chromosome length error bars black
 VAR_df <- rr_repeats_genes_long[rr_repeats_genes_long$gen_feat=="genes",]
-VAR_colour <- col_autosome
-y_axis_title <- "Gene density (counts per kb)" 
+#VAR_colour <- "dark grey"
+y_axis_title <- "Genes (counts per kb)" 
 x_axis_title <- "Chromosome length (Mb)"
 
 gene_dens_chr_len <- plot_chr_level(VAR_df$density_var)
 
 #gene proportion
 VAR_df <- rr_repeats_genes_long[rr_repeats_genes_long$gen_feat=="CDS",]
-VAR_colour <- col_autosome
+#VAR_colour <- "dark grey"
 y_axis_title <- "Gene proportion (CDS)" 
 x_axis_title <- "Chromosome length (Mb)"
 
 gene_prop_chr_len <- plot_chr_level(VAR_df$prop_var)
 
 #arrange the plots
+ figure_chr_len_only <- ggarrange(rr_chr_len, gc_chr_len, rpt_dens_chr_len, gene_dens_chr_len, 
+                     labels = c("Figure 1. a", "b", "c", "d"), ncol = 4, nrow = 1,
+                     common.legend = TRUE, 
+                     legend = "bottom")
+
+figure_chr_len_only
+
 #remove legend and  x axis title before plotting
-figure_chr_len <- ggarrange(rr_chr_len + rremove("x.title"), gc_chr_len + rremove("x.title"), rpt_dens_chr_len + rremove("x.title"), rpt_prop_chr_len + rremove("x.title"), gene_dens_chr_len,gene_prop_chr_len, 
-                    labels = c("Figure 1. A", "B", "C", "D", "E", "F"), ncol = 2, nrow = 3,
-                    common.legend = TRUE, 
-                    legend = "bottom")
+# figure_chr_len <- ggarrange(rr_chr_len + rremove("x.title"), gc_chr_len + rremove("x.title"), rpt_dens_chr_len + rremove("x.title"), rpt_prop_chr_len + rremove("x.title"), gene_dens_chr_len,gene_prop_chr_len, 
+#                     labels = c("Figure 1. A", "B", "C", "D", "E", "F"), ncol = 2, nrow = 3,
+#                     common.legend = TRUE, 
+#                     legend = "bottom")
 
 # #annotate_figure(figure, 
 #                 fig.lab = "Figure 1", 
@@ -552,7 +799,7 @@ plot_repeat_class_bar <- function(VAR_df,VAR_x,VAR_y,VAR_group) {
     stat_summary(aes(group=VAR_group), fun.data = mean_sd, position = position_dodge(.9), color="black", size=0.2) +
     ylab(y_axis_title) +
     xlab(X_axis_title) +
-    scale_colour_discrete(type = c("black", col_W, col_Z)) +
+    scale_colour_discrete(type = c(col_autosome, col_W, col_Z)) +
     scale_fill_discrete(type = c(col_autosome, col_W, col_Z)) +
     theme(panel.background = element_blank(),
           axis.line = element_line(size = 0.2, colour = "grey"),
@@ -574,69 +821,28 @@ repeat_cl_bar_dens <- plot_repeat_class_bar(rr_repeats_genes_long, rr_repeats_ge
 
 
 #barplots repeat prop per class and chr_type
-y_axis_title="Proportion"
+y_axis_title="Occupied length"
 X_axis_title="Genomic feature"
 
 repeat_cl_bar_prop <- plot_repeat_class_bar(rr_repeats_genes_long, rr_repeats_genes_long$gen_feat, rr_repeats_genes_long$prop_var, rr_repeats_genes_long$chr_type)
 
 #barplots repeat length/repeat count per chr
 VAR_df_m=rr_repeats_genes_long
-y_axis_title="Mean length per repeat"
-X_axis_title="Repeat class"
+y_axis_title="Mean length per feature"
+X_axis_title="Genomic feature"
 
 repeat_cl_bar_mean <- plot_repeat_class_bar(VAR_df_m,VAR_df_m$gen_feat,VAR_df_m$length_var/VAR_df_m$count_var,VAR_df_m$chr_type)
 
-#without genes (tot length)
-VAR_df_x=rr_repeats_genes_long[rr_repeats_genes_long$gen_feat!="genes",]
-y_axis_title="Mean length per repeat"
-X_axis_title="Repeat class"
 
-repeat_cl_bar_mean2 <- plot_repeat_class_bar(VAR_df_x,VAR_df_x$gen_feat,VAR_df_x$length_var/VAR_df_x$count_var,VAR_df_x$chr_type)
-
-figure_repeat_bar_class <- ggarrange(repeat_cl_bar_prop, repeat_cl_bar_dens, repeat_cl_bar_mean,repeat_cl_bar_mean2,
-                    labels = c("Figure X. A", "B", "C", "D"), ncol = 2, nrow = 2,
+figure_repeat_bar_class <- ggarrange(repeat_cl_bar_dens, repeat_cl_bar_prop, repeat_cl_bar_mean,
+                    labels = c("Suppl Fig a", "b", "c"), ncol = 1, nrow = 3,
                     common.legend = TRUE, 
-                    legend = "bottom")
+                    legend = "right")
 
+figure_repeat_bar_class
+ggsave(figure_repeat_bar_class, file="plots_supplement/feature_vs_chrtype_bar_class.pdf", "pdf", dpi = 300)
+ggsave(figure_repeat_bar_class, file="plots_supplement/feature_vs_chrtype_bar_class.jpeg", "jpeg")
 
-#boxplot repeat length/repeat count per chr
-ggplot(rr_repeats_genes_long) +
-  geom_boxplot(aes(chr_type, length_var/count_var, fill=gen_feat)) +
-    ylab("Mean length per genomic feature (bases)") +
-    scale_fill_discrete() +
-    theme(panel.background = element_blank(),
-          axis.line = element_line(size = 0.2, colour = "grey"),
-          axis.text = element_text(size = 10),
-          axis.title.x = element_text(size = 10),
-          axis.title.y = element_text(size = 10),
-          legend.text = element_text(size = 10),
-          legend.title = element_blank(),
-          legend.key = element_blank())
-          #legend.position = c(0.8,0.8)) #+
-
-#boxplot without genes
-ggplot(rr_repeats_genes_long[rr_repeats_genes_long$gen_feat!="genes",]) +
-  geom_boxplot(aes(gen_feat, log(length_var/count_var), fill=chr_type), outlier.colour = "grey") +
-    ylab("Mean length per repeat, log(bases)") +
-    scale_fill_discrete(type = c(white, "", col_Z)) +
-    theme(panel.background = element_blank(),
-          axis.line = element_line(size = 0.2, colour = "grey"),
-          axis.text = element_text(size = 10),
-          axis.title.x = element_text(size = 10),
-          axis.title.y = element_text(size = 10),
-          legend.text = element_text(size = 10),
-          legend.title = element_blank(),
-          legend.key = element_blank())
-
-
-
-#check length per repeat for the different chromosomes (SINE longer on W)
-par(mfrow=c(3,2))
-boxplot(rr_repeats_window$length_SINE/rr_repeats_window$count_SINE~rr_repeats_window$chrom)
-boxplot(rr_repeats_window$length_DNA/rr_repeats_window$count_DNA~rr_repeats_window$chrom)
-boxplot(rr_repeats_window$length_TcM/rr_repeats_window$count_TcM~rr_repeats_window$chrom)
-boxplot(rr_repeats_window$length_LTR/rr_repeats_window$count_LTR~rr_repeats_window$chrom)
-boxplot(rr_repeats_window$length_nonLTR/rr_repeats_window$count_nonLTR~rr_repeats_window$chrom)
 
 
 ```
@@ -647,8 +853,8 @@ boxplot(rr_repeats_window$length_nonLTR/rr_repeats_window$count_nonLTR~rr_repeat
 
 #function definition
 plot_regional_distribution <- function(VAR_df, VAR){
-  ggplot(VAR_df, aes(sqrt((rel_pos-0.5)^2), VAR)) +
-  geom_point(aes(colour=chr_type, fill=chr_type),size=1, shape=21, colour="black", stroke=0.1) +
+  ggplot(VAR_df, aes(sqrt((rel_pos-0.5)^2)*100, VAR)) +
+  geom_point(aes(colour=chr_type, fill=chr_type),size=1, shape=21, colour="black", stroke=0.02) +
   geom_smooth(method="loess", colour=col_VAR, fill=col_VAR) +
   #scale_colour_discrete(type = c(col_autosome, col_W, col_Z)) +
   scale_fill_discrete(type = c(col_autosome, col_W, col_Z)) +
@@ -657,12 +863,12 @@ plot_regional_distribution <- function(VAR_df, VAR){
   ylab(y_axis_title) +
   xlab("Chromosome position") +
   theme(panel.background = element_blank(),
-        axis.line = element_line(size = 0.2, colour = "grey"),
-        axis.text = element_text(size = 10),
-        axis.title.x = element_text(size = 10),
-        axis.title.y = element_text(size = 10),
-        legend.text = element_text(size = 10),
-        axis.ticks = element_line(size = 0.2, colour = "grey"),
+        axis.line = element_line(size = 0.25, colour = "grey"),
+        axis.text = element_text(size = 5),
+        axis.title.x = element_text(size = 5),
+        axis.title.y = element_text(size = 5),
+        legend.text = element_text(size = 5),
+        axis.ticks = element_line(size = 0.25, colour = "grey"),
         legend.title = element_blank(),
         legend.key = element_blank(),
         legend.position = "bottom") #+
@@ -674,30 +880,30 @@ plot_regional_distribution <- function(VAR_df, VAR){
 #def variables
 #rec rate
 y_axis_title <- "Recombination rate (cM/Mb)"
-col_VAR="dark grey"
+col_VAR="#424242"
 regional_rr <- plot_regional_distribution(rr_repeats_genes_long, rr_repeats_genes_long$rec_rate)
 regional_rr
 
 
-mean_rr_pos <- aggregate(rr_repeats_genes_long$rec_rate, by=list(rr_repeats_genes_long$pos_group), mean, na.rm=T)
-mean_rr_pos$sd <- aggregate(rr_repeats_genes_long$rec_rate, by=list(rr_repeats_genes_long$pos_group), sd, na.rm=T)$x 
-
-regional_rr +
-  geom_errorbar(data=mean_rr_pos, aes(x=(as.numeric(Group.1)/10)-0.05, y=x, ymin=mean_rr_pos$x-mean_rr_pos$sd, ymax=mean_rr_pos$x+mean_rr_pos$sd), 
-                colour="black", width=.01,) +
-  geom_point(data=mean_rr_pos, aes(x=(as.numeric(Group.1)/10)-0.05, y=x), size=3, shape=21, fill="white", colour="dark grey")
-
-ggsave("regional_distr_pos_group", path = "plots/")
+# mean_rr_pos <- aggregate(rr_repeats_genes_long$rec_rate, by=list(rr_repeats_genes_long$pos_group), mean, na.rm=T)
+# mean_rr_pos$sd <- aggregate(rr_repeats_genes_long$rec_rate, by=list(rr_repeats_genes_long$pos_group), sd, na.rm=T)$x 
+# 
+# regional_rr +
+#   geom_errorbar(data=mean_rr_pos, aes(x=(as.numeric(Group.1)/10)-0.05, y=x, ymin=mean_rr_pos$x-mean_rr_pos$sd, ymax=mean_rr_pos$x+mean_rr_pos$sd), 
+#                 colour="black", width=.01,) +
+#   geom_point(data=mean_rr_pos, aes(x=(as.numeric(Group.1)/10)-0.05, y=x), size=3, shape=21, fill="white", colour="dark grey")
+# 
+# ggsave("regional_distr_pos_group", path = "plots/")
 
 
 
 #GC-content
 y_axis_title <- "GC-content (%)"
 #col_VAR="grey"
-regional_gc <- plot_regional_distribution(rr_repeats_genes_long, rr_repeats_genes_long$GC)
+regional_gc <- plot_regional_distribution(rr_repeats_genes_long, rr_repeats_genes_long$GC*100)
 
 #total repeat density
-y_axis_title <- "Repeat density (counts per kb)"
+y_axis_title <- "Repeats (counts per kb)"
 #col_VAR=col_repeats
 regional_rpt_dens <- plot_regional_distribution(subset(rr_repeats_genes_long, gen_feat=="rpt"), subset(rr_repeats_genes_long, gen_feat=="rpt")$density_var)
 
@@ -707,7 +913,7 @@ y_axis_title <- "Repeat proportion"
 regional_rpt_prop <- plot_regional_distribution(subset(rr_repeats_genes_long, gen_feat=="rpt"), subset(rr_repeats_genes_long, gen_feat=="rpt")$prop_var)
 
 #gene density
-y_axis_title <- "Gene density (counts per kb)"
+y_axis_title <- "Genes (counts per kb)"
 #col_VAR=col_gene
 regional_gene_dens <- plot_regional_distribution(subset(rr_repeats_genes_long, gen_feat=="genes"), subset(rr_repeats_genes_long, gen_feat=="genes")$density_var)
 
@@ -718,65 +924,101 @@ regional_gene_prop <- plot_regional_distribution(subset(rr_repeats_genes_long, g
 
 
 
-figure_regional_distr <- ggarrange(regional_rr + rremove("x.title"), regional_gc + rremove("x.title"), regional_rpt_dens + rremove("x.title"),regional_rpt_prop + rremove("x.title"), regional_gene_dens, regional_gene_prop,
-                    labels = c("Figure X. A", "B", "C", "D","E", "F"), ncol = 2, nrow = 3,
+figure_regional_distr <- ggarrange(regional_rr, regional_gc, regional_rpt_dens, regional_gene_dens,
+                    labels = c("e", "f", "g", "h"), ncol = 2, nrow = 3,
                     common.legend = TRUE, 
                     legend = "bottom")
 
 figure_regional_distr
 
+
+#combine chr level with regional distr
+comb_chr_regional_distr <- ggarrange(rr_chr_len + rremove("x.title"), gc_chr_len + rremove("x.title"), rpt_dens_chr_len + rremove("x.title"), gene_dens_chr_len + rremove("x.title"), regional_rr + rremove("x.title"), regional_gc + rremove("x.title"), regional_rpt_dens + rremove("x.title"), regional_gene_dens + rremove("x.title"),
+                    labels = c("a", "b", "c", "d", "e", "f", "g", "h"), ncol = 4, nrow = 2, align = "v",
+                    common.legend = TRUE, 
+                    legend = "bottom")
+
+comb_chr_regional_distr
+
+ggsave(comb_chr_regional_distr, file="plots/comb_chr_regional_distr.pdf", "pdf", width = 170, height = 85, units = "mm", dpi = 300)
+ggsave(comb_chr_regional_distr, file="plots/comb_chr_regional_distr.jpeg", "jpeg", width = 170, height = 85, units = "mm")
+
+
 #checking chromosomal distr
-ggplot(rr_repeats_genes_long, aes(rr_repeats_genes_long$rel_pos, rr_repeats_genes_long$GC)) +
-  geom_point(aes(colour=chr_type, fill=chr_type),size=1, shape=21) +
-  geom_smooth(method="loess", colour="red", fill="red") +
-  scale_colour_discrete(type = c(col_VAR, col_W, col_Z)) +
-  scale_fill_discrete(type = c("white", col_W, col_Z)) +
-  #facet_wrap(~chrom, scales = "free_x") +
-  #scale_x_continuous(breaks = seq(1,max(rr_repeats$begin), 2000000)) +
-  ylab(y_axis_title) +
-  xlab("Chromosome position") +
-  theme(panel.background = element_blank(),
-        axis.line = element_line(size = 0.2, colour = "grey"),
-        axis.text = element_text(size = 10),
-        axis.title.x = element_text(size = 10),
-        axis.title.y = element_text(size = 10),
-        legend.text = element_text(size = 10),
-        legend.title = element_blank(),
-        legend.key = element_blank(),
-        legend.position = "bottom") #+
+# ggplot(rr_repeats_genes_long, aes(rr_repeats_genes_long$rel_pos, rr_repeats_genes_long$GC)) +
+#   geom_point(aes(colour=chr_type, fill=chr_type),size=1, shape=21) +
+#   geom_smooth(method="loess", colour="red", fill="red") +
+#   scale_colour_discrete(type = c(col_VAR, col_W, col_Z)) +
+#   scale_fill_discrete(type = c("white", col_W, col_Z)) +
+#   #facet_wrap(~chrom, scales = "free_x") +
+#   #scale_x_continuous(breaks = seq(1,max(rr_repeats$begin), 2000000)) +
+#   ylab(y_axis_title) +
+#   xlab("Chromosome position") +
+#   theme(panel.background = element_blank(),
+#         axis.line = element_line(size = 0.2, colour = "grey"),
+#         axis.text = element_text(size = 10),
+#         axis.title.x = element_text(size = 10),
+#         axis.title.y = element_text(size = 10),
+#         legend.text = element_text(size = 10),
+#         legend.title = element_blank(),
+#         legend.key = element_blank(),
+#         legend.position = "bottom") #+
 
 
 ```
 
 ```{r plots_correlation}
+
+col_Z <- "#009294"   #"#005F60"
+col_W <- "#FAAB36"
+col_autosome <- "grey"
+col_all <- "#424242" #very dark grey
+
+
+#define
+x_title_corr="Repeat density (Counts per kb)"
+y_title_corr="Gene density (Counts per kb)"
+
+
 #Linear correlation
-repeat_vs_gene_density <- 
-ggplot(rr_repeats_genes_wide, aes(density_rpt, density_genes)) +
-    geom_point(aes(colour=chr_type, fill=chr_type),shape=21,size=1) +
-    geom_smooth(method = "lm", colour=col_W, fill=col_W) +
-    geom_smooth(data=subset(rr_repeats_genes_wide, chr_type != "W"), method = "lm", colour=col_autosome, fill=col_autosome) +
-    #geom_label(x=0.0012, y=14, label="Cor.coeff=0.341,   \n p-value=4.057e-07", size=3) +
-    scale_colour_discrete(type = c(col_autosome, col_W, col_Z)) +
+x_title_corr="Repeat density (Counts per kb)"
+y_title_corr="Gene density (Counts per kb)"
+
+repeat_vs_gene_density_2Mb <- ggplot(rr_repeats_genes_wide, aes(density_rpt, density_genes)) +
+    geom_point(aes(fill=chr_type),shape=21,size=3, stroke=0.3, colour = col_all) +
+    geom_smooth(data=subset(rr_repeats_genes_wide, chr_type == "W"), method = "lm", colour=col_W, fill=col_W, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_wide, chr_type == "Z"), method = "lm", colour=col_Z, fill=col_Z, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_wide, chr_type == "Autosome"), method = "lm", colour=col_autosome, fill=col_autosome, fullrange=T, se=F) +
+    geom_smooth(method = "lm", colour=col_all, fill=col_all, se=F) +
+      #geom_label(x=0.0012, y=14, label="Cor.coeff=0.341,   \n p-value=4.057e-07", size=3) +
     scale_fill_discrete(type = c(col_autosome, col_W, col_Z)) +
     xlab("Repeat density (Counts per kb)") +
     ylab("Gene density (Counts per kb)") +
+    guides(size = "none") +
     theme(panel.background = element_blank(),
-          axis.line = element_line(size = 0.2, colour = "gray"),
+          axis.line = element_line(size = 0.25, colour = "gray"),
           axis.title = element_text(size = 10),
+          axis.ticks = element_line(size = 0.25),
           legend.text = element_text(size = 10),
           legend.key=element_blank(),
           legend.title = element_blank())
 
-repeat_vs_gene_proportion <- 
-ggplot(rr_repeats_genes_wide, aes(prop_rpt, prop_CDS)) +
+repeat_vs_gene_density_2Mb
+ggsave(repeat_vs_gene_density_2Mb, file="plots/repeat_vs_gene_density.pdf", "pdf", dpi = 300)
+ggsave(repeat_vs_gene_density_2Mb, file="plots/repeat_vs_gene_density.jpeg", "jpeg", dpi = 300)
+
+repeat_vs_gene_proportion <- ggplot(rr_repeats_genes_wide, aes(prop_rpt, prop_genes)) +
     geom_point(aes(colour=chr_type, fill=chr_type),shape=21,size=1) +
-    geom_smooth(method = "lm", colour=col_W, fill=col_W) +
-    geom_smooth(data=subset(rr_repeats_genes_wide, chr_type != "W"), method = "lm", colour=col_autosome, fill=col_autosome) +
-    #geom_label(x=0.0012, y=14, label="Cor.coeff=0.341,   \n p-value=4.057e-07", size=3) +
+    geom_smooth(method = "lm", colour=col_all, fill=col_all) +
+    geom_smooth(data=subset(rr_repeats_genes_wide, chr_type == "W"), method = "lm", colour=col_W, fill=col_W, fullrange=T) +
+    geom_smooth(data=subset(rr_repeats_genes_wide, chr_type == "Z"), method = "lm", colour=col_Z, fill=col_Z, fullrange=T) +
+    geom_smooth(data=subset(rr_repeats_genes_wide, chr_type == "Autosome"), method = "lm", colour=col_autosome, fill=col_autosome, fullrange=T) +
+      #geom_label(x=0.0012, y=14, label="Cor.coeff=0.341,   \n p-value=4.057e-07", size=3) +
     scale_colour_discrete(type = c(col_autosome, col_W, col_Z)) +
     scale_fill_discrete(type = c(col_autosome, col_W, col_Z)) +
-    xlab("Repeat proportion") +
-    ylab("Gene proportion (CDS)") +
+    xlab("Repeat prop") +
+    ylab("Gene prop") +
+    guides(size = "none") +
     theme(panel.background = element_blank(),
           axis.line = element_line(size = 0.2, colour = "gray"),
           axis.title = element_text(size = 10),
@@ -787,73 +1029,113 @@ ggplot(rr_repeats_genes_wide, aes(prop_rpt, prop_CDS)) +
 ggarrange(repeat_vs_gene_density,repeat_vs_gene_proportion, nrow = 2, ncol = 1, common.legend = T, legend = "right")
 
 #rec_rate vs genomic feature
+#setting x max to 38 no rows with rec rate where GC < 38
 #GC
 corr_rr_gc <- 
   ggplot(rr_repeats_genes_long, aes(GC*100, rec_rate)) +
-    geom_point(aes(colour=chr_type, fill=chr_type),shape=21,size=1) +
-    geom_smooth(method = "lm", colour=col_W, fill=col_W) +
-    geom_smooth(data=subset(rr_repeats_genes_long, chr_type != "W"), method = "lm", colour=col_autosome, fill=col_autosome) +
+    geom_point(aes(fill=chr_type),shape=21,size=2, stroke=0.2) +
+    geom_smooth(method = "lm", colour=col_all, fill=col_all, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_long, chr_type == "W"), method = "lm", colour=col_W, fill=col_W, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_long, chr_type == "Z"), method = "lm", colour=col_Z, fill=col_Z, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_long, chr_type == "Autosome"), method = "lm", colour=col_autosome, fill=col_autosome, fullrange=T, se=F) +
     #facet_wrap(~gen_feat, scales = "free") +
-    scale_colour_discrete(type = c(col_autosome, col_W, col_Z)) +
     scale_fill_discrete(type = c(col_autosome, col_W, col_Z)) +
+    scale_y_continuous(limits = c(0,16)) +
+    scale_x_continuous(limits = c(min(rr_repeats_genes_long$GC)*100, 38)) +
     xlab("GC-content (%)") +
     ylab("Recombination rate (cM/Mb)") +
     theme(panel.background = element_blank(),
-          axis.line = element_line(size = 0.2, colour = "gray"),
+          axis.line = element_line(size = 0.25, colour = "gray"),
+          axis.ticks = element_line(size = 0.25),
           axis.title = element_text(size = 10),
           legend.text = element_text(size = 10),
           legend.key=element_blank(),
           legend.title = element_blank())
 
-corr_rr_rpt <- 
-  ggplot(subset(rr_repeats_genes_long, rr_repeats_genes_long$gen_feat=="rpt"), aes(density_var, rec_rate)) +
-    geom_point(aes(colour=chr_type, fill=chr_type),shape=21,size=1) +
-    geom_smooth(method = "lm", colour=col_W, fill=col_W) +
-    geom_smooth(data=subset(rr_repeats_genes_long, rr_repeats_genes_long$gen_feat=="rpt" & chr_type != "W"), method = "lm", colour=col_autosome, fill=col_autosome) +
+corr_rr_rpt <-     ggplot(subset(rr_repeats_genes_long, rr_repeats_genes_long$gen_feat=="rpt"), aes(density_var, rec_rate)) +
+    geom_point(aes(fill=chr_type),shape=21,size=2, stroke=0.2) +
+    geom_smooth(method = "lm", colour=col_all, fill=col_all, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_long, chr_type == "W"), method = "lm", colour=col_W, fill=col_W, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_long, chr_type == "Z"), method = "lm", colour=col_Z, fill=col_Z, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_long, chr_type == "Autosome"), method = "lm", colour=col_autosome, fill=col_autosome, fullrange=T, se=F) +
     #facet_wrap(~gen_feat, scales = "free") +
-    scale_colour_discrete(type = c(col_autosome, col_W, col_Z)) +
     scale_fill_discrete(type = c(col_autosome, col_W, col_Z)) +
+    scale_y_continuous(limits = c(0,16)) +
+    scale_x_continuous(limits = c(0.5, max(subset(rr_repeats_genes_long, rr_repeats_genes_long$gen_feat=="rpt")$density_var))) +
     xlab("Repeat density (counts per kb)") +
     ylab("Recombination rate (cM/Mb)") +
     theme(panel.background = element_blank(),
-          axis.line = element_line(size = 0.2, colour = "gray"),
+          axis.line = element_line(size = 0.25, colour = "gray"),
+          axis.ticks = element_line(size = 0.25),
           axis.title = element_text(size = 10),
           legend.text = element_text(size = 10),
           legend.key=element_blank(),
           legend.title = element_blank())
+
 
 corr_rr_CDS_dens <- 
   ggplot(subset(rr_repeats_genes_long, rr_repeats_genes_long$gen_feat=="CDS"), aes(density_var, rec_rate)) +
-    geom_point(aes(colour=chr_type, fill=chr_type),shape=21,size=1) +
-    geom_smooth(method = "lm", colour=col_W, fill=col_W) +
-    geom_smooth(data=subset(rr_repeats_genes_long, rr_repeats_genes_long$gen_feat=="CDS" & chr_type != "W"), method = "lm", colour=col_autosome, fill=col_autosome) +
+    geom_point(aes(fill=chr_type),shape=21,size=2, stroke=0.2) +
+    geom_smooth(method = "lm", colour=col_all, fill=col_all, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_long, chr_type == "W"), method = "lm", colour=col_W, fill=col_W, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_long, chr_type == "Z"), method = "lm", colour=col_Z, fill=col_Z, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_long, chr_type == "Autosome"), method = "lm", colour=col_autosome, fill=col_autosome, fullrange=T, se=F) +
     #facet_wrap(~gen_feat, scales = "free") +
-    scale_colour_discrete(type = c(col_autosome, col_W, col_Z)) +
     scale_fill_discrete(type = c(col_autosome, col_W, col_Z)) +
+    scale_y_continuous(limits = c(0,16)) +
+    scale_x_continuous(limits = c(0, 0.075)) +
     xlab("Gene density") +
     ylab("Recombination rate (cM/Mb)") +
     theme(panel.background = element_blank(),
-          axis.line = element_line(size = 0.2, colour = "gray"),
+          axis.line = element_line(size = 0.25, colour = "gray"),
+          axis.ticks = element_line(size = 0.25),
           axis.title = element_text(size = 10),
           legend.text = element_text(size = 10),
           legend.key=element_blank(),
           legend.title = element_blank())
 
+corr_rr_gains <- 
+  ggplot(subset(rr_repeats_genes_long, rr_repeats_genes_long$gen_feat=="gains"), aes(density_var, rec_rate)) +
+    geom_point(aes(fill=chr_type),shape=21,size=2, stroke=0.2) +
+    geom_smooth(method = "lm", colour=col_all, fill=col_all, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_long, chr_type == "W"), method = "lm", colour=col_W, fill=col_W, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_long, chr_type == "Z"), method = "lm", colour=col_Z, fill=col_Z, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_long, chr_type == "Autosome"), method = "lm", colour=col_autosome, fill=col_autosome, fullrange=T, se=F) +
+    #facet_wrap(~gen_feat, scales = "free") +
+    scale_fill_discrete(type = c(col_autosome, col_W, col_Z)) +
+    scale_y_continuous(limits = c(0,16)) +
+    scale_x_continuous(limits = c(0, max(subset(rr_repeats_genes_long, rr_repeats_genes_long$gen_feat=="gains")$density_var))) +
+    xlab("Gene gains") +
+    ylab("Recombination rate (cM/Mb)") +
+    theme(panel.background = element_blank(),
+          axis.line = element_line(size = 0.25, colour = "gray"),
+          axis.ticks = element_line(size = 0.25),
+          axis.title = element_text(size = 10),
+          legend.text = element_text(size = 10),
+          legend.key=element_blank(),
+          legend.title = element_blank())
 
-corr_rr_plot <- ggarrange(corr_rr_gc, corr_rr_rpt, corr_rr_CDS_dens, 
-          ncol = 1, nrow = 3, 
+corr_rr_plot <- ggarrange(corr_rr_gc, corr_rr_rpt, corr_rr_CDS_dens, corr_rr_gains,
+          ncol = 2, nrow = 2, 
           common.legend = T, legend = "right")
+
+corr_rr_plot
+ggsave(corr_rr_plot, file="plots_supplement/corr_rr_plot.pdf", "pdf", dpi = 300)
+ggsave(corr_rr_plot, file="plots_supplement/corr_rr_plot.jpeg", "jpeg", dpi = 300)
+
 
 #multiplots
 #density
 corr_dens_rr <- 
   ggplot(rr_repeats_genes_long, aes(density_var, rec_rate)) +
-    geom_point(aes(colour=chr_type, fill=chr_type),shape=21,size=1) +
-    geom_smooth(method = "lm", colour=col_W, fill=col_W) +
-    geom_smooth(data=subset(rr_repeats_genes_long, chr_type != "W"), method = "lm", colour=col_autosome, fill=col_autosome) +
+    geom_point(aes(fill=chr_type),shape=21,size=1, stroke=0.1) +
+    geom_smooth(method = "lm", colour=col_all, fill=col_all, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_long, chr_type == "W"), method = "lm", colour=col_W, fill=col_W, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_long, chr_type == "Z"), method = "lm", colour=col_Z, fill=col_Z, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_long, chr_type == "Autosome"), method = "lm", colour=col_autosome, fill=col_autosome, fullrange=T, se=F) +
     facet_wrap(~gen_feat, scales = "free") +
-    scale_colour_discrete(type = c(col_autosome, col_W, col_Z)) +
     scale_fill_discrete(type = c(col_autosome, col_W, col_Z)) +
+    scale_y_continuous(limits = c(0,16)) +
     xlab("Density (Counts per kb)") +
     ylab("Recombination rate (cM/Mb)") +
     theme(panel.background = element_blank(),
@@ -863,17 +1145,19 @@ corr_dens_rr <-
           legend.key=element_blank(),
           legend.title = element_blank())
 
-
+corr_dens_rr
 #proportion
 corr_prop_rr <- 
   ggplot(rr_repeats_genes_long, aes(prop_var, rec_rate)) +
-    geom_point(aes(colour=chr_type, fill=chr_type),shape=21,size=1) +
-    geom_smooth(method = "lm", colour=col_W, fill=col_W) +
-    geom_smooth(data=subset(rr_repeats_genes_long, chr_type != "W"), method = "lm", colour=col_autosome, fill=col_autosome) +
+    geom_point(aes(fill=chr_type),shape=21,size=1, stroke=0.1) +
+    geom_smooth(method = "lm", colour=col_all, fill=col_all, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_long, chr_type == "W"), method = "lm", colour=col_W, fill=col_W, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_long, chr_type == "Z"), method = "lm", colour=col_Z, fill=col_Z, fullrange=T, se=F) +
+    geom_smooth(data=subset(rr_repeats_genes_long, chr_type == "Autosome"), method = "lm", colour=col_autosome, fill=col_autosome, fullrange=T, se=F) +
     facet_wrap(~gen_feat, scales = "free") +
-    scale_colour_discrete(type = c(col_autosome, col_W, col_Z)) +
     scale_fill_discrete(type = c(col_autosome, col_W, col_Z)) +
-    xlab("Proportion") +
+    scale_y_continuous(limits = c(0,16)) +
+    xlab("Occupied length") +
     ylab("Recombination rate (cM/Mb)") +
     theme(panel.background = element_blank(),
           axis.line = element_line(size = 0.2, colour = "gray"),
@@ -882,50 +1166,233 @@ corr_prop_rr <-
           legend.key=element_blank(),
           legend.title = element_blank())
 
+corr_prop_rr
+ggsave(corr_prop_rr, file="plots_supplement/corr_prop_rr.pdf", "pdf", dpi = 300)
+ggsave(corr_prop_rr, file="plots_supplement/corr_prop_rr.jpeg", "jpeg", dpi = 300)
+ggsave(corr_dens_rr, file="plots_supplement/corr_dens_rr.pdf", "pdf", dpi = 300)
+ggsave(corr_dens_rr, file="plots_supplement/corr_dens_rr.jpeg", "jpeg", dpi = 300)
 
 ```
 
-```{r lm}
-rr_repeats_genes_wide <- as.data.frame(rr_repeats_genes_wide)
-
-rr_repeats_genes_wide_sc <- cbind(rr_repeats_genes_wide[,c("chrom", "chr_type", "rec_rate", "pos_group")], scale(rr_repeats_genes_wide$chr_length), scale(rr_repeats_genes_wide$GC), scale(select(rr_repeats_genes_wide, starts_with("density_"))), scale(select(rr_repeats_genes_wide, starts_with("prop_"))))
-
-colnames(rr_repeats_genes_wide_sc)
-colnames(rr_repeats_genes_wide_sc)[5] <- "chr_length"
-colnames(rr_repeats_genes_wide_sc)[6] <- "GC"
 
 
-#lm
-mod_sc_lm <- lm(rr_repeats_genes_wide_sc$rec_rate~rr_repeats_genes_wide_sc$chr_length + rr_repeats_genes_wide_sc$chr_type + rr_repeats_genes_wide_sc$pos_group + rr_repeats_genes_wide_sc$GC + rr_repeats_genes_wide_sc$density_SINE + rr_repeats_genes_wide_sc$density_DNA + rr_repeats_genes_wide_sc$density_TcM + rr_repeats_genes_wide_sc$density_LINE + rr_repeats_genes_wide_sc$density_LTR + rr_repeats_genes_wide_sc$density_nonLTR + rr_repeats_genes_wide_sc$density_genes)
 
-summary(mod_sc_lm)
-capture.output(summary(mod_sc_lm), file = "tables/lm_model.txt")
-confint(mod_sc_lm)
-capture.output(confint(mod_sc_lm), file = "tables/lm_model.txt", append = T)
+```{bash}
+cat ../JointAnalysis/*counts-merged.tsv > window_based_data/counts_merged_100kb_tmp.tsv
 
-plot(mod_sc_lm)
+#Remove header lines
+grep -v  "chrom" window_based_data/counts_merged_100kb_tmp.tsv > window_based_data/counts_merged_100kb_nohead_tmp.tsv
 
-library(lme4)
-mmod1 <- lmer(rec_rate~chr_length + (1|chr_type) + pos_group + GC + density_SINE + density_DNA + density_TcM + density_LINE + density_LTR + density_nonLTR + density_genes, rr_repeats_genes_wide_sc)
+#add header
+awk NR==1 window_based_data/counts_merged_100kb_tmp.tsv | cat - window_based_data/counts_merged_100kb_nohead_tmp.tsv > window_based_data/counts_merged_100kb.tsv
 
-summary(mmod1)
-capture.output(summary(mmod1), file = "tables/lmer_mixmodel.txt")
-confint(mmod1)
-capture.output(confint(mmod1), file = "tables/lmer_mixmodel.txt", append = T)
-
-plot(mod_sc_lm)
-
-mmod2 <- lmer(rec_rate~(1|chr_length) + (1|chr_type) + density_SINE + density_DNA + density_TcM + density_LINE + density_LTR + density_nonLTR + density_genes, rr_repeats_genes_wide_sc)
-summary(mmod1)
+rm window_based_data/counts_merged_100kb*tmp.tsv
 
 
 ```
+
+
 
 ```{r 100kb_wind}
+counts_merged_100kb <- read.table("window_based_data/counts_merged_100kb.tsv", header = T, row.names = NULL)
 
-multi_100kb.df <- read.table("../JointAnalysis/LR999924.1-counts-merged.tsv", header = T)
-head(multi_100kb.df)
+counts_merged_100kb$chr_type <- "Autosome"
+counts_merged_100kb[counts_merged_100kb$chrom=="LR999924.1","chr_type"] <- "Z"
+counts_merged_100kb[counts_merged_100kb$chrom=="LR999940.1","chr_type"] <- "W"
+
+#remove the gained genes from the total gene number, first check for unfiltered gained genes
+#for 27 windows (of 121 > 1) the gained genes are higher then the total gene (probably filtered out from total gene count)
+#for these genes filter out the ones not in the total gene set by setting nr of gene_ex = gene
+counts_merged_100kb[counts_merged_100kb$count_gene_ex > counts_merged_100kb$count_gene, "length_gene_ex"] <-  counts_merged_100kb[counts_merged_100kb$count_gene_ex > counts_merged_100kb$count_gene, "length_gene"]
+
+counts_merged_100kb[counts_merged_100kb$count_gene_ex > counts_merged_100kb$count_gene, "count_gene_ex"] <-  counts_merged_100kb[counts_merged_100kb$count_gene_ex > counts_merged_100kb$count_gene, "count_gene"]
+
+#remove the gained genes from the total gene number
+counts_merged_100kb$count_gene <- counts_merged_100kb$count_gene - counts_merged_100kb$count_gene_ex
+counts_merged_100kb$length_gene <- counts_merged_100kb$length_gene - counts_merged_100kb$length_gene_ex
+
+
+counts_merged_100kb$count_gene <- as.numeric(counts_merged_100kb$count_gene)
+counts_merged_100kb$count_gene_ex <- as.numeric(counts_merged_100kb$count_gene_ex)
+
+
+counts_merged_100kb$gene_ex_bin <- 1
+counts_merged_100kb[counts_merged_100kb$count_gene_ex==0, "gene_ex_bin"] <- 0
+counts_merged_100kb$gene_ex_bin <- as.factor(counts_merged_100kb$gene_ex_bin)
+
+str(counts_merged_100kb)
+head(counts_merged_100kb)
+summary(counts_merged_100kb)
+
+write.table(counts_merged_100kb, "tables/counts_merged_100kb_compl.csv")
+
+counts_merged_100kb_long <- pivot_longer(counts_merged_100kb, cols=names(select(counts_merged_100kb, starts_with("count"))), names_to="gen_feat", values_to ="counts", names_prefix = )
+
+counts_merged_100kb_long$gen_feat <- as.factor(counts_merged_100kb_long$gen_feat)
+counts_merged_100kb_long$gen_feat <- factor(counts_merged_100kb_long$gen_feat, levels = c("count_gene", "count_gene_ex", "count_rpt", "count_LINE", "count_SINE", "count_nonLTR", "count_LTR", "count_DNA", "count_TcM", "count_simple"))
+
+levels(counts_merged_100kb_long$gen_feat) <- gsub("count_", "", levels(counts_merged_100kb_long$gen_feat))
+
+counts_merged_100kb_long <- as.data.frame(counts_merged_100kb_long)
+
+########
+#Tests
+cor.test(counts_merged_100kb$count_rpt, counts_merged_100kb$count_gene)
+cor.test(counts_merged_100kb$count_rpt, counts_merged_100kb$count_gene_ex)
+
+capture.output(cor.test(counts_merged_100kb$count_rpt, counts_merged_100kb$count_gene), file = "tables/corr_totrpt_genes.txt")
+capture.output(cor.test(counts_merged_100kb$count_rpt, counts_merged_100kb$count_gene_ex), file = "tables/corr_totrpt_genes.txt", append = T)
+
+mod_lm_100kb <- lm(counts_merged_100kb$count_gene_ex~counts_merged_100kb$chr_type + counts_merged_100kb$count_SINE+counts_merged_100kb$count_DNA+counts_merged_100kb$count_TcM+counts_merged_100kb$count_LINE+counts_merged_100kb$count_LTR+counts_merged_100kb$count_nonLTR+counts_merged_100kb$count_simple+counts_merged_100kb$count_gene)
+summary(mod_lm_100kb)
+plot(mod_lm_100kb)
+capture.output(summary(mod_lm_100kb), file="tables/mod_lm_100kb.txt")
+
+mod_lm_100kb_int <- lm(counts_merged_100kb$count_gene_ex~counts_merged_100kb$chr_type + counts_merged_100kb$chr_type:counts_merged_100kb$count_nonLTR+ counts_merged_100kb$chr_type:counts_merged_100kb$count_DNA+ counts_merged_100kb$chr_type:counts_merged_100kb$count_LINE+ counts_merged_100kb$chr_type:counts_merged_100kb$count_gene+ counts_merged_100kb$chr_type:counts_merged_100kb$count_simple+ counts_merged_100kb$chr_type:counts_merged_100kb$count_SINE+  counts_merged_100kb$chr_type:counts_merged_100kb$count_TcM+ counts_merged_100kb$chr_type:counts_merged_100kb$count_LTR)
+summary(mod_lm_100kb_int)
+capture.output(mod_lm_100kb_int, file="tables/mod_lm_100kb_interation.txt")
+capture.output(summary(mod_lm_100kb_int), file="tables/mod_lm_100kb_interation.txt", append = T)
+capture.output(confint(mod_lm_100kb_int), file="tables/mod_lm_100kb_interation.txt", append = T)
+
+mod_lmer_100kb <- lmer(counts_merged_100kb$count_gene_ex~(1|counts_merged_100kb$chr_type) + counts_merged_100kb$count_SINE+counts_merged_100kb$count_DNA+counts_merged_100kb$count_TcM+counts_merged_100kb$count_LINE+counts_merged_100kb$count_LTR+counts_merged_100kb$count_nonLTR+counts_merged_100kb$count_simple+counts_merged_100kb$count_gene)
+summary(mod_lmer_100kb)
+
+
+mean(counts_merged_100kb[counts_merged_100kb$count_gene_ex>=1,"count_SINE"])
+mean(counts_merged_100kb[counts_merged_100kb$count_gene_ex==0,"count_SINE"])
+
+hist(counts_merged_100kb[counts_merged_100kb$count_gene_ex==0,"count_SINE"], breaks = 1000)
+
+t.test(counts_merged_100kb[counts_merged_100kb$count_gene_ex>=1,"count_SINE"],counts_merged_100kb[counts_merged_100kb$count_gene_ex==0,"count_SINE"])
+t.test(counts_merged_100kb[counts_merged_100kb$count_gene_ex>=1,"count_DNA"],counts_merged_100kb[counts_merged_100kb$count_gene_ex==0,"count_DNA"])
+t.test(counts_merged_100kb[counts_merged_100kb$count_gene_ex>=1,"count_LINE"],counts_merged_100kb[counts_merged_100kb$count_gene_ex==0,"count_LINE"])
+t.test(counts_merged_100kb[counts_merged_100kb$count_gene_ex>=1,"count_TcM"],counts_merged_100kb[counts_merged_100kb$count_gene_ex==0,"count_TcM"])
+
+
+select(counts_merged_100kb, starts_with("count"))
+
+stats.wilc.test <- counts_merged_100kb_long %>%
+  group_by(gen_feat) %>%
+  wilcox_test(counts ~ gene_ex_bin, detailed = T) %>%
+  adjust_pvalue(method = "BH") %>%
+  add_significance()
+
+stats.wilc.test_noW <- counts_merged_100kb_long[counts_merged_100kb_long$chr_type!="W",] %>%
+  group_by(gen_feat) %>%
+  wilcox_test(counts ~ gene_ex_bin) %>%
+  adjust_pvalue(method = "BH") %>%
+  add_significance()
+
+stats.t.test <- counts_merged_100kb_long %>%
+  group_by(gen_feat) %>%
+  t_test(counts ~ gene_ex_bin) %>%
+  adjust_pvalue(method = "BH") %>%
+  add_significance()
+
+write.table(stats.wilc.test, file="tables/wilc.test_100kb.txt")
+write.table(stats.wilc.test_noW, file="tables/wilc.test_100kb_noW.txt")
+
+ggplot(counts_merged_100kb_long[counts_merged_100kb_long$gen_feat!=c("rpt"),]) +
+  geom_violin(aes(gen_feat, counts, fill=gene_ex_bin), position="dodge") + 
+    theme(panel.background = element_blank(),
+          axis.line = element_line(size = 0.2, colour = "gray"),
+          axis.title = element_text(size = 10),
+          legend.text = element_text(size = 10),
+          legend.title = element_blank())
+
+#function for split violin 
+#https://stackoverflow.com/questions/35717353/split-violin-plot-with-ggplot2
+GeomSplitViolin <- ggproto("GeomSplitViolin", GeomViolin, 
+                           draw_group = function(self, data, ..., draw_quantiles = NULL) {
+  data <- transform(data, xminv = x - violinwidth * (x - xmin), xmaxv = x + violinwidth * (xmax - x))
+  grp <- data[1, "group"]
+  newdata <- plyr::arrange(transform(data, x = if (grp %% 2 == 1) xminv else xmaxv), if (grp %% 2 == 1) y else -y)
+  newdata <- rbind(newdata[1, ], newdata, newdata[nrow(newdata), ], newdata[1, ])
+  newdata[c(1, nrow(newdata) - 1, nrow(newdata)), "x"] <- round(newdata[1, "x"])
+
+  if (length(draw_quantiles) > 0 & !scales::zero_range(range(data$y))) {
+    stopifnot(all(draw_quantiles >= 0), all(draw_quantiles <=
+      1))
+    quantiles <- ggplot2:::create_quantile_segment_frame(data, draw_quantiles)
+    aesthetics <- data[rep(1, nrow(quantiles)), setdiff(names(data), c("x", "y")), drop = FALSE]
+    aesthetics$alpha <- rep(1, nrow(quantiles))
+    both <- cbind(quantiles, aesthetics)
+    quantile_grob <- GeomPath$draw_panel(both, ...)
+    ggplot2:::ggname("geom_split_violin", grid::grobTree(GeomPolygon$draw_panel(newdata, ...), quantile_grob))
+  }
+  else {
+    ggplot2:::ggname("geom_split_violin", GeomPolygon$draw_panel(newdata, ...))
+  }
+})
+
+geom_split_violin <- function(mapping = NULL, data = NULL, stat = "ydensity", position = "identity", ..., 
+                              draw_quantiles = NULL, trim = TRUE, scale = "area", na.rm = FALSE, 
+                              show.legend = NA, inherit.aes = TRUE) {
+  layer(data = data, mapping = mapping, stat = stat, geom = GeomSplitViolin, 
+        position = position, show.legend = show.legend, inherit.aes = inherit.aes, 
+        params = list(trim = trim, scale = scale, draw_quantiles = draw_quantiles, na.rm = na.rm, ...))
+}
+
+
+
+ggplot(counts_merged_100kb_long,aes(gen_feat,counts, fill=gene_ex_bin)) +
+  geom_violin()
+
+ggplot(counts_merged_100kb_long,aes(gen_feat, counts, fill=gene_ex_bin)) +
+  geom_split_violin()
+  #scale_y_continuous(trans = "log10")
+
+ggplot(counts_merged_100kb_long,aes(gen_feat, counts, fill=gene_ex_bin)) +
+  geom_split_violin() +
+  scale_y_continuous(trans = "log10")
+
+ggplot(counts_merged_100kb_long[counts_merged_100kb_long$gen_feat!=c("count_rpt"),],aes(gen_feat, counts, fill=gene_ex_bin)) 
+##4d3500", "#d19200"
+
+gains_violin <- ggplot(counts_merged_100kb_long[counts_merged_100kb_long$gen_feat!=c("gene_ex"),],
+       aes(gen_feat, counts, fill=gene_ex_bin)) +
+    geom_split_violin(size=0.2) +
+    stat_summary(fun.y = mean, fun.ymin = mean, fun.ymax = mean,
+               geom = "crossbar", 
+               width = 0.25,
+               position = position_dodge(width = .25), size = 0.2, show.legend = FALSE) +
+    scale_y_continuous(trans = "log10") +
+    scale_fill_discrete(type = c("#916400","#FAAB36"), labels = c("without gains", ">1 gaines")) +
+    xlab("") +
+    theme(panel.background = element_blank(),
+          axis.line = element_line(size = 0.2, colour = "gray"),
+          axis.title = element_text(size = 10),
+          axis.ticks = element_line(size = 0.25),
+          legend.text = element_text(size = 10),
+          legend.key=element_blank(),
+          legend.title = element_blank())
+
+ggsave(gains_violin, file="plots/gains_violin.pdf", "pdf", width = 7, height = 3.5, dpi = 300)
+ggsave(gains_violin, file="plots/gains_violin.jpeg", "jpeg", width = 7, height = 3.5, dpi = 300)
+
+
+repeat_vs_gene_100kb <- ggplot(counts_merged_100kb, aes(count_rpt, count_gene)) +
+    geom_point(aes(colour=chr_type, fill=chr_type),shape=21,size=1) +
+    geom_smooth(data=subset(counts_merged_100kb, chr_type == "W"), method = "lm", colour=col_W, fill=col_W, fullrange=T) +
+    geom_smooth(data=subset(counts_merged_100kb, chr_type == "Z"), method = "lm", colour=col_Z, fill=col_Z, fullrange=T) +
+    geom_smooth(data=subset(counts_merged_100kb, chr_type == "Autosome"), method = "lm", colour=col_autosome, fill=col_autosome, fullrange=T) +
+    geom_smooth(method = "lm", colour=col_all, fill=col_all) +
+      #geom_label(x=0.0012, y=14, label="Cor.coeff=0.341,   \n p-value=4.057e-07", size=3) +
+    scale_colour_discrete(type = c(col_autosome, col_W, col_Z)) +
+    scale_fill_discrete(type = c(col_autosome, col_W, col_Z)) +
+    xlab("Repeat counts") +
+    ylab("Gene counts") +
+    guides(size = "none") +
+    theme(panel.background = element_blank(),
+          axis.line = element_line(size = 0.2, colour = "gray"),
+          axis.title = element_text(size = 10),
+          legend.text = element_text(size = 10),
+          legend.key=element_blank(),
+          legend.title = element_blank())
+
+repeat_vs_gene_100kb
 
 ```
+
 
 

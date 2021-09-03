@@ -1,0 +1,24 @@
+
+	Pearson's product-moment correlation
+
+data:  rr_repeats_genes_wide$rec_rate and rr_repeats_genes_wide$length_rpt/rr_repeats_genes_wide$count_rpt
+t = -3.6812, df = 215, p-value = 0.0002936
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.3648528 -0.1140139
+sample estimates:
+       cor 
+-0.2435007 
+
+
+	Pearson's product-moment correlation
+
+data:  rr_repeats_genes_wide[rr_repeats_genes_wide$chr_type != "W", ]$rec_rate and rr_repeats_genes_wide[rr_repeats_genes_wide$chr_type != "W", ]$length_rpt/rr_repeats_genes_wide[rr_repeats_genes_wide$chr_type != "W", ]$count_rpt
+t = -0.031845, df = 208, p-value = 0.9746
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.1375574  0.1332222
+sample estimates:
+         cor 
+-0.002208071 
+

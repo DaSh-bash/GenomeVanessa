@@ -1,0 +1,24 @@
+
+	Pearson's product-moment correlation
+
+data:  counts_merged_100kb$count_rpt and counts_merged_100kb$count_gene
+t = -18.265, df = 4260, p-value < 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.2971131 -0.2414231
+sample estimates:
+       cor 
+-0.2694934 
+
+
+	Pearson's product-moment correlation
+
+data:  counts_merged_100kb$count_rpt and counts_merged_100kb$count_gene_ex
+t = 3.1185, df = 4260, p-value = 0.00183
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.01772596 0.07763665
+sample estimates:
+       cor 
+0.04772422 
+

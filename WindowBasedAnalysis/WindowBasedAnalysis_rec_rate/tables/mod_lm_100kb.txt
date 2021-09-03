@@ -1,0 +1,32 @@
+
+Call:
+lm(formula = counts_merged_100kb$count_gene_ex ~ counts_merged_100kb$chr_type + 
+    counts_merged_100kb$count_SINE + counts_merged_100kb$count_DNA + 
+    counts_merged_100kb$count_TcM + counts_merged_100kb$count_LINE + 
+    counts_merged_100kb$count_LTR + counts_merged_100kb$count_nonLTR + 
+    counts_merged_100kb$count_simple + counts_merged_100kb$count_gene)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2815 -0.1520 -0.0969 -0.0429 12.7905 
+
+Coefficients:
+                                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                       0.0852357  0.0408018   2.089  0.03677 *  
+counts_merged_100kb$chr_typeW     0.4402248  0.0674605   6.526 7.56e-11 ***
+counts_merged_100kb$chr_typeZ    -0.0548797  0.0397532  -1.381  0.16750    
+counts_merged_100kb$count_SINE   -0.0059369  0.0007317  -8.114 6.34e-16 ***
+counts_merged_100kb$count_DNA     0.0063551  0.0013274   4.788 1.74e-06 ***
+counts_merged_100kb$count_TcM     0.0001730  0.0056468   0.031  0.97556    
+counts_merged_100kb$count_LINE    0.0032638  0.0018600   1.755  0.07938 .  
+counts_merged_100kb$count_LTR     0.0116376  0.0021160   5.500 4.02e-08 ***
+counts_merged_100kb$count_nonLTR  0.0049674  0.0011497   4.320 1.59e-05 ***
+counts_merged_100kb$count_simple  0.0001063  0.0010231   0.104  0.91723    
+counts_merged_100kb$count_gene   -0.0095308  0.0030238  -3.152  0.00163 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.5014 on 4251 degrees of freedom
+Multiple R-squared:  0.1372,	Adjusted R-squared:  0.1351 
+F-statistic: 67.58 on 10 and 4251 DF,  p-value: < 2.2e-16
+

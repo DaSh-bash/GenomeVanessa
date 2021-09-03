@@ -1,0 +1,132 @@
+
+Call:
+lm(formula = rr_repeats_genes_wide_sc$density_gains ~ rr_repeats_genes_wide_sc$chr_length + 
+    rr_repeats_genes_wide_sc$rec_rate + rr_repeats_genes_wide_sc$chr_type + 
+    rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_genes + 
+    rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_LTR + 
+    rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_nonLTR + 
+    rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_LINE + 
+    rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_SINE + 
+    rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_simple + 
+    rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_DNA + 
+    rr_repeats_genes_wide_sc$chr_type:rr_repeats_genes_wide_sc$density_TcM + 
+    rr_repeats_genes_wide_sc$pos_group + rr_repeats_genes_wide_sc$GC)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0754 -0.3190 -0.0679  0.1555  4.5427 
+
+Coefficients: (2 not defined because of singularities)
+                                                                                   Estimate Std. Error t value Pr(>|t|)
+(Intercept)                                                                        0.015841   0.157571   0.101 0.920031
+rr_repeats_genes_wide_sc$chr_length                                               -0.002906   0.087968  -0.033 0.973686
+rr_repeats_genes_wide_sc$rec_rate                                                 -0.001798   0.019941  -0.090 0.928264
+rr_repeats_genes_wide_sc$chr_typeW                                                34.306881  28.412554   1.207 0.228798
+rr_repeats_genes_wide_sc$chr_typeZ                                                 2.536018  10.562991   0.240 0.810530
+rr_repeats_genes_wide_sc$pos_group2                                                0.004610   0.145470   0.032 0.974753
+rr_repeats_genes_wide_sc$pos_group3                                                0.021672   0.166434   0.130 0.896541
+rr_repeats_genes_wide_sc$pos_group4                                               -0.006883   0.189319  -0.036 0.971035
+rr_repeats_genes_wide_sc$pos_group5                                               -0.159223   0.235233  -0.677 0.499331
+rr_repeats_genes_wide_sc$GC                                                        0.122998   0.136730   0.900 0.369516
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_genes   0.118536   0.068743   1.724 0.086319
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_genes          1.332340   2.997044   0.445 0.657164
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_genes         -0.391042   0.799078  -0.489 0.625162
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_LTR    -0.106303   0.184297  -0.577 0.564775
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_LTR            1.187419   1.896353   0.626 0.531982
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_LTR           -0.276789   3.597218  -0.077 0.938750
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_nonLTR  0.061046   0.239979   0.254 0.799485
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_nonLTR        -2.343965   1.532399  -1.530 0.127823
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_nonLTR         4.297945  13.649865   0.315 0.753215
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_LINE    0.441886   0.129901   3.402 0.000821
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_LINE           1.863988   1.691927   1.102 0.272025
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_LINE          -3.005452   7.399084  -0.406 0.685071
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_SINE   -0.456897   0.152265  -3.001 0.003065
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_SINE          16.324874  18.780716   0.869 0.385844
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_SINE          -0.015790   2.130323  -0.007 0.994094
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_simple -0.096409   0.109980  -0.877 0.381842
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_simple         0.777570   1.064849   0.730 0.466182
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_simple         2.381534   5.876290   0.405 0.685741
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_DNA     0.280264   0.115165   2.434 0.015900
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_DNA                  NA         NA      NA       NA
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_DNA            2.137622   5.157825   0.414 0.679030
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_TcM     0.009289   0.087917   0.106 0.915967
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_TcM                  NA         NA      NA       NA
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_TcM           -0.109867   0.778929  -0.141 0.887985
+                                                                                     
+(Intercept)                                                                          
+rr_repeats_genes_wide_sc$chr_length                                                  
+rr_repeats_genes_wide_sc$rec_rate                                                    
+rr_repeats_genes_wide_sc$chr_typeW                                                   
+rr_repeats_genes_wide_sc$chr_typeZ                                                   
+rr_repeats_genes_wide_sc$pos_group2                                                  
+rr_repeats_genes_wide_sc$pos_group3                                                  
+rr_repeats_genes_wide_sc$pos_group4                                                  
+rr_repeats_genes_wide_sc$pos_group5                                                  
+rr_repeats_genes_wide_sc$GC                                                          
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_genes  .  
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_genes            
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_genes            
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_LTR       
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_LTR              
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_LTR              
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_nonLTR    
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_nonLTR           
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_nonLTR           
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_LINE   ***
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_LINE             
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_LINE             
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_SINE   ** 
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_SINE             
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_SINE             
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_simple    
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_simple           
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_simple           
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_DNA    *  
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_DNA              
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_DNA              
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_TcM       
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_TcM              
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_TcM              
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.6285 on 185 degrees of freedom
+  (10 observations deleted due to missingness)
+Multiple R-squared:  0.6637,	Adjusted R-squared:  0.6074 
+F-statistic: 11.78 on 31 and 185 DF,  p-value: < 2.2e-16
+
+                                                                                         2.5 %      97.5 %
+(Intercept)                                                                        -0.29502693  0.32670886
+rr_repeats_genes_wide_sc$chr_length                                                -0.17645594  0.17064462
+rr_repeats_genes_wide_sc$rec_rate                                                  -0.04113795  0.03754258
+rr_repeats_genes_wide_sc$chr_typeW                                                -21.74739226 90.36115464
+rr_repeats_genes_wide_sc$chr_typeZ                                                -18.30338920 23.37542556
+rr_repeats_genes_wide_sc$pos_group2                                                -0.28238345  0.29160340
+rr_repeats_genes_wide_sc$pos_group3                                                -0.30668074  0.35002394
+rr_repeats_genes_wide_sc$pos_group4                                                -0.38038444  0.36661750
+rr_repeats_genes_wide_sc$pos_group5                                                -0.62330759  0.30486114
+rr_repeats_genes_wide_sc$GC                                                        -0.14675132  0.39274814
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_genes   -0.01708566  0.25415792
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_genes          -4.58043842  7.24511763
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_genes          -1.96751794  1.18543413
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_LTR     -0.46989655  0.25729109
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_LTR            -2.55383981  4.92867766
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_LTR            -7.37363319  6.82005514
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_nonLTR  -0.41240173  0.53449330
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_nonLTR         -5.36718834  0.67925887
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_nonLTR        -22.63146263 31.22735262
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_LINE     0.18560733  0.69816422
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_LINE           -1.47396414  5.20194112
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_LINE          -17.60288288 11.59197879
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_SINE    -0.75729595 -0.15649806
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_SINE          -20.72703546 53.37678401
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_SINE           -4.21864002  4.18705952
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_simple  -0.31338575  0.12056846
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_simple         -1.32323979  2.87837920
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_simple         -9.21162228 13.97469119
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_DNA      0.05305899  0.50746947
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_DNA                     NA          NA
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_DNA            -8.03809683 12.31334042
+rr_repeats_genes_wide_sc$chr_typeAutosome:rr_repeats_genes_wide_sc$density_TcM     -0.16415895  0.18273742
+rr_repeats_genes_wide_sc$chr_typeW:rr_repeats_genes_wide_sc$density_TcM                     NA          NA
+rr_repeats_genes_wide_sc$chr_typeZ:rr_repeats_genes_wide_sc$density_TcM            -1.64659292  1.42685907

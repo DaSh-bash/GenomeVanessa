@@ -1,0 +1,148 @@
+
+Call:
+lm(formula = counts_merged_100kb$count_gene_ex ~ counts_merged_100kb$chr_type + 
+    counts_merged_100kb$chr_type:counts_merged_100kb$count_nonLTR + 
+    counts_merged_100kb$chr_type:counts_merged_100kb$count_DNA + 
+    counts_merged_100kb$chr_type:counts_merged_100kb$count_LINE + 
+    counts_merged_100kb$chr_type:counts_merged_100kb$count_gene + 
+    counts_merged_100kb$chr_type:counts_merged_100kb$count_simple + 
+    counts_merged_100kb$chr_type:counts_merged_100kb$count_SINE + 
+    counts_merged_100kb$chr_type:counts_merged_100kb$count_TcM + 
+    counts_merged_100kb$chr_type:counts_merged_100kb$count_LTR)
+
+Coefficients:
+                                                          (Intercept)  
+                                                            1.205e-01  
+                                        counts_merged_100kb$chr_typeW  
+                                                            1.688e-02  
+                                        counts_merged_100kb$chr_typeZ  
+                                                           -1.353e-01  
+counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_nonLTR  
+                                                            3.827e-03  
+       counts_merged_100kb$chr_typeW:counts_merged_100kb$count_nonLTR  
+                                                            9.761e-03  
+       counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_nonLTR  
+                                                            6.255e-04  
+   counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_DNA  
+                                                            7.430e-03  
+          counts_merged_100kb$chr_typeW:counts_merged_100kb$count_DNA  
+                                                           -2.199e-02  
+          counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_DNA  
+                                                            3.499e-05  
+  counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_LINE  
+                                                            3.935e-03  
+         counts_merged_100kb$chr_typeW:counts_merged_100kb$count_LINE  
+                                                           -1.306e-02  
+         counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_LINE  
+                                                           -8.808e-03  
+  counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_gene  
+                                                           -8.986e-03  
+         counts_merged_100kb$chr_typeW:counts_merged_100kb$count_gene  
+                                                           -5.107e-02  
+         counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_gene  
+                                                           -7.336e-03  
+counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_simple  
+                                                           -1.219e-03  
+       counts_merged_100kb$chr_typeW:counts_merged_100kb$count_simple  
+                                                            3.513e-02  
+       counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_simple  
+                                                            1.864e-03  
+  counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_SINE  
+                                                           -5.699e-03  
+         counts_merged_100kb$chr_typeW:counts_merged_100kb$count_SINE  
+                                                            3.837e-03  
+         counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_SINE  
+                                                            4.208e-03  
+   counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_TcM  
+                                                            1.312e-03  
+          counts_merged_100kb$chr_typeW:counts_merged_100kb$count_TcM  
+                                                            1.725e-02  
+          counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_TcM  
+                                                            7.705e-03  
+   counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_LTR  
+                                                            1.236e-02  
+          counts_merged_100kb$chr_typeW:counts_merged_100kb$count_LTR  
+                                                            3.111e-03  
+          counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_LTR  
+                                                           -8.844e-03  
+
+
+Call:
+lm(formula = counts_merged_100kb$count_gene_ex ~ counts_merged_100kb$chr_type + 
+    counts_merged_100kb$chr_type:counts_merged_100kb$count_nonLTR + 
+    counts_merged_100kb$chr_type:counts_merged_100kb$count_DNA + 
+    counts_merged_100kb$chr_type:counts_merged_100kb$count_LINE + 
+    counts_merged_100kb$chr_type:counts_merged_100kb$count_gene + 
+    counts_merged_100kb$chr_type:counts_merged_100kb$count_simple + 
+    counts_merged_100kb$chr_type:counts_merged_100kb$count_SINE + 
+    counts_merged_100kb$chr_type:counts_merged_100kb$count_TcM + 
+    counts_merged_100kb$chr_type:counts_merged_100kb$count_LTR)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.9283 -0.1521 -0.0945 -0.0410 12.8046 
+
+Coefficients:
+                                                                        Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                                                            1.205e-01  4.190e-02   2.876  0.00405 ** 
+counts_merged_100kb$chr_typeW                                          1.688e-02  2.713e-01   0.062  0.95039    
+counts_merged_100kb$chr_typeZ                                         -1.353e-01  2.370e-01  -0.571  0.56812    
+counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_nonLTR  3.827e-03  1.225e-03   3.124  0.00179 ** 
+counts_merged_100kb$chr_typeW:counts_merged_100kb$count_nonLTR         9.761e-03  3.974e-03   2.456  0.01409 *  
+counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_nonLTR         6.255e-04  7.826e-03   0.080  0.93630    
+counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_DNA     7.430e-03  1.375e-03   5.404 6.86e-08 ***
+counts_merged_100kb$chr_typeW:counts_merged_100kb$count_DNA           -2.199e-02  8.140e-03  -2.702  0.00692 ** 
+counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_DNA            3.499e-05  8.745e-03   0.004  0.99681    
+counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_LINE    3.935e-03  1.977e-03   1.991  0.04658 *  
+counts_merged_100kb$chr_typeW:counts_merged_100kb$count_LINE          -1.306e-02  6.346e-03  -2.059  0.03959 *  
+counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_LINE          -8.808e-03  1.106e-02  -0.796  0.42580    
+counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_gene   -8.986e-03  3.060e-03  -2.936  0.00334 ** 
+counts_merged_100kb$chr_typeW:counts_merged_100kb$count_gene          -5.107e-02  6.181e-02  -0.826  0.40868    
+counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_gene          -7.336e-03  1.822e-02  -0.403  0.68723    
+counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_simple -1.219e-03  1.054e-03  -1.157  0.24752    
+counts_merged_100kb$chr_typeW:counts_merged_100kb$count_simple         3.513e-02  5.662e-03   6.204 6.05e-10 ***
+counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_simple         1.864e-03  5.844e-03   0.319  0.74976    
+counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_SINE   -5.699e-03  7.551e-04  -7.547 5.40e-14 ***
+counts_merged_100kb$chr_typeW:counts_merged_100kb$count_SINE           3.837e-03  1.927e-02   0.199  0.84219    
+counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_SINE           4.208e-03  4.999e-03   0.842  0.40002    
+counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_TcM     1.312e-03  5.992e-03   0.219  0.82668    
+counts_merged_100kb$chr_typeW:counts_merged_100kb$count_TcM            1.725e-02  2.272e-02   0.759  0.44782    
+counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_TcM            7.705e-03  2.918e-02   0.264  0.79171    
+counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_LTR     1.236e-02  2.382e-03   5.189 2.21e-07 ***
+counts_merged_100kb$chr_typeW:counts_merged_100kb$count_LTR            3.111e-03  4.786e-03   0.650  0.51570    
+counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_LTR           -8.844e-03  2.353e-02  -0.376  0.70704    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.4981 on 4235 degrees of freedom
+Multiple R-squared:  0.1518,	Adjusted R-squared:  0.1466 
+F-statistic: 29.15 on 26 and 4235 DF,  p-value: < 2.2e-16
+
+                                                                              2.5 %        97.5 %
+(Intercept)                                                            3.833982e-02  0.2026228850
+counts_merged_100kb$chr_typeW                                         -5.149182e-01  0.5486744763
+counts_merged_100kb$chr_typeZ                                         -5.998704e-01  0.3293095691
+counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_nonLTR  1.425489e-03  0.0062278278
+counts_merged_100kb$chr_typeW:counts_merged_100kb$count_nonLTR         1.969117e-03  0.0175532429
+counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_nonLTR        -1.471792e-02  0.0159689606
+counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_DNA     4.734722e-03  0.0101256249
+counts_merged_100kb$chr_typeW:counts_merged_100kb$count_DNA           -3.795068e-02 -0.0060350438
+counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_DNA           -1.710975e-02  0.0171797427
+counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_LINE    5.954986e-05  0.0078107776
+counts_merged_100kb$chr_typeW:counts_merged_100kb$count_LINE          -2.550397e-02 -0.0006229080
+counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_LINE          -3.048888e-02  0.0128727992
+counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_gene   -1.498570e-02 -0.0029865506
+counts_merged_100kb$chr_typeW:counts_merged_100kb$count_gene          -1.722420e-01  0.0701015516
+counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_gene          -4.305723e-02  0.0283847893
+counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_simple -3.284052e-03  0.0008470391
+counts_merged_100kb$chr_typeW:counts_merged_100kb$count_simple         2.402540e-02  0.0462273494
+counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_simple        -9.592744e-03  0.0133207315
+counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_SINE   -7.179732e-03 -0.0042188445
+counts_merged_100kb$chr_typeW:counts_merged_100kb$count_SINE          -3.394176e-02  0.0416153297
+counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_SINE          -5.593417e-03  0.0140087987
+counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_TcM    -1.043534e-02  0.0130595520
+counts_merged_100kb$chr_typeW:counts_merged_100kb$count_TcM           -2.729428e-02  0.0617869678
+counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_TcM           -4.949323e-02  0.0649040115
+counts_merged_100kb$chr_typeAutosome:counts_merged_100kb$count_LTR     7.691722e-03  0.0170333724
+counts_merged_100kb$chr_typeW:counts_merged_100kb$count_LTR           -6.271871e-03  0.0124939406
+counts_merged_100kb$chr_typeZ:counts_merged_100kb$count_LTR           -5.497713e-02  0.0372885554

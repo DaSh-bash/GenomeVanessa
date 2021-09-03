@@ -4,9 +4,9 @@
 data:  rr_repeats_genes_long$rec_rate and rr_repeats_genes_long$pos_group 
 
   1       2       3       4      
-2 0.00019 -       -       -      
-3 0.51911 0.02298 -       -      
-4 < 2e-16 4.3e-13 < 2e-16 -      
-5 0.51911 2.3e-07 0.08394 < 2e-16
+2 2.7e-05 -       -       -      
+3 0.425   0.009   -       -      
+4 < 2e-16 7.3e-16 < 2e-16 -      
+5 0.425   7.2e-09 0.045   < 2e-16
 
 P value adjustment method: holm 
