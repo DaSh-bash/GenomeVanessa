@@ -52,3 +52,7 @@ else
 sed -i "s/\\t\///g" filename
 For MAc
 sed 's/        /,/g' chromosome_color.map
+
+
+
+http://www.zonums.com/online/color_converter/
