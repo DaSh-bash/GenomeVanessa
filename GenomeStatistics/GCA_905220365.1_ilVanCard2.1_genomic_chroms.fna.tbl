@@ -1,0 +1,52 @@
+==================================================
+file name: GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna
+sequences:            32
+total length:  424577752 bp  (424551952 bp excl N/X-runs)
+GC level:         33.41 %
+bases masked:   98253005 bp ( 23.14 %)
+==================================================
+               number of      length   percentage
+               elements*    occupied  of sequence
+--------------------------------------------------
+SINEs:           114482     21040154 bp    4.96 %
+      ALUs            0            0 bp    0.00 %
+      MIRs           10          632 bp    0.00 %
+
+LINEs:            36470      9628368 bp    2.27 %
+      LINE1          20         1287 bp    0.00 %
+      LINE2        3156      1139868 bp    0.27 %
+      L3/CR1       2055       751093 bp    0.18 %
+
+LTR elements:     11216      5154991 bp    1.21 %
+      ERVL            0            0 bp    0.00 %
+      ERVL-MaLRs      0            0 bp    0.00 %
+      ERV_classI      1           57 bp    0.00 %
+      ERV_classII    14         1157 bp    0.00 %
+
+DNA elements:     51764      7700252 bp    1.81 %
+     hAT-Charlie   1074        76315 bp    0.02 %
+     TcMar-Tigger    25         6004 bp    0.00 %
+
+Unclassified:    288484     36998247 bp    8.71 %
+
+Total interspersed repeats: 80522012 bp   18.97 %
+
+
+Small RNA:        65240     13571918 bp    3.20 %
+
+Satellites:         129         9465 bp    0.00 %
+Simple repeats:  140940      6196852 bp    1.46 %
+Low complexity:   23178      1099373 bp    0.26 %
+==================================================
+
+* most repeats fragmented by insertions or deletions
+  have been counted as one element
+  Runs of >=20 X/Ns in query were excluded in % calcs
+
+
+The query species was assumed to be homo          
+RepeatMasker Combined Database: Dfam_Consensus-20171107, RepBase-20181026
+        
+run with rmblastn version 2.6.0+
+The query was compared to classified sequences in "13lep_rm1.0_hex.lib"
+
