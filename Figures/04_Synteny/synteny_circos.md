@@ -1,6 +1,8 @@
 # Synteny plot walkthrough
 cd /proj/uppstore2017185/b2014034_nobackup/Dasha/GenomeEvaluation_Vanessa/04_Syntheny/VanessaBombyx/circos_van_lept
 
+Edit your response: https://docs.google.com/forms/d/e/1FAIpQLSe8HV83f1UZ352K0EGGT6xYu4_Acdgfv04LiNibZLWkHF1m9A/viewform?edit2=2_ABaOnueGLiPi3NkpPnUc3-RcS1ZtSd8zVYwctVGyEfQ7o0KoKa1qwSFs0KL3U-xVostYihw
+
 ## Making karyotype files
 ##Lars
 module load biopython
