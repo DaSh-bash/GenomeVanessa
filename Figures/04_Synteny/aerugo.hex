@@ -30,3 +30,36 @@ aa9c8a
 86624a
 715b48
 5e4835
+
+
+[array(['#95392c'], dtype=object),
+ array(['#917f6d'], dtype=object),
+ array(['#87d1ef'], dtype=object),
+ array(['#3c3d3b'], dtype=object),
+ array(['#f5a95b'], dtype=object),
+ array(['#e76d46'], dtype=object),
+ array(['#554d4b'], dtype=object),
+ array(['#86624a'], dtype=object),
+ array(['#343230'], dtype=object),
+ array(['#ffffff'], dtype=object),
+ array(['#4f3322'], dtype=object),
+ array(['#2f485c'], dtype=object),
+ array(['#242e35'], dtype=object),
+ array(['#466480'], dtype=object),
+ array(['#aa9c8a'], dtype=object),
+ array(['#723627'], dtype=object),
+ array(['#898a8a'], dtype=object),
+ array(['#c75533'], dtype=object),
+ array(['#bab7b2'], dtype=object),
+ array(['#64a1c2'], dtype=object),
+ array(['#934e28'], dtype=object),
+ array(['#a2663c'], dtype=object),
+ array(['#5e4835'], dtype=object),
+ array(['#aac39e'], dtype=object),
+ array(['#81a38e'], dtype=object),
+ array(['#686461'], dtype=object),
+ array(['#6b8b8c'], dtype=object),
+ array(['#1b2026'], dtype=object),
+ array(['#c87d40'], dtype=object),
+ array(['#d1d0ce'], dtype=object),
+ array(['#715b48'], dtype=object)]
