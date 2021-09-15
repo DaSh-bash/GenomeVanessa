@@ -1,0 +1,2 @@
+chr - HiC_scaffold_1 Leptidea_scaffold_1 0 35000000 white
+
