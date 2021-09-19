@@ -24,4 +24,7 @@ grep -Fwf monarch.candidates.gene.names.txt orthologs_of_vanessa_gain_monarch.tx
 
 
 Comparing orthogroups
-awk '{sum+=$2;} END{print sum;}' RNAi_counts.tsv	
+awk '{sum+=$2;} END{print sum;}' RNAi_counts.tsv
+
+
+	
