@@ -1,0 +1,2 @@
+chr - HiC_scaffold_9 HiC_scaffold_9 0 17000000 orange
+

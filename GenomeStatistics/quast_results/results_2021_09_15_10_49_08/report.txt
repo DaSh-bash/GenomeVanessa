@@ -1,0 +1,24 @@
+All statistics are based on contigs of size >= 500 bp, unless otherwise noted (e.g., "# contigs (>= 0 bp)" and "Total length (>= 0 bp)" include all contigs).
+
+Assembly                    GCA_905220365.1_ilVanCard2.1_genomic_chroms
+# contigs (>= 0 bp)         32                                         
+# contigs (>= 1000 bp)      32                                         
+# contigs (>= 5000 bp)      32                                         
+# contigs (>= 10000 bp)     32                                         
+# contigs (>= 25000 bp)     32                                         
+# contigs (>= 50000 bp)     32                                         
+Total length (>= 0 bp)      424577752                                  
+Total length (>= 1000 bp)   424577752                                  
+Total length (>= 5000 bp)   424577752                                  
+Total length (>= 10000 bp)  424577752                                  
+Total length (>= 25000 bp)  424577752                                  
+Total length (>= 50000 bp)  424577752                                  
+# contigs                   32                                         
+Largest contig              17040296                                   
+Total length                424577752                                  
+GC (%)                      33.41                                      
+N50                         14615999                                   
+N75                         12861081                                   
+L50                         14                                         
+L75                         22                                         
+# N's per 100 kbp           6.08                                       

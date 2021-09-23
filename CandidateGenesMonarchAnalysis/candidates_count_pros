@@ -1,0 +1,37 @@
+while read i;
+do
+  monarch=$(grep -o "matchingString" $i | wc -l)
+  echo "$monarch"
+done < Candidate_Gene_Orthologs.tsv
+
+
+while read i; do echo $i echo |grep -o "DPO"| wc -l;  done < Candidate_Gene_Orthologs.tsv
+
+
+
+awk  '{print $1,  gsub("DPO", ""), gsub("Vcard", "")}' Candidate_Gene_Orthologs.tsv
+
+
+awk  '{print $1, "\t", gsub("DPO", ""), "\t", gsub("Vcard", "")}' Candidate_Gene_Orthologs.tsv
+
+
+grep ">" chemoreception.fasta | awk '{print $1}' | tr -d '>' > chemoreception.gene.names.out
+grep -Fwf chemoreception.gene.names.out Candidate_Gene_Orthologs.tsv | awk  '{print $1, "\t", gsub("DPO", ""), "\t", gsub("Vcard", ""),"\t","chemoreception"}' > chemoreception_counts.tsv
+
+grep ">" circadian_clock.fasta | awk '{print $1}' | tr -d '>' > circadian_clock.gene.names.out
+grep -Fwf circadian_clock.gene.names.out Candidate_Gene_Orthologs.tsv | awk  '{print $1, "\t", gsub("DPO", ""), "\t", gsub("Vcard", ""),"\t","circadian_clock"}' > circadian_clock_counts.tsv
+
+grep ">" central_complex.fasta | awk '{print $1}' | tr -d '>' > central_complex.gene.names.out
+grep -Fwf central_complex.gene.names.out Candidate_Gene_Orthologs.tsv | awk  '{print $1, "\t", gsub("DPO", ""), "\t", gsub("Vcard", ""),"\t","central_complex"}' > central_complex_counts.tsv
+
+grep ">" orientation.fasta | awk '{print $1}' | tr -d '>' > orientation.gene.names.out
+grep -Fwf orientation.gene.names.out Candidate_Gene_Orthologs.tsv | awk  '{print $1, "\t", gsub("DPO", ""), "\t", gsub("Vcard", ""),"\t","orientation"}' > orientation_counts.tsv
+
+RNAi
+
+grep ">" RNAi.fasta | awk '{print $1}' | tr -d '>' > RNAi.gene.names.out
+grep -Fwf RNAi.gene.names.out Candidate_Gene_Orthologs.tsv | awk  '{print $1, "\t", gsub("DPO", ""), "\t", gsub("Vcard", ""),"\t","RNAi"}' > RNAi_counts.tsv
+
+Sens_input_vision
+grep ">" Sens_input_vision.fasta | awk '{print $1}' | tr -d '>' > Sens_input_vision.gene.names.out
+grep -Fwf Sens_input_vision.gene.names.out Candidate_Gene_Orthologs.tsv | awk  '{print $1, "\t", gsub("DPO", ""), "\t", gsub("Vcard", ""),"\t","Sens_input_vision"}' > Sens_input_vision_counts.tsv

@@ -8,10 +8,10 @@ Help()
    # Display Help
    echo
    echo "Script calculates number and length of repeats from RepeatMasker .out file"
-   echo "Operater of per chromosome basis"
-   echo "Currently supported categories: SINE, LINE, DNA transposons, LTR, NonLTR"
+   echo "Operates on per chromosome basis"
+   echo "Currently supported categories: SINE, LINE, DNA transposons, LTR, NonLTR, simple repeats"
    echo
-   echo "Syntax: bash repeat_per_chromosome1.0.sh [-h] <window_size> <chromosome_length> <chromosome_ID> <input>"
+   echo "Syntax: bash repeat_per_chromosome.sh [-h] <window_size> <chromosome_length> <chromosome_ID> <input>"
    echo
    echo "Options:"
    echo "       <window_size>	        Length of window (in base pairs)"
@@ -64,38 +64,42 @@ paste chrom_$3.tmp begin_$3.tmp end_$3.tmp > windows_$3.tmp
 
 
 # Fill in the table
-echo "chrom begin end count_rpt length_rpt count_SINE length_SINE count_DNA length_DNA count_TcM length_TcM count_LINE length_DNA count_LTR length_LTR count_nonLTR length_nonLTR"
+echo "chrom begin end count_rpt length_rpt count_SINE length_SINE count_DNA length_DNA count_TcM length_TcM count_LINE length_LINE count_LTR length_LTR count_nonLTR length_nonLTR"
 
 while IFS=$'\t' read -r -a myArray
 do
-	for line in "${myArray[0]}" 
+	for line in "${myArray[0]}"
 	do
 		begin="${myArray[1]}"
 		end="${myArray[2]}"
 		#echo "$(awk '$5 == a && $6>b && $7<c {print}'  a="$line" b="$begin" c="$end" repeat_annot_test.out | wc -l)"
-		count_rpt=$(awk '$5 == a && $6>b && $7<c {print}'  a="$line" b="$begin" c="$end" $REP | wc -l)
-		length_rpt=$(awk '$5 == a && $6>b && $7<c {sum+=$7-$6} END {print sum}'  a="$line" b="$begin" c="$end" $REP) 
+		count_rpt=$(awk '$5 == a && $6>b && $7<c {count++; sum+=$7-$6} END {print count, sum}'  a="$line" b="$begin" c="$end" $REP)
+		#length_rpt=$(awk '$5 == a && $6>b && $7<c {sum+=$7-$6} END {print sum}'  a="$line" b="$begin" c="$end" $REP)
 
-		count_SINE=$(awk '/SINE/ && $5 == a && $6>b && $7<c {print}'  a="$line" b="$begin" c="$end" $REP | wc -l)		
-                length_SINE=$(awk '/SINE/ && $5 == a && $6>b && $7<c {sum+=$7-$6} END {print sum}'  a="$line" b="$begin" c="$end" $REP)
+		count_SINE=$(awk '/SINE/ && $5 == a && $6>b && $7<c {count++; sum+=$7-$6} END {print count, sum}'  a="$line" b="$begin" c="$end" $REP )
+#               length_SINE=$(awk '/SINE/ && $5 == a && $6>b && $7<c {sum+=$7-$6} END {print sum}'  a="$line" b="$begin" c="$end" $REP)
 
-		count_LINE=$(awk '/LINE/ && $5 == a && $6>b && $7<c {print}'  a="$line" b="$begin" c="$end" $REP | wc -l)
-                length_LINE=$(awk '/LINE/ && $5 == a && $6>b && $7<c {sum+=$7-$6} END {print sum}'  a="$line" b="$begin" c="$end" $REP)
+		count_LINE=$(awk '/LINE/ && $5 == a && $6>b && $7<c {count++; sum+=$7-$6} END {print count, sum}'  a="$line" b="$begin" c="$end" $REP)
+#               length_LINE=$(awk '/LINE/ && $5 == a && $6>b && $7<c {sum+=$7-$6} END {print sum}'  a="$line" b="$begin" c="$end" $REP)
 
-		count_DNA=$(awk '/DNA/ && $5 == a && $6>b && $7<c {print}'  a="$line" b="$begin" c="$end" $REP | wc -l)
-                length_DNA=$(awk '/DNA/ && $5 == a && $6>b && $7<c {sum+=$7-$6} END {print sum}'  a="$line" b="$begin" c="$end" $REP)
+		count_DNA=$(awk '/DNA/ && $5 == a && $6>b && $7<c {count++; sum+=$7-$6} END {print count, sum}'  a="$line" b="$begin" c="$end" $REP )
+#                length_DNA=$(awk '/DNA/ && $5 == a && $6>b && $7<c {sum+=$7-$6} END {print sum}'  a="$line" b="$begin" c="$end" $REP)
 
-		count_TcMar=$(awk '/TcMar/ && $5 == a && $6>b && $7<c {print}'  a="$line" b="$begin" c="$end" $REP | wc -l)
-                length_TcMar=$(awk '/TcMar/ && $5 == a && $6>b && $7<c {sum+=$7-$6} END {print sum}'  a="$line" b="$begin" c="$end" $REP)
+		count_TcMar=$(awk '/TcMar/ && $5 == a && $6>b && $7<c {count++; sum+=$7-$6} END {print count, sum}'  a="$line" b="$begin" c="$end" $REP)
+               # length_TcMar=$(awk '/TcMar/ && $5 == a && $6>b && $7<c {sum+=$7-$6} END {print sum}'  a="$line" b="$begin" c="$end" $REP)
 
-		count_LTR=$(awk '/LTR/ && !/NonLTR/ && $5 == a && $6>b && $7<c {print}'  a="$line" b="$begin" c="$end" $REP | wc -l)
-                length_LTR=$(awk '/LTR/ && $5 == a && $6>b && $7<c {sum+=$7-$6} END {print sum}'  a="$line" b="$begin" c="$end" $REP)
+		count_LTR=$(awk '/LTR/ && !/NonLTR/ && $5 == a && $6>b && $7<c {count++; sum+=$7-$6} END {print count, sum}'  a="$line" b="$begin" c="$end" $REP )
+                #length_LTR=$(awk '/LTR/ && $5 == a && $6>b && $7<c {sum+=$7-$6} END {print sum}'  a="$line" b="$begin" c="$end" $REP)
 
-                count_nonLTR=$(awk '/NonLTR/ && $5 == a && $6>b && $7<c {print}'  a="$line" b="$begin" c="$end" $REP | wc -l)
-                length_nonLTR=$(awk '/NonLTR/ && $5 == a && $6>b && $7<c {sum+=$7-$6} END {print sum}'  a="$line" b="$begin" c="$end" $REP)
+                count_nonLTR=$(awk '/NonLTR/ && $5 == a && $6>b && $7<c {count++; sum+=$7-$6} END {print count, sum}'  a="$line" b="$begin" c="$end" $REP )
+                #length_nonLTR=$(awk '/NonLTR/ && $5 == a && $6>b && $7<c {sum+=$7-$6} END {print sum}'  a="$line" b="$begin" c="$end" $REP)
 
-		echo "$line $begin $end $count_rpt $length_rpt $count_SINE $length_SINE $count_DNA $length_DNA $count_TcMar $length_TcMar $count_LINE $length_DNA $count_LTR $length_LTR $count_nonLTR $length_nonLTR"
-			
+		count_simrep=$(awk '/Simple_repeat/ && $5 == a && $6>b && $7<c {count++; sum+=$7-$6} END {print count, sum}'  a="$line" b="$begin" c="$end" $REP)
+
+
+		echo "$line $begin $end $count_rpt $count_SINE $count_DNA $count_TcMar $count_LINE $count_LTR $count_nonLTR $count_simrep"
+#		echo "$line $begin $end $count_rpt" # $length_rpt $count_SINE $length_SINE $count_DNA $length_DNA $count_TcMar $length_TcMar $co$
+
 	done
 done < windows_$3.tmp
-rm *tmp
+#rm *tmp

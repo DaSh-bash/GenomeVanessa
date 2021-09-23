@@ -97,10 +97,6 @@ bedtools nuc -fi GCA_905220365.1_ilVanCard2.1_genomic_chroms.fasta -bed GCA_9052
 
 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
 
-T1u2R3d4U5s6
-
-T1u2R4d5U6s7
-
 
 cat *genecount.tsv | sed '/chrom/d' > gene_density_100kb_doublQC.tsv
 
