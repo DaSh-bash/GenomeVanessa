@@ -224,7 +224,8 @@ boxplot(select(rr_repeats_genes_wide, starts_with("length")))
 write.table(rr_repeats_genes_long, file="tables/rec_rate_vs_repeats_genes_2Mb_windows_long.table")
 
 
-#rr_repeats_genes_long <- read.table("tables/rec_rate_vs_repeats_genes_2Mb_windows_long.table")
+rr_repeats_genes_long <- read.table("tables/rec_rate_vs_repeats_genes_2Mb_windows_long.table")
+str(rr_repeats_genes_long)
 
 write.table(rr_repeats_genes_wide, file="tables/rec_rate_vs_repeats_genes_2Mb_windows.table") 
 
@@ -1145,7 +1146,37 @@ corr_dens_rr <-
           legend.key=element_blank(),
           legend.title = element_blank())
 
-corr_dens_rr
+#density without CDS
+
+data_reduced <- rr_repeats_genes_long[rr_repeats_genes_long$gen_feat!="CDS" & rr_repeats_genes_long$gen_feat!="gains",]
+
+corr_dens_rr_red <- 
+  ggplot(data_reduced, aes(density_var, rec_rate)) +
+    geom_point(aes(fill=chr_type),shape=21,size=1, stroke=0.1, key_glyph=draw_key_rect) +
+    geom_smooth(method = "lm", colour=col_all, fill=col_all, fullrange=T, se=F) +
+    geom_smooth(data=subset(data_reduced, chr_type == "W"), method = "lm", colour=col_W, fill=col_W, fullrange=T, se=F) +
+    geom_smooth(data=subset(data_reduced, chr_type == "Z"), method = "lm", colour=col_Z, fill=col_Z, fullrange=T, se=F) +
+    geom_smooth(data=subset(data_reduced, chr_type == "Autosome"), method = "lm", colour=col_autosome, fill=col_autosome, fullrange=T, se=F) +
+    facet_wrap(~gen_feat, scales = "free") +
+    scale_fill_discrete(type = c(col_autosome, col_W, col_Z, col_all), labels=c("Autosomes","W-chromosome","Z-chromosome", "All chromosomes")) +
+    scale_y_continuous(limits = c(0,16)) +
+    xlab("Density (Counts per kb)") +
+    ylab("Recombination rate (cM/Mb)") +
+    theme(panel.background = element_blank(),
+          axis.line = element_line(size = 0.2, colour = "gray"),
+          axis.title = element_text(size = 10),
+          axis.ticks = element_line(size = 0.2, colour = "gray"),
+          legend.text = element_text(size = 10),
+          legend.key=element_blank(),
+          legend.title = element_blank(),
+          legend.position = "bottom")
+
+corr_dens_rr_red
+
+ggsave(corr_dens_rr_red, file="plots_supplement/corr_dens_rr_red.pdf", "pdf", dpi = 300)
+ggsave(corr_dens_rr_red, file="plots_supplement/corr_dens_rr_red.jpeg", "jpeg", dpi = 300)
+
+
 #proportion
 corr_prop_rr <- 
   ggplot(rr_repeats_genes_long, aes(prop_var, rec_rate)) +
@@ -1163,7 +1194,7 @@ corr_prop_rr <-
           axis.line = element_line(size = 0.2, colour = "gray"),
           axis.title = element_text(size = 10),
           legend.text = element_text(size = 10),
-          legend.key=element_blank(),
+          legend.key=element(),
           legend.title = element_blank())
 
 corr_prop_rr
@@ -1226,6 +1257,12 @@ summary(counts_merged_100kb)
 
 write.table(counts_merged_100kb, "tables/counts_merged_100kb_compl.csv")
 
+#########
+#start with getting the data if not already have it
+counts_merged_100kb <-read.table("tables/counts_merged_100kb_compl.csv")
+str(counts_merged_100kb)
+#######
+
 counts_merged_100kb_long <- pivot_longer(counts_merged_100kb, cols=names(select(counts_merged_100kb, starts_with("count"))), names_to="gen_feat", values_to ="counts", names_prefix = )
 
 counts_merged_100kb_long$gen_feat <- as.factor(counts_merged_100kb_long$gen_feat)
@@ -1279,7 +1316,7 @@ stats.wilc.test <- counts_merged_100kb_long %>%
 
 stats.wilc.test_noW <- counts_merged_100kb_long[counts_merged_100kb_long$chr_type!="W",] %>%
   group_by(gen_feat) %>%
-  wilcox_test(counts ~ gene_ex_bin) %>%
+  wilcox_test(counts ~ gene_ex_bin, detailed = T) %>%
   adjust_pvalue(method = "BH") %>%
   add_significance()
 
@@ -1395,4 +1432,29 @@ repeat_vs_gene_100kb
 ```
 
 
+```{r regional_pos_test}
+
+pairwise.t.test(rr_repeats_genes_long$rec_rate, rr_repeats_genes_long$pos_group)
+
+write.table(aggregate(rr_repeats_genes_long$rec_rate, by = list(rr_repeats_genes_long$pos_group), mean, na.rm=T), file = "tables/rr_regional_pos_mean.table")
+write.table(aggregate(rr_repeats_genes_long$rec_rate, by = list(rr_repeats_genes_long$pos_group), sd, na.rm=T), file = "tables/rr_regional_pos_mean.table", append = T)
+
+boxplot(rr_repeats_genes_long$rec_rate~rr_repeats_genes_long$pos_group)
+
+box_rr_regional <- 
+ggplot(rr_repeats_genes_long, aes(pos_group, rec_rate, group=pos_group)) +
+  geom_boxplot(fill="gray", outlier.shape = 21) +
+  xlab("Relative position on the chromosome") +
+  ylab("Recombinaiton rate (cM)") +
+  theme(panel.background = element_blank(),
+        axis.line = element_line(size = 0.2, colour = "gray"),
+        axis.ticks = element_line(size = 0.2, colour = "gray"),
+        axis.title = element_text(size = 10),
+        legend.text = element_text(size = 10),
+        legend.title = element_blank())
+
+ggsave("plots_supplement/box_rr_regional.pdf", box_rr_regional, "pdf", width = 6, height = 4)
+ggsave("plots_supplement/box_rr_regional.png", box_rr_regional, "png", width = 6, height = 4)
+
+```
 

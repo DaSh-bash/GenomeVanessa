@@ -1,18 +1,18 @@
 
 setwd("~/Desktop/Proj_vanessa_assembly/output/10a_orthofinder/")
-ortho_stat <- read.csv2("Orthofinder_per_species_stat.csv", dec=".")
+ortho_stat <- read.csv2("../selected_output/Statistics_PerSpecies.csv", dec=".")
 ortho_stat
 
 #plot
 library(ggplot2)
 library(tidyr)
 
-ortho_stat_long <- pivot_longer(ortho_stat, cols=c("Species.specific.orthogroups", "Genes.in.species.specific.orthogroups", "Number.of.genes"), names_to = "variable", values_to = "value")
+ortho_stat_long <- pivot_longer(ortho_stat, cols=c("Number.of.species.specific.orthogroups", "Number.of.genes.in.species.specific.orthogroups", "Number.of.genes"), names_to = "variable", values_to = "value")
 ortho_stat_long
 
 #get the species in the same order as in the tree
 #dx$group <- factor(dfx$group, levels = c("SLG", "BA"))
-ortho_stat_long$Species <- factor(ortho_stat_long$Species, levels = c("Heliconius_erato_lativitta", 
+ortho_stat_long$Species <- factor(ortho_stat_long$Taxa, levels = c("Heliconius_erato_lativitta", 
                                                                       "Heliconius_melpomene_melpomene", 
                                                                       "Vanessa_tameamea",
                                                                       "Vanessa_cardui",
@@ -24,13 +24,13 @@ ortho_stat_long$Species <- factor(ortho_stat_long$Species, levels = c("Heliconiu
                                                                       
 
 strip_labels <- c("Species specific genes", "Species specific orthogroups", "Total number of genes")
-names(strip_labels) <- c("Genes.in.species.specific.orthogroups","Species.specific.orthogroups", "Number.of.genes")
+names(strip_labels) <- c("Number.of.genes.in.species.specific.orthogroups","Number.of.species.specific.orthogroups", "Number.of.genes")
 
 
 ortho_stat_long$variable_f <- factor(ortho_stat_long$variable, 
                                      levels=c("Number.of.genes",
-                                              "Species.specific.orthogroups",
-                                              "Genes.in.species.specific.orthogroups"
+                                              "Number.of.species.specific.orthogroups",
+                                              "Number.of.genes.in.species.specific.orthogroups"
                                               ))
 #default colours
 ggplot(ortho_stat_long, 
@@ -46,6 +46,7 @@ ggplot(ortho_stat_long,
         strip.background = element_blank(),
         strip.text = element_text(size = 12),
         axis.line = element_line(size = 0.2, colour = "grey"),
+        axis.ticks = element_line(size = 0.2, colour = "grey"),
         axis.text.x = element_text(size = 12),
         axis.text.y = element_text(size = 12),
         axis.title.x = element_blank(),
@@ -65,6 +66,7 @@ ggplot(ortho_stat_long,
         strip.background = element_blank(),
         strip.text = element_text(size = 12),
         axis.line = element_line(size = 0.2, colour = "grey"),
+        axis.ticks = element_line(size = 0.2, colour = "grey"),
         axis.text.x = element_text(size = 12),
         axis.text.y = element_text(size = 12),
         axis.title.x = element_blank(),

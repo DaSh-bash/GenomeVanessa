@@ -1,0 +1,16 @@
+
+### BadiRate script file for BDI-spVs-ML
+#iter 1, no seed
+
+cd ~/Desktop/Proj_vanessa_assembly/output/10b_badirate/badirate_orthogroups/
+
+OUTPUT=../raw_outputs/spVs
+mkdir $OUTPUT
+
+
+for file in ./*
+do
+echo ${file}
+	~/perl5/perlbrew/perls/perl-5.16.3/bin/perl /Applications/badirate-1.35/BadiRate.pl -start_val 1 -rmodel BDI -bmodel "10->8:10->9" -ep ML -treefile /Users/karin/Desktop/Proj_vanessa_assembly/output/10b_badirate/input/orthofinder_210624_ultra_mod.nw -sizefile ./${file} -anc -outlier -out $OUTPUT/${file}.spVs01.bd
+
+done

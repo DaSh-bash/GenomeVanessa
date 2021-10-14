@@ -2,7 +2,7 @@ In this folder there are scripts to run
 OrthoFinder version OrthoFinder/2.5.2
 
 
-We downloaded protein fasta files from Lepbase 210621
+We downloaded protein fasta files from Lepbase and NCBI 210621
 
 Junonia_coenia_Jc_v2.proteins.fa.gz
 Bicyclus_anynana_BaGv2.proteins.fa.gz
@@ -18,9 +18,14 @@ cp /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/maker_run3/functi
 
 scripts/10_select_and_unzip_fasta.sbatch was used to unzipped and rename the files to species_name.fa
  
-scripts/10_orthofinder_210621.sbatch running the analysis
+scripts/10_filter_transcript.sh (one-liners) filter only primary transcripts (one transcript per unique gene name and )
+
+scripts/10_orthofinder_210621.sbatch running the analysis and 
+
+scripts/10_orthofinder_rootedtree.sbatch for rerunning final analysis with guide tree. 
 
 scripts/Orthofinder_result.R is for visualising summary results.
 
-All output files are stored on Uppmax. In the selected_output folder there are the summary results and some output files used in downstream analysis. 
+The trees with duplications are visualised with FigTree
 
+All output files are stored on Uppmax. In the selected_output folder there are the summary results and some output files used in downstream analysis. 
