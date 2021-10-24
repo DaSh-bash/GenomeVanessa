@@ -1,0 +1,117 @@
+## Vanesse cardui annotation curation
+
+# Curating RepeatMasker output
+
+1. Classes that need clarification https://www.jstage.jst.go.jp/article/ggs/94/6/94_18-00024/_html/-char/en
+
+awk '{print $11}' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out | sort | uniq -c
+
+  28 Dna/Sola
+ 221 Dna/Sola1
+ 139 Dna/Sola2
+ sed -i 's/Dna/DNA/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+   2 Ginger1
+  55 Ginger2/TDD
+
+sed -i 's/Ginger1/DNA\/Ginger1/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+sed -i 's/Ginger2\/TDD/DNA\/Ginger2TDD/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+  47 I/Gypsy
+sed -i 's/I\/Gypsy/LTR\/Gypsy/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+ 257 I/LTR
+sed -i 's/I\/LTR\LTR/LTR/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+  21 Merlin
+sed -i 's/Merlin/DNA\/Merlin/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+15443 NonLTR/CR1
+sed -i 's/NonLTR\/CR1/LINE\/CR1/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+ 146 NonLTR/Crack
+sed -i 's/NonLTR\/Crack/LINE\/Crack/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+ 159 NonLTR/CRE - not treated
+
+30149 NonLTR/Daphne
+sed -i 's/NonLTR\/Daphne/LINE\/Daphne/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+1984 NonLTR/I
+sed -i 's/NonLTR\/I/LINE\/I/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+   1 NonLTR/Ingi
+   2 NonLTR/IS3EU
+ 379 NonLTR/ISL2EU
+sed -i 's/NonLTR\/ISL2EU/DNA\/ISL2EU/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+ 960 NonLTR/Jockey
+sed -i 's/NonLTR\/Jockey/LINE\/Jockey/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+4133 NonLTR/Kiri
+sed -i 's/NonLTR\/Kiri/LINE\/Kiri/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+  61 NonLTR/L1
+sed -i 's/NonLTR\/L1/LINE\/L1/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+4780 NonLTR/L2
+sed -i 's/NonLTR\/L2/LINE\/L2/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+  88 NonLTR/L2B
+sed -i 's/NonLTR\/L2B/LINE\/L2B/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+  70 NonLTR/Loa
+sed -i 's/NonLTR\/Loa/LINE\/Loa/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+  86 NonLTR/Nimb
+  40 NonLTR/Outcast
+7912 NonLTR/Penelope
+sed -i 's/NonLTR\/Penelope/Penelope/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+  19 NonLTR/piggy
+ 292 NonLTR/piggyBac
+sed -i 's/NonLTR\/piggyBac/DNA\/piggyBac/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+ 384 NonLTR/Proto2
+sed -i 's/NonLTR\/Proto2/LINE\/Proto2/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+4556 NonLTR/R1
+sed -i 's/NonLTR\/R1/LINE\/R1/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+  75 NonLTR/R2
+ 425 NonLTR/R4
+4281 NonLTR/RTE
+sed -i 's/NonLTR\/RTE/LINE\/RTE/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+  10 NonLTR/SINE
+sed -i 's/NonLTR\/SINE/SINE/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+7413 NonLTR/SINE2
+sed -i 's/NonLTR\/SINE2/SINE2/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+   5 NonLTR/SINE3
+  42 NonLTR/Tx1
+  16 NonLTR/Vingi
+6385 RC?/Helitron
+sed -i 's/RC?\/Helitron/Helitron/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+15685 RC/Helitron
+sed -i 's/RC\/Helitron/Helitron/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+1975 REP-1_HMM
+sed -i 's/REP\-1\_HMM/Unknown/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+ 163 RNA
+ 155 rRNA
+ 129 Satellite
+  84 snRNA
+  95 Transib
+sed -i 's/Transib/DNA\/Transib/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+sed -i 's/unknown/Unknown/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
+
+
+2. New repeat stats:
+total: 740406
+LINE: 106239  14.34%
+SINE: 121446  16.40%
+DNA: 55228  7.46%
+LTR:  16495 2.23%
+Unknown: 217678 29.40%
+Other classes and simple repeats: 30.17%
