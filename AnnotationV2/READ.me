@@ -115,3 +115,28 @@ DNA: 55228  7.46%
 LTR:  16495 2.23%
 Unknown: 217678 29.40%
 Other classes and simple repeats: 30.17%
+
+
+3. Controlling overlaps/ RepeatMasker Check
+mkdir 01_FeatureOverlapCheck
+
+Preparing repeat annotation:
+awk -v OFS='\t' '{print $5,"RepeatMasker","repeat",$6,$7,".",".",".",$11}' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out > GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.gff
+remove first line
+
+Preparing gene annotation, extracting exons:
+awk '$2=="maker" && $3=="exon" {print}' makerrun3.all.rename.nofasta.norepeats.gff > makerrun3.all.rename.nofasta.norepeats.exon.gff
+
+Intersecting repeats:
+bedtools intersect -a makerrun3.all.rename.nofasta.norepeats.exon.gff -b GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.gff -f 0.1 -wa -wb
+
+wc -l makerrun3.GCA.overlap.gff
+3073 makerrun3.GCA.overlap.gff
+
+sed '/Simple_repeat/d' makerrun3.GCA.overlap.gff
+sed '/Low_complexity/d' makerrun3.GCA.overlap.gff
+
+wc -l makerrun3.GCA.overlap.gff
+1110 makerrun3.GCA.overlap.gff
+
+Conclusion: 1110 genes are erroneously annotated
