@@ -107,7 +107,7 @@ sed -i 's/Transib/DNA\/Transib/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fn
 sed -i 's/unknown/Unknown/g' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.curated.out
 
 
-2. New repeat stats:
+New repeat stats:
 total: 740406
 LINE: 106239  14.34%
 SINE: 121446  16.40%
@@ -139,4 +139,84 @@ sed '/Low_complexity/d' makerrun3.GCA.overlap.gff
 wc -l makerrun3.GCA.overlap.gff
 1110 makerrun3.GCA.overlap.gff
 
-Conclusion: 1110 genes are erroneously annotated
+Conclusion: 1110 genes are erroneously annotated?
+
+4. Running RepeatModeler:
+
+#!/bin/bash -l
+#SBATCH -A snic2021-5-20
+#SBATCH -p core
+#SBATCH -n 20
+#SBATCH -t 07-00:00:00
+#SBATCH -J Vcard_RepeatModeler
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user daria.shipilina@gmail.com
+#SBATCH -o Vcar_DTol_repmod2.output
+#SBATCH -e Vcar_DTol_repmod2.error
+
+
+#load modules
+module load bioinfo-tools
+module load RepeatModeler/2.0.1
+
+#make database for Lsin
+BuildDatabase -name Vcard_DToL /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/input/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna
+
+#Run RepeatModeler/2.0.1
+RepeatModeler -database Vcard_DToL -pa 20 -LTRStruct
+
+
+echo "DONE"
+
+5. Get AED scores
+grep ">" ../00_Input/makerrun3.all.maker.rename.proteins.fasta | awk '{print $1,$3}' > makerrun3.all.maker.rename.proteins.fasta.AED.score
+sed 's/AED://g' makerrun3.all.maker.rename.proteins.fasta.AED.score > makerrun3.all.maker.rename.proteins.fasta.AED.scores
+rm makerrun3.all.maker.rename.proteins.fasta.AED.score
+
+Filter for 50% or less
+awk '$2 <= 0.5 {print}' makerrun3.all.maker.rename.proteins.fasta.AED.scores | wc -l
+15468
+
+Get gene names
+awk '$2 <= 0.5 {print $1}' makerrun3.all.maker.rename.proteins.fasta.AED.scores | sed 's/>//g' > makerrun3.all.maker.rename.proteins.genenames.AED50.out
+
+Select genes from fasta:
+module load bioinfo-tools seqtk/1.2-r101
+seqtk subseq ../00_Input/makerrun3.all.maker.rename.proteins.fasta makerrun3.all.maker.rename.proteins.genenames.AED50.out > makerrun3.all.maker.rename.proteins.AED50.fasta
+
+
+Checking eAED manually:
+>Vcard_DToL02685-RA
+grep -n "Vcard_DToL02685-RA" makerrun3.all.maker.rename.proteins.AED50.fasta
+30905:>Vcard_DToL02685-RA protein AED:0.47 eAED:1.00 QI:0|-1|0|1|-1|0|1|0|36
+sed -n 30905,30910p makerrun3.all.maker.rename.proteins.AED50.fasta
+Submitted to InterProScan
+No match
+
+grep ">" makerrun3.all.maker.rename.proteins.AED50.fasta | awk '{print $1,$4}' > makerrun3.all.maker.rename.proteins.fasta.eAED.score
+sed 's/eAED://g' makerrun3.all.maker.rename.proteins.fasta.eAED.score > makerrun3.all.maker.rename.proteins.fasta.eAED.scores
+rm makerrun3.all.maker.rename.proteins.fasta.eAED.score
+
+awk '$2 <= 0.5 {print}' makerrun3.all.maker.rename.proteins.fasta.eAED.scores | wc -l
+
+awk '$2 <= 0.5 {print $1}' makerrun3.all.maker.rename.proteins.fasta.eAED.scores | sed 's/>//g' > makerrun3.all.maker.rename.proteins.genenames.eAED50.out
+
+seqtk subseq makerrun3.all.maker.rename.proteins.AED50.fasta makerrun3.all.maker.rename.proteins.genenames.AED50.out > makerrun3.all.maker.rename.proteins.AED50.eAED50.fasta
+
+6. Curate manually
+Filter short proteins:
+
+awk '/^>/ {if (seqlen) print seqlen;print;seqlen=0;next} {seqlen+=length($0)}END{print seqlen}' makerrun3.all.maker.rename.proteins.AED50.eAED50.fasta > makerrun3.all.maker.rename.proteins.fasta.proteinlen.score
+
+
+
+awk '/^>/ {if (seqlen) print seqlen;seqlen=0;next} {seqlen+=length($0)}END{print seqlen}' makerrun3.all.maker.rename.proteins.AED50.eAED50.fasta > makerrun3.all.maker.rename.proteins.fasta.proteinlen.score.len
+
+paste makerrun3.all.maker.rename.proteins.fasta.proteinlen.score.names makerrun3.all.maker.rename.proteins.fasta.proteinlen.score.len > makerrun3.all.maker.rename.proteins.fasta.proteinlen
+
+awk '$2 >= 50 {print $1}' makerrun3.all.maker.rename.proteins.fasta.proteinlen | sed 's/>//g' > makerrun3.all.maker.rename.proteins.genenames.long.out
+
+seqtk subseq makerrun3.all.maker.rename.proteins.AED50.eAED.fasta makerrun3.all.maker.rename.proteins.genenames.long.out > makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.fasta
+
+6. InterProScan
+/sw/bioinfo/InterProScan/5.52-86.0/rackham/interproscan.sh
