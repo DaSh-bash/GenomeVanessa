@@ -220,3 +220,23 @@ seqtk subseq makerrun3.all.maker.rename.proteins.AED50.eAED.fasta makerrun3.all.
 
 6. InterProScan
 /sw/bioinfo/InterProScan/5.52-86.0/rackham/interproscan.sh
+
+#!/bin/bash -l
+#SBATCH -A snic2021-5-20
+#SBATCH -n 2
+#SBATCH -t 60:00:00
+#SBATCH -J InterProScan
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user daria.shipilina@gmail.com
+#SBATCH -o interproscan.output
+#SBATCH -e interproscan.error
+
+
+#load modules
+module load bioinfo-tools InterProScan/5.52-86.0
+
+#run the scan
+/sw/bioinfo/InterProScan/5.52-86.0/rackham/interproscan.sh -i /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_Annotation_Curation/02_AEDScoreFilter/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.fasta
+
+
+echo "DONE"

@@ -15,7 +15,7 @@ module load bioinfo-tools
 module load RepeatModeler/2.0.1
 
 #make database for Lsin
-BuildDatabase -name Vcard_DToL 
+BuildDatabase -name Vcard_DToL /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/input/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna
 
 #Run RepeatModeler/2.0.1
 RepeatModeler -database Vcard_DToL -pa 20 -LTRStruct
