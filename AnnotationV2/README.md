@@ -240,3 +240,16 @@ module load bioinfo-tools InterProScan/5.52-86.0
 
 
 echo "DONE"
+
+7. Cleaning gff file after AED cleaning based on GFF evidence
+Test:
+grep "LR999929.1"  makerrun3.all.rename.nofasta.norepeats.gff | awk '/Vcard/ && $3=="mRNA" {print $9}'| grep "repeatmasker" | wc -l
+
+grep -f makerrun3.all.maker.rename.proteins.genenames.long.out makerrun3.all.rename.nofasta.norepeats.gff > makerrun3.all.rename.nofasta.norepeats.AED50.eAED50.long.gff
+
+
+grep "repeat" makerrun3.all.rename.nofasta.norepeats.AED50.eAED50.long.gff |awk '{print $9}' | awk -F ";" '{print $1}' | sed 's/ID=//g' > makerrun3.all.rename.nofasta.norepeats.AED50.eAED50.long.pred_repeat.names
+
+*WARNING! REMOVE THSE GUYS AFTER INTERPRO!*
+
+grep -v -f makerrun3.all.rename.nofasta.norepeats.AED50.eAED50.long.pred_repeat.names makerrun3.all.maker.rename.proteins.genenames.long.out | wc -l
