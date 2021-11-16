@@ -253,3 +253,39 @@ grep "repeat" makerrun3.all.rename.nofasta.norepeats.AED50.eAED50.long.gff |awk 
 *WARNING! REMOVE THSE GUYS AFTER INTERPRO!*
 
 grep -v -f makerrun3.all.rename.nofasta.norepeats.AED50.eAED50.long.pred_repeat.names makerrun3.all.maker.rename.proteins.genenames.long.out | wc -l
+
+8. InterProScan Filtering
+Creating keywords to check:
+DNase
+DNase I-like
+transcriptase
+Endonuclease/exonuclease
+RT_nLTR_like
+transposable
+Baculovirus
+Transposase
+RETROTRANSPOSON	PROTEIN
+PiggyBac
+DDE superfamily endonuclease
+TRANSPOSASE-RELATED
+RETROTRANSPOSON
+FYVE/PHD-type
+TRANSPOSABLE
+Helitron
+Retrovirus
+Harbinger
+TRANSPOSON
+RETROVIRUS
+
+grep -f transposon_key.words makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.fasta.tsv | awk '{print $1}' | sort | uniq > makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.repeats.names
+
+grep -v -f makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.repeats.names ../02_AEDScoreFilter/makerrun3.all.maker.rename.proteins.genenames.long.out > makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.names
+
+module load bioinfo-tools seqtk/1.2-r101
+seqtk subseq makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.fasta makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.names
+
+9. Merging two annotations *W( manually
+Remove
+
+  Vcard_DToL11638-RA
+ Vcard_DToL11766-RA
