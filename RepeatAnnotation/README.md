@@ -54,7 +54,6 @@ cat 13lep_rm1.0_hex.lib >> Vcard_repbase.lib
 Adding latest curated arthropode library + monarchs
 wget https://www.dropbox.com/s/xxvangtbgyd7x2k/Arth_monarch_concatenated.fasta?dl=0
 
-cat Arth_monarch_concatenated.fasta >> Vcard_arthro_repbase.lib
 
 Working on labelling:
 
@@ -132,219 +131,28 @@ sed -i 's/RC?\/Helitron/Helitron/g' $1
 sed -i 's/RC\/Helitron/Helitron/g' $1
 sed -i 's/REP\-1\_HMM/Unknown/g' $1
 sed -i 's/Transib/DNA\/Transib/g' $1
-sed -i 's/Transib/DNA\/Transib/g' $1
+sed -i 's/tRNA/SINE\/tRNA/g' $1
 sed -i 's/unknown/Unknown/g' $1
 
+5. Moving artrododes to two liner
+awk '!/^>/ { printf "%s", $0; n = "\n" } /^>/ { print n $0; n = "" } END { printf "%s", n } ' Arth_monarch_concatenated.fasta > Arth_monarch_concatenated.fasta.twolines
+
+awk 'BEGIN{FS=" "}{if(!/>/){print toupper($0)}else{print $1}}' Arth_monarch_concatenated.fasta.twolines
 
 
+cat Arth_monarch_concatenated.fasta >> Vcard_arthro_repbase.lib
 
-ARTEFACT
-buffer
-DNA
-DNA/Academ
-DNA/Academ-1
-DNA/Chapaev
-DNA/CMC
-DNA/CMC?
-DNA/CMC-Chapaev
-DNA/CMC-Chapaev-3
-DNA/CMC-DNA/DNA/Transib
-DNA/CMC-EnSpm
-DNA/CMC-EnSpm?
-DNA/Crypton
-DNA/Crypton-I
-DNA/Crypton-V
-DNA/Dada
-DNA/DNA/Merlin
-DNA/DNA/Transib
-DNA/Ginger
-DNA/Ginger1
-DNA/Ginger-1
-DNA/Ginger-2
-DNA/Ginger2TDD
-DNA/Gypsy
-DNA/Harbinger
-DNAhAT
-DNA?/hAT?
-DNA/hAT
-DNA/hAT?
-DNA/hAT-Ac
-DNA/hAT-Ac?
-DNA/hAT-Blackjack
-DNA/hAT-Charlie
-DNA/hAT-hAT19
-DNA/hAT-hAT19?
-DNA/hAT-hAT5
-DNA/hAT-hATm
-DNA/hAT-hATm?
-DNA/hAT-hATw
-DNA/hAT-hATx
-DNA/hAT-hobo
-DNA/hAT-Pegasus
-DNA/hAT-Tag1
-DNA/hAT-Tip100
-DNA/Helitron
-DNA/HelitronD
-DNA/IS3EU
-DNA/Kolobok
-DNA/Kolobok-E
-DNA/Kolobok-Hydra
-DNA/Kolobok-T2
-DNA/Kolobok-T2?
-DNAMariner
-DNA/Mariner
-DNA/Mariner_albimanus
-DNA/Maverick
-DNA/Merlin
-DNA/MuDR
-DNA/MULE-F
-DNA/MuLE-MuDR
-DNA/MULE-MuDR
-DNA/MULE-MuDR?
-DNA/MULE-NOF
-DNA/MULE-Ricksha
-DNA/Novosib
-DNA/P
-DNA/Pif-Harbinger
-DNA/PIF-Harbinger
-DNA/PIF-Harbinger?
-DNA/PIF-HarbS
-DNA/PIF-ISL2EU
-DNA/PIF-ISL2EU?
-DNA/PIF-Spy
-DNA/piggyBac
-DNA/PiggyBac
-DNA/PiggyBac?
-DNA/Polinton
-DNAs/EnSpm/CACTA
-DNA/Sola
-DNA/Sola1
-DNA/Sola-1
-DNA/Sola2
-DNA/Sola-2
-DNA/Sola3
-DNA/Sola-3
-DNA/Tc3
-DNA/TcMar
-DNA/TcMar?
-DNA/TcMar-Fot1
-DNA/TcMar-ISRm11
-DNA/TcMar-m44
-DNA/TcMar-m44?
-DNA/TcMar-Mariner
-DNA/TcMar-Pogo
-DNA/TcMar-Tc1
-DNA/TcMar-Tc1?
-DNA/TcMar-Tc2
-DNA/TcMar-Tc4
-DNA/TcMar-Tc4?
-DNA/TcMar-Tigger
-DNA/TcMar-Tigger?
-DNA/Zator
-hAT
-Helitron
-Helitron?
-I/LTR
-I/LTR/LTR
-Interspersed_Repeat
-LINE
-LINE/CR1
-LINE/CR1?
-LINE/CR1-Zenon
-LINE/Crack
-LINE/CRE
-LINE/CRE-II
-LINE/Daphne
-LINE/Dong-R4
-LINE/I
-LINE/I?
-LINE/I-Jockey
-LINE/I-Jockey?
-LINE/Ingi
-LINE/I-Nimb
-LINE/IS3EU
-LINE/ISL2EU
-LINE/Jockey
-LINE/Kiri
-LINE/L1
-LINE/L1-Tx1
-LINE/L2
-LINE/L2?
-LINE/L2B
-LINE/Loa
-LINE/LOA
-LINE/Penelope
-LINE/Proto2
-LINE/R1
-LINE/R1-LOA
-LINE/R2
-LINE/R2-Hero
-LINE/R2-NeSL
-LINE/R4
-LINE/Rex-Babar
-LINE/RTE
-LINE/RTE-BovB
-LINE/RTE-ORTE
-LINE/RTE-RTE
-LINE/RTE-RTE?
-LINE/RTEX
-LINE/RTE-X
-LINE/Tad1
-LINE/Vingi
-LTR
-LTR/BEL
-LTR/Caulimovirus
-LTR/Copia
-LTR/DIRS
-LTR/ERV1
-LTR/ERVK
-LTR/Gypsy
-LTR/Gypsy?
-LTR/Gypsy-Cigr
-LTR/LTR
-LTRPao
-LTR/Pao
-LTR/R2
-LTR/Unknown
-NonLTR
-Non-LTR
-NonLTR/CRE
-NonLTRLTR/R2
-NonLTR/Nimb
-NonLTR/Outcast
-NonLTR/piggy
-NonLTR/Tx1
-NonLTR/Vingi
-Penelope
-Retroposon
-Retroposon?
-Retroposon/I-derived
-RNA
-rRNA
-Satellite
-Satellite?
-Simple_repeat
-SINE
-SINE?
-SINE2
-SINE3
-SINE/5S
-SINE/5S-Deu
-SINE/B2
-SINE/HaSE2
-SINE/ID
-SINE/MIR
-SINE/R1
-SINE/tRNA
-SINE/tRNA-Core
-SINE/tRNA-CR1
-SINE/tRNA-Deu
-SINE/tRNA-Deu-I
-SINE/tRNA-Deu-L2
-SINE/tRNA-Deu-RTE
-SINE/tRNA-I
-SINE/tRNA-RTE
-SINE/tRNA-V-CR1
-SINE/U
-snRNA
-tRNA
+Renaming
+bash clean_repeat_classes.sh Arth_monarch_concatenated.lib
+
+Checking headers:
+grep ">" Arth_monarch_concatenated.lib | awk -F "#" '{print $2}' | sort | uniq -c
+     42 SINE/tRNA
+      3 tRNA
+
+Checking other headers:
+grep ">" Vcard_repbase.lib | awk -F "#" '{print $2}' | sort | uniq -c
+3 buffer
+
+cp Vcard_repbase.lib Vcard_arthro_repbase.lib
+cat Arth_monarch_concatenated.lib >> Vcard_arthro_repbase.lib
