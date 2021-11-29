@@ -287,8 +287,8 @@ seqtk subseq makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.fasta maker
 9. Merging two annotations *W( manually
 Remove
 
-  Vcard_DToL11638-RA
- Vcard_DToL11766-RA
+Vcard_DToL11638-RA
+Vcard_DToL11766-RA
 
  10. Controlling overlaps/ New RepeatMasker Check
 
@@ -311,3 +311,189 @@ ID=Vcard_DToL18861-RA
 ID=Vcard_DToL18862-RA
 
 /proj/uppstore2017185/b2014034_nobackup/Dasha/RepeatMasker_Vanessa/02_RepeatMaskingVanessaDB
+
+11. Comparative evaluation of two annotations
+module load GenomeTools/1.6.1
+gt stat Vanessa_cardui-GCA_905220365.1-2021_05-genes.gff3
+parsed genome node DAGs: 15700
+sequence regions: 36 (total length: 424798336)
+multi-features: 23738
+genes: 12821
+protein-coding genes: 12821
+mRNAs: 25754
+protein-coding mRNAs: 25754
+exons: 249564
+CDSs: 215092
+five_prime_UTRs: 38485
+lnc_RNAs: 2208
+ncRNAs: 9
+ncRNA_genes: 2802
+rRNAs: 166
+regions: 36
+snRNAs: 115
+snoRNAs: 26
+tRNAs: 740
+three_prime_UTRs: 31569
+
+12. Manual check of our W genes
+Vcard_DToL11786-RA      aa79f1071c7ee56ccde599eb37765f08        812     Pfam    PF04843 Herpesvirus
+Vcard_DToL11794-RA   REVERSE TRANSCRIPTASE DOMAIN-CONTAINING PROTEIN (PTHR33332:SF23)
+Vcard_DToL11650-RA   ENDONUCLEASE (PTHR33327:SF3)	-	Strongylocentrotus purpuratu
+?Vcard_DToL11518-RA   PIF1-like helicase, SF1_C_RecD
+Vcard_DToL11540-RA    C-terminal region of a signal peptide
+Vcard_DToL11703-RA    TMHMM   TMhelix Region of a membrane-bound protein predicted to be embedded in the membrane
+Vcard_DToL11558-RA    Zinc finger CCHC-type profile
+Vcard_DToL11436-RA    Zinc finger CCHC-type profile
+Vcard_DToL11663-RA    TMhelix Region of a membrane-bound protein
+Vcard_DToL11580-RA    NUCLEAR APOPTOSIS-INDUCING FACTOR 1 (PTHR23098:SF4) Myb/SANT-like DNA-binding domain
+Vcard_DToL11505-RA    retropepsin_like
+Vcard_DToL11822-RA    SignalP_GRAM_POSITIVE
+Vcard_DToL11613-RA    hAT family C-terminal dimerisation region
+Vcard_DToL11806-RA    Putative peptidase (DUF1758)
+
+Counting exons:
+awk '$3=="exon" {print $9}' makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.W.all.gff
+awk '$3=="exon" {print $9}' makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.W.all.gff | awk -F ":" '{print $1}' | sort | uniq -c
+      2 ID=Vcard_DToL11382-RA
+      1 ID=Vcard_DToL11384-RA
+      1 ID=Vcard_DToL11385-RA
+      3 ID=Vcard_DToL11386-RA
+      2 ID=Vcard_DToL11387-RA
+      2 ID=Vcard_DToL11391-RA
+      1 ID=Vcard_DToL11392-RA
+      1 ID=Vcard_DToL11393-RA
+      4 ID=Vcard_DToL11396-RA
+      2 ID=Vcard_DToL11400-RA
+      1 ID=Vcard_DToL11401-RA
+      1 ID=Vcard_DToL11403-RA
+      1 ID=Vcard_DToL11407-RA
+      2 ID=Vcard_DToL11411-RA
+      2 ID=Vcard_DToL11416-RA
+      2 ID=Vcard_DToL11420-RA
+      2 ID=Vcard_DToL11425-RA
+      3 ID=Vcard_DToL11426-RA
+      2 ID=Vcard_DToL11430-RA
+      2 ID=Vcard_DToL11431-RA
+      3 ID=Vcard_DToL11432-RA
+      2 ID=Vcard_DToL11435-RA
+      3 ID=Vcard_DToL11436-RA
+      2 ID=Vcard_DToL11438-RA
+      1 ID=Vcard_DToL11442-RA
+      1 ID=Vcard_DToL11447-RA
+      1 ID=Vcard_DToL11449-RA
+      1 ID=Vcard_DToL11453-RA
+      5 ID=Vcard_DToL11454-RA
+      1 ID=Vcard_DToL11459-RA
+      2 ID=Vcard_DToL11462-RA
+      2 ID=Vcard_DToL11468-RA
+      6 ID=Vcard_DToL11471-RA
+      1 ID=Vcard_DToL11472-RA
+      3 ID=Vcard_DToL11478-RA
+      1 ID=Vcard_DToL11479-RA
+      1 ID=Vcard_DToL11484-RA
+      2 ID=Vcard_DToL11493-RA
+      4 ID=Vcard_DToL11498-RA
+      3 ID=Vcard_DToL11500-RA
+      2 ID=Vcard_DToL11503-RA
+      1 ID=Vcard_DToL11505-RA
+      2 ID=Vcard_DToL11508-RA
+      1 ID=Vcard_DToL11512-RA
+      2 ID=Vcard_DToL11516-RA
+      1 ID=Vcard_DToL11518-RA
+      3 ID=Vcard_DToL11519-RA
+      1 ID=Vcard_DToL11520-RA
+      1 ID=Vcard_DToL11527-RA
+      1 ID=Vcard_DToL11533-RA
+      4 ID=Vcard_DToL11535-RA
+      1 ID=Vcard_DToL11540-RA
+      2 ID=Vcard_DToL11542-RA
+      1 ID=Vcard_DToL11545-RA
+      1 ID=Vcard_DToL11552-RA
+      1 ID=Vcard_DToL11555-RA
+      1 ID=Vcard_DToL11556-RA
+      2 ID=Vcard_DToL11558-RA
+      1 ID=Vcard_DToL11559-RA
+      1 ID=Vcard_DToL11564-RA
+      1 ID=Vcard_DToL11568-RA
+      8 ID=Vcard_DToL11580-RA
+      1 ID=Vcard_DToL11583-RA
+      1 ID=Vcard_DToL11587-RA
+      1 ID=Vcard_DToL11592-RA
+      3 ID=Vcard_DToL11600-RA
+      1 ID=Vcard_DToL11613-RA
+      1 ID=Vcard_DToL11620-RA
+      2 ID=Vcard_DToL11624-RA
+      2 ID=Vcard_DToL11641-RA
+      1 ID=Vcard_DToL11645-RA
+      1 ID=Vcard_DToL11650-RA
+      1 ID=Vcard_DToL11653-RA
+      1 ID=Vcard_DToL11663-RA
+      1 ID=Vcard_DToL11664-RA
+      1 ID=Vcard_DToL11666-RA
+      1 ID=Vcard_DToL11669-RA
+      3 ID=Vcard_DToL11671-RA
+      1 ID=Vcard_DToL11672-RA
+      1 ID=Vcard_DToL11680-RA
+      1 ID=Vcard_DToL11682-RA
+      1 ID=Vcard_DToL11688-RA
+      1 ID=Vcard_DToL11695-RA
+      1 ID=Vcard_DToL11699-RA
+      2 ID=Vcard_DToL11702-RA
+      4 ID=Vcard_DToL11703-RA
+      5 ID=Vcard_DToL11708-RA
+      3 ID=Vcard_DToL11709-RA
+      1 ID=Vcard_DToL11710-RA
+      1 ID=Vcard_DToL11711-RA
+      1 ID=Vcard_DToL11712-RA
+      2 ID=Vcard_DToL11714-RA
+      1 ID=Vcard_DToL11716-RA
+      3 ID=Vcard_DToL11720-RA
+      2 ID=Vcard_DToL11732-RA
+      3 ID=Vcard_DToL11733-RA
+      2 ID=Vcard_DToL11735-RA
+      3 ID=Vcard_DToL11736-RA
+      5 ID=Vcard_DToL11737-RA
+      3 ID=Vcard_DToL11740-RA
+      3 ID=Vcard_DToL11742-RA
+      2 ID=Vcard_DToL11749-RA
+      1 ID=Vcard_DToL11750-RA
+      3 ID=Vcard_DToL11752-RA
+      2 ID=Vcard_DToL11753-RA
+      2 ID=Vcard_DToL11754-RA
+      2 ID=Vcard_DToL11755-RA
+      3 ID=Vcard_DToL11756-RA
+      3 ID=Vcard_DToL11757-RA
+      6 ID=Vcard_DToL11759-RA
+      1 ID=Vcard_DToL11764-RA
+      1 ID=Vcard_DToL11767-RA
+      1 ID=Vcard_DToL11769-RA
+      4 ID=Vcard_DToL11773-RA
+      2 ID=Vcard_DToL11774-RA
+      2 ID=Vcard_DToL11776-RA
+      1 ID=Vcard_DToL11780-RA
+      3 ID=Vcard_DToL11781-RA
+      1 ID=Vcard_DToL11783-RA
+      2 ID=Vcard_DToL11785-RA
+      6 ID=Vcard_DToL11786-RA
+      2 ID=Vcard_DToL11792-RA
+      1 ID=Vcard_DToL11794-RA
+      1 ID=Vcard_DToL11801-RA
+      1 ID=Vcard_DToL11806-RA
+      3 ID=Vcard_DToL11813-RA
+      2 ID=Vcard_DToL11817-RA
+      2 ID=Vcard_DToL11822-RA
+      5 ID=Vcard_DToL11824-RA
+      8 ID=Vcard_DToL11825-RA
+      3 ID=Vcard_DToL11827-RA
+
+
+Checking all annotation:
+awk '$3=="exon" {print $9}' makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.gff | awk -F ":" '{print $1}' | sort | uniq -c | sort | awk '{print $1}' | uniq -c
+62 ID=Vcard_DToL00658-RA
+62 ID=Vcard_DToL10221-RA
+63 ID=Vcard_DToL17780-RA ???
+
+
+
+
+Checking the way it was prepicted:
