@@ -156,3 +156,8 @@ grep ">" Vcard_repbase.lib | awk -F "#" '{print $2}' | sort | uniq -c
 
 cp Vcard_repbase.lib Vcard_arthro_repbase.lib
 cat Arth_monarch_concatenated.lib >> Vcard_arthro_repbase.lib
+
+
+6. New Kimura plots
+perl /sw/bioinfo/RepeatMasker/4.1.0/rackham/util/calcDivergenceFromAlign.pl -s GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.tbl.summary GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.cat.gz
+perl /sw/bioinfo/RepeatMasker/4.1.0/rackham/util/createRepeatLandscape.pl -div GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.tbl.summary -g 430597972 > GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.tbl.summary.kimura.html
