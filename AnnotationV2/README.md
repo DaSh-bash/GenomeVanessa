@@ -160,7 +160,18 @@ module load bioinfo-tools
 module load RepeatModeler/2.0.1
 
 #make database for Lsin
-BuildDatabase -name Vcard_DToL /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/input/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna
+BuildDatabase -name Vcard_DToL grep -f makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.names makerrun3.all.rename.nofasta.norepeats.gff  > makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.gff
+
+awk '$2=="maker" && $3=="exon" {print}'  > makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.gff > makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.exon.gff
+
+Preparing repeat annotation:
+../../RepeatMasker_Vanessa/02_RepeatMaskingVanessaDB/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff
+
+Intersecting repeats:
+module load BEDTools/2.29.2
+bedtools intersect -a makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.exon.gff -b ../../RepeatMasker_Vanessa/02_RepeatMaskingVanessaDB/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff -f 0.1 -wa -wb
+
+bedtools intersect -a makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.exon.gff -b ../../RepeatMasker_Vanessa/02_RepeatMaskingVanessaDB/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff -f 1 -wa -wb | awk -F ':' '{print $1}' |awk '{print $9}' | sort | uniq | wc -l/Vanessa_MAKER/input/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna
 
 #Run RepeatModeler/2.0.1
 RepeatModeler -database Vcard_DToL -pa 20 -LTRStruct
@@ -336,9 +347,9 @@ tRNAs: 740
 three_prime_UTRs: 31569
 
 12. Manual check of our W genes
-Vcard_DToL11786-RA      aa79f1071c7ee56ccde599eb37765f08        812     Pfam    PF04843 Herpesvirus
-Vcard_DToL11794-RA   REVERSE TRANSCRIPTASE DOMAIN-CONTAINING PROTEIN (PTHR33332:SF23)
-Vcard_DToL11650-RA   ENDONUCLEASE (PTHR33327:SF3)	-	Strongylocentrotus purpuratu
+Vcard_DToL11786-RA    Herpesvirus
+Vcard_DToL11794-RA    REVERSE TRANSCRIPTASE DOMAIN-CONTAINING PROTEIN (PTHR33332:SF23)
+Vcard_DToL11650-RA    ENDONUCLEASE (PTHR33327:SF3)	-	Strongylocentrotus purpuratu
 ?Vcard_DToL11518-RA   PIF1-like helicase, SF1_C_RecD
 Vcard_DToL11540-RA    C-terminal region of a signal peptide
 Vcard_DToL11703-RA    TMHMM   TMhelix Region of a membrane-bound protein predicted to be embedded in the membrane
@@ -354,137 +365,6 @@ Vcard_DToL11806-RA    Putative peptidase (DUF1758)
 Counting exons:
 awk '$3=="exon" {print $9}' makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.W.all.gff
 awk '$3=="exon" {print $9}' makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.W.all.gff | awk -F ":" '{print $1}' | sort | uniq -c
-      2 ID=Vcard_DToL11382-RA
-      1 ID=Vcard_DToL11384-RA
-      1 ID=Vcard_DToL11385-RA
-      3 ID=Vcard_DToL11386-RA
-      2 ID=Vcard_DToL11387-RA
-      2 ID=Vcard_DToL11391-RA
-      1 ID=Vcard_DToL11392-RA
-      1 ID=Vcard_DToL11393-RA
-      4 ID=Vcard_DToL11396-RA
-      2 ID=Vcard_DToL11400-RA
-      1 ID=Vcard_DToL11401-RA
-      1 ID=Vcard_DToL11403-RA
-      1 ID=Vcard_DToL11407-RA
-      2 ID=Vcard_DToL11411-RA
-      2 ID=Vcard_DToL11416-RA
-      2 ID=Vcard_DToL11420-RA
-      2 ID=Vcard_DToL11425-RA
-      3 ID=Vcard_DToL11426-RA
-      2 ID=Vcard_DToL11430-RA
-      2 ID=Vcard_DToL11431-RA
-      3 ID=Vcard_DToL11432-RA
-      2 ID=Vcard_DToL11435-RA
-      3 ID=Vcard_DToL11436-RA
-      2 ID=Vcard_DToL11438-RA
-      1 ID=Vcard_DToL11442-RA
-      1 ID=Vcard_DToL11447-RA
-      1 ID=Vcard_DToL11449-RA
-      1 ID=Vcard_DToL11453-RA
-      5 ID=Vcard_DToL11454-RA
-      1 ID=Vcard_DToL11459-RA
-      2 ID=Vcard_DToL11462-RA
-      2 ID=Vcard_DToL11468-RA
-      6 ID=Vcard_DToL11471-RA
-      1 ID=Vcard_DToL11472-RA
-      3 ID=Vcard_DToL11478-RA
-      1 ID=Vcard_DToL11479-RA
-      1 ID=Vcard_DToL11484-RA
-      2 ID=Vcard_DToL11493-RA
-      4 ID=Vcard_DToL11498-RA
-      3 ID=Vcard_DToL11500-RA
-      2 ID=Vcard_DToL11503-RA
-      1 ID=Vcard_DToL11505-RA
-      2 ID=Vcard_DToL11508-RA
-      1 ID=Vcard_DToL11512-RA
-      2 ID=Vcard_DToL11516-RA
-      1 ID=Vcard_DToL11518-RA
-      3 ID=Vcard_DToL11519-RA
-      1 ID=Vcard_DToL11520-RA
-      1 ID=Vcard_DToL11527-RA
-      1 ID=Vcard_DToL11533-RA
-      4 ID=Vcard_DToL11535-RA
-      1 ID=Vcard_DToL11540-RA
-      2 ID=Vcard_DToL11542-RA
-      1 ID=Vcard_DToL11545-RA
-      1 ID=Vcard_DToL11552-RA
-      1 ID=Vcard_DToL11555-RA
-      1 ID=Vcard_DToL11556-RA
-      2 ID=Vcard_DToL11558-RA
-      1 ID=Vcard_DToL11559-RA
-      1 ID=Vcard_DToL11564-RA
-      1 ID=Vcard_DToL11568-RA
-      8 ID=Vcard_DToL11580-RA
-      1 ID=Vcard_DToL11583-RA
-      1 ID=Vcard_DToL11587-RA
-      1 ID=Vcard_DToL11592-RA
-      3 ID=Vcard_DToL11600-RA
-      1 ID=Vcard_DToL11613-RA
-      1 ID=Vcard_DToL11620-RA
-      2 ID=Vcard_DToL11624-RA
-      2 ID=Vcard_DToL11641-RA
-      1 ID=Vcard_DToL11645-RA
-      1 ID=Vcard_DToL11650-RA
-      1 ID=Vcard_DToL11653-RA
-      1 ID=Vcard_DToL11663-RA
-      1 ID=Vcard_DToL11664-RA
-      1 ID=Vcard_DToL11666-RA
-      1 ID=Vcard_DToL11669-RA
-      3 ID=Vcard_DToL11671-RA
-      1 ID=Vcard_DToL11672-RA
-      1 ID=Vcard_DToL11680-RA
-      1 ID=Vcard_DToL11682-RA
-      1 ID=Vcard_DToL11688-RA
-      1 ID=Vcard_DToL11695-RA
-      1 ID=Vcard_DToL11699-RA
-      2 ID=Vcard_DToL11702-RA
-      4 ID=Vcard_DToL11703-RA
-      5 ID=Vcard_DToL11708-RA
-      3 ID=Vcard_DToL11709-RA
-      1 ID=Vcard_DToL11710-RA
-      1 ID=Vcard_DToL11711-RA
-      1 ID=Vcard_DToL11712-RA
-      2 ID=Vcard_DToL11714-RA
-      1 ID=Vcard_DToL11716-RA
-      3 ID=Vcard_DToL11720-RA
-      2 ID=Vcard_DToL11732-RA
-      3 ID=Vcard_DToL11733-RA
-      2 ID=Vcard_DToL11735-RA
-      3 ID=Vcard_DToL11736-RA
-      5 ID=Vcard_DToL11737-RA
-      3 ID=Vcard_DToL11740-RA
-      3 ID=Vcard_DToL11742-RA
-      2 ID=Vcard_DToL11749-RA
-      1 ID=Vcard_DToL11750-RA
-      3 ID=Vcard_DToL11752-RA
-      2 ID=Vcard_DToL11753-RA
-      2 ID=Vcard_DToL11754-RA
-      2 ID=Vcard_DToL11755-RA
-      3 ID=Vcard_DToL11756-RA
-      3 ID=Vcard_DToL11757-RA
-      6 ID=Vcard_DToL11759-RA
-      1 ID=Vcard_DToL11764-RA
-      1 ID=Vcard_DToL11767-RA
-      1 ID=Vcard_DToL11769-RA
-      4 ID=Vcard_DToL11773-RA
-      2 ID=Vcard_DToL11774-RA
-      2 ID=Vcard_DToL11776-RA
-      1 ID=Vcard_DToL11780-RA
-      3 ID=Vcard_DToL11781-RA
-      1 ID=Vcard_DToL11783-RA
-      2 ID=Vcard_DToL11785-RA
-      6 ID=Vcard_DToL11786-RA
-      2 ID=Vcard_DToL11792-RA
-      1 ID=Vcard_DToL11794-RA
-      1 ID=Vcard_DToL11801-RA
-      1 ID=Vcard_DToL11806-RA
-      3 ID=Vcard_DToL11813-RA
-      2 ID=Vcard_DToL11817-RA
-      2 ID=Vcard_DToL11822-RA
-      5 ID=Vcard_DToL11824-RA
-      8 ID=Vcard_DToL11825-RA
-      3 ID=Vcard_DToL11827-RA
 
 
 Checking all annotation:
@@ -493,7 +373,124 @@ awk '$3=="exon" {print $9}' makerrun3.all.maker.rename.proteins.AED50.eAED50.lon
 62 ID=Vcard_DToL10221-RA
 63 ID=Vcard_DToL17780-RA ???
 
+Ngenes Nexons in genes
+1199 1
+   453 10
+   365 11
+   289 12
+   218 13
+   164 14
+   124 15
+   110 16
+    84 17
+    59 18
+    56 19
+  1609 2
+    36 20
+    32 21
+    22 22
+    29 23
+    24 24
+     9 25
+    11 26
+    12 27
+     8 28
+    16 29
+  1745 3
+     9 30
+     6 31
+     5 32
+     2 33
+     2 34
+     5 35
+     3 36
+     2 37
+     1 38
+  1539 4
+     1 40
+     3 42
+     1 45
+     1 46
+     2 47
+     1 48
+     2 49
+  1409 5
+     1 55
+  1161 6
+     2 62
+     1 63
+   899 7
+   766 8
+   592 9
 
-
-
+awk '$3=="exon" {print $9}' makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.W.all.gff | awk -F ":" '{print $1}' | sort | uniq -c | sort | awk '{print $1}' | uniq -c
+    60 1
+    36 2
+    21 3
+     5 4
+     4 5
+     3 6
+     2 8
 Checking the way it was prepicted:
+ awk -F "-" '{print $4,$5,$6}' makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.W.gff
+ LR999940.1	maker	mRNA	493995	494707	.	+	.	ID=Vcard_DToL11400-RA;Parent=Vcard_DToL11400;Name=Vcard_DToL11400-RA;Alias=maker-LR999940.1-exonerate_est2genome-gene-5.0-mRNA-1;_AED=0.00;_QI=158|1|0.5|1|0|0|2|0|173;_eAED=0.00;score=677;
+LR999940.1	maker	mRNA	4008765	4009416	.	-	.	ID=Vcard_DToL11516-RA;Parent=Vcard_DToL11516;Name=Vcard_DToL11516-RA;Alias=maker-LR999940.1-exonerate_est2genome-gene-40.0-mRNA-1;_AED=0.00;_QI=261|1|1|1|0|0|2|0|119;_eAED=0.00;score=618;
+LR999940.1	maker	mRNA	4126076	4127694	.	+	.	ID=Vcard_DToL11519-RA;Parent=Vcard_DToL11519;Name=Vcard_DToL11519-RA;Alias=maker-LR999940.1-exonerate_est2genome-gene-41.0-mRNA-1;_AED=0.00;_QI=647|1|1|1|0|0|3|201|103;_eAED=0.00;score=5568;
+LR999940.1	maker	mRNA	10576361	10577053	.	+	.	ID=Vcard_DToL11702-RA;Parent=Vcard_DToL11702;Name=Vcard_DToL11702-RA;Alias=maker-LR999940.1-exonerate_est2genome-gene-105.0-mRNA-1;_AED=0.00;_QI=22|1|1|1|0|0.5|2|296|72;_eAED=0.00;score=2616;
+
+
+grep "Vcard_DToL11519-RA" makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.fasta.tsv - no prediction
+grep "Vcard_DToL11702-RA" makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.fasta.tsv - no prediction
+
+
+awk '$3=="exon" {print $9}' makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.W.all.gff | awk -F ":" '{print $1}' | sort | uniq -c | sort > makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.W.all.exonN.stats
+
+
+awk '$1 != 1 {print $2}' makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.W.all.exonN.stats | sed 's/ID=//g' > W.genes.moretone.exon.names
+
+grep -f W.genes.moretone.exon.names makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.fasta.W.tsv
+
+
+Predicting number of genes:
+13090 now
+11891 after removing genes with 1 exon
+11820 after removing rest of W "genes"
+
+13. Next overlap checked
+
+Intersecting repeats:
+module load BEDTools/2.29.2
+bedtools intersect -a makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.exon.gff -b ../../RepeatMasker_Vanessa/02_RepeatMaskingVanessaDB/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff -f 0.1 -wa -wb
+
+bedtools intersect -a makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.exon.gff -b ../../RepeatMasker_Vanessa/02_RepeatMaskingVanessaDB/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff -f 1 -wa -wb | awk -F ':' '{print $1}' |awk '{print $9}' | sort | uniq | wc -l
+
+
+(base) [daria@rackham2 04_FeatureOverlapCheckNewMasking]$ awk '{print $9,$19}' makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.similarity | grep -v "rnd" |wc -l
+618
+(base) [daria@rackham2 04_FeatureOverlapCheckNewMasking]$ awk '{print $9,$19}' makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.similarity | grep -v "ltr" |wc -l
+1979
+(base) [daria@rackham2 04_FeatureOverlapCheckNewMasking]$ awk '{print $9,$19}' makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.similarity | grep "ltr" |wc -l
+379
+(base) [daria@rackham2 04_FeatureOverlapCheckNewMasking]$ awk '{print $9,$19}' makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.similarity | grep "n" |wc -l
+2358
+(base) [daria@rackham2 04_FeatureOverlapCheckNewMasking]$ awk '{print $9,$19}' makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.similarity | grep ")n" |wc -l
+71
+(base) [daria@rackham2 04_FeatureOverlapCheckNewMasking]$
+
+2358 genes have overlap of 90% with exon
+  1740 from RepeatModeller main prediction
+  379 from LTR prediction tool
+  86 simple repeats or A-rich
+
+
+
+13090 - 1199 - 2358
+
+12. Checking total number of functional annotations
+See GoogleDoc
+
+13. Moving "TEs" to the TE database
+module load bioinfo-tools seqtk/1.2-r101
+seqtk subseq makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.fasta makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.repeats.names > makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.repeats.fasta
+
+The idea overlap "genes" and repeats
