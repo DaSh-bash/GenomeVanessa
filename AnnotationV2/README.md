@@ -494,3 +494,5 @@ module load bioinfo-tools seqtk/1.2-r101
 seqtk subseq makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.fasta makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.repeats.names > makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.repeats.fasta
 
 The idea overlap "genes" and repeats
+
+14. Attempt to rerun maker
