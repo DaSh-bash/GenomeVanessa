@@ -496,3 +496,9 @@ seqtk subseq makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.fasta maker
 The idea overlap "genes" and repeats
 
 14. Attempt to rerun maker
+/proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/
+
+Makre_opts:
+maker_gff=/proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_Annotation_Curation/03_InterProScan/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.gff
+
+rm_gff=/proj/uppstore2017185/b2014034_nobackup/Dasha/RepeatMasker_Vanessa/02_RepeatMaskingVanessaArthropodDB/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff
