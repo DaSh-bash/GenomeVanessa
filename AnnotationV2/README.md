@@ -502,3 +502,16 @@ Makre_opts:
 maker_gff=/proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_Annotation_Curation/03_InterProScan/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.gff
 
 rm_gff=/proj/uppstore2017185/b2014034_nobackup/Dasha/RepeatMasker_Vanessa/02_RepeatMaskingVanessaArthropodDB/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff
+
+15. More overlaps:
+bedtools intersect -a ../03_InterProScan/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.exon.gff -b ../../RepeatMasker_Vanessa/02_RepeatMaskingVanessaDB/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff -f 0.50 -r -wa -wb | awk -F ':' '{print $1}'| awk '{print $9}' | sort | uniq | wc -l
+
+(base) [daria@rackham2 04_FeatureOverlapCheckNewMasking]$ bedtools intersect -a ../03_InterProScan/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.exon.gff -b ../../RepeatMasker_Vanessa/02_RepeatMaskingVanessaDB/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff -f 0.01 -r -wa -wb | awk -F ':' '{print $1}'| awk '{print $9}' | sort | uniq | wc -l
+6076
+
+(base) [daria@rackham2 04_FeatureOverlapCheckNewMasking]$ bedtools intersect -a ../03_InterProScan/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.exon.gff -b ../../RepeatMasker_Vanessa/02_RepeatMaskingVanessaDB/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff -f 0.001 -r -wa -wb | awk -F ':' '{print $1}'| awk '{print $9}' | sort | uniq | wc -l
+6213
+
+bedtools intersect -a ../03_InterProScan/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.exon.gff -b ../../RepeatMasker_Vanessa/02_RepeatMaskingVanessaDB/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff -f 0.001 -r -wa -wb | awk -F "\t" '{print $4,$5,$13,$14,$18}' > overlap.plot.V2.tsv
+
+Continue in python
