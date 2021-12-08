@@ -503,6 +503,8 @@ maker_gff=/proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_Annotation_Curat
 
 rm_gff=/proj/uppstore2017185/b2014034_nobackup/Dasha/RepeatMasker_Vanessa/02_RepeatMaskingVanessaArthropodDB/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff
 
+/proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/maker_run3/makerrun3.all.gff
+
 15. More overlaps:
 bedtools intersect -a ../03_InterProScan/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.exon.gff -b ../../RepeatMasker_Vanessa/02_RepeatMaskingVanessaDB/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff -f 0.50 -r -wa -wb | awk -F ':' '{print $1}'| awk '{print $9}' | sort | uniq | wc -l
 
@@ -513,5 +515,14 @@ bedtools intersect -a ../03_InterProScan/makerrun3.all.maker.rename.proteins.AED
 6213
 
 bedtools intersect -a ../03_InterProScan/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.exon.gff -b ../../RepeatMasker_Vanessa/02_RepeatMaskingVanessaDB/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff -f 0.001 -r -wa -wb | awk -F "\t" '{print $4,$5,$13,$14,$18}' > overlap.plot.V2.tsv
+
+[daria@rackham2 04_FeatureOverlapCheckNewMasking]$ bedtools intersect -a ../03_InterProScan/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.exon.gff -b ../../RepeatMasker_Vanessa/02_RepeatMaskingVanessaDB/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff -f 0.003 -r -wa -wb | awk '{print $9}' | sort | uniq | wc -l
+9970
+
+bedtools intersect -a ../03_InterProScan/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.exon.gff -b ../../RepeatMasker_Vanessa/02_RepeatMaskingVanessaDB/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff -f 0.003 -r -wa -wb | grep -v "Motif:(" | awk '{print $9}' | sort | uniq | wc -l
+6177
+
+bedtools intersect -a ../03_InterProScan/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.exon.gff -b ../../RepeatMasker_Vanessa/02_RepeatMaskingVanessaDB/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff -f 0.003 -r -wa -wb | grep -v "Motif:(" | grep -v "rich" | awk '{print $9}' | sort | uniq | wc -l
+5585
 
 Continue in python
