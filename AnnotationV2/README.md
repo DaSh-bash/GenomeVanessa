@@ -566,3 +566,54 @@ bedtools intersect -a makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.no
 
 bedtools intersect -a makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.CDS.gff -b GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.nosimple.gff -f 0.5 -r -wa -wb | awk '{print $9}' | sort | uniq | wc -l
 **797**
+
+bedtools intersect -a makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.CDS.gff -b GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.nosimple.gff -f 0.5 -r -wo
+
+bedtools intersect -a makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.CDS.gff -b GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.nosimple.gff -f 0.5 -r -wo | awk '$22>=300 {print $22}' | wc -l
+**130**
+
+bedtools intersect -a makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.CDS.gff -b GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.nosimple.gff -f 0.5 -r -wo | awk '$22>=300 {print $9,$22}' | awk -F ":" '{print $1}' | sed 's/ID=//g' | sort | uniq | wc -l
+**112**
+
+bedtools intersect -a makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.CDS.gff -b GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.nosimple.gff -f 0.5 -r -wo | awk '$22>=300 {print $9,$22}' | awk -F ":" '{print $1}' | sed 's/ID=//g' > makerrun3.genes.ovelapping.names
+
+grep -v makerrun3.genes.ovelapping.names makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.gff > makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.nooverlap.gff
+
+grep -v "LR999940.1" makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.nooverlap.gff > makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.nooverlap.noW.gff
+
+awk '$3 == "exon" {print $9}' makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.nooverlap.noW.gff | awk -F ":" '{print $1}' | sed 's/ID=//g' | sort | uniq > makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.nooverlap.noW.names
+
+module load bioinfo-tools seqtk/1.2-r101
+seqtk subseq /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_Annotation_Curation/00_Input/makerrun3.all.maker.rename.proteins.fasta makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.nooverlap.noW.names
+
+4.
+BUSCO
+arthropoda_odb10
+run_BUSCO.py -i ../03_InterProScan/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.fasta -l $BUSCO_LINEAGE_SETS/arthropoda_odb10 -o vanessa_busco -m protein
+
+run_BUSCO.py -i /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_Annotation_Curation/00_Input/makerrun3.all.maker.rename.proteins.fasta -l $BUSCO_LINEAGE_SETS/arthropoda_odb10 -o vanessa_busco -m protein
+
+
+nohup run_BUSCO.py -i /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_Annotation_Curation/06_JointFilterOverlap/makrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.nooverlap.noW.fasta -l $BUSCO_LINEAGE_SETS/arthropoda_odb10 -o vanessa_busco -m protein &
+
+Original:
+***** Results: *****
+
+C:90.4%[S:89.7%,D:0.7%],F:6.8%,M:2.8%,n:1013       
+916     Complete BUSCOs (C)                        
+909     Complete and single-copy BUSCOs (S)        
+7       Complete and duplicated BUSCOs (D)         
+69      Fragmented BUSCOs (F)                      
+28      Missing BUSCOs (M)                         
+1013    Total BUSCO groups searched
+
+
+C:87.9%[S:87.3%,D:0.6%],F:6.4%,M:5.7%,n:1013       
+890     Complete BUSCOs (C)                        
+884     Complete and single-copy BUSCOs (S)        
+6       Complete and duplicated BUSCOs (D)         
+65      Fragmented BUSCOs (F)                      
+58      Missing BUSCOs (M)                         
+1013    Total BUSCO groups searched
+
+generate_plot.py -wd .
