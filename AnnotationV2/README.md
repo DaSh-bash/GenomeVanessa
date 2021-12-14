@@ -526,3 +526,43 @@ bedtools intersect -a ../03_InterProScan/makerrun3.all.maker.rename.proteins.AED
 5585
 
 Continue in python
+
+## Filtering concept
+1. Only more then 2 exons
+2. Remove simple repeats
+2. Overlap for 50%, Length of 300 bp
+4. One TE per gene
+5. BUSCO, stats based on evidence, number of exons, length
+cd /proj/uppstore2017185/b2014034_nobackup/Dasha/
+mkdir
+
+1. Only more than 2 exons
+Checking the count:
+awk '$3=="exon" {print $9}' makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.gff | awk -F ":" '{print $1}' | sort | uniq -c | sort | awk '{print $1}' | uniq -c
+   1199 1 - one exon
+
+awk '$3=="exon" {print $9}' makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.gff | awk -F ":" '{print $1}' | sort | uniq -c | sort > makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.exoncount.stats
+
+awk '$1 != 1 {print $2}' makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.exoncount.stats | sed 's/ID=//g' > makerrun3.genes.morethenone.exon.names
+
+wc -l makerrun3.genes.morethenone.exon.names
+**11891** makerrun3.genes.morethenone.exon.names
+
+grep -f makerrun3.genes.morethenone.exon.names makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.gff > makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.gff
+
+2. Remove simple repeats from repeat annotation
+grep -v -f grep_simple.repeats GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff > GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.nosimple.gff
+
+grep_simple.repeats
+Motif:(
+rich
+
+3. Overlap for 50%
+Try "CDS", not "exon" ovelap: ot excludes UTR
+
+grep "CDS" makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.gff > makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.CDS.gff
+
+bedtools intersect -a makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.CDS.gff -b GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.nosimple.gff -f 0.5 -r -wa -wb
+
+bedtools intersect -a makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.CDS.gff -b GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.nosimple.gff -f 0.5 -r -wa -wb | awk '{print $9}' | sort | uniq | wc -l
+**797**
