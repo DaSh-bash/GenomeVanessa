@@ -617,3 +617,26 @@ C:87.9%[S:87.3%,D:0.6%],F:6.4%,M:5.7%,n:1013
 1013    Total BUSCO groups searched
 
 generate_plot.py -wd .
+
+774at6656       Complete        Vcard_DToL09907-RA      1447.0  1087    https://www.orthodb.org/v10?query=774at6656     WD40-repeat-containing domain
+980at6656       Missing
+997at6656       Complete        Vcard_DToL09225-RA      3739.4  1846    https://www.orthodb.org/v10?query=997at6656     pre-mRNA-processing-splicing factor 8
+1166at6656      Complete        Vcard_DToL02367-RA      2098.0  1629    https://www.orthodb.org/v10?query=1166at6656    E3 ubiquitin-protein ligase UBR5 isoform X1
+1885at6656      Complete        Vcard_DToL06360-RA      1746.5  1378    https://www.orthodb.org/v10?query=1885at6656    SRCR-like domain
+1990at6656      Complete        Vcard_DToL13673-RA      1516.3  1280    https://www.orthodb.org/v10?query=1990at6656    dnaJ homolog subfamily C member 13
+2148at6656      Fragmented      Vcard_DToL11295-RA      547.1   354     https://www.orthodb.org/v10?query=2148at6656    Pecanex-like protein 1
+2456at6656      Fragmented      Vcard_DToL08311-RA      1786.9  819     https://www.orthodb.org/v10?query=2456at6656    Translational activator GCN1
+2473at6656      Complete        Vcard_DToL04043-RA      1028.1  539     https://www.orthodb.org/v10?query=2473at6656    TATA-binding protein-associated factor 172
+3310at6656      Complete        Vcard_DToL08194-RA      2633.7  1367    https://www.orthodb.org/v10?query=3310at6656    Clathrin heavy chain
+
+Looking for lost genes:
+grep -f filtered.fullfilter.genes.only.names full_table_nofilter.tsv | awk '$2 != "Missing" {print $3}' > lost_genes.names
+
+/proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_Annotation_Curation/07_BUSCO/lost_genes.names
+
+grep -f  /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_Annotation_Curation/07_BUSCO/lost_genes.names makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.repeats.names | wc -l
+23
+
+grep -f  /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_Annotation_Curation/07_BUSCO/lost_genes.names makerrun3.all.maker.rename.proteins.genenames.long.out | wc -l
+
+grep -f  /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_Annotation_Curation/07_BUSCO/lost_genes.names makerrun3.genes.morethenone.exon.names | wc -l
