@@ -681,3 +681,28 @@ run_BUSCO.py -i ../../08_FilterRound2/makerrun3.all.maker.rename.proteins.AED50.
 |65	Fragmented BUSCOs (F)                     |
 |37	Missing BUSCOs (M)                        |
 |1013	Total BUSCO groups searched  
+
+
+Weird guys:
+Vcard_DToL11937-RA Retrovirus
+Vcard_DToL15721 PhD?
+Vcard_DToL09110-RA Endonuclease
+Vcard_DToL18102-RA same
+Vcard_DToL03918-RA same
+Helitron_like_N
+Vcard_DToL00149-RA
+Vcard_DToL01566-RA
+Vcard_DToL02964-RA
+Vcard_DToL04307-RA
+Vcard_DToL04908-RA
+Vcard_DToL05168-RA
+Vcard_DToL07310-RA
+Vcard_DToL07670-RA
+Vcard_DToL09178-RA
+Vcard_DToL09586-RA
+Vcard_DToL10371-RA
+Vcard_DToL10926-RA
+Vcard_DToL11935-RA
+Vcard_DToL12274-RA
+Vcard_DToL17254-RA
+Vcard_DToL18176-RA
