@@ -58,3 +58,62 @@ sed 's/        /,/g' chromosome_color.map
 
 
 http://www.zonums.com/online/color_converter/
+
+## New figure
+cd /proj/uppstore2017185/b2014034_nobackup/Dasha/VanessaCircos
+cp fils from Karin
+
+grep -v -f ../accepted.gene.name orginal.maker3.genes > rejected.genes
+
+wc -l bmor_vca.gff
+**30627** bmor_vca.gff
+
+sed 's/-RA//g' rejected.genes > rejected.round2.maker3.genes
+
+grep -v -f rejected.round2.maker3.genes bmor_vca.gff | wc -l
+**28278**
+
+grep -v -f rejected.round2.maker3.genes bmor_vca.blast | wc -l
+**136769**
+(base) [daria@rackham2 bmor_filtered]$ wc -l bmor_vca.blast
+**154209** bmor_vca.blast
+
+./MCScanX bmor-filtered/bmor-vca-filtered
+
+sed 's/-/ /' bmor_vca_filtered.collinearity | awk 'NR>11 {print $3, $4}' | grep -C 1 "score" | grep -v "score\|--" | awk '{print $1"\n"$2}' > blocklist.tmp
+
+awk 'END {print $3"\n"$4}'  bmor_vca_filtered.collinearity >> blocklist.tmp
+
+while read line; do grep "$line" MCScanX-master/hmel_vca_filtered/hmel_vca_filtered.gff; done < blocklist_hmel.tmp | paste -d " " - - - - > hmel_vca_filtered.link
+
+awk '{if ($7<$15) {if ($7<$8 && $15<$16) print $1, $3, $12, $5, $7, $16; else if ($7>$8 && $15<$16) print $1, $3, $12, $5, $8, $16; else if ($7<$8 && $15>$16) print $1, $3, $12, $5, $7, $15; else if ($7>$8 && $15>$16) print $1, $3, $12, $5, $8, $15}
+ else if ($7>$15) {if ($7>$8 && $15>$16) print $1, $3, $12, $5, $7, $16; else if ($7<$8 && $15>$16) print $1, $3, $12, $5, $8, $16; else if ($7>$8 && $15<$16) print $1, $3, $12, $5, $7, $15; else if ($7<$8 && $15<$16) print $1, $3, $12, $5, $8, $15}}' bmor_vca_filtered.link > bmor_vca_filtered.links
+
+rm -f blocklist.tmp
+
+ circos -conf circos_bombyx_filtered.conf -outputfile circos_bombyx_filtered1.png
+
+ bash assign_color_to_links_bomb.sh bmor_vca_filtered.links > bmor_vca_filtered_color.links
+
+**HELICONIUS**
+
+grep -v -f rejected.round2.maker3.genes hmel_vca.gff
+
+grep -v -f ../rejected.round2.maker3.genes hmel_vca.gff > hmel_vca_filtered.gff
+
+grep -v -f ../rejected.round2.maker3.genes hmel_vca.blast > hmel_vca_filtered.blast
+
+./MCScanX hmel_vca_filtered/hmel_vca_filtered
+
+sed 's/-/ /' hmel_vca_filtered/hmel_vca_filtered.collinearity | awk 'NR>11 {print $3, $4}' | grep -C 1 "score" | grep -v "score\|--" | awk '{print $1"\n"$2}' > ../../blocklist_hmel.tmp
+
+awk 'END {print $3"\n"$4}'  MCScanX-master/hmel_vca_filtered/hmel_vca_filtered.collinearity >> blocklist_hmel.tmp
+
+while read line; do grep "$line" MCScanX-master/hmel_vca_filtered/hmel_vca_filtered.gff; done < blocklist_hmel.tmp | paste -d " " - - - - > hmel_vca_filtered.link
+
+awk '{if ($7<$15) {if ($7<$8 && $15<$16) print $1, $3, $12, $5, $7, $16; else if ($7>$8 && $15<$16) print $1, $3, $12, $5, $8, $16; else if ($7<$8 && $15>$16) print $1, $3, $12, $5, $7, $15; else if ($7>$8 && $15>$16) print $1, $3, $12, $5, $8, $15}
+ else if ($7>$15) {if ($7>$8 && $15>$16) print $1, $3, $12, $5, $7, $16; else if ($7<$8 && $15>$16) print $1, $3, $12, $5, $8, $16; else if ($7>$8 && $15<$16) print $1, $3, $12, $5, $7, $15; else if ($7<$8 && $15<$16) print $1, $3, $12, $5, $8, $15}}' hmel_vca_filtered.link > hmel_vca_filtered.links
+
+bash assign_color_to_links_bomb.sh hmel_vca_filtered.links > hmel_vca_filtered_color.links
+
+circos -conf circos_helicon_filtered.conf -outputfile circos_helicon_filtered1.png

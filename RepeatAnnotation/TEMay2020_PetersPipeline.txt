@@ -1,0 +1,446 @@
+## TE May 2020
+
+### Get the renamed genome assembly reference2 from Andrea:
+mkdir /home/pruisscher/TE_ref2_renamed
+cd /home/pruisscher/TE_ref2_renamed
+cp /mpistaff/liedvogel_lab/transfer2archive/bSylAtr1/* .
+gunzip ./*
+
+## format the assembly fasta file for RepeatModeler:
+/data/biosoftware/RepeatModeler/RepeatModeler-open-1.0.11/BuildDatabase -name ref1.1 -engine ncbi bSylAtr1.1.fasta
+#Number of sequences (bp) added to database: 189 ( 1066786587 bp )
+
+## make script for running repeatmodeler:
+nano repmod2renamed.sh
+#!/bin/bash
+##  specify the job name
+#SBATCH --job-name=repeatmodeler_blackcap_ref2_renamed
+#  how many cpus are requested
+#SBATCH --ntasks=11
+#  run on one node, importand if you have more than 1 ntasks
+#SBATCH --nodes=1
+#SBATCH --time=30:05:00
+#  maximum requested memory
+#SBATCH --mem=60G
+#  write std out and std error to these files
+#SBATCH --error=/home/pruisscher/stdout/%J.err
+#SBATCH --output=/home/pruisscher/stdout/%J.out
+#  send a mail for job start, end, fail, etc.
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=pruisscher@evolbio.mpg.de
+#  there are global,testing,highmem,standard,fast
+#   testing = high priority, but only 5 min walltime. for job-testing.
+   #highmem = the two 1.5TB memory, 48CPU-cores nodes (2.1GHz)
+   #standard = the 20 512GB memory, 32CPU-cores nodes (2.1GHz)
+   #fast = the 8 128GB memory, 28CPU-core nodes (2.6GHz)
+#SBATCH --partition=standard
+date
+## my own code:
+/data/biosoftware/RepeatModeler/RepeatModeler-open-1.0.11/RepeatModeler -database reference -engine ncbi -pa 10 -srand 14
+hostname
+date
+
+chmod +x repmod2renamed.sh
+sbatch repmod2renamed.sh
+
+# get the fasta files for the 90+ unknowns to classify using censor online:
+awk '!/^>/ { printf "%s", $0; n = "\n" } /^>/ { print n $0; n = "" } END { printf "%s", n } ' Sylatr_rm1.0.lib > Sylatr_rm1.0.lib.twolines
+grep 'Unknown' Sylatr_rm1.0.lib.twolines -A 1 > Unknowns.txt
+sed -i 's/--//g' Unknowns.txt
+
+## Submitted to censor online, any hit with a score above 200, and a similarity above 0.7 gets the annotation suggested by censor.
+## saved censor output as censor_output_fmt6
+grep -v 'SVG' censor_output_fmt6 | grep -v 'Name' | sort -t$'\t' -k1,1 -k11,11nr > censor_output_fmt6.sorted
+sort -u -k1,1 --merge censor_output_fmt6.sorted > censor_output_fmt6.sorted.tophit
+awk '{if ($9 > 0.70) print $0}' censor_output_fmt6.sorted.tophit > censor_output_fmt6.sorted.tophit.sim07
+
+## Make the accepted hits into the new names in the lib file:
+awk '{print $1,$7}' censor_output_fmt6.sorted.tophit.sim07 | sed 's/Unknown //g' > censor_output_fmt6.sorted.tophit.sim07_newnames
+awk '{print $1}' censor_output_fmt6.sorted.tophit.sim07 > censor_output_fmt6.sorted.tophit.sim07_oldnames
+cp Sylatr_rm1.0.lib.twolines Sylatr_rm1.0.lib.twolines2
+## at prediction cleanup we will further filter.
+
+
+### Estimate LTRs using LTRharvest:
+#################################################################
+#################################################################
+############# Run LTRharvest
+##ltrharvest
+mkdir ltrharvest
+cd ltrharvest/
+
+## Run LTRharvest to predict ltr features in the genome:
+#index genome
+ln -s ../bSylAtr1.1.fasta .
+gt suffixerator -db bSylAtr1.1.fasta -indexname bSylAtr1.1.fasta -tis -suf -lcp -des -ssp -sds -dna
+
+# run predictions
+gt ltrharvest -index bSylAtr1.1.fasta -seqids yes -tabout no > ltrharvest.out
+gt gff3 -sort ltrharvest.out > sorted_ltrharvest.out.gff
+gt stat sorted_ltrharvest.out.gff 
+#parsed genome node DAGs: 5037
+#sequence regions: 151 (total length: 1065609207)
+#LTR_retrotransposons: 4735
+#long_terminal_repeats: 9470
+#repeat_regions: 4735
+#target_site_duplications: 9470
+
+
+## get all hmm profiles from gypsydb:
+## cite as: Llorens, C., Futami, R., Covelli, L., Dominguez-Escriba, L., Viu, J.M., Tamarit, D., Aguilar-Rodriguez, J. Vicente-Ripolles, M., Fuster, G., Bernet, G.P., Maumus, F., Munoz-Pomer, A., Sempere, J.M., LaTorre, A., Moya, A. (2011) The Gypsy Database (GyDB) of Mobile Genetic Elements: Release 2.0 Nucleic Acids Research (NARESE) 39 (suppl 1): D70-D74 doi: 10.1093/nar/gkq1061
+
+wget http://gydb.org/gydbModules/collection/collection/db/GyDB_collection.zip
+unzip GyDB_collection.zip
+
+## Run LTRdigest on the LTRharvest results, with selected protein HMMs from GyDB:
+gt ltrdigest -hmms GyDB_collection/profiles/*hmm -aaout -outfileprefix Sylvatri_ltrdigest_prefix -seqfile bSylAtr1.1.fasta -matchdescstart < sorted_ltrharvest.out.gff > Sylvatri_ltrdigest_output.gff
+
+# Get filter definition
+wget https://raw.githubusercontent.com/satta/filterama/master/filter_protein_match.lua
+
+# Filter out elements with no protein domain hits
+gt select -rule_files filter_protein_match.lua < Sylvatri_ltrdigest_output.gff > Sylvatri_ltrdigest_output.filtered.gff3
+
+# Quick check how many remain
+gt stat Sylvatri_ltrdigest_output.filtered.gff3
+#parsed genome node DAGs: 1850
+#sequence regions: 151 (total length: 1065609207)
+#LTR_retrotransposons: 1548
+#RR_tracts: 618
+#long_terminal_repeats: 3096
+#protein_matchs: 38317
+#repeat_regions: 1548
+#target_site_duplications: 3096
+
+# Extract sequences for each element
+gt extractfeat -type LTR_retrotransposon -seqfile bSylAtr1.1.fasta -matchdescstart < Sylvatri_ltrdigest_output.filtered.gff3 > Sylvatri.ltrd.sequences.fasta
+
+### Cluster the sequences and create a multiple alignment (to merge and remove redundant sequences ): (i) sort the sequences by length, using usearch v10.0.240_i86linux32
+usearch -sortbylength Sylvatri.ltrd.sequences.fasta -fastaout Sylvatri.ltrd.sequences.sorted.fasta --log usearch.log
+
+##(ii) cluster sequences in fasta that are >=80% identical, using USEARCH v7:
+usearch -cluster_fast Sylvatri.ltrd.sequences.sorted.fasta -id 0.8 -centroids my_centroids.fa -uc result.uc -consout final.nr.consensus.fa -msaout aligned.fasta --log usearch2.log
+##This produces file aligned.fasta, which is a multiple alignment of the sequences in the cluster (has all the original input sequences from merged.fa, and a consensus sequence for each cluster)
+## also produces consensus: final.nr.consensus.fa
+
+## Reclassify same way as repeatmodeler:
+/data/biosoftware/RepeatModeler/RepeatModeler-open-1.0.11/RepeatClassifier -consensi final.nr.consensus.fa -engine ncbi
+## check for gag env pol, at least 3 of these to count as proper sequence in tmpBlastXResults.out.bxsummary
+
+cut -f 1 tmpBlastXResults.out.bxsummary | sort | uniq -c | sort > clusters_4prot.txt
+awk '{print $0,"#"}' clusters_4prot.txt | sed 's/\ //g' > clusters_4prothash.txt
+# kept 119 sequences
+
+#make the classified file into two lines per sequence:
+awk '!/^>/ { printf "%s", $0; n = "\n" } /^>/ { print n $0; n = "" } END { printf "%s", n } ' final.nr.consensus.fa.classified > final.nr.consensus.fa.classified.twolines
+
+## select the 119 LTRs from the sequence file:
+nano extractfromprotfile.sh
+while read p; do
+    	 	grep -A 1 $p ./final.nr.consensus.fa.classified.twolines
+	done < $1
+chmod +x extractfromprotfile.sh
+./extractfromprotfile.sh clusters_4prothash.txt > final.nr.consensus.fa.classified.twolines.4prot
+sed 's/Cluster/ltrharvest/g' final.nr.consensus.fa.classified.twolines.4prot > ltrharvestpipeline_final.fa
+sed 's/Cluster/ltrharvest/g' final.nr.consensus.fa.classified.twolines.4prot > ltrharvestpipeline_final_inclunknowns.fa
+
+
+grep 'Unknown' ltrharvestpipeline_final.fa -A 1 > Unknowns.txt
+# 2 unknowns in here, checking first what cleanup output does before annotating (will be removed it turns out, no annotating necessary)
+
+
+
+##########
+##########
+### Sequence curation: cleanup of predicted sequences
+
+## Map proteins againt the blackcap reference genes:
+mkdir /home/pruisscher/TE_ref2_renamed/prediction_cleanup
+cp /mpistaff/liedvogel_lab/S_atricapilla_prots_ref1.fas .
+diamond makedb --in S_atricapilla_prots_ref1.fas -d prot
+
+## Chosen to include the unknowns as extra validation for deleting or renaming properly:
+cat /home/pruisscher/TE_ref2_renamed/RM_30113.WedNov132009592019/Sylatr_rm1.0.lib /home/pruisscher/TE_ref2_renamed/ltrharvest/ltrharvestpipeline_final.fa > ltrharvest_and_RModeler.fa
+
+diamond blastx -p 2 --outfmt 6 -d prot -q ltrharvest_and_RModeler.fa -o protoutfmt6.tab
+
+## Extract top hits, based on blast bit-score:
+sort -t$'\t' -k1,1 -k12,12nr protoutfmt6.tab > protoutfmt6.tab.sorted
+sort -u -k1,1 --merge protoutfmt6.tab.sorted > protoutfmt6.tab.sorted.tophit
+
+## TEs that are actually genes will have one or two hits, while TEs hitting TEs will show many multiple hits. This is also shown when looking at the distribtution of the hits, a number are hit 12+ times, which are TEs characterized as hypothetical proteins in the blackcap annotation. These can be ignored, while we hope to remove the TEs from our denovo predictions that show a 1 on 1 match with a high bitscore (100+). Get out the hits, and submit to eggnog for quick identification.
+cut -f 2 protoutfmt6.tab.sorted.tophit | sort | uniq > geneshit2.txt
+awk '!/^>/ { printf "%s", $0; n = "\n" } /^>/ { print n $0; n = "" } END { printf "%s", n } ' S_atricapilla_prots_ref1.fas > S_atricapilla_prots_ref1.twolines.fas
+nano extractproteinhit.sh
+while read p; do
+    	 	grep -A 1 $p ./S_atricapilla_prots_ref1.twolines.fas
+	done < $1
+chmod +x extractproteinhit.sh
+./extractproteinhit.sh geneshit2.txt > geneshit2.fa
+
+##Submitted to eggnog for quick annotation (oneline, eggnopmapper2, using following code):
+emapper.py --cpu 6 -i /data/shared/emapper_jobs/user_data/MM_9gwiel3o/query_seqs.fa --output query_seqs.fa --output_dir /data/shared/emapper_jobs/user_data/MM_9gwiel3o -m diamond -d none --tax_scope auto --go_evidence non-electronic --target_orthologs all --seed_ortholog_evalue 0.001 --seed_ortholog_score 60 --query-cover 15 --subject-cover 0 --override --temp_dir /data/shared/emapper_jobs/user_data/MM_9gwiel3o
+
+
+### output of eggnog was saved on wallace as eggnogout.txt and filtered on minimum score of 200:
+awk '{if ($4 > 200) print $0}' eggnogout.txt > eggnogout200.txt
+
+## Manually checked all output to make sure the hits look appropriate, low quality hits were checked in uniprot and alignments manually inspected:
+## saved as eggnog_anno.txt, added column 1 TEorGENE:
+awk '{if ($1 == "GENE") print $0}' eggnog_anno.txt | cut -f 2 > eggnog_genes.txt
+# 28 genes found, now identifying the predicted TEs associated:
+nano extractTEhits.sh
+while read p; do
+    	 	grep -A 1 $p ./protoutfmt6.tab.sorted.tophit
+	done < $1
+chmod +x extractTEhits.sh
+./extractTEhits.sh eggnog_genes.txt > protoutfmt6.tab.sorted.tophit.eggnog_genes
+cut -f 1 ./protoutfmt6.tab.sorted.tophit.eggnog_genes | sort | uniq > TE_IDs_that_are_genes
+# total is 68 TEs to be removed
+
+
+## time to remove:
+cat /home/pruisscher/TE_ref2_renamed/ltrharvest/ltrharvestpipeline_final.fa /home/pruisscher/TE_ref2_renamed/RM_30113.WedNov132009592019/Sylatr_rm1.0.lib.twolines > ltrharvest_repmod2.txt
+## make list of all genes:
+grep '>' ltrharvest_repmod2.txt > allTEnames.txt
+grep -f "TE_IDs_that_are_genes" -v allTEnames.txt > TEstokeep.txt
+
+nano extractTEstokeep.sh
+while read p; do
+    	 	grep -A 1 $p ./ltrharvest_repmod2.txt
+	done < $1
+chmod +x extractTEstokeep.sh
+./extractTEstokeep.sh TEstokeep.txt > ltrharvest_repmod_genefiltered.fa
+
+
+#### now back to cleanup of the unknowns:
+
+paste -d : /home/pruisscher/TE_ref2_renamed/RM_30113.WedNov132009592019/censor_output_fmt6.sorted.tophit.sim07_oldnames /home/pruisscher/TE_ref2_renamed/RM_30113.WedNov132009592019/censor_output_fmt6.sorted.tophit.sim07_newnames | sed 's/\([^:]*\):\([^:]*\)/s%\1%\2%/' > sed.script
+sed -f  sed.script ltrharvest_repmod_genefiltered.fa > ltrharvest_repmod_genefiltered_unknownsremove1.fa
+
+# 36 unknowns left. Manually changing the ltrharvest unknowns, as they are only 2 sequences. censor showed hit score above 200.
+sed 's_ltrharvest52#Unknown_ltrharvest52#ERV/ERV1_g' ltrharvest_repmod_genefiltered_unknownsremove1.fa > ltrharvest_repmod_genefiltered_unknownsremove2.fa
+sed 's_ltrharvest183#Unknown_ltrharvest183#ERV/ERV1_g' ltrharvest_repmod_genefiltered_unknownsremove2.fa > ltrharvest_repmod_genefiltered_unknownsremove3.fa
+
+## Now we only have 34 unknowns left. Deleting as they are not recognized as TEs by multiple annotation methods, and not found in CENSOR as TEs.
+sed '/Unknown/,+1 d' ltrharvest_repmod_genefiltered_unknownsremove3.fa > ltrharvest_repmod_genefiltered_unknownsremove4.fa
+
+## Ended with 339 sequences. Now making sure all identical sequences between ltrharvest and repmodeler are concatenated.
+
+### Cluster the sequences and create a multiple alignment (to merge and remove redundant sequences ): (i) sort the sequences by length, using usearch v10.0.240_i86linux32
+usearch -sortbylength ltrharvest_repmod_genefiltered_unknownsremove4.fa -fastaout ltrharvest_repmod_genefiltered_unknownsremove4.fa.sortlength --log usearch.log
+
+##(ii) cluster sequences in fasta that are >=99% identical, using USEARCH v7:
+usearch -cluster_fast ltrharvest_repmod_genefiltered_unknownsremove4.fa.sortlength -id 0.99 -centroids my_centroids.fa -uc result.uc -consout final.nr.consensus.fa -msaout aligned.fasta --log usearch2.log
+##This produces file aligned.fasta, which is a multiple alignment of the sequences in the cluster (has all the original input sequences from merged.fa, and a consensus sequence for each cluster)
+## also produces consensus: final.nr.consensus.fa
+rm aligned.fasta*
+
+## Have to remove >SylAtr1-83#Simple_repeat, and >SylAtr5-3083#satellite, they are not TEs, but a simple repeat.
+sed '/SylAtr1-83#Simple_repeat/,+1 d' my_centroids.fa > my_centroids.fa2
+sed '/SylAtr5-3083#/,+1 d' my_centroids.fa2 > my_centroids.fa3
+
+
+# Ended with 328 sequences.
+## renaming so that it is all clean, consistent, and ready to go.
+grep '>' my_centroids.fa3 > namesofthecentroids.txt
+
+##
+sed 's/#/#\t/g' namesofthecentroids.txt > newnamestemp1.txt
+## renamed them in excel to consistently follow the annotation of repeatmodeler:
+#saved as newnamesforcentroids2_2
+#Example: >SylAtr001#LTR/ERVL
+
+paste -d : namesofthecentroids.txt newnamesforcentroids2_2 | sed 's/\([^:]*\):\([^:]*\)/s%\1%\2%/' > sed2.script
+sed -f  sed2.script my_centroids.fa3 > ltrharvest_repmod_cleanedTE_libraries.fa
+
+##backup!
+cp ltrharvest_repmod_cleanedTE_libraries.fa ltrharvest_repmod_cleanedTE_libraries.fa_backupped
+
+
+################################################
+# Running repeatmasker using the repeatmodeler, ltrharvest, and manually curated libraries as input:
+cd /home/pruisscher/TE_ref2_renamed
+mkdir repmask
+cd repmask
+
+cp /home/pruisscher/TE_ref2_renamed/prediction_cleanup/ltrharvest_repmod_cleanedTE_libraries.fa .
+cat /home/pruisscher/bird_TE_databases/ficalb_TE.fasta /home/pruisscher/bird_TE_databases/uracya_TE.fasta > curated2birds.fa
+cat ltrharvest_repmod_cleanedTE_libraries.fa curated2birds.fa > customlib.fa
+ln -s /home/pruisscher/TE_ref2_renamed/bSylAtr1.1.fasta .
+
+nano sylatr_repmaskrenamed.sh
+#!/bin/bash
+##  specify the job name
+#SBATCH --job-name=sylatr_repmaskrenamed
+#  how many cpus are requested
+#SBATCH --ntasks=20
+#  run on one node, importand if you have more than 1 ntasks
+#SBATCH --nodes=1
+#SBATCH --time=20:05:00
+#  maximum requested memory
+#SBATCH --mem=50G
+#  write std out and std error to these files
+#SBATCH --error=/home/pruisscher/stdout/%J.err
+#SBATCH --output=/home/pruisscher/stdout/%J.out
+#  send a mail for job start, end, fail, etc.
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=pruisscher@evolbio.mpg.de
+#  there are global,testing,highmem,standard,fast
+#   testing = high priority, but only 5 min walltime. for job-testing.
+   #highmem = the two 1.5TB memory, 48CPU-cores nodes (2.1GHz)
+   #standard = the 20 512GB memory, 32CPU-cores nodes (2.1GHz)
+   #fast = the 8 128GB memory, 28CPU-core nodes (2.6GHz)
+#SBATCH --partition=standard
+
+date
+## my own code:
+/data/biosoftware/RepeatMasker/RepeatMasker/RepeatMasker -pa 20 -s -lib customlib.fa -gccalc -dir ./ -a -x -poly -html -gff -u -xm -excln bSylAtr1.1.fasta
+hostname
+date
+
+chmod +x sylatr_repmaskrenamed.sh
+sbatch sylatr_repmaskrenamed.sh
+
+#Submitted batch job 3653869
+#took only 2.5 hours
+
+
+######################
+## Processing repeatmasker output, this will take potential fragments/hits and puts them together into complete TEs.
+## processing repeatmasker:
+wget http://doua.prabi.fr/software/onecodetofindthemall_data/Onecodetofindthemall.zip
+unzip O*
+cd Onecodetofindthemall
+chmod u+x build_dictionary.pl
+chmod u+x one_code_to_find_them_all.pl
+/home/pruisscher/TE_ref2_renamed/repmask/Onecodetofindthemall/build_dictionary.pl --rm ../ --unknown --fuzzy >dictionary_output.txt
+/home/pruisscher/TE_ref2_renamed/repmask/Onecodetofindthemall/one_code_to_find_them_all.pl --rm ../ --ltr dictionary_output.txt --strict --unknown
+cd -
+
+##
+grep '###' bSylAtr1.1.fasta.out_*sorted* | awk '{print $5"\t""OCTFTA""\t""similarity""\t"$6"\t"$7"\t"$8"\t"$9"\t"".""\t"$10"#"$11}' > sorted_tempfile_1
+awk -F "\t" '{gsub("C","-",$7); print}' OFS="\t" sorted_tempfile_1 > bSylAtr1.1_TEs.gff
+
+
+
+
+
+
+### output into kimura landscape plot:
+perl /data/biosoftware/RepeatMasker/RepeatMasker/util/calcDivergenceFromAlign.pl -s bSylAtr1.1.fasta.tbl.summary bSylAtr1.1.fasta.cat.gz
+perl /data/biosoftware/RepeatMasker/RepeatMasker/util/createRepeatLandscape.pl -div bSylAtr1.1.fasta.tbl.summary -g 1066786587 > ./ref2-renamed_kimura.html
+
+
+
+
+
+
+
+###### post
+mkdir post
+cd post
+samtools faidx ../repmask/bSylAtr1.1.fasta
+awk -v OFS='\t' {'print $1,$2'} ../repmask/bSylAtr1.1.fasta.fai > bSylAtr1.1_genomeFile.txt
+
+bedtools makewindows -w 200000 -g bSylAtr1.1_genomeFile.txt > bSylAtr1.1_200kb
+
+
+bedtools intersect -a bSylAtr1.1_200kb -b bSylAtr1.1_TEs.gff -c > bSylAtr1.1_200kb_TEcount
+
+awk '{if ($3 == "gene") print $0}' SylAtr.unfinished.noseq.gff >genes.gff
+bedtools intersect -a bSylAtr1.1_200kb -b genes.gff -c > bSylAtr1.1_200kb_genecount
+
+
+info from window:
+bedtools map -a bSylAtr1.1_200kb -b seqdata.bed -c 4 -o mean > bins_averaged.txt
+-c 4 tells bedtools to perform the averaging operation (-o mean) on the 4th column of -b
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mkdir /mpistaff/liedvogel_lab/TE_annotation_bSylAtr1.1_05_07_20
+
+cp /home/pruisscher/TE_ref2_renamed/prediction_cleanup/ltrharvest_repmod_cleanedTE_libraries.fa /mpistaff/liedvogel_lab/TE_annotation_bSylAtr1.1_05_07_20/Sylatr_ltrharvest_repmod_cleanedTE_libraries.fa
+cp /home/pruisscher/TE_ref2_renamed/repmask/bSylAtr1.1_TEs.gff /mpistaff/liedvogel_lab/TE_annotation_bSylAtr1.1_05_07_20/bSylAtr1.1_TEs_repeatmaskerassembled.gff
+
+cp /home/pruisscher/TE_ref2_renamed/repmask/bSylAtr1.1.fasta.out.gff /mpistaff/liedvogel_lab/TE_annotation_bSylAtr1.1_05_07_20/bSylAtr1.1_TEs_bSylAtr1.1.repeatmasker.gff
+
+cp /home/pruisscher/TE_ref2_renamed/repmask/bSylAtr1.1.fasta.tbl /mpistaff/liedvogel_lab/TE_annotation_bSylAtr1.1_05_07_20/repeatmasker_summary.tbl
+
+### In this folder you find 4 files:
+bSylAtr1.1_TEs_bSylAtr1.1.repeatmasker.gff 	##This is the TE annotation of genome bSylAtr1.1, using repeatmasker with the Sylatr_ltrharvest_repmod_cleanedTE_libraries.fa, and 2 manually curated bird TE libraries as input
+
+bSylAtr1.1_TEs_repeatmaskerassembled.gff 	##This is the repeatmasker output processed by OneCodeToFindThemAll.pl, a script that will assemble fragmented hits from the repeatmasker output together into more complete hits. (This reduced the number of TEs to 20% of original)
+
+repeatmasker_summary.tbl 	##This is a summary of what the repeatmasker pipeline found in terms of repeats.
+
+Sylatr_ltrharvest_repmod_cleanedTE_libraries.fa 	##This is the cleaned version of the repeatmodeler and ltrharvest pipelines, giving denovo predicted TEs for the bSylAtr1.1 genome.
+
+## Today is 05072020. More to come soon.
+
+
+
+
+
+
+
+DNA	All_elements
+DNA/CMC-EnSpm
+DNA/Harbinger
+DNA/Kolobok
+DNA/MULE-MuDR
+DNA/PIF-Harbinger
+DNA/TcMar-Pogo
+DNA/TcMar-Tigger
+DNA/hAT	All_eleme
+DNA/hAT-Ac
+DNA/hAT-Charlie
+DNA/hAT-hAT6
+DNA/hAT?
+DNA?
+LINE/CR1
+LINE/L2
+LINE/Penelope
+SINE
+SINE/5S-Deu-L2
+SINE/Deu
+SINE/MIR
+SINE/tRNA
+SINE/tRNA-CR1
+SINE/tRNA-Deu
+LTR/ERV
+LTR/ERV1
+LTR/ERV2
+LTR/ERV3
+LTR/ERV3?
+LTR/ERVK
+LTR/ERVL
+LTR/Gypsy
+LTR/Unknown
+LTR?
+Type:Low_complexity
+Type:Satellite
+Type:Satellite/macro
+Type:Simple_repeat
+
+
+
+
+
+
+
+Gene distance -- for looking at gene density
+
