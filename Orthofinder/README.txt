@@ -28,4 +28,5 @@ scripts/Orthofinder_result.R is for visualising summary results.
 
 The trees with duplications are visualised with FigTree
 
-All output files are stored on Uppmax. In the selected_output folder there are the summary results and some output files used in downstream analysis. 
+All output files are stored on Uppmax. In the Results_Jan07-folder the main result files. In the selected_output folder there are the summary results and some output files used in downstream analysis. Large folders such as Resolved_Gene_Trees, Orthogroup_Sequences, and Single_Copy_Orthologue_Sequences are not here (to many files), stored on Uppmax.
+
