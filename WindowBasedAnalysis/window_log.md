@@ -140,3 +140,7 @@ Simple_repeat
 
 
 bash repeats_run_all_chroms.sh 100000 ../../../../GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out vanessa.index
+
+
+**Resuming work**
+20/01/22
