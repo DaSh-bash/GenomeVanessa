@@ -1,0 +1,267 @@
+---
+title: "badirater_mod"
+author: "KN"
+date: '2022-01-11'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## BadiRate 
+This is how we run BadiRate, some steps uses BadirateR (https://github.com/palfalvi/badirater).
+The scripts explain the process modifying the input (output of Orthofinder). The output is one file per replicate and orthogroup, with all the output from BadiRate. The result have to be parsed, this script includes how to get a list of orthogroups with higher model fit for the specific branch model compared to null model. Separate script parses the gains and losses from the result files. 
+
+Input: Output from OrthoFinder modified Orthogroups.GeneCount.tsv
+
+```{bash}
+#remove field total 
+cut -f -10 Orthogroups.GeneCount.tsv |head
+cut -f -10 Orthogroups.GeneCount.tsv | awk '{print NF}' |uniq -c
+#14028 10
+cut -f -10 Orthogroups.GeneCount.tsv > Orthogroups.GeneCount_mod.tsv 
+
+#select orthogroups with only one species, filter out orthogroups without V. cardui 
+awk '{f=0; for(i=2; i<=NF; i++){ if($i!=0)f++; if(f>1){print;next} } }' Orthogroups/Orthogroups.GeneCount_mod.tsv |awk '$9!=0{print $0}' > Orthogroups/Orthogroups.GeneCount_mod_filtered.tsv
+#10343
+
+```
+
+Input: Ultrametric tree, convert species tree from OrthoFinder to ultrametric using ete3
+
+```{python}
+#create ultra metric tree
+#to use 
+conda activate ete3
+#python
+python
+
+#convert tree to ultra metric
+#https://www.biostars.org/p/251282/
+
+from ete3 import Tree
+t = Tree("(Danaus_plexippus:0.0958765,(((Maniola_hyperantus:0.0764047,Pararge_aegeria:0.0713074)0.0306248,Bicyclus_anynana:0.136947)0.0652443,((Junonia_coenia:0.196176,(Vanessa_cardui:0.117618,Vanessa_tameamea:0.0427329)0.0619958)0.0459092,(Heliconius_melpomene_melpomene:0.0644896,Heliconius_erato_lativitta:0.274984)0.12419)0.0272171)0.0958765);", format=0)
+
+#or t = Tree("file", format=0)
+
+t.convert_to_ultrametric()
+
+t.write(format=0, outfile="orthofinder_210624_ultra.nw")
+
+#manually change to integers (~ x 10) and check in figtree, save as orthofinder_210624_ultra_mod.nw
+
+
+```
+
+
+```{r setup2}
+#install.packages('devtools')
+#devtools::install_github("palfalvi/badirater")
+library(treeio)
+library(badirater)
+library(dplyr)
+
+```
+
+```{r split_ortho}
+#from BadirateR
+split_orthogroups("input/Orthogroups.GeneCount_mod_filtered.tsv", max_count = 250, og_path = "badirate_orthogroups")
+
+
+```
+
+```{r get_branch_nr}
+#from BadirateR
+#have to use a specific version of perl
+#system("~/perl5/perlbrew/perls/perl-5.16.3/bin/perl")
+bd_path = "/Applications/badirate-1.35/"
+
+bd_branch_numbers(tree = "input/orthofinder_210624_ultra_mod.nw",
+               og = "input/Orthogroups.GeneCount_mod.tsv",
+               badirate_path = bd_path,
+               plot = TRUE,
+               tree_file = "branch_ids.tree")
+
+#or use bash (easier)
+#get the branch names
+#~/perl5/perlbrew/perls/perl-5.16.3/bin/perl /Applications/badirate-1.35/BadiRate.pl -treefile orthofinder_210624_ultra_mod.nw -sizefile Orthogroups.GeneCount_mod.tsv -print_id
+
+```
+
+```{r models}
+#check the branch id tree to get the correct branches
+branch_models = c("gr" = "GR",
+                  "fr" = "FR",
+                  "sp" = "10->8",
+                  "spM" = "10->8:17->1")
+
+```
+
+```{r prepare}
+#from BadirateR
+#better to write the scripts manually, but good to run this to get setup table
+setup_table <- prepare_badirate(og_path = "badirate_orthogroups/",
+                                tree = "input/orthofinder_210624_ultra_mod.nw",
+                                branch_models = branch_models,
+                                rate_model = "BDI",
+                                out_dir = "./raw_outputs",
+                                script_dir = "./scripts",
+                                replicates = 2,
+                                ancestral = TRUE,
+                                outlier = TRUE,
+                                seed = 20180808,
+                                start_value = 1,
+                                pbs_q = "small",
+                                badirate_path = bd_path,
+                                create_scripts = "none")
+
+
+setup_table
+
+write.csv(setup_table, "./setup_table.csv")
+```
+
+
+```{r collect_result}
+#from BadirateR
+#does not work...
+setup_table <- readr::read_csv("setup_table_no_fr.csv")
+
+bd_collect(setup_table, out_dir = "results")
+
+
+```
+
+```{r model_selection}
+#from BadirateR
+#this does not work...
+dir.create("./analysis")
+
+best_models <- bd_model_select(setup_table = setup_table, 
+                               results_dir = "./results")
+
+
+readr::write_csv(best_models, "./analysis/best_models.csv")
+
+best_models
+
+```
+
+```{bash}
+#parse result 
+#best model
+#get likelihoods:
+grep "Likelihood:" ../raw_output/gr/*.gr01.bd > gr01.likelihood.txt
+#repeat for all models or use scripts/badirate_parse_likelihoods.sh 
+
+#get all likelihoods in one file
+paste results/gr01.likelihood.txt results/gr02.likelihood.txt | awk 'BEGIN{print "orthogroup gr01 gr02"}{print $1,$3,$6}' | sed -E 's/..\/raw_output\/gr\/|.tsv.gr01.bd\://g' > results/general_results.txt
+
+paste results/sp01.likelihood.txt results/sp02.likelihood.txt | awk 'BEGIN{print "sp01 sp02"}{print $3, $6}' | paste results/general_results.txt - > results/general_results1.txt && mv results/general_results1.txt results/general_results.txt
+paste results/spM01.likelihood.txt results/spM02.likelihood.txt | awk 'BEGIN{print "spM01 spM02"}{print $3, $6}' | paste results/general_results.txt - > results/general_results1.txt && mv results/general_results1.txt results/general_results.txt 
+
+
+```
+
+
+```{r best_repl}
+
+#get data
+res_likelihood <- read.table("results/general_results.txt", header = T)
+
+#best replicate
+res_likelihood$gr_best <- ifelse(res_likelihood$gr01>res_likelihood$gr02, res_likelihood$gr01, res_likelihood$gr02)
+res_likelihood$sp_best <- ifelse(res_likelihood$sp01>res_likelihood$sp02, res_likelihood$sp01, res_likelihood$sp02)
+res_likelihood$spM_best <- ifelse(res_likelihood$spM01>res_likelihood$spM02, res_likelihood$spM01, res_likelihood$spM02)
+
+
+
+#list best replicate
+
+sp_best_repl <- data.frame(res_likelihood$orthogroup)
+
+sp_best_repl$best_orthogroup <- ifelse(res_likelihood$sp01>res_likelihood$sp02,
+                      paste(res_likelihood$orthogroup,".tsv.sp01.bd",sep = ""),
+                      paste(res_likelihood$orthogroup,".tsv.sp02.bd",sep = ""))
+
+gr_best_repl <- data.frame(res_likelihood$orthogroup)
+
+gr_best_repl$best_orthogroup <- ifelse(res_likelihood$gr01>res_likelihood$gr02,
+                      paste(res_likelihood$orthogroup,".tsv.gr01.bd",sep = ""),
+                      paste(res_likelihood$orthogroup,".tsv.gr02.bd",sep = ""))
+
+spM_best_repl <- data.frame(res_likelihood$orthogroup)
+
+spM_best_repl$best_orthogroup <- ifelse(res_likelihood$spM01>res_likelihood$spM02,
+                      paste(res_likelihood$orthogroup,".tsv.spM01.bd",sep = ""),
+                      paste(res_likelihood$orthogroup,".tsv.spM02.bd",sep = ""))
+
+#best model
+#have to account for parameters check setup table
+setup_table
+# # A tibble: 4 x 6
+#   model setup       path              tree_size replicates parameters
+#   <chr> <chr>       <chr>                 <int>      <dbl>      <dbl>
+# 1 gr    GR          ./raw_outputs/gr         16          2          3
+# 2 fr    FR          ./raw_outputs/fr         16          2         48
+# 3 sp    10->8       ./raw_outputs/sp         16          2          6
+# 4 spM   10->8:17->1 ./raw_outputs/spM        16          2          6
+
+
+#aikaike 
+#2K-2logL
+res_likelihood$gr_AIC <- ((2*3) - (2*res_likelihood$gr_best))
+res_likelihood$sp_AIC <- ((2*6) - (2*res_likelihood$sp_best))
+res_likelihood$spM_AIC <- ((2*6) - (2*res_likelihood$spM_best))
+
+
+
+#Aikaike scores
+#modelAIC - minAIC
+for (i in 1:length(res_likelihood$orthogroup)){
+  res_likelihood$sp_AIC_score[i] <- res_likelihood$sp_AIC[i]-min(res_likelihood$gr_AIC[i],res_likelihood$sp_AIC[i])
+}
+  
+length(res_likelihood[res_likelihood$sp_AIC_score==0,1])
+
+
+# for (i in 1:length(res_likelihood$orthogroup)){
+#   res_likelihood$gr_AIC_score[i] <- res_likelihood$gr_AIC[i]-min(res_likelihood$gr_AIC[i],res_likelihood$sp_AIC[i])
+# }
+
+
+for (i in 1:length(res_likelihood$orthogroup)){
+  res_likelihood$spM_AIC_score[i] <- res_likelihood$spM_AIC[i]-min(res_likelihood$gr_AIC[i],res_likelihood$spM_AIC[i])
+}
+length(res_likelihood[res_likelihood$spM_AIC_score==0,1])
+
+
+
+
+par(mfrow=c(2,3))
+hist(res_likelihood$sp_AIC_score, breaks = 100)
+hist(res_likelihood$spM_AIC_score, breaks = 100)
+
+
+```
+
+
+```{r write_OG}
+#list of best replicate
+write.table(file = "results/sp_best_likelihood.txt", sp_best_repl$best_orthogroup, row.names = F, quote = F)
+
+write.table(file = "results/gr_best_likelihood.txt", gr_best_repl$best_orthogroup, row.names = F, quote = F)
+
+write.table(file = "results/spM_best_likelihood.txt", spM_best_repl$best_orthogroup, row.names = F, quote = F)
+
+
+#list of orthogroups with higher likelihood then the global model
+write.table(file = "results/sp_vs_gr_OG_list.txt", res_likelihood[res_likelihood$sp_AIC_score==0,1])
+
+write.table(file = "results/spM_vs_gr_OG_list.txt", res_likelihood[res_likelihood$spM_AIC_score==0,1])
+
+
+#use script get_best_model_gains.sh to get the number of gained or lost genes in each orthogroup for GO
+```
+

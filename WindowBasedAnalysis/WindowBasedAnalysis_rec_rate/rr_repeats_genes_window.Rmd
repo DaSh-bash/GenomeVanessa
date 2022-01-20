@@ -263,7 +263,12 @@ write.table(repeat_chr_level, file = "tables/chr_level.table")
 
 pos_groups_test <- pairwise.t.test(rr_repeats_genes_long$rec_rate, rr_repeats_genes_long$pos_group, p.adjust.method = "holm")
 
+pos_groups_test_wil <- pairwise.wilcox.test(rr_repeats_genes_long$rec_rate, rr_repeats_genes_long$pos_group, p.adjust.method = "holm")
+
+
 capture.output(pos_groups_test, file = "tables/result_regional_pos_pairwise_t_test.txt")
+capture.output(pos_groups_test_wil, file = "tables/result_regional_pos_pairwise_wil_test.txt")
+
 boxplot(rr_repeats_genes_long$rec_rate~rr_repeats_genes_long$pos_group)
 
 lm_groups <- lm(rr_repeats_genes_long$rec_rate~rr_repeats_genes_long$pos_group + rr_repeats_genes_long$chr_length)

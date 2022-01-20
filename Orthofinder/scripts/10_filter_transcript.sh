@@ -14,3 +14,8 @@ awk '/-RA/ {print;getline;print}' data/Heliconius_melpomene_melpomene.fa >> filt
 
 awk '/-RA/ {print;getline;print}' data/Junonia_coenia.fa > filtered_data/Junonia_coenia.fa
 
+
+#get V. cardui protein file
+
+cp /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_Annotation_Curation/08_FilterRound2/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomainwZF.noverlap.noW.fasta filtered_data/Vanessa_cardui.fa
+

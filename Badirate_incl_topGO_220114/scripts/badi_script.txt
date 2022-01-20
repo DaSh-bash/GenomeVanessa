@@ -1,0 +1,32 @@
+### BadiRate script file
+
+#Run the script in the folder: /badirate_orthogroups/
+
+#variables to change
+#name of model
+PREFIX=sp
+
+#branches in the model
+BMODEL="10->8"
+
+#folder for output
+OUTPUT=../raw_output/$PREFIX
+
+INPUT_TREE=../input/orthofinder_210624_ultra_mod.nw
+
+SEED1=20180808
+SEED2=180808
+
+
+#running badirate
+mkdir $OUTPUT
+
+for file in ./*
+do
+echo ${file}
+	~/perl5/perlbrew/perls/perl-5.16.3/bin/perl /Applications/badirate-1.35/BadiRate.pl -seed $SEED1 -start_val 1 -rmodel BDI -bmodel $BMODEL -ep ML -treefile $INPUT_TREE -sizefile ./${file} -anc -outlier -out $OUTPUT/${file}.${PREFIX}01.bd &
+	~/perl5/perlbrew/perls/perl-5.16.3/bin/perl /Applications/badirate-1.35/BadiRate.pl -seed $SEED2 -start_val 1 -rmodel BDI -bmodel $BMODEL -ep ML -treefile $INPUT_TREE -sizefile ./${file} -anc -outlier -out $OUTPUT/${file}.${PREFIX}02.bd
+
+wait
+
+done

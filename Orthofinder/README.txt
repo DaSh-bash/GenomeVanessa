@@ -13,14 +13,14 @@ GCF_905163445.1_ilParAegt1.1_protein.faa.gz
 Heliconius_erato_lativitta_v1_-_proteins.fa.gz		 
 Heliconius_melpomene_melpomene_Hmel2.5.proteins.fa.gz
 
-cp /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_MAKER/maker_run3/functional_annot/makerrun3.all.maker.rename.final.proteins.fasta 10a_orthofinder_210621/Vanessa_cardui.fa
+cp /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_Annotation_Curation/08_FilterRound2/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomainwZF.noverlap.noW.fasta ./Vanessa_cardui.fa
 
 
 scripts/10_select_and_unzip_fasta.sbatch was used to unzipped and rename the files to species_name.fa
  
-scripts/10_filter_transcript.sh (one-liners) filter only primary transcripts (one transcript per unique gene name and )
+scripts/10_filter_transcript.sh (one-liners) filter only primary transcripts (one transcript per unique gene name)
 
-scripts/10_orthofinder_210621.sbatch running the analysis and 
+scripts/10_orthofinder_220103.sbatch running the analysis and 
 
 scripts/10_orthofinder_rootedtree.sbatch for rerunning final analysis with guide tree. 
 

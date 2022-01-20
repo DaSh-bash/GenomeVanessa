@@ -13,7 +13,7 @@
 #script to change names and copy protein files to input directory for orthofinder
 INPUT_DIR=/proj/uppoff2020002/private/group_member_backups/KarinN/projects/2019_04_linkmap_vanessa/data/protein_CDS/
 
-DIR_ORTHOFINDER=/proj/uppstore2017185/b2014034/nobackup/Karin/link_map_vanessa/output/10_orthofinder/orthofinder_nymph
+DIR_ORTHOFINDER=/proj/uppstore2017185/b2014034/nobackup/Karin/link_map_vanessa/output/10_orthofinder/
 mkdir $DIR_ORTHOFINDER
 
 for file in $(cat list_nymphalid_genomes.txt)
@@ -34,5 +34,5 @@ mv GCF_902806685.1_iAphHyp1.1_protein.faa Maniola_hyperantus.fa
 mv GCF_905163445.1_ilParAegt1.1_protein.faa Pararge_aegeria.fa
 mv Heliconius_erato_demophoon_v1_-_proteins.fa Heliconius_erato_demophoon.fa
 mv Heliconius_erato_lativitta_v1_-_proteins.fa Heliconius_erato_lativitta.fa
-mv Vanessa_cardui_mRNA_prel.fa Vanessa_cardui.fa
 mv Heliconius_melpomene_melpomene_Hmel2.5.proteins.fa Heliconius_melpomene_melpomene.fa
+

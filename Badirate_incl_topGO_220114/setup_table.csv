@@ -1,0 +1,5 @@
+"","model","setup","path","tree_size","replicates","parameters"
+"1","gr","GR","./raw_outputs/gr",16,2,3
+"2","fr","FR","./raw_outputs/fr",16,2,48
+"3","sp","10->8","./raw_outputs/sp",16,2,6
+"4","spM","10->8:17->1","./raw_outputs/spM",16,2,6
