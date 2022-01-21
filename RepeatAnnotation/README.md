@@ -167,3 +167,7 @@ perl /sw/bioinfo/RepeatMasker/4.1.0/rackham/util/createRepeatLandscape.pl -div G
 **20.01.2022**
 gunzip Onecodetofindthemall.zip
 ./build_dictionary.pl --rm ../GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out --unknown > output
+./one_code_to_find_them_all.pl --rm ../GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out --ltr output
+
+
+GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out_LR999939.1.elem_sorted.csv
