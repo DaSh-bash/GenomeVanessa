@@ -144,3 +144,7 @@ bash repeats_run_all_chroms.sh 100000 ../../../../GCA_905220365.1_ilVanCard2.1_g
 
 **Resuming work**
 20/01/22
+
+awk -v OFS='\t' '{print $5,$6,$7,$11}' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.elem_sorted.clean.out > GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.elem_sorted.clean.bed
+
+bedtools merge -i GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.elem_sorted.clean.bed  -c 4 -o distinct| tail -n 100
