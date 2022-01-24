@@ -685,11 +685,11 @@ run_BUSCO.py -i ../../08_FilterRound2/makerrun3.all.maker.rename.proteins.AED50.
 
 Weird guys:
 Vcard_DToL11937-RA Retrovirus
-Vcard_DToL15721 PhD?
+Vcard_DToL15721 PhD finger
 Vcard_DToL09110-RA Endonuclease
 Vcard_DToL18102-RA same
 Vcard_DToL03918-RA same
-Helitron_like_N
+Helitron_like_N:
 Vcard_DToL00149-RA
 Vcard_DToL01566-RA
 Vcard_DToL02964-RA
