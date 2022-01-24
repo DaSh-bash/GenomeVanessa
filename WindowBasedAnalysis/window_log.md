@@ -147,4 +147,13 @@ bash repeats_run_all_chroms.sh 100000 ../../../../GCA_905220365.1_ilVanCard2.1_g
 
 awk -v OFS='\t' '{print $5,$6,$7,$11}' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.elem_sorted.clean.out > GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.elem_sorted.clean.bed
 
+module load BEDTools/2.29.2
+
 bedtools merge -i GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.elem_sorted.clean.bed  -c 4 -o distinct| tail -n 100
+
+1. Check repeat content after "merge"
+Ignore overlaps, but discuss in text
+
+cp repeat_per_chromosome_beta.sh repeat_per_chromosome_beta_merged.sh
+
+awk '$1 == a && $2>b && $3<c {sum+=$3-$2} END {print sum}'  a="$line" b="$begin" c="$end" GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.mergeonly.bed
