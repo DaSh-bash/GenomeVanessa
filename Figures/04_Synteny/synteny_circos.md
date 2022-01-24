@@ -117,3 +117,5 @@ awk '{if ($7<$15) {if ($7<$8 && $15<$16) print $1, $3, $12, $5, $7, $16; else if
 bash assign_color_to_links_bomb.sh hmel_vca_filtered.links > hmel_vca_filtered_color.links
 
 circos -conf circos_helicon_filtered.conf -outputfile circos_helicon_filtered1.png
+
+**CIRCOS PLOTS POLISHING**
