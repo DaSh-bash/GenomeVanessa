@@ -134,7 +134,7 @@ length_rpt=$(awk '$5 == a && $6>b && $7<c { count++ , sum+=$7-$6} END {print sum
                 echo "$line $begin $end $count_SINE $length_SINE"
                 date
 
-awk '$5 == LR999924.1 && $6>10000 && $7<20000 {count++ , sum+=$7-$6} END {print count, sum}' /proj/uppstore2017185/b2014034_nobackup/Dasha/RepeatMasker_Vanessa/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out
+awk '$5 == LR999924.1 && $6>10000 && $7<20000 {count++ , sum+=$7-$6} END {print count, sum}' cdRepeatMasker_Vanessa/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out
 
 Simple_repeat
 
@@ -147,7 +147,7 @@ bash repeats_run_all_chroms.sh 100000 ../../../../GCA_905220365.1_ilVanCard2.1_g
 
 awk -v OFS='\t' '{print $5,$6,$7,$11}' GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.elem_sorted.clean.out > GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.elem_sorted.clean.bed
 
-module load BEDTools/2.29.2
+module load bioinfo-tools BEDTools/2.29.2
 
 bedtools merge -i GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.elem_sorted.clean.bed  -c 4 -o distinct| tail -n 100
 
@@ -157,3 +157,55 @@ Ignore overlaps, but discuss in text
 cp repeat_per_chromosome_beta.sh repeat_per_chromosome_beta_merged.sh
 
 awk '$1 == a && $2>b && $3<c {sum+=$3-$2} END {print sum}'  a="$line" b="$begin" c="$end" GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.mergeonly.bed
+
+
+LR999924.1      RepeatMasker    similarity      1       48       0.0    +       .       Target "Motif:(AACCT)n" 1 48
+LR999924.1      RepeatMasker    similarity      59      98       2.5    +       .       Target "Motif:(T)n" 1 40
+LR999924.1      RepeatMasker    similarity      99      821      7.1    -       .       Target "Motif:rnd-1_family-187" 2 729
+LR999924.1      RepeatMasker    similarity      822     906      0.0    +       .       Target "Motif:(AACCT)n" 1 85
+LR999924.1      RepeatMasker    similarity      908     1445    11.1    -       .       Target "Motif:rnd-5_family-2352" 1 567
+LR999924.1      RepeatMasker    similarity      1461    6934    18.5    -       .       Target "Motif:rnd-1_family-349" 1 3814
+LR999924.1      RepeatMasker    similarity      6875    7106    10.4    +       .       Target "Motif:rnd-1_family-305" 1 248
+LR999924.1      RepeatMasker    similarity      7107    8661     0.0    +       .       Target "Motif:(AACCT)n" 1 1555
+LR999924.1      RepeatMasker    similarity      8662    8698     0.0    +       .       Target "Motif:(T)n" 1 37
+LR999924.1      RepeatMasker    similarity      8699    9437     6.6    -       .       Target "Motif:rnd-1_family-187" 2 748
+
+bedtools merge -i GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff -s -c 9 -o collapse > GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.repeat.classes.out
+
+paste GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.polish.gff GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.repeat.classes.out > GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.polish.enriched.gff
+
+bash repeat_per_chromosome_beta_merged.sh 200000 10000100 LR999925.1 GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.polish.enriched.out
+
+
+    begin=10000
+    end=100000
+    end="${myArray[2]}"
+    echo "$line"
+    echo  "$begin $end"
+    #echo "$(awk '$5 == a && $6>b && $7<c {print}'  a="$line" b="$begin" c="$end" repeat_annot_test.out | wc -l)"
+    #length_rpt=$(awk '$1 == a && $2>b && $3<c {sum+=$3-$2} END {print sum}'  a="$line" b="$begin" c="$end" $REP)
+    length_rpt=$(awk '{print b}' b="$begin" $REP)
+    echo "#length_rpt"
+    length_rpt2=$(awk '$1 == b {print $2}' b="$begin"  $REP)
+
+
+    Vanessa_WindowRound2
+
+
+ bedtools merge -i GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.gff -s -d 100 -c 10 -o collapse | head
+
+awk ‘{a[$15]} END{for(rep in a){sum++}; print sum}'
+
+
+RepeatMasker_Vanessa/03_RepeatMaskingVanessaArthropodDB
+
+sort -u -k 14 -n GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.prot.gff | head
+
+head -n 100 GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.prot.nodup.gff | sort -k 1 -k 4 -n > GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.prot.nodup.sort.gff
+
+bedtools merge -i GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.prot.nodup.sort.gff -d 10 -c 10 -o collapse
+
+sort -k 1 -k 4 -n GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.prot.nodup.gff > GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.prot.nodup.sort.gff
+
+
+cd /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_WindowRound2/
