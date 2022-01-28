@@ -195,13 +195,13 @@ write.table(allRes_BP[1:50,], file = "../result_topGO/V_cardui_res_topGO_VC_BP_5
 write.table(allRes_CC[1:50,], file = "../result_topGO/V_cardui_res_topGO_VC_CC_50.txt")
 write.table(allRes_MF[1:50,], file = "../result_topGO/V_cardui_res_topGO_VC_MF_50.txt")
 
-write.table(rbind(allRes_BP[allRes_BP$p_adj<=0.05, ], allRes_CC[allRes_CC$p_adj<=0.05, ], allRes_MF[allRes_MF$p_adj<=0.05, ]), file = "../result_topGO/V_cardui_res_topGO_VC_sign.txt", row.names = FALSE)
+write.table(rbind(allRes_BP[allRes_BP$p_adj<=0.05, ], allRes_CC[allRes_CC$p_adj<=0.05, ], allRes_MF[allRes_MF$p_adj<=0.05, ]), file = "../result_topGO/V_cardui_res_topGO_VC_sign_new.txt", row.names = FALSE)
 
 #semicolon sep, without quotes
-write.table(rbind(allRes_BP[allRes_BP$p_adj<=0.05, ], allRes_CC[allRes_CC$p_adj<=0.05, ], allRes_MF[allRes_MF$p_adj<=0.05, ]), file = "../result_topGO/V_cardui_res_topGO_VC_sign.csv", row.names = FALSE, sep = ";", quote = FALSE)
+write.table(rbind(allRes_BP[allRes_BP$p_adj<=0.05, ], allRes_CC[allRes_CC$p_adj<=0.05, ], allRes_MF[allRes_MF$p_adj<=0.05, ]), file = "../result_topGO/V_cardui_res_topGO_VC_sign_new.csv", row.names = FALSE, sep = ";", quote = FALSE)
 
 
-
+allRes_BP[allRes_BP$p_adj<=0.05, ]$genes
 
 ```
 
@@ -237,33 +237,16 @@ ggplot(allRes_all_comb, aes(reorder(GO_descr, -Significant), Significant)) +
 ```
 
 ```{r plots_fdr}
-#use table with adjusted names (manually checked names in https://www.ebi.ac.uk/QuickGO/search/ to get full names of terms
+#(Not needed, can expand the names it the code earlier)use table with adjusted names (manually checked names in https://www.ebi.ac.uk/QuickGO/search/ to get full names of terms
 
 #if not in env
-allRes_all_fdr <- read.csv(file = "../result_topGO/V_cardui_res_topGO_VC_sign_corr.csv",header=T, sep = ";")
+allRes_all_fdr <- read.csv(file = "../result_topGO/V_cardui_res_topGO_VC_sign.csv",header=T, sep = ";")
 
 #if in env
 allRes_all_fdr <- rbind(allRes_BP[allRes_BP$p_adj<=0.05, ], allRes_CC[allRes_CC$p_adj<=0.05, ], allRes_MF[allRes_MF$p_adj<=0.05, ])
 
 allRes_all_fdr$GO_descr <- paste(allRes_all_fdr$Term," (",allRes_all_fdr$GO.ID,")", sep = "")
 
-#check genes
-#get genes per GO-term
-# sel.terms <- allRes_all_fdr$GO.ID
-# ann.genes_BP <- genesInTerm(GO_data_BP, sel.terms)
-# head(ann.genes_BP)
-# 
-# 
-# ann.genes_CC <- genesInTerm(GO_data_CC, sel.terms)
-# head(ann.genes_CC)
-# 
-# ann.genes_MF <- genesInTerm(GO_data_MF, sel.terms)
-# head(ann.genes_MF)
-# 
-# ann.score <- scoresInTerm(GO_data_MF, sel.terms, use.names = TRUE)
-# 
-# names(subset(x = geneList, geneList==1))
-# subset(x = ann.score$`GO:0055103`, ann.score$`GO:0055103`==2)
 
 #plot go-terms and number of significant genes
 

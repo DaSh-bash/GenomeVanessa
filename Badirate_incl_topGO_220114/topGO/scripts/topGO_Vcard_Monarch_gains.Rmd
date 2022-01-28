@@ -208,7 +208,7 @@ write.table(allRes_MF[1:50,], file = "../result_topGO/V_cardui_D_plex_gains_res_
 write.table(rbind(allRes_BP[allRes_BP$p_adj<=0.05, ], allRes_CC[allRes_CC$p_adj<=0.05, ], allRes_MF[allRes_MF$p_adj<=0.05, ]), file = "../result_topGO/V_cardui_D_plex_gains_res_topGO_VC_DP_sign.txt",row.names = FALSE)
 
 #semicolon sep, without quotes
-write.table(rbind(allRes_BP[allRes_BP$p_adj<=0.05, ], allRes_CC[allRes_CC$p_adj<=0.05, ], allRes_MF[allRes_MF$p_adj<=0.05, ]), file = "../result_topGO/V_cardui_res_topGO_VC_sign.csv", row.names = FALSE, sep = ";", quote = FALSE)
+write.table(rbind(allRes_BP[allRes_BP$p_adj<=0.05, ], allRes_CC[allRes_CC$p_adj<=0.05, ], allRes_MF[allRes_MF$p_adj<=0.05, ]), file = "../result_topGO/V_cardui_res_topGO_VC_DP_sign.csv", row.names = FALSE, sep = ";", quote = FALSE)
 
 
 
