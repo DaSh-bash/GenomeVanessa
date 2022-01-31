@@ -100,7 +100,7 @@ Biological Process:
   **9 Vcard_DToL17183-RA,Vcard_DToL17184-RA,Vcard_DToL17185-RA,Vcard_DToL17190-RA,Vcard_DToL17194-RA,Vcard_DToL17196-RA,Vcard_DToL17202-RA,Vcard_DToL17205-RA**
 
 
-  Spatial analysis
+Spatial analysis
 Vcard_DToL00546-RA
 Vcard_DToL07113-RA
 Vcard_DToL07619-RA
