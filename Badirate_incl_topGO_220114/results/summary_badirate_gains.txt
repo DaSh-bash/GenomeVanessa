@@ -1,0 +1,36 @@
+#24 expanded orthogroups sp_gains_bestmodel.txt 
+#removing 3 known repeats
+grep -f ../topGO/result_topGO/list_susp_genes_names_only.txt ../topGO/TopGO_Data_Prep/Orthogroups.tsv
+
+21 orthogroups
+
+#255 sp_gains_bestmodel.txt_genenames.txt (nr of genes) - 21 susp genes
+
+join sp_gains_bestmodel.txt_genenames.txt ../topGO/TopGO_Data_Prep/Vanessa_TopGo_reference_base_filtered.tsv | grep "GO" |awk '{print $1}' > sp_gains_bestmodel.txt_genenames.txt_with_GO_terms
+grep -f sp_gains_bestmodel.txt_genenames.txt_with_GO_terms ../topGO/TopGO_Data_Prep/Orthogroups.tsv 
+
+#################
+#summary V. cardui
+#################
+234 genes in 21 orthogroups
+ 135 are annotated (with Go-term or "None" and only 34 have GO-terms (representing 8 orthogroups)
+
+##################
+V cardui and Monarch
+
+      41 spM_gains_bestmodel_both.txt
+
+     115 spM_gains_bestmodel_both.txt_genenames.txt (nr of genes)
+
+#removing one known repeat
+grep -f ../topGO/result_topGO/list_susp_genes_names_only.txt spM_gains_bestmodel_both.txt_genenames.txt 
+Vcard_DToL18102-RA
+
+grep -f spM_gains_bestmodel_both.txt_genenames.txt_with_GO_terms ../topGO/TopGO_Data_Prep/Orthogroups.tsv
+
+#################
+#summary V card + Monarch
+#################
+114 genes in 40 orthogroups, 55 annotated, 18 has GO-terms, representing 12 orthogroups
+
+

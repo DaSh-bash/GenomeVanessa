@@ -1,0 +1,15 @@
+./chr_54_55/OrderMarker_eval_order/ordered.28.1.intervals.log1:#*** LG = 0 likelihood = −1622.8354
+./chr_54_55/OrderMarker_eval_order/ordered.28.2.intervals.log1:#*** LG = 0 likelihood = −1622.8354
+./chr_54_55/OrderMarker_eval_order/ordered.28.3.intervals.log1:#*** LG = 0 likelihood = −1622.8354
+./chr_54_55/OrderMarker_eval_order/ordered.28.4.intervals.log1:#*** LG = 0 likelihood = −1622.8354
+./chr_54_55/OrderMarker_eval_order/ordered.28.5.intervals.log1:#*** LG = 0 likelihood = −1622.8354
+./chr_54_55/OrderMarker_eval_order/ordered.29.1.intervals.log1:#*** LG = 0 likelihood = −1899.3717
+./chr_54_55/OrderMarker_eval_order/ordered.29.2.intervals.log1:#*** LG = 0 likelihood = −1899.3717
+./chr_54_55/OrderMarker_eval_order/ordered.29.3.intervals.log1:#*** LG = 0 likelihood = −1899.3717
+./chr_54_55/OrderMarker_eval_order/ordered.29.4.intervals.log1:#*** LG = 0 likelihood = −1899.3717
+./chr_54_55/OrderMarker_eval_order/ordered.29.5.intervals.log1:#*** LG = 0 likelihood = −1899.3717
+./chr_54_55/OrderMarker_eval_order/ordered.31.1.intervals.log1:#*** LG = 0 likelihood = −1912.1877
+./chr_54_55/OrderMarker_eval_order/ordered.31.2.intervals.log1:#*** LG = 0 likelihood = −2051.3247
+./chr_54_55/OrderMarker_eval_order/ordered.31.3.intervals.log1:#*** LG = 0 likelihood = −2057.738
+./chr_54_55/OrderMarker_eval_order/ordered.31.4.intervals.log1:#*** LG = 0 likelihood = −2026.3113
+./chr_54_55/OrderMarker_eval_order/ordered.31.5.intervals.log1:#*** LG = 0 likelihood = −2049.782

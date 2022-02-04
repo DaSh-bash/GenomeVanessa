@@ -1,0 +1,5 @@
+./chr_54_55/last_reeval_55/Ordermarker_reeval_thin_mod2/ordered.31.1.intervals.log1:#*** LG = 0 likelihood = −526.8662
+./chr_54_55/last_reeval_55/Ordermarker_reeval_thin_mod2/ordered.31.2.intervals.log1:#*** LG = 0 likelihood = −526.8662
+./chr_54_55/last_reeval_55/Ordermarker_reeval_thin_mod2/ordered.31.3.intervals.log1:#*** LG = 0 likelihood = −526.8662
+./chr_54_55/last_reeval_55/Ordermarker_reeval_thin_mod2/ordered.31.4.intervals.log1:#*** LG = 0 likelihood = −526.8662
+./chr_54_55/last_reeval_55/Ordermarker_reeval_thin_mod2/ordered.31.5.intervals.log1:#*** LG = 0 likelihood = −526.8662
