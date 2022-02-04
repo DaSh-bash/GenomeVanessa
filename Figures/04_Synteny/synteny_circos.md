@@ -119,3 +119,5 @@ bash assign_color_to_links_bomb.sh hmel_vca_filtered.links > hmel_vca_filtered_c
 circos -conf circos_helicon_filtered.conf -outputfile circos_helicon_filtered1.png
 
 **CIRCOS PLOTS POLISHING**
+
+Polishing planned
