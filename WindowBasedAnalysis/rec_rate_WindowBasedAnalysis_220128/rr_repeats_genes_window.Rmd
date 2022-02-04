@@ -31,7 +31,7 @@ library(stargazer)
 
 ```{r get_data, echo=FALSE, eval=FALSE}
 
-rec_rate <- read.table("../rec_rate_est_220126/tables/rec_rate_windows.table")
+rec_rate <- read.table("../../Link_map/rec_rate_est_220126/tables/rec_rate_windows.table")
 
 head(rec_rate)
 #only needed columns
@@ -124,7 +124,7 @@ rr_repeats_genes$gc <- gc_content[,"X5_pct_gc"]
 
 
 #add new chr_lenght (gets alot of NA from the old)
-chr_length <- read.table("../result_qc/qualimap_dtol_210323/scaffold_length", header = T)
+chr_length <- read.table("data/scaffold_length", header = T)
 colnames(chr_length) <- c("chrom", "chr_length2")
 
 rr_repeats_genes <- join(rr_repeats_genes, chr_length)
@@ -389,8 +389,8 @@ write.table(corrs_length, "tables/corr_chr_length.table")
 
 ```{r corr_heatmap}
 #corr_df <-  read.table("correlations.table")
-corr_df <-  read.table("tables/correlations_pearson.table")
-#corr_df <-  read.table("correlations_kendall.table")
+#corr_df <-  read.table("tables/correlations_pearson.table")
+corr_df <-  read.table("correlations_spearman.table")
 
 
 corr_plot_rec_rate <- 
@@ -468,6 +468,7 @@ ggplot(corr_df, aes(var1, var2, fill=estimate, colour=cut(p.value, c(-Inf, 0.05,
 col_Z <- "#009294"   #"#005F60"
 col_W <- "#FAAB36"
 col_autosome <- "dark grey"
+#col_autosome <-     #darker grey
 
 col_rec_rate <- "#249EA0"
 col_repeats <- "#FD5900"
@@ -480,7 +481,7 @@ repeat_vs_gene_proportion <-
 ggplot(data=subset(rr_repeats_genes_wide, rr_repeats_genes_wide$chr_type!="W"), aes(occ_length_rpt, occ_length_CDS)) +
     geom_point(aes(colour=chr_type, fill=chr_type),shape=21,size=1) +
     geom_smooth(aes(colour=chr_type), method = "lm", fullrange=TRUE, se=FALSE) +
-    stat_cor(aes(colour=chr_type), show.legend=FALSE) +
+    stat_cor(aes(colour=chr_type), show.legend=FALSE, method = "spearman", cor.coef.name = "rho") +
     scale_colour_discrete(type = c(col_autosome, col_Z)) +
     scale_fill_discrete(type = c(col_autosome, col_Z)) +
     xlab("Repeat proportion") +
@@ -567,7 +568,7 @@ corr_prop_rr <-
   ggplot(data=subset(rr_repeats_genes_long[!rowSums(is.na(rr_repeats_genes_long[c( "wind_2mb")])),], chr_type!="W"), aes(occ_length, wind_2mb)) +
     geom_point(aes(colour=chr_type, fill=chr_type),shape=21,size=1) +
     geom_smooth(aes(colour=chr_type), method = "lm", fullrange=TRUE, se=FALSE) +
-    stat_cor(aes(colour=chr_type), show.legend=FALSE, label.y = c(14,15.5)) +
+    stat_cor(aes(colour=chr_type), show.legend=FALSE, label.y = c(14,15.5), method = "spearman", cor.coef.name = "rho") +
     facet_wrap(~feature, scales = "free_x") +
     coord_cartesian(ylim = c(0,16)) +
     scale_colour_discrete(type = c(col_autosome, col_Z)) +
@@ -584,6 +585,36 @@ corr_prop_rr <-
 
 
 ggsave(plot=corr_prop_rr, file="figures/corr_rec_rate.pdf", height = 9, width = 9)
+
+col_autosome <- "#363838"
+
+corr_prop_rr_sign <- 
+  ggplot(data=subset(rr_repeats_genes_long[!rowSums(is.na(rr_repeats_genes_long[c( "wind_2mb")])),], chr_type!="W"), aes(occ_length, wind_2mb)) +
+    geom_point(aes(colour=chr_type, fill=chr_type),shape=21,size=1) +
+    geom_smooth(data=subset(rr_repeats_genes_long[!rowSums(is.na(rr_repeats_genes_long[c( "wind_2mb")])),], chr_type=="Autosome"), aes(occ_length, wind_2mb), colour=col_autosome, method = "lm", fullrange=TRUE, se=FALSE, linetype="dashed") +
+    geom_smooth(data=subset(rr_repeats_genes_long[!rowSums(is.na(rr_repeats_genes_long[c( "wind_2mb")])),], chr_type=="Autosome" & feature!="LTR"), aes(occ_length, wind_2mb), colour=col_autosome, method = "lm", fullrange=TRUE, se=FALSE) +
+    geom_smooth(data=subset(rr_repeats_genes_long[!rowSums(is.na(rr_repeats_genes_long[c( "wind_2mb")])),], chr_type=="Z"), aes(occ_length, wind_2mb), colour=col_Z, method = "lm", fullrange=TRUE, se=FALSE, linetype="dashed") +
+    geom_smooth(data=subset(rr_repeats_genes_long[!rowSums(is.na(rr_repeats_genes_long[c( "wind_2mb")])),], chr_type=="Z" & feature!="CDS" & feature!="gc" & feature!="LINE" & feature!="SINE" & feature!="LTR"), aes(occ_length, wind_2mb), colour=col_Z, method = "lm", fullrange=TRUE, se=FALSE) +
+    stat_cor(aes(colour=chr_type), show.legend=FALSE, label.y = c(15.5,14), method = "spearman", cor.coef.name = "rho") +
+    facet_wrap(~feature, scales = "free_x") +
+    coord_cartesian(ylim = c(0,16)) +
+    scale_colour_discrete(type = c(col_autosome, col_Z)) +
+    scale_fill_discrete(type = c(col_autosome, col_Z)) +
+    xlab("Proportion") +
+    ylab("Recombination rate (cM/Mb)") +
+    theme(panel.background = element_blank(),
+          axis.line = element_line(size = 0.2, colour = "gray"),
+          axis.title = element_text(size = 10),
+          legend.text = element_text(size = 10),
+          legend.key=element_blank(),
+          legend.title = element_blank(),
+          legend.position = c(0.6,0.1))
+
+
+ggsave(plot=corr_prop_rr_sign, file="figures/corr_rec_rate.pdf", height = 9, width = 9)
+
+#back to earlier colour
+col_autosome <- "dark grey"
 
 #proportion without the 4 smallest
 corr_prop_rr_red <- 
@@ -650,7 +681,7 @@ ggplot(VAR_mean, aes(unique(VAR_df$chr_length)/1000000, VAR_mean$x)) +
   geom_smooth(method = "lm", colour=VAR_colour, fill=VAR_colour) +
   geom_pointrange(aes(ymin=VAR_mean$x-VAR_sd$x, ymax=VAR_mean$x+VAR_sd$x), size=0.2) +
   geom_point(aes(fill=unique(VAR_df[,c("chrom","chr_type")])$chr_type), size=3, shape=21) +
-  stat_cor(label.x.npc = "left", size = 3) +
+  stat_cor(label.x.npc = "left", size = 3, method="spearman", cor.coef.name = "rho") +
   ylab(y_axis_title) +
   xlab(x_axis_title) +
   #scale_colour_discrete(type = c("black", col_W, col_Z)) +
@@ -810,7 +841,7 @@ ggplot(rr_repeats_genes_long) +
 #function definition
 plot_regional_distribution <- function(VAR_df, VAR){
   ggplot(VAR_df, aes(sqrt((rel_pos-0.5)^2), VAR)) +
-  geom_point(aes(colour=chr_type, fill=chr_type),size=1, shape=21) +
+  geom_point(aes(colour=chr_type, fill=chr_type),size=1, shape=21, stroke=0.1) +
   geom_smooth(method="loess", colour=col_VAR, fill=col_VAR) +
   scale_colour_discrete(type = col_vector) +
   scale_fill_discrete(type = col_vector) +
