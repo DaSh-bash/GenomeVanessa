@@ -1,0 +1,102 @@
+Loading file
+No grandparents present in family V
+Number of individuals = 92
+Number of families = 1
+File loaded with 31656 SNPs
+Number of individuals = 92 excluding grandparents
+Number of families = 1
+Number of markers = 26
+Setting dataScale to 1.0 all likelihoods will be multiplied by 1.0
+Initial score = -383.58682600605994
+Iteration 1 of 6
+884884288488421 done
+Polishing map...
+score = -371.02608749778267
+*score = -371.02608749778267
+score = -371.02608749778267
+score = -371.02608749778267
+Iteration 2 of 6
+884884288488421 done
+Polishing map...
+score = -371.02608749778267
+score = -371.02608749778267
+score = -371.02608749778267
+score = -371.02608749778267
+Iteration 3 of 6
+884884288488421 done
+Polishing map...
+score = -371.02608749778267
+score = -371.02608749778267
+score = -371.02608749778267
+score = -371.02608749778267
+Iteration 4 of 6
+884884288488421 done
+Polishing map...
+score = -371.02608749778267
+score = -371.02608749778267
+score = -371.02608749778267
+score = -371.02608749778267
+Iteration 5 of 6
+884884288488421 done
+Polishing map...
+score = -371.02608749778267
+score = -371.02608749778267
+score = -371.02608749778267
+score = -371.02608749778267
+Iteration 6 of 6
+884884288488421 done
+Polishing map...
+score = -371.02608749778267
+score = -371.02608749778267
+score = -371.02608749778267
+score = -371.02608749778267
+Final score = -371.02608749778267
+Setting dataScale to 1.0 all likelihoods will be multiplied by 1.0
+logL = -371.02608749778267
+number of recombinations = 46.0 logL = -371.02608749778267
+Individual	V	P14459_103_S3	recombines	1	times
+Individual	V	P14459_105_S5	recombines	1	times
+Individual	V	P14459_109_S9	recombines	1	times
+Individual	V	P14459_110_S10	recombines	1	times
+Individual	V	P14459_111_S11	recombines	1	times
+Individual	V	P14459_112_S12	recombines	1	times
+Individual	V	P14459_113_S13	recombines	1	times
+Individual	V	P14459_114_S14	recombines	1	times
+Individual	V	P14459_116_S16	recombines	1	times
+Individual	V	P14459_119_S19	recombines	1	times
+Individual	V	P14459_120_S20	recombines	1	times
+Individual	V	P14459_122_S22	recombines	1	times
+Individual	V	P14459_124_S24	recombines	1	times
+Individual	V	P14459_128_S28	recombines	1	times
+Individual	V	P14459_129_S29	recombines	1	times
+Individual	V	P14459_132_S32	recombines	1	times
+Individual	V	P14459_135_S35	recombines	1	times
+Individual	V	P14459_138_S38	recombines	1	times
+Individual	V	P14459_139_S39	recombines	1	times
+Individual	V	P14459_145_S45	recombines	1	times
+Individual	V	P14459_146_S46	recombines	1	times
+Individual	V	P14459_147_S47	recombines	1	times
+Individual	V	P14459_149_S49	recombines	1	times
+Individual	V	P14459_150_S50	recombines	1	times
+Individual	V	P14459_152_S52	recombines	1	times
+Individual	V	P14459_154_S54	recombines	1	times
+Individual	V	P14459_156_S56	recombines	1	times
+Individual	V	P14459_163_S63	recombines	1	times
+Individual	V	P14459_164_S64	recombines	1	times
+Individual	V	P14459_166_S66	recombines	1	times
+Individual	V	P14459_169_S69	recombines	1	times
+Individual	V	P14459_170_S70	recombines	1	times
+Individual	V	P14459_173_S73	recombines	1	times
+Individual	V	P14459_174_S74	recombines	1	times
+Individual	V	P14459_177_S77	recombines	1	times
+Individual	V	P14459_178_S78	recombines	1	times
+Individual	V	P14459_180_S80	recombines	1	times
+Individual	V	P14459_181_S81	recombines	1	times
+Individual	V	P14459_183_S83	recombines	1	times
+Individual	V	P14459_187_S87	recombines	1	times
+Individual	V	P14459_188_S88	recombines	1	times
+Individual	V	P14459_190_S90	recombines	1	times
+Individual	V	P14459_191_S91	recombines	1	times
+Individual	V	P14459_192_S92	recombines	1	times
+Individual	V	P14459_194_S94	recombines	1	times
+Individual	V	P14459_195_S95	recombines	1	times

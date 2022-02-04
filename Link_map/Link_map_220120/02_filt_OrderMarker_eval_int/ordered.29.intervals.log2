@@ -1,0 +1,16 @@
+Loading file
+No grandparents present in family V
+Number of individuals = 92
+Number of families = 1
+File loaded with 31656 SNPs
+Number of individuals = 92 excluding grandparents
+Number of families = 1
+Number of markers = 8
+Setting dataScale to 1.0 all likelihoods will be multiplied by 1.0
+logL = -33.16333948122299
+number of recombinations = 5.0 logL = -33.16333948122299
+Individual	V	P14459_101_S1	recombines	1	times
+Individual	V	P14459_105_S5	recombines	1	times
+Individual	V	P14459_116_S16	recombines	1	times
+Individual	V	P14459_163_S63	recombines	1	times
+Individual	V	P14459_192_S92	recombines	1	times

@@ -1,0 +1,34 @@
+Loading file
+No grandparents present in family V
+Number of individuals = 92
+Number of families = 1
+File loaded with 31656 SNPs
+Number of individuals = 92 excluding grandparents
+Number of families = 1
+Number of markers = 45
+Setting dataScale to 1.0 all likelihoods will be multiplied by 1.0
+logL = -275.7995732338145
+number of recombinations = 25.0 logL = -275.7995732338145
+Individual	V	P14459_101_S1	recombines	1	times
+Individual	V	P14459_107_S7	recombines	1	times
+Individual	V	P14459_114_S14	recombines	1	times
+Individual	V	P14459_116_S16	recombines	1	times
+Individual	V	P14459_119_S19	recombines	1	times
+Individual	V	P14459_128_S28	recombines	1	times
+Individual	V	P14459_135_S35	recombines	1	times
+Individual	V	P14459_144_S44	recombines	1	times
+Individual	V	P14459_147_S47	recombines	1	times
+Individual	V	P14459_154_S54	recombines	2	times
+Individual	V	P14459_158_S58	recombines	1	times
+Individual	V	P14459_162_S62	recombines	1	times
+Individual	V	P14459_164_S64	recombines	1	times
+Individual	V	P14459_166_S66	recombines	1	times
+Individual	V	P14459_173_S73	recombines	1	times
+Individual	V	P14459_176_S76	recombines	2	times
+Individual	V	P14459_179_S79	recombines	1	times
+Individual	V	P14459_181_S81	recombines	1	times
+Individual	V	P14459_182_S82	recombines	1	times
+Individual	V	P14459_187_S87	recombines	1	times
+Individual	V	P14459_189_S89	recombines	1	times
+Individual	V	P14459_193_S93	recombines	1	times
+Individual	V	P14459_194_S94	recombines	1	times

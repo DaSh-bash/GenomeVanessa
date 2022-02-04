@@ -1,0 +1,3 @@
+./chr_54_55/OrderMarker_eval_order/ordered.28.1.intervals.log1:#*** LG = 0 likelihood = −1622.8354
+./chr_54_55/OrderMarker_eval_order/ordered.29.1.intervals.log1:#*** LG = 0 likelihood = −1899.3717
+./chr_54_55/OrderMarker_eval_order/ordered.31.1.intervals.log1:#*** LG = 0 likelihood = −1912.1877

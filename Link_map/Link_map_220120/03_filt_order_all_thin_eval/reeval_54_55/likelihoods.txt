@@ -1,0 +1,10 @@
+./filt_order_all_eval/reeval_54_55/ordered.29.1.intervals.log1:#*** LG = 0 likelihood = −791.6031
+./filt_order_all_eval/reeval_54_55/ordered.29.2.intervals.log1:#*** LG = 0 likelihood = −791.6031
+./filt_order_all_eval/reeval_54_55/ordered.29.3.intervals.log1:#*** LG = 0 likelihood = −791.6031
+./filt_order_all_eval/reeval_54_55/ordered.29.4.intervals.log1:#*** LG = 0 likelihood = −791.6031
+./filt_order_all_eval/reeval_54_55/ordered.29.5.intervals.log1:#*** LG = 0 likelihood = −791.6031
+./filt_order_all_eval/reeval_54_55/ordered.31.1.intervals.log1:#*** LG = 0 likelihood = −563.1688
+./filt_order_all_eval/reeval_54_55/ordered.31.2.intervals.log1:#*** LG = 0 likelihood = −563.1688
+./filt_order_all_eval/reeval_54_55/ordered.31.3.intervals.log1:#*** LG = 0 likelihood = −563.1688
+./filt_order_all_eval/reeval_54_55/ordered.31.4.intervals.log1:#*** LG = 0 likelihood = −563.1688
+./filt_order_all_eval/reeval_54_55/ordered.31.5.intervals.log1:#*** LG = 0 likelihood = −563.1688
