@@ -209,3 +209,44 @@ sort -k 1 -k 4 -n GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out.prot.nodup
 
 
 cd /proj/uppstore2017185/b2014034_nobackup/Dasha/Vanessa_WindowRound2/
+
+**new rpeat count class**
+
+**LINEs**
+grep "LINE" GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out | sort -u -k 15 -n | awk -v OFS="\t" GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.LINE.bed
+307000
+bedtools sort -i GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.LINE.bed | bedtools merge -d 10 -c 10 -o collapse | head
+bedtools sort -i GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.LINE.bed | bedtools merge -d 10 -c 4 -o collapse
+
+
+grep "SINE" GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out | sort -u -k 15 -n | awk -v OFS="\t" '{print $5,$6,$7,$11}' > GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.SINE.bed
+bedtools sort -i GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.SINE.bed | bedtools merge -d 10 -c 4 -o collapse > GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.SINE.merge.out
+
+bedtools sort -i GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.DNA.bed | bedtools merge -d 10 -c 4 -o collapse > GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.DNA.merge.out
+
+grep "LTR" GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out | sort -u -k 15 -n | awk -v OFS="\t" '{print $5,$6,$7,$11}' > GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.LTR.bed
+bedtools sort -i GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.LTR.bed | bedtools merge -d 10 -c 4 -o collapse > GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.LTR.merge.out
+
+
+bash repeats_run_all_chroms_beta.sh 2000000 GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.LINE.merged.out vanessa.index
+
+cat *out | awk -v OFS="\t" '{print $4}' > all.LINE.out
+add header
+
+bash repeats_run_all_chroms_beta.sh 2000000 GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.SINE.merged.out vanessa.index
+
+
+cat *out | awk -v OFS="\t" '{print $4}' > all.SINE.out
+cat *out | awk -v OFS="\t" '{print $4}' > all.DNA.out
+
+
+sort -u -k 15 -n GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.out | awk -v OFS="\t" '{print $5,$6,$7,$11}' > GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.SINE.bed
+
+
+bash repeats_run_all_chroms_beta.sh 100000 GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.SINE.merged.out vanessa.index
+
+paste all.100kb.cds.out all.100kb.out all.LINE.100kb.out all.SINE.100kb.out all.DNA.100kb.out  
+LR999935.1.CDS.tsv							all.DNA.100kb.out
+LR999936.1-repeat-count.out						all.LINE.100kb.out
+LR999936.1.CDS.tsv							all.LTR.100kb.out
+LR999937.1-repeat-count.out						all.SINE.100kb.out
