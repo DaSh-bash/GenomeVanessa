@@ -1,18 +1,21 @@
 #24 expanded orthogroups sp_gains_bestmodel.txt 
+#255 sp_gains_bestmodel.txt_genenames.txt (nr of genes)
+
 #removing 3 known repeats with the entire orthogroups (53 genes)
 grep -f ../topGO/result_topGO/list_susp_genes_names_only.txt ../topGO/TopGO_Data_Prep/Orthogroups.tsv
 
-21 orthogroups
-
-#255 sp_gains_bestmodel.txt_genenames.txt (nr of genes) - 53 susp genes
 
 join sp_gains_bestmodel.txt_genenames.txt ../topGO/TopGO_Data_Prep/Vanessa_TopGo_reference_base_filtered.tsv | grep "GO" |awk '{print $1}' > sp_gains_bestmodel.txt_genenames.txt_with_GO_terms
 grep -f sp_gains_bestmodel.txt_genenames.txt_with_GO_terms ../topGO/TopGO_Data_Prep/Orthogroups.tsv 
 
+#check gff
+awk '$3=="CDS"' ~/Documents/GitHub/GenomeVanessa/AnnotationV2/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.nooverlap.noW.gff |grep -f data/sp_gains_bestmodel_filtered.txt_genenames.txt - |awk '{print $9}' |uniq -c |wc -l
+161
+
 #################
 #summary V. cardui
 #################
-202 genes in 21 orthogroups
+161 genes in 21 orthogroups
  135 are annotated (with Go-term or "None" and only 34 have GO-terms (representing 8 orthogroups)
 
 ##################
