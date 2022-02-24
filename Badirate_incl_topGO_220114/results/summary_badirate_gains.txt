@@ -1,18 +1,21 @@
 #24 expanded orthogroups sp_gains_bestmodel.txt 
-#removing 3 known repeats
+#255 sp_gains_bestmodel.txt_genenames.txt (nr of genes)
+
+#removing 3 known repeats with the entire orthogroups (53 genes)
 grep -f ../topGO/result_topGO/list_susp_genes_names_only.txt ../topGO/TopGO_Data_Prep/Orthogroups.tsv
 
-21 orthogroups
-
-#255 sp_gains_bestmodel.txt_genenames.txt (nr of genes) - 21 susp genes
 
 join sp_gains_bestmodel.txt_genenames.txt ../topGO/TopGO_Data_Prep/Vanessa_TopGo_reference_base_filtered.tsv | grep "GO" |awk '{print $1}' > sp_gains_bestmodel.txt_genenames.txt_with_GO_terms
 grep -f sp_gains_bestmodel.txt_genenames.txt_with_GO_terms ../topGO/TopGO_Data_Prep/Orthogroups.tsv 
 
+#check gff
+awk '$3=="CDS"' ~/Documents/GitHub/GenomeVanessa/AnnotationV2/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.nooverlap.noW.gff |grep -f data/sp_gains_bestmodel_filtered.txt_genenames.txt - |awk '{print $9}' |uniq -c |wc -l
+161
+
 #################
 #summary V. cardui
 #################
-234 genes in 21 orthogroups
+161 genes in 21 orthogroups
  135 are annotated (with Go-term or "None" and only 34 have GO-terms (representing 8 orthogroups)
 
 ##################
@@ -26,11 +29,18 @@ V cardui and Monarch
 grep -f ../topGO/result_topGO/list_susp_genes_names_only.txt spM_gains_bestmodel_both.txt_genenames.txt 
 Vcard_DToL18102-RA
 
+#belongs to OG0000001, three genes Vcard_DToL03608-RA, Vcard_DToL15240-RA, Vcard_DToL18102-RA
+
 grep -f spM_gains_bestmodel_both.txt_genenames.txt_with_GO_terms ../topGO/TopGO_Data_Prep/Orthogroups.tsv
+
+#check orthogroups if only vcard and dplex
+grep -f ../Badirate_incl_topGO_220114/results/spM_gains_bestmodel_both_list_OG.txt ../Badirate_incl_topGO_220114/topGO/TopGO_Data_Prep/Orthogroups.tsv > ../Badirate_incl_topGO_220114/results/spM_gains_bestmodel_both_OG_genes.txt
+
 
 #################
 #summary V card + Monarch
 #################
-114 genes in 40 orthogroups, 55 annotated, 18 has GO-terms, representing 12 orthogroups
+112 genes in 40 orthogroups, 55 annotated, 18 has GO-terms, representing 12 orthogroups
+29 orthogroups were only containing vcard and dplex
 
 

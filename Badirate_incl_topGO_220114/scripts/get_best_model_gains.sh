@@ -29,3 +29,10 @@ awk '$3>0' $RESULT_DIR/${PREFIX}_gains_branch_bestmodel_prel.txt > $RESULT_DIR/$
 
 #only for multiple branches, get OG where both have gains
 awk '$1==i {print line;print $0} {i=$1;line=$0}' $RESULT_DIR/${PREFIX}_gains_bestmodel.txt > $RESULT_DIR/${PREFIX}_gains_bestmodel_both.txt
+
+#check orthogroups
+cut -f1 ../Badirate_incl_topGO_220114/results/spM_gains_bestmodel_both.txt |uniq > ../Badirate_incl_topGO_220114/results/spM_gains_bestmodel_both_list_OG.txt
+
+grep -f ../Badirate_incl_topGO_220114/results/spM_gains_bestmodel_both_list_OG.txt ../Badirate_incl_topGO_220114/topGO/TopGO_Data_Prep/Orthogroups.tsv > ../Badirate_incl_topGO_220114/results/spM_gains_bestmodel_both_OG_genes.txt
+
+

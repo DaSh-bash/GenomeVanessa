@@ -25,7 +25,7 @@ awk '{print $5="Vcard", $3, $1, $4, $2}' order_dist_rearr.txt > input_marey_map_
 #Use MareyMapR GUI
 #first use 2 wind min 2 markers per window
 #use output to check neg rec rate
-#rin MareyMap again unvalidate the markers causing the ned rec rate, ave the new estimate as marey_output_..._corr.txt
+#run MareyMap again unvalidate the markers causing the ned rec rate, save the new estimate as marey_output_..._corr.txt
 
 Output in result/ folder
 
