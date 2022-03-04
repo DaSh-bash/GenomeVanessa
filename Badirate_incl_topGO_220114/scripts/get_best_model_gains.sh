@@ -27,6 +27,8 @@ sed 's/"//g' $RESULT_DIR/${PREFIX}_vs_gr_OG_list.txt | awk 'FNR==NR && FNR>1 {a[
 awk '$3>0' $RESULT_DIR/${PREFIX}_gains_branch_bestmodel_prel.txt > $RESULT_DIR/${PREFIX}_gains_bestmodel.txt
 #awk '$4>0' $RESULT_DIR/${PREFIX}_gains_branch_bestmodel_prel.txt > $RESULT_DIR/${PREFIX}_losses_bestmodel.txt
 
+
+
 #only for multiple branches, get OG where both have gains
 awk '$1==i {print line;print $0} {i=$1;line=$0}' $RESULT_DIR/${PREFIX}_gains_bestmodel.txt > $RESULT_DIR/${PREFIX}_gains_bestmodel_both.txt
 

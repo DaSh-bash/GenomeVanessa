@@ -1049,6 +1049,9 @@ ggsave("figures/model_est_full.pdf", device = "pdf", height = 8, width = 8)
 
 ```{r gained_genes}
 
+#awk '$3=="CDS"' ~/Documents/GitHub/GenomeVanessa/AnnotationV2/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.nooverlap.noW.gff |grep -f data/sp_gains_bestmodel_filtered.txt_genenames.txt - |cut -f1 -d ":" |awk '{print $1, $4, $5, $9 }' |sed 's/ID=//g' > data/gained_genes_position.table
+
+
 gained_genes <- read.table(file = "data/gained_genes_position.table")
 head(gained_genes)
 colnames(gained_genes) <- c("chrom", "start_pos", "end_position", "genename")
