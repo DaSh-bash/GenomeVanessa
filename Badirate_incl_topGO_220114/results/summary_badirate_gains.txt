@@ -1,22 +1,30 @@
 #24 expanded orthogroups sp_gains_bestmodel.txt 
 #255 sp_gains_bestmodel.txt_genenames.txt (nr of genes)
 
-#removing 3 known repeats with the entire orthogroups (53 genes)
-grep -f ../topGO/result_topGO/list_susp_genes_names_only.txt ../topGO/TopGO_Data_Prep/Orthogroups.tsv
-
-
 join sp_gains_bestmodel.txt_genenames.txt ../topGO/TopGO_Data_Prep/Vanessa_TopGo_reference_base_filtered.tsv | grep "GO" |awk '{print $1}' > sp_gains_bestmodel.txt_genenames.txt_with_GO_terms
 grep -f sp_gains_bestmodel.txt_genenames.txt_with_GO_terms ../topGO/TopGO_Data_Prep/Orthogroups.tsv 
 
+#removing manually 3 known OG repeats with the entire orthogroups (53 genes)
+grep -f ../topGO/result_topGO/list_susp_genes_names_only.txt ../topGO/TopGO_Data_Prep/Orthogroups.tsv
+
+#new file sp_gains_bestmodel_filtered.txt
+#get gene names with the script gene_selector_mod.sh
+sp_gains_bestmodel_filtered.txt_genenames.txt
+
+
 #check gff
-awk '$3=="CDS"' ~/Documents/GitHub/GenomeVanessa/AnnotationV2/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.nooverlap.noW.gff |grep -f data/sp_gains_bestmodel_filtered.txt_genenames.txt - |awk '{print $9}' |uniq -c |wc -l
+awk '$3=="mRNA"' ~/Documents/GitHub/GenomeVanessa/AnnotationV2/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.nooverlap.noW.gff |grep -f data/sp_gains_bestmodel_filtered.txt_genenames.txt - |awk '{print $9}' |uniq -c |wc -l
 161
+
+#get file with positions
+awk '$3=="mRNA"' ~/Documents/GitHub/GenomeVanessa/AnnotationV2/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.nooverlap.noW.gff |grep -f data/sp_gains_bestmodel_filtered.txt_genenames.txt - |cut -f1 -d ":" |awk '{print $1, $4, $5, $9 }' |sed 's/ID=//g' > gained_genes_position.table
 
 #################
 #summary V. cardui
 #################
 161 genes in 21 orthogroups
  135 are annotated (with Go-term or "None" and only 34 have GO-terms (representing 8 orthogroups)
+
 
 ##################
 V cardui and Monarch
