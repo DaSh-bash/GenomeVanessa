@@ -174,7 +174,7 @@ write.table(rr_repeats_genes_long, file="tables/rec_rate_vs_repeats_genes_2Mb_wi
 
 write.table(rr_repeats_genes_wide, file="tables/rec_rate_vs_repeats_genes_2Mb_windows.table") 
 
-rr_repeats_genes_wide <- read.table(file="tables/rec_rate_vs_repeats_genes_2Mb_windows.table")
+#rr_repeats_genes_wide <- read.table(file="tables/rec_rate_vs_repeats_genes_2Mb_windows.table")
 
 #chromosome level dataframe
 repeat_chr_level <- pivot_wider(aggregate(occ_length~chrom+feature, rr_repeats_genes_long, mean), names_from = feature, values_from = occ_length)
@@ -391,7 +391,7 @@ write.table(corrs_length, "tables/corr_chr_length.table")
 ```{r corr_heatmap}
 #corr_df <-  read.table("correlations.table")
 #corr_df <-  read.table("tables/correlations_pearson.table")
-corr_df <-  read.table("correlations_spearman.table")
+corr_df <-  read.table("tables/correlations_spearman.table")
 
 
 corr_plot_rec_rate <- 
@@ -421,23 +421,24 @@ corr_plot_rec_rate
 
 corr_heatmap <-  
 ggplot(subset(corr_df, var1!="loess"), aes(var1, var2, fill=estimate)) + 
-  geom_tile(size=0) +
+  geom_tile(size=0.1) +
+  coord_fixed()+
   geom_text(aes(label=round(estimate, 2), colour=cut(p.value, c(-Inf, 0.05, Inf)))) +
   scale_fill_gradient2(low = "blue", high = "orange") +
   scale_colour_manual(name="p.value", 
-                      values = c("(-Inf, 0.05]" = "black",
-                                 "(0.05, Inf]" = "red")) +
+                      values = c("black", "red"),
+                      labels = c("< 0.05", "> 0.05")) +
   scale_x_discrete(position = "top", 
                    labels=c("CDS", "GC-content", "Total repeats", "Rec rate")) + 
   scale_y_discrete(limits=rev(c("occ_length_gc", "occ_length_CDS", "occ_length_rpt","occ_length_LTR",  "occ_length_LINE", "occ_length_SINE", "occ_length_DNA"))
-                   ,labels=c("occ_length_CDS"="CDS", "occ_length_SINE"="SINE", "occ_length_DNA"="DNA", "occ_length_LINE"="LINE", "occ_length_LTR"="LTR",  "occ_length_rpt"="rpt", "occ_length_gc"="gc" )) +
+                   ,labels=c("occ_length_CDS"="CDS", "occ_length_SINE"="SINE", "occ_length_DNA"="DNA", "occ_length_LINE"="LINE", "occ_length_LTR"="LTR",  "occ_length_rpt"="RPT", "occ_length_gc"="GC" )) +
     theme(panel.background = element_blank(),
         axis.line = element_blank(),
         axis.ticks = element_blank(),
-        axis.text = element_text(size = 10, colour = "black"),
+        axis.text = element_text( colour = "black"),
         axis.title = element_blank(),
-        legend.text = element_text(size = 10),
-        legend.title = element_text(size = 10),
+        legend.text = element_text(),
+        legend.title = element_text(),
         legend.key = element_blank(),
         strip.placement = "outside", 
         strip.background = element_blank())
@@ -445,22 +446,7 @@ ggplot(subset(corr_df, var1!="loess"), aes(var1, var2, fill=estimate)) +
 ggsave(plot = corr_heatmap, file = "figures/corr_heatmap.pdf", device = "pdf")
 
 
-ggplot(corr_df, aes(var1, var2, fill=estimate, colour=cut(p.value, c(-Inf, 0.05, Inf)))) + 
-  geom_tile(size=2) +
-  scale_fill_gradient2(low = col_rec_rate, high = col_gene) +
-  scale_colour_manual(name="p.value", 
-                      values = c("(-Inf, 0.05]" = "black",
-                                 "(0.05, Inf]" = "white")) +
-    theme(panel.background = element_blank(),
-        axis.line = element_line(size = 0.2, colour = "grey"),
-        axis.text = element_text(size = 10),
-        axis.title = element_blank(),
-        legend.text = element_text(size = 10),
-        legend.title = element_text(size = 10),
-        legend.key = element_blank())
-        #legend.position = c(0.8,0.8)) #+
 
-  
 
 ```
 
@@ -495,69 +481,7 @@ ggplot(data=subset(rr_repeats_genes_wide, rr_repeats_genes_wide$chr_type!="W"), 
           legend.title = element_blank())
 
 ggsave(plot=repeat_vs_gene_proportion, "figures/corr_rpt_vs_gene.pdf", device = "pdf")
-#rec_rate vs genomic feature
-#GC
-corr_rr_gc <- 
-  ggplot(data=subset(rr_repeats_genes_long, rr_repeats_genes_long$chr_type!="W" & feature=="gc"), aes(occ_length*100, loess)) +
-    geom_point(aes(colour=chr_type, fill=chr_type),shape=21,size=1) +
-    geom_smooth(aes(colour=chr_type), method = "lm", fullrange=TRUE, se=FALSE) +
-    stat_cor(aes(colour=chr_type), show.legend=FALSE) +
-    #facet_wrap(~gen_feat, scales = "free") +
-    scale_colour_discrete(type = c(col_autosome, col_Z)) +
-    scale_fill_discrete(type = c(col_autosome,col_Z)) +
-    coord_cartesian(xlim = c(min(rr_repeats_genes_long[rr_repeats_genes_long$feature=="gc",]$occ_length)*100, 38)) +
-    xlab("GC-content (%)") +
-    ylab("Recombination rate (cM/Mb)") +
-    theme(panel.background = element_blank(),
-          axis.line = element_line(size = 0.2, colour = "gray"),
-          axis.title = element_text(size = 10),
-          legend.text = element_text(size = 10),
-          legend.key=element_blank(),
-          legend.title = element_blank())
 
-
-corr_rr_rpt <- 
-  ggplot(data=subset(rr_repeats_genes_long, chr_type!="W" & feature=="rpt"), aes(occ_length, loess)) +
-    geom_point(aes(colour=chr_type, fill=chr_type),shape=21,size=1) +
-    geom_smooth(aes(colour=chr_type), method = "lm", fullrange=TRUE, se=FALSE) +
-    stat_cor(aes(colour=chr_type), show.legend=FALSE) +
-    #facet_wrap(~gen_feat, scales = "free") +
-    coord_cartesian(ylim = c(0,max(rr_repeats_genes_long$loess))) +
-    scale_colour_discrete(type = c(col_autosome, col_Z)) +
-    scale_fill_discrete(type = c(col_autosome, col_Z)) +
-    xlab("Repeat density (counts per kb)") +
-    ylab("Recombination rate (cM/Mb)") +
-    theme(panel.background = element_blank(),
-          axis.line = element_line(size = 0.2, colour = "gray"),
-          axis.title = element_text(size = 10),
-          legend.text = element_text(size = 10),
-          legend.key=element_blank(),
-          legend.title = element_blank())
-
-
-corr_rr_CDS_dens <- 
-  ggplot(subset(rr_repeats_genes_long, chr_type!="W" & feature=="CDS"), aes(occ_length, loess)) +
-    geom_point(aes(colour=chr_type, fill=chr_type),shape=21,size=1) +
-    geom_smooth(aes(colour=chr_type), method = "lm", fullrange=TRUE, se=FALSE) +
-    stat_cor(aes(colour=chr_type), show.legend=FALSE) +
-    #facet_wrap(~gen_feat, scales = "free") +
-    scale_colour_discrete(type = c(col_autosome, col_Z)) +
-    scale_fill_discrete(type = c(col_autosome, col_Z)) +
-    xlab("Gene density") +
-    ylab("Recombination rate (cM/Mb)") +
-    theme(panel.background = element_blank(),
-          axis.line = element_line(size = 0.2, colour = "gray"),
-          axis.title = element_text(size = 10),
-          legend.text = element_text(size = 10),
-          legend.key=element_blank(),
-          legend.title = element_blank())
-
-corr_rr_CDS_dens
-corr_rr_plot <- ggarrange(corr_rr_gc + rremove("y.title"), corr_rr_rpt, corr_rr_CDS_dens + rremove("y.title"), 
-          ncol = 1, nrow = 3, 
-          common.legend = T, legend = "right", 
-          align = "v")
-corr_rr_plot
 
 #remove na to make the plots nices (axis adjustments)
 #dat[!rowSums(is.na(dat[cols])), ]
@@ -1014,7 +938,7 @@ capture.output(summary(lm(data=rr_repeats_genes_wide_sc, wind_2mb~chr_length + o
 
 capture.output(summary(lmer(data=rr_repeats_genes_wide_sc, wind_2mb~chr_length + (1|chr_type) + (1|pos_group) + occ_length_CDS + occ_length_SINE + occ_length_DNA + occ_length_LINE + occ_length_LTR+occ_length_rpt+occ_length_gc)), file = "tables/lm_summary_mixed_mod.txt")
 
-axis.labels = c("gc_3"="GC3", "enc"="ENC", "al_length"="Alignment length", "dS"=expression(italic(d[S])), "diff_enc"=expression(ENC[diff]), "gc_3:enc"="GC3:ENC", "gc_3:diff_enc"=expression(GC3:ENC[diff]))
+
 
 #plots
 plot_models(mod_medium, colors = "gs", show.p = T, p.shape = TRUE, 
@@ -1049,12 +973,12 @@ ggsave("figures/model_est_full.pdf", device = "pdf", height = 8, width = 8)
 
 ```{r gained_genes}
 
-#awk '$3=="CDS"' ~/Documents/GitHub/GenomeVanessa/AnnotationV2/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.nooverlap.noW.gff |grep -f data/sp_gains_bestmodel_filtered.txt_genenames.txt - |cut -f1 -d ":" |awk '{print $1, $4, $5, $9 }' |sed 's/ID=//g' > data/gained_genes_position.table
+#awk '$3=="mRNA"' ~/Documents/GitHub/GenomeVanessa/AnnotationV2/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.nooverlap.noW.gff |grep -f data/sp_gains_bestmodel_filtered.txt_genenames.txt - |cut -f1 -d ":" |awk '{print $1, $4, $5, $9 }' |sed 's/ID=//g' > data/gained_genes_position.table
 
 
-gained_genes <- read.table(file = "data/gained_genes_position.table")
+gained_genes <- read.table(file = "data/gained_genes_filtered.txt")
 head(gained_genes)
-colnames(gained_genes) <- c("chrom", "start_pos", "end_position", "genename")
+colnames(gained_genes) <- c("chrom", "start_pos", "end_position", "geneID", "genename", "orthogroup")
 
 gained_genes <- join(gained_genes, unique(rr_repeats_genes_wide[,c("chrom", "chr_length")]))
 

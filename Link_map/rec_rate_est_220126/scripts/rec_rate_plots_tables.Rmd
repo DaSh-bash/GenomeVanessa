@@ -24,6 +24,7 @@ library(tkrplot)
 library(tcltk)
 
 library(ggplot2)
+library(ggpubr)
 library(viridis)
 library("tidyr")
 library(plyr)
@@ -516,36 +517,54 @@ ggplot(rec_rate_mean, aes(rec_rate_mean$loess, rec_rate_mean$wind_2mb)) +
 ```
 
 ```{r plots_manuscript}
+
+
+rec_rate <- read.table("../tables/rec_rate_windows.table")
+
+#add a column with new names on chr
+rec_rate$map_new <- as.factor(rec_rate$map)
+levels(rec_rate$map_new)
+levels(rec_rate$map_new) <- c("Z", seq(1,30))
+
 #plot marey maps
 ggplot(rec_rate, aes(rec_rate$phys/1000000, rec_rate$gen)) +
-  geom_point(size=0.2, colour="black") +
-  facet_wrap(~rec_rate$map, scales="free") +
+  geom_point(size=0.6, colour="black") +
+  facet_wrap(~rec_rate$map_new) +
   ylab("Genetic distance (cM)") +
-  xlab("Physical position (Mb)") +
+  scale_x_continuous(name = "Physical position (Mb)", 
+                     limits = c(0,max(rec_rate$phys)/1000000)) +
   ggpubr::stat_cor(method = "pearson",
   cor.coef.name = "R",
-  label.sep = ", ",
+  label.sep = ",",
   r.accuracy = 0.01,
   p.accuracy = 0.0001,
-  label.x.npc = "left",
-  label.y.npc = "top",
+  label.x = 0,
+  label.y = 60,
   geom = "text",
-  size = 1.5,
+  size = 3,
   show.legend = NA) +
-  theme_classic()
+  theme_classic() +
+  theme(strip.background = element_rect(size = 0.4),
+        axis.line = element_line(size=0.2))
 
-ggsave("../figures/marey_maps.pdf", device = "pdf", height = 6, width = 9)
+  
+
+
+ggsave("../figures/marey_maps.pdf", device = "pdf", height = 10, width = 12)
 
 ggplot(rec_rate, aes(rec_rate$phys/1000000, rec_rate$wind_2mb)) +
-  geom_point(size = 0.2) +
-  geom_line(size = 0.1) +
-  facet_wrap(~rec_rate$map, scales = "free_x") +
-  scale_y_continuous(limits = c(0,max(rec_rate$loess))) +
+  geom_point(size = 0.4) +
+  geom_line(size = 0.2) +
+  facet_wrap(~rec_rate$map_new) +
+  scale_y_continuous(limits = c(0,max(rec_rate$wind_2mb)/1000000)) +
   ylab("Recombination rate (cM/Mb)") +
   xlab("Physical position (Mb)") +
-  theme_classic()
+  theme_classic() +
+  theme(strip.background = element_rect(size = 0.4),
+        axis.line = element_line(size=0.2))
 
-ggsave("../figures/rec_rate_along_chr.pdf", device = "pdf", height = 6, width = 9)
+
+ggsave("../figures/rec_rate_along_chr.pdf", device = "pdf", height =6, width = 9)
 
 
 #chr length and rate blue, points only contour (blue) filled Z dark blue
