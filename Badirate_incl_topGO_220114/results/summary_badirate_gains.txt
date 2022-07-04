@@ -16,14 +16,25 @@ sp_gains_bestmodel_filtered.txt_genenames.txt
 awk '$3=="mRNA"' ~/Documents/GitHub/GenomeVanessa/AnnotationV2/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.nooverlap.noW.gff |grep -f data/sp_gains_bestmodel_filtered.txt_genenames.txt - |awk '{print $9}' |uniq -c |wc -l
 161
 
+#only 135 of 161 are annotated (with Go-term or "None" and only 34 have GO-terms (representing 8 orthogroups)
+
 #get file with positions
 awk '$3=="mRNA"' ~/Documents/GitHub/GenomeVanessa/AnnotationV2/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.nooverlap.noW.gff |grep -f data/sp_gains_bestmodel_filtered.txt_genenames.txt - |cut -f1 -d ":" |awk '{print $1, $4, $5, $9 }' |sed 's/ID=//g' > gained_genes_position.table
+
+##########
+#after filtering out uncertain genes without putative functional annotation 
+awk '{print $6}' Documents/GitHub/GenomeVanessa/WindowBasedAnalysis/rec_rate_WindowBasedAnalysis_220128/data/gained_genes_filtered_corr.txt |wc -l
+77
+
+#number of remaining orthogroups
+awk '{print $6}' Documents/GitHub/GenomeVanessa/WindowBasedAnalysis/rec_rate_WindowBasedAnalysis_220128/data/gained_genes_filtered_corr.txt |sort |uniq |wc -l
+      15
+
 
 #################
 #summary V. cardui
 #################
-161 genes in 21 orthogroups
- 135 are annotated (with Go-term or "None" and only 34 have GO-terms (representing 8 orthogroups)
+77 genes in 15 orthogroups
 
 
 ##################

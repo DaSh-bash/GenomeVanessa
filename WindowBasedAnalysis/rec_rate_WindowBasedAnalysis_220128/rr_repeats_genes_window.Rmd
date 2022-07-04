@@ -417,28 +417,28 @@ ggplot(subset(corr_df[corr_df$var1=="loess",]), aes(var1, var2, fill=estimate)) 
 
 corr_plot_rec_rate
 
+geom.text.size = 7
+theme.size = (14/5) * geom.text.size
 
 
 corr_heatmap <-  
 ggplot(subset(corr_df, var1!="loess"), aes(var1, var2, fill=estimate)) + 
-  geom_tile(size=0.1) +
-  coord_fixed()+
-  geom_text(aes(label=round(estimate, 2), colour=cut(p.value, c(-Inf, 0.05, Inf)))) +
+  geom_tile() +
+  #coord_fixed()+
+  geom_text(aes(label=round(estimate, 2), colour=cut(p.value, c(-Inf, 0.05, Inf))), size = geom.text.size) +
   scale_fill_gradient2(low = "blue", high = "orange") +
   scale_colour_manual(name="p.value", 
-                      values = c("black", "red"),
+                      values = c("#363535", "red"),
                       labels = c("< 0.05", "> 0.05")) +
   scale_x_discrete(position = "top", 
-                   labels=c("CDS", "GC-content", "Total repeats", "Rec rate")) + 
+                   labels=c("CDS", "GC", "Total repeat", "Rec rate")) + 
   scale_y_discrete(limits=rev(c("occ_length_gc", "occ_length_CDS", "occ_length_rpt","occ_length_LTR",  "occ_length_LINE", "occ_length_SINE", "occ_length_DNA"))
                    ,labels=c("occ_length_CDS"="CDS", "occ_length_SINE"="SINE", "occ_length_DNA"="DNA", "occ_length_LINE"="LINE", "occ_length_LTR"="LTR",  "occ_length_rpt"="RPT", "occ_length_gc"="GC" )) +
     theme(panel.background = element_blank(),
+          text = element_text(size = theme.size),
         axis.line = element_blank(),
         axis.ticks = element_blank(),
-        axis.text = element_text( colour = "black"),
         axis.title = element_blank(),
-        legend.text = element_text(),
-        legend.title = element_text(),
         legend.key = element_blank(),
         strip.placement = "outside", 
         strip.background = element_blank())
@@ -893,12 +893,14 @@ summary(lm_groups)
 write.table(aggregate(wind_2mb~pos_group, mean, na.rm=T, data=rr_repeats_genes_long), file = "tables/rr_regional_pos_mean.table")
 write.table(aggregate(wind_2mb~pos_group, sd, na.rm=T, data=rr_repeats_genes_long), file = "tables/rr_regional_pos_mean.table", append = T)
 
+to_compare <- list(c(1,2), c(1,3), c(1,4), c(1,5), c(2,4), c(3,4), c(3,5), c(4,5))
 
 box_rr_regional <- 
 ggplot(rr_repeats_genes_long, aes(pos_group, wind_2mb, group=pos_group)) +
   geom_boxplot(fill="gray", outlier.shape = 21) +
+  stat_compare_means(comparisons = to_compare, method = "wilcox.test", label.y = c(18, 19.5, 21, 22.5, 16.5, 15, 18, 19.5), label = "p.signif", show.legend = T, position = "left") +
   xlab("Relative position on the chromosome") +
-  ylab("Recombinaiton rate (cM)") +
+  ylab("Recombination rate (cM)") +
   theme(panel.background = element_blank(),
         axis.line = element_line(size = 0.2, colour = "gray"),
         axis.ticks = element_line(size = 0.2, colour = "gray"),
@@ -975,20 +977,28 @@ ggsave("figures/model_est_full.pdf", device = "pdf", height = 8, width = 8)
 
 #awk '$3=="mRNA"' ~/Documents/GitHub/GenomeVanessa/AnnotationV2/makerrun3.all.maker.rename.proteins.AED50.eAED50.long50.norepeatdomain.no1exon.nooverlap.noW.gff |grep -f data/sp_gains_bestmodel_filtered.txt_genenames.txt - |cut -f1 -d ":" |awk '{print $1, $4, $5, $9 }' |sed 's/ID=//g' > data/gained_genes_position.table
 
-
-gained_genes <- read.table(file = "data/gained_genes_filtered.txt")
+#use filtered file, additional repeats have been removed
+#remove exclamation marks, sed 's/!//g' data/gained_genes_filtered.txt > data/gained_genes_filtered_corr.txt
+gained_genes <- read.table(file = "data/gained_genes_filtered_corr.txt")
 head(gained_genes)
-colnames(gained_genes) <- c("chrom", "start_pos", "end_position", "geneID", "genename", "orthogroup")
+colnames(gained_genes) <- c("chrom_new", "start_pos", "end_position", "geneID", "genename", "orthogroup")
 
-gained_genes <- join(gained_genes, unique(rr_repeats_genes_wide[,c("chrom", "chr_length")]))
+gained_genes$chrom_new <- as.factor(gained_genes$chrom_new)
+
+rr_repeats_genes_wide$chrom <- as.factor(rr_repeats_genes_wide$chrom)
+rr_repeats_genes_wide$chrom_new <- rr_repeats_genes_wide$chrom
+levels(rr_repeats_genes_wide$chrom_new) <- c("Z", seq(1,15), "W", seq(16,30))
 
 
-for(i in c(1:length(unique(gained_genes$chrom)))) {
-gene_gain_pos_temp <- aggregate(gained_genes[gained_genes$chrom==unique(gained_genes$chrom)[i],c("genename")], #the data frame
-                 by=list(cut(gained_genes[gained_genes$chrom==unique(gained_genes$chrom)[i],"start_pos"],seq(1, gained_genes$chr_length[gained_genes$chrom==unique(gained_genes$chrom)[i]][1]+2000000, 2000000))), #the bins (see below) 
+gained_genes <- join(gained_genes, unique(rr_repeats_genes_wide[,c("chrom_new", "chr_length")]))
+
+
+for(i in c(1:length(unique(gained_genes$chrom_new)))) {
+gene_gain_pos_temp <- aggregate(gained_genes[gained_genes$chrom_new==unique(gained_genes$chrom_new)[i],c("genename")], #the data frame
+                 by=list(cut(gained_genes[gained_genes$chrom_new==unique(gained_genes$chrom_new)[i],"start_pos"],seq(1, gained_genes$chr_length[gained_genes$chrom_new==unique(gained_genes$chrom_new)[i]][1]+2000000, 2000000))), #the bins (see below) 
                  length) #the aggregating function
 
-  gene_gain_pos_temp$chrom <- unique(gained_genes$chrom)[i]
+  gene_gain_pos_temp$chrom_new <- unique(gained_genes$chrom_new)[i]
   
   
   if (i==1) {
@@ -1007,7 +1017,7 @@ gene_gain_pos$begin <-
 
 gene_gain_pos$gained_genes <- gene_gain_pos$x
 
-rr_repeats_genes_wide <- join(rr_repeats_genes_wide, gene_gain_pos[,c("chrom", "begin", "gained_genes")])
+rr_repeats_genes_wide <- join(rr_repeats_genes_wide, gene_gain_pos[,c("chrom_new", "begin", "gained_genes")])
 
 rr_repeats_genes_wide[is.na(rr_repeats_genes_wide$gained_genes),]$gained_genes <- 0
 
@@ -1015,6 +1025,8 @@ rr_repeats_genes_wide$gained_genes_presence <- 0
 rr_repeats_genes_wide[rr_repeats_genes_wide$gained_genes>0,]$gained_genes_presence <- 1
 
 rr_repeats_genes_wide$gained_genes_presence <- as.factor(rr_repeats_genes_wide$gained_genes_presence)
+
+
 
 #test and plots
 plot(rr_repeats_genes_wide$wind_2mb, rr_repeats_genes_wide$gained_genes)
@@ -1043,13 +1055,24 @@ ggplot(rr_repeats_genes_wide, aes(gained_genes_presence,occ_length_SINE)) +
   geom_point() +
   geom_boxplot()
 
-wilcox.test(rr_repeats_genes_wide$occ_length_SINE~rr_repeats_genes_wide$gained_genes_presence)
+wilcox.test(rr_repeats_genes_wide$occ_length_CDS~rr_repeats_genes_wide$gained_genes_presence)
+wilcox.test(rr_repeats_genes_wide$occ_length_gc~rr_repeats_genes_wide$gained_genes_presence)
+wilcox.test(rr_repeats_genes_wide$occ_length_LTR~rr_repeats_genes_wide$gained_genes_presence)
 wilcox.test(rr_repeats_genes_wide$occ_length_LINE~rr_repeats_genes_wide$gained_genes_presence)
+wilcox.test(rr_repeats_genes_wide$occ_length_SINE~rr_repeats_genes_wide$gained_genes_presence)
+wilcox.test(rr_repeats_genes_wide$occ_length_DNA~rr_repeats_genes_wide$gained_genes_presence)
+wilcox.test(rr_repeats_genes_wide$wind_2mb~rr_repeats_genes_wide$gained_genes_presence)
+
 
 summary(lm(gained_genes~occ_length_SINE + occ_length_DNA + occ_length_LINE + occ_length_CDS + occ_length_LTR + occ_length_gc + wind_2mb, data = rr_repeats_genes_wide))
 
 
 rr_repeats_genes_long_gain <- pivot_longer(rr_repeats_genes_wide, cols =starts_with(c("occ_length_")),  names_to ="feature", names_prefix = "occ_length_", values_to = "occ_length")
+
+rr_repeats_genes_long_gain$feature <- as.factor(rr_repeats_genes_long_gain$feature)
+
+rr_repeats_genes_long_gain$feature <- factor(rr_repeats_genes_long_gain$feature, levels = c( "CDS", "rpt", "LTR","LINE", "SINE", "DNA","gc"))
+
 
 
 ggplot(rr_repeats_genes_long_gain, aes(gained_genes_presence, occ_length)) +
@@ -1127,6 +1150,8 @@ gained_colours <- c("#5f6061", "#f06c70")
 gained_colours <- c("#5f6061", "#b37072")
 #discrete but lighter (ok)
 gained_colours <- c("#5f6061", "#d98689")
+#grey and blue
+gained_colours <- c("#a2a2a3", "#282ca6")
 
 #remove gc and rpt
 gains_violin <- ggplot(rr_repeats_genes_long_gain[rr_repeats_genes_long_gain$feature!="rpt" & rr_repeats_genes_long_gain$feature!="gc",],
@@ -1136,7 +1161,7 @@ gains_violin <- ggplot(rr_repeats_genes_long_gain[rr_repeats_genes_long_gain$fea
                geom = "crossbar", 
                width = 0.25,
                position = position_dodge(width = .25), size = 0.2, show.legend = FALSE) +
-    stat_compare_means(method = "wilcox.test", label = "p.signif", size=5, hide.ns = TRUE, label.y = c(12,10, 47, 15, 14)) +
+    stat_compare_means(method = "wilcox.test", label = "p.signif", size=5, hide.ns = TRUE, label.y = c(12,20, 48, 16, 12)) +
     scale_fill_discrete(type = gained_colours, 
                         labels = c(paste("Without gains (N=", length(rr_repeats_genes_wide[rr_repeats_genes_wide$gained_genes_presence=="0",1]),")", sep=""), paste(">=1 gain (N=", length(rr_repeats_genes_wide[rr_repeats_genes_wide$gained_genes_presence=="1",1]),")", sep=""))) +
     scale_y_continuous(name = "Occupied length (%)", 
@@ -1180,7 +1205,7 @@ gains_violin_gc <- ggplot(rr_repeats_genes_long_gain[rr_repeats_genes_long_gain$
                geom = "crossbar", 
                width = 0.25,
                position = position_dodge(width = .25), size = 0.2, show.legend = FALSE) +
-    stat_compare_means(method = "wilcox.test", label = "p.signif", size=5, hide.ns = TRUE, label.y = 41) +
+    stat_compare_means(method = "wilcox.test", label = "p.signif", size=5, hide.ns = TRUE, label.y = 42) +
     scale_fill_discrete(type = gained_colours, 
                         labels = c(paste("Without gains (N=", length(rr_repeats_genes_wide[rr_repeats_genes_wide$gained_genes_presence=="0",1]),")", sep=""), paste(">=1 gain (N=", length(rr_repeats_genes_wide[rr_repeats_genes_wide$gained_genes_presence=="1",1]),")", sep=""))) +
     scale_y_continuous(name = "GC-content (%)", 
@@ -1205,6 +1230,7 @@ ggsave(filename = "figures/violin_gains_pink.pdf",
   ggarrange(gains_violin, ggarrange(gains_violin_gc + theme(legend.position = "none"), gains_violin_rec + theme(legend.position = "none"), violin_legend, ncol = 3), nrow = 2, heights = c(2,1), legend = "none"),
   device = "pdf", height = 6, width = 9)
 
+#with p-value numbers
 gains_violin <- ggplot(rr_repeats_genes_long_gain[rr_repeats_genes_long_gain$feature!="rpt" & rr_repeats_genes_long_gain$feature!="gc",],
        aes(feature, occ_length*100, fill=gained_genes_presence)) +
     geom_split_violin(size=0.2) +
@@ -1212,7 +1238,7 @@ gains_violin <- ggplot(rr_repeats_genes_long_gain[rr_repeats_genes_long_gain$fea
                geom = "crossbar", 
                width = 0.25,
                position = position_dodge(width = .25), size = 0.2, show.legend = FALSE) +
-    stat_compare_means(method = "wilcox.test", size=5, label.y = c(12,10, 47, 15, 14)) +
+    stat_compare_means(method = "wilcox.test", size=5, label.y = c(14,12, 48, 17, 16)) +
     scale_fill_discrete(type = gained_colours, 
                         labels = c(paste("Without gains (N=", length(rr_repeats_genes_wide[rr_repeats_genes_wide$gained_genes_presence=="0",1]),")", sep=""), paste(">=1 gain (N=", length(rr_repeats_genes_wide[rr_repeats_genes_wide$gained_genes_presence=="1",1]),")", sep=""))) +
     scale_y_continuous(name = "Occupied length (%)", 
@@ -1234,10 +1260,11 @@ gains_violin_rec <- ggplot(rr_repeats_genes_long_gain[rr_repeats_genes_long_gain
                geom = "crossbar", 
                width = 0.25,
                position = position_dodge(width = .25), size = 0.2, show.legend = FALSE) +
-    stat_compare_means(method = "wilcox.test", size=5) +
+    stat_compare_means(method = "wilcox.test", size=5, label.y = 16) +
     scale_fill_discrete(type = gained_colours, 
                         labels = c(paste("Without gains (N=", length(rr_repeats_genes_wide[rr_repeats_genes_wide$gained_genes_presence=="0",1]),")", sep=""), paste(">=1 gain (N=", length(rr_repeats_genes_wide[rr_repeats_genes_wide$gained_genes_presence=="1",1]),")", sep=""))) +
-    ylab("Rec. rate (cM)") +
+    scale_y_continuous(name = "Rec. rate (cM)",
+                       limits = c(0,17)) +
     xlab("") +
     theme(panel.background = element_blank(),
           axis.line = element_line(size = 0.2, colour = "gray"),
@@ -1256,11 +1283,11 @@ gains_violin_gc <- ggplot(rr_repeats_genes_long_gain[rr_repeats_genes_long_gain$
                geom = "crossbar", 
                width = 0.25,
                position = position_dodge(width = .25), size = 0.2, show.legend = FALSE) +
-    stat_compare_means(method = "wilcox.test", size=5, label.y = 41) +
+    stat_compare_means(method = "wilcox.test", size=5, label.y = 43) +
     scale_fill_discrete(type = gained_colours, 
                         labels = c(paste("Without gains (N=", length(rr_repeats_genes_wide[rr_repeats_genes_wide$gained_genes_presence=="0",1]),")", sep=""), paste(">=1 gain (N=", length(rr_repeats_genes_wide[rr_repeats_genes_wide$gained_genes_presence=="1",1]),")", sep=""))) +
-    scale_y_continuous(name = "GC-content (%)", 
-                       limits = c(30,43)) +
+    scale_y_continuous(name = "GC-content (%)",
+                       limits = c(30, 45)) +
     xlab("") +
     theme(panel.background = element_blank(),
           axis.line = element_line(size = 0.2, colour = "gray"),
