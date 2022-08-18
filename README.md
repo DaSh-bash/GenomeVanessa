@@ -5,15 +5,14 @@ Scripts and data related to Vanessa genome assembly
 
 **Revision**
   1. Authors responce: https://docs.google.com/document/d/1YgjCGUjHMYZrepahhqtLWy3sUM5-BEKXBZUG2yQBWvw/edit
-  2. Text: https://docs.google.com/document/d/1yK69zUYc0X9R9Y5O4Y96gac1xUINKX-MgMmlQqq81wg/edit
+  2. Text: https://docs.google.com/document/d/1yK69zUYc0X9R9Y5O4Y96gac1xUINKX-MgMmlQqq81wg/edit. 
   
   
   
   
   
   
-  
-  
+**Original submission**
   
   1. Beta version of text
 https://docs.google.com/document/d/1zDOdCixUzIzTN37CsS1hmJGSLuKd1kiB8vhw0YQQZNg/edit?usp=sharing
