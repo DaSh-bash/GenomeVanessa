@@ -1,2 +1,0 @@
-#chrom	chromStart	chromEnd	name	gieStain
-2	230000	540000	p36.32	gpos25
