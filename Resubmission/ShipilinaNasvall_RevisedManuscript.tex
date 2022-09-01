@@ -1,0 +1,1350 @@
+\documentclass[twocolumn]{bmcart}% uncomment this for twocolumn layout and comment line below
+%%% Load packages
+%\documentclass[doublespacing,twocolumn]{bmcart}% uncomment this for twocolumn layout and comment line below
+%%% Load packages
+\usepackage{amsthm,amsmath}
+\usepackage{color,soul}
+\RequirePackage[authoryear]{natbib}% uncomment this for author-year bibliography
+\RequirePackage{hyperref}
+\usepackage[utf8]{inputenc} %unicode support
+\startlocaldefs
+\endlocaldefs
+\usepackage{graphicx}
+%% increasing table spacing
+\renewcommand{\arraystretch}{1.3}
+% href 
+\usepackage{hyperref}
+
+\hypersetup{
+    bookmarks=false,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in AcrobatÕs bookmarks
+    pdftoolbar=false,        % show AcrobatÕs toolbar?
+    pdfmenubar=true,        % show AcrobatÕs menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={},    % title
+    pdfauthor={},     % author
+    pdfsubject={},   % subject of the document
+    pdfcreator={},   % creator of the document
+    pdfproducer={}, % producer of the document
+    pdfkeywords={}, % list of keywords
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=black,          % color of internal links (change box color with linkbordercolor)
+    citecolor=black,        % color of links to bibliography
+    filecolor=black,      % color of file links
+    urlcolor=black           % color of external links
+}
+%% fighting float spacing
+\renewcommand{\topfraction}{.9}
+\renewcommand{\bottomfraction}{.9}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\dbltopfraction}{.9}
+\renewcommand{\dblfloatpagefraction}{.9}
+\renewcommand{\floatpagefraction}{0}
+\setcounter{topnumber}{9}
+\setcounter{bottomnumber}{9}
+\setcounter{totalnumber}{10}
+\setcounter{dbltopnumber}{9}
+\bibliographystyle{agsm}
+\setcitestyle{authoryear,open={(},close={)}}
+\usepackage{har2nat}
+\begin{document}
+\begin{frontmatter}
+\begin{fmbox}
+%\dochead{Research}
+\title{
+{
+ Linkage mapping and genome annotation give novel insights into gene family expansions and regional recombination rate variation in the painted 
+lady ({\it Vanessa cardui}) butterfly
+}
+}
+\author[
+  addressref={aff1,aff2}, 
+   noteref={n1},% id's of addresses, e.g. {aff1,aff2}
+%corref={aff1},                       % id of corresponding address, if any
+% noteref={n1},                        % id's of article notes, if any
+  email={daria.shipilina@ebc.uu.se}   % email address
+]{\inits{D.}\fnm{Daria} \snm{Shipilina}}
+\author[
+  addressref={aff1},
+  noteref={n1},
+  email={karin.nasvall@ebc.uu.se}
+]{\inits{K.}\fnm{Karin} \snm{N\"asvall}}
+\author[
+  addressref={aff1},
+  email={lars.hook@ebc.uu.se}
+]{\inits{L.}\fnm{Lars} \snm{H\"o\"ok}}
+\author[
+  addressref={aff3},
+  email={roger.vila@csic.es}
+]{\inits{L.}\fnm{Roger} \snm{Vila}}
+\author[
+  addressref={aff4},
+  email={gerard.talavera@csic.es}
+]{\inits{G.}\fnm{Gerard} \snm{Talavera}}
+\author[
+  addressref={aff1},
+  email={niclas.backstrom@ebc.uu.se}
+]{\inits{N.}\fnm{Niclas} \snm{Backstr\"om}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% Enter the authors' addresses here        %%
+%%                                          %%
+%% Repeat \address commands as much as      %%
+%% required.                                %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\address[id=aff1]{%                           % unique id
+  \orgdiv{Evolutionary Biology Program, Department of Ecology and Genetics},           
+  \orgname{Uppsala University},           \street{Norbyvägen 18D},
+  \postcode{75236}
+  \city{Uppsala},                              % city
+  \cny{Sweden}                                    % country
+}
+\address[id=aff2]{
+%  \orgdiv{Institute of Biology},
+  \orgname{Swedish Collegium for Advanced Study},
+   \street{Thunbergsvägen 2},
+  \postcode{75236},
+  \city{Uppsala},                              % city
+  \cny{Sweden} 
+}
+\address[id=aff3]{
+  \orgdiv{The Butterfly Diversity and Evolution Lab},
+  \orgname{Institut de Biologia Evolutiva},
+   \street{Passeig Marítim de la Barceloneta 37-49},
+  \postcode{08003},
+  \city{Barcelona},                              % city
+  \cny{Spain} 
+}
+\address[id=aff4]{
+%  \orgdiv{The Butterfly Diversity and Evolution Lab},
+  \orgname{Institut Botànic de Barcelona (IBB, CSIC-Ajuntament de Barcelona)},
+   \street{Passeig del Migdia s/n},
+  \postcode{08038},
+  \city{Barcelona},                              % city
+  \cny{Spain} 
+}
+
+%\address[id=aff5]{
+%  \orgdiv{The Butterfly Diversity and Evolution Lab},
+%  \orgname{authors contributed equally)}
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% Enter short notes here                   %%
+%%                                          %%
+%% Short notes will be after addresses      %%
+%% on first page.                           %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{artnotes}
+%%\note{Sample of title note}     % note to the article
+\note[id=n1]{authors contributed equally} % note, connected to author
+\end{artnotes}
+
+\end{fmbox}% comment this for two column layout
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                           %%
+%% The Abstract begins here                  %%
+%%                                           %%
+%% Please refer to the Instructions for      %%
+%% authors on https://www.biomedcentral.com/ %%
+%% and include the section headings          %%
+%% accordingly for your article type.        %%
+%%                                           %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{abstractbox}
+
+\begin{abstract} % abstract
+%\justifying
+Characterization of gene family expansions and crossing over is crucial for understanding how organisms adapt to the environment. Here, we develop a high-density linkage map and detailed genome annotation of the painted lady butterfly (\textit{Vanessa cardui}) - a non-diapausing, highly polyphagous species famous for its long-distance migratory behavior and almost cosmopolitan distribution. Our results reveal a complex interplay between regional recombination rate variation, gene duplications and transposable element activity shaping the genome structure of the painted lady. We identify several lineage specific gene family expansions. Their functions are mainly associated with protein and fat metabolism, detoxification, and defense against infection - critical processes for the painted lady’s unique life-history. Furthermore, the detailed recombination maps allow us to characterize the regional recombination landscape, data that reveal a strong effect of chromosome size on the recombination rate, a limited impact of GC-biased gene conversion and a positive association between recombination and short interspersed elements.
+%\parttitle{First part title} %if any
+%Text for this section.
+
+%\parttitle{Second part title} %if any
+%
+%Text for this section.
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% The keywords begin here                  %%
+%%                                          %%
+%% Put each keyword in separate \kwd{}.     %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{keyword}
+\kwd{genomics}
+\kwd{recombination}
+\kwd{linkage map}
+\kwd{gene family}
+\kwd{painted lady}
+\kwd{Lepidoptera}
+\end{keyword}
+
+% MSC classifications codes, if any
+%\begin{keyword}[class=AMS]
+%\kwd[Primary ]{}
+%\kwd{}
+%\kwd[; secondary ]{}
+%\end{keyword}
+
+%\end{abstractbox}
+%
+%\end{fmbox}% uncomment this for two column layout
+
+\end{frontmatter}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                            %%
+%% The Main Body begins here                  %%
+%%                                            %%
+%% Please refer to the instructions for       %%
+%% authors on:                                %%
+%% https://www.biomedcentral.com/getpublished %%
+%% and include the section headings           %%
+%% accordingly for your article type.         %%
+%%                                            %%
+%% See the Results and Discussion section     %%
+%% for details on how to create sub-sections  %%
+%%                                            %%
+%% use \citep{...} to cite references          %%
+%%  \citep{koon} and                           %%
+%%  \citep{oreg,khar,zvai,xjon,schn,pond}      %%
+%%                                            %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%% start of article main body
+% <put your article body there>
+
+%%%%%%%%%%%%%%%%
+%% Background %%
+%%
+\section*{Introduction}
+The genomic era opens up opportunities for investigating relationships between genotypes and complex phenotypes on a novel level and for a better understanding of genome evolution. Combinations of different approaches can lead to novel insights into the dynamics of recurring duplications, deletions and other types of structural rearrangements, for example, by assessing molecular mechanisms and evolutionary consequences of gene family expansions and contractions, the activity of selfish genetic elements (e.g. transposable elements, TEs) and recombination rate variation. 
+
+Gene duplication has since long been recognised as an important mechanism for generating novel genetic material for natural selection to act upon \cite{henikoffGeneFamiliesTaxonomy1997, ojeda-lopezEvolutionaryAnalysisMoringa2020, zhangDoesRecombinationShape2003}, and gene family expansions and contractions are important sources for generation of phenotypic diversity \cite{chenNewGenesDrivers2013a, kondrashovGeneDuplicationMechanism2012}. Comparative approaches, such as orthology analysis, allow for identification of expanding or contracting gene families and annotation of orthogroups with the functional relevance in the evolution of lineage-specific traits. This approach might be beneficial for investigating complex phenotypes such as migratory behavior or polyphagy, where combined effects of different types of genetic changes likely underlie the trait \cite{schwanderSupergenesComplexPhenotypes2014}. 
+
+Since the spearheading work by McClintock \cite{mcclintockControllingElementsGene1956}, transposable elements (TEs) have been acknowledged as major contributors to different types of evolutionary change in eukaryotes \cite{kazazianMobileElementsDrivers2004, kidwellTransposableElementsSources1997}. Transposable elements are capable of self-replication within the host genome and can mediate both small scale deletions and duplications, large scale chromosomal rearrangements \cite{kidwellTransposableElementsSources1997} and considerable genome size expansions \cite{podsiadlowskiGenomeAssemblyAnnotation2021, tallaRapidIncreaseGenome2017}. In addition, TE insertions can affect gene function when regulatory or coding regions are targeted. Therefore, characterisation of the TE repertoire is key to understanding the microevolutionary dynamics within the genome of a species and the potential effects of TE activity on trait variation within populations and between species.
+
+Besides gene duplication and TE activity, recombination is a process crucial for evolutionary innovation. Meiotic recombination shuffles existing segregating genetic variants, resulting in the generation of novel haplotypes \citep{penalbaMoleculesPopulationsAppreciating2020}. Recombination also influences selection efficiency by directly preventing the accumulation of deleterious alleles (Müller's ratchet) and breaking the physical linkage between mutations with different selective effects (Hill-Robertson effects). The rate of recombination can vary on different scales. Of particular interest for population genetic processes is the variation in recombination rate between different genomic regions. Such spatial variation in the recombination rate has been observed in many different organisms \citep{stapleyVariationRecombinationFrequency2017, tileyRelationshipRecombinationRate2015}. However, besides detailed recombination maps in the butterfly genus \textit{Heliconius} \citep{martinRecombinationRateVariation2019}, little is known about how the rate of recombination rate varies across chromosome regions in Lepidoptera and how recombination is associated with different genomic features \citep{haenelMetaanalysisChromosomescaleCrossover2018, tallaDissectingEffectsSelection2019}.
+
+As indicated above, incorporating different approaches is essential for studying the genetic underpinnings of complex phenotypes and the mechanisms governing microevolutionary processes. The painted lady, \textit{Vanessa cardui}, represents a key study system for a wide array of evolutionary studies. It is the most wide-spread of all butterfly species \citep{talaveraRoundtripSaharaAfrotropical2018}, and its migratory behavior includes a diverse repertoire of distinct phenotypes. In general, migratory butterfly species need to sustain long-distance flight and have well developed navigational abilities \citep{chapmanLongrangeSeasonalMigration2015,guerra_magnetic_2014}. Therefore, traits related to energy metabolism, sensory reception and the flight machinery have likely been under strong directional selection. In contrast to many other migratory butterflies inhabiting temperate zones, the painted lady is a non-diapausing, multigenerational migrant, with an annual migratory circuit covering areas with extreme environmental heterogeneity \citep{talaveraDiscoveryMassMigration2016,menchetti_spatio-temporal_2019}. Despite the high risks associated with such a migratory lifestyle, painted ladies have successfully colonized almost all continents, and the species harbors high levels of genetic diversity, indicating a large effective population size \citep{garcia-berroGenomicDemographicInferenceinprep}. This could also be a consequence of the species’ ability to utilize a wide range of host plants \citep{celorio-manceraEvolutionaryHistoryHost2016, ackery_hostplants_1988}. Until the era of high-throughput sequencing, the possibilities to gain insights into how the migratory and generalist lifestyle has been manifested at the level of the genome have been limited: genetic basis of migratory behavior in insects has only been investigated in a few model species (e.g. the monarch butterfly, \textit{Danaus plexippus}) so far \citep{merlinGeneticsEpigeneticsAnimal2019}.
+
+A key step for genomic analyses is the development of a high-contiguity genome assembly of the focal species and a thorough genome annotation. A powerful method to ensure the spatial correctness of a chromosome level physical assembly is construction of a linkage map. In this study, we present the first detailed linkage map of the painted lady and verify scaffolds from a previously available genome assembly based on long-read sequencing technology \citep{lohse_genome_2021}. 
+We use the genome annotation and linkage information to quantify lineage-specific patterns of gene family evolution, relative TE abundance and how the regional recombination rate variation is associated with genomic features in the painted lady. Our analyses complement earlier efforts to establish genomic tools for this species
+\citep{connahsTranscriptomeAnalysisPainted2016a, zhangHighQualityGenomeAssembly2021} and give novel insights into the overall genome structure, recombination rate variation and lineage-specific gene family expansions in this species, information that informs on the molecular mechanisms underlying genome evolution in butterflies in general and the formation of the complex migratory phenotype and generalist lifestyle of the painted lady in particular.
+
+
+\section*{Results}
+\subsection*{Linkage map and genome annotation}
+To verify a chromosome level assembly of the painted lady \citep{lohse_genome_2021} and to get access to detailed recombination rate data, we constructed a pedigree-based linkage map. The total distance of the linkage map was 1,516 centiMorgan (cM) and contained 1,323 markers. When anchored on the 424 Mb physical assembly, the average marker density was 3.09 markers\,/\,Mb. The genome assembly was highly collinear with the marker order in the linkage map (Pearson’s correlation coefficient; R\,=\,0.91-1.00, p-value\,$>$\,1.00$\times$10$^{-04}$, Figure S1) and consisted of 30 autosomes and the sex chromosomes Z and W. The high collinearity between linkage groups and assembled scaffolds, the large scaffold N50 (14.6 Mb) and high BUSCO scores (97\% complete arthropod genes) confirm that the scaffolds in the assembly essentially represent complete chromosomes that could be used for accurate characterization of genomic features and quantification of regional recombination rate estimates.
+
+In total, TEs constituted\,$>$\,150 Mb (37.40\%) of the assembly and LINEs and SINE were the most abundant of the characterized repeat classes (Table~\ref{tab:1}). After automatic annotation and subsequent manual curation, 13,161 protein-coding genes were identified (including 89.90\% BUSCO genes), of which 12,209 had functional annotation information (Table~\ref{tab:1}). Visual inspection of the spatial distribution of genes and TEs along chromosomes revealed rather similar distributions of repeat classes between autosomes and the Z-chromosome, but also an observable excess of repeats on smaller autosomes and a striking difference in repeat composition and gene density on the W-chromosome (Figure~\ref{fig:1}).
+
+\begin{table}[h!]
+\caption{Linkage map, genome assembly and annotation statistics}
+\label{tab:1} %in Fig.~\ref{fig:1}
+  \begin{tabular}{cc}
+    \hline
+    \textbf{Linkage map}
+     &    \\ \hline
+    Total map length (cM) & 1,516 \\
+    Number of markers & 1,323 \\
+    Markers per physical distance (N\,/\,Mb) & 3.09  \\ \hline
+      \textbf{Genome assembly}
+     &    \\ \hline
+   Scaffold N50 (bp) & 14,615,999 \\
+   GC content & 33.41\% \\
+   Total repeat proportion & 37.40\%  \\ \hline
+         \textbf{Repeat content (\% of total repeat proportion)}
+     &    \\ \hline
+   SINEs & 7.30\% \\
+   LINEs & 14.94\% \\
+   LTR elements & 2.47\%  \\ 
+   DNA elements & 3.04\% \\
+   Simple and unknown repeats & 30.17\% \\ \hline
+ \textbf{Gene annotation}  &    \\ \hline  
+   BUSCO genes & 89.90\% \\
+Number of protein coding genes & 13,161 \\
+Number of genes with functional annotation & 12,209 \\ \hline
+  \end{tabular}
+\end{table}
+
+\begin{figure*}[p]
+  \caption{Distribution of repeat classes and genes as estimated along the painted lady chromosomes (100kb windows). Density (\% of the window covered) of different TE classes are illustrated with distinct colors cumulatively added on top of each other above the X-axis and density of genes below the X-axis (legend to the top right).}
+  \label{fig:1} %in Fig.~\ref{fig:1} we see 
+  \includegraphics[width=1.8\linewidth]{ShipilinaNasvallFig1opt.eps}
+\end{figure*}
+
+\subsection*{Synteny}
+The level of large-scale structural conservation of the painted lady genome was assessed by comparing gene order on the painted lady chromosomes to two previously available high-contiguity lepidopteran genome assemblies positioned at different levels of divergence in the lepidopteran tree of life, the silkmoth (\textit{Bombyx mori}) and the postman butterfly (\textit{Heliconius melpomene}). Overall, the synteny was highly conserved between the painted lady and the other species, but chromosomes 28 and 26 mapped to the same chromosome (24) in \textit{B. mori} and the previously described fusions of several chromosomes in the \textit{H. melpomene} genome \citep{daveyNoEvidenceMaintenance2017} could also be verified (Figure~\ref{fig:2}). In summary, this confirms that the painted lady karyotype is highly similar to the inferred ancestral butterfly karyotype \citep{aholaGlanvilleFritillaryGenome2014}.
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=1.99\linewidth]{ShipilinaNasvall_All_FIG2_complressed.eps}
+    \caption{Synteny between the painted lady and a) the silkmoth (\textit{Bombyx mori}) and b) the postman butterfly (\textit{Heliconius melpomene}) chromosomes, respectively. The painted lady autosomes are sorted and named according to length and the sex chromosomes are indicated with Z and W. Orthologous genes are connected with lines. Colors represent individual chromosomes.}
+    \label{fig:2}
+\end{figure*}
+
+
+
+\subsection*{Gene family evolution}
+To investigate the turnover of specific gene families in the painted lady, we analyzed a set of nine representative nymphalid species with detailed annotation information (see methods). The non-migratory Kamehameha butterfly (\textit{Vanessa tameamea}) was included to assess differences in gene family evolution between sedentary and migratory lineages within the \textit{Vanessa} genus. We found that 93.2\% (1,288,332) of the total number of genes from the nine nymphalid species were clustered in 14,027 orthogroups. The percentage of genes assigned to orthogroups varied from 86.7 to 99.6\% in the different species (Table S1). In the painted lady, 96.4\% (12,692) of the annotated genes were assigned to 10,361 orthogroups with 19 lineage-specific orthogroups containing 63 genes (Table S1). Within the \textit{Vanessa} genus, 65 expansions had occurred on the ancestral branch, 648 on the \textit{V. cardui} branch and 1,563 on the \textit{V. tameamea} branch.
+
+\begin{figure*}[tb]
+    \centering
+    \includegraphics[width=1.99\linewidth]{ShipilinaNasvallFig3opt.eps}
+    \caption{A) Significantly (p-value $<$ 0.05 after FDR-correction) enriched gene ontology (GO) terms associated with expanded gene families in the painted lady. The bars show the number of genes associated with each GO-term. The different GO-categories are biological process (BP), cellular compartment (CC) and molecular function (MF). B) Orthogroups with significantly enriched GO-terms. Shared GO terms between ontology terms (biological process category only) are shown in connecting lines. C) Spatial distribution of genes from extended orthogroups identified in BadiRate analysis.}
+    \label{fig:3}
+\end{figure*}
+
+We used a maximum likelihood model to detect genes with distinct gene family expansion rates in the painted lady compared to the other species. The analysis showed that 12 orthogroups were significantly expanded in the painted lady. These orthogroups contained 77 genes, of which 34 had associated GO-terms (Figure~\ref{fig:3}). Among the largest expanded gene families were two classes of proteases, a lipoprotein receptor and the Lepidoptera-specific moricin immune-gene family. Analysis of the spatial distribution of extended orthogroups revealed clustering/tandem duplications for all except one of the orthogroups (Figure~\ref{fig:3}C). Significantly enriched GO-terms for expanded gene families in the painted lady were predominantly associated with protein degradation, muscle function and development, and fatty acid and energy metabolism (Figure 3A). Multiple ontology terms were shared between expanded orthogroups, pointing towards similar functions associated with the different gene families (Figure~\ref{fig:3}B). Additionally, we identified gene families with a distinct gene expansion rate in both the painted lady and the monarch butterfly \textit{Danaus plexippus} - the latter a key model organism for insect migration studies - and compared those to the other nymphalids. This analysis revealed 11 orthogroups with a higher expansion rate and 29 orthogroups with genes specific to these two lineages. The common orthogroups included 112 genes and were significantly enriched for GO-terms predominantly associated with metabolic processes, defence against infection and neuronal activity (Figure S2).
+
+\subsection*{Patterns of recombination rate variation}
+\subsubsection*{Global and chromosome specific recombination rates}
+The development of a detailed linkage map allowed both for estimating the global recombination rate in the painted lady and to investigate potential regional recombination rate variation and association with genomic features. The average, genome-wide recombination rate was 3.81 cM\,/\,Mb (W-chromosome excluded), but there was considerable inter-chromosomal variation (2.21\,-\,8.00 cM\,/\,Mb; Table S2, Figure S3), with a significantly higher rate on shorter chromosomes than on longer chromosomes (Spearman’s rank correlation, $\rho$\,=\,-0.83, p-value\,=\,6.51$\times$10$^{-07}$;Figure~\ref{fig:4}). The recombination rate on the Z-chromosome was 3.09 cM\,/\,Mb, lower than the average unweighted autosomal rate. However, the recombination rate on the Z-chromosome was not lower than expected given the overall negative correlation between recombination rate and chromosome size (Figure~\ref{fig:4}A). Besides the negative association between chromosome size and  recombination rate, we also found significant negative associations between chromosome size and GC-content ($\rho$\,=\,-0.65, p-value\,=\,8.35$\times$10$^{-05}$) and repeat density ($\rho$\,=\,0.77, p-value\,=\,1.37$\times$10$^{-06}$), and a positive association with gene density ($\rho$\,=\,0.68, p-value\,=\,2.63$\times$10$^{-05}$)(Figure~\ref{fig:4}B-D). 
+
+\begin{figure*}[tb]
+    \centering
+\includegraphics[width =1.99\linewidth]{ShipilinaNasvallFig4opt.eps}
+    \caption{Top row: Associations between chromosome length and A) recombination rate, B) base composition, C) repeat and D) gene proportions. Chromosome length is given in megabases (Mb). Bottom row: Regional distribution of the recombination rate (E), base composition (F), repeat (G) and gene (H) density in 2\,Mb windows along the chromosomes. All chromosomes were analyzed jointly and the x-axis shows the relative position (proportion of chromosomal length) from the center of the chromosomes.}
+    \label{fig:4}
+\end{figure*}
+
+\subsubsection*{Intra-chromosomal variation in recombination rate and associations with genomic elements}
+
+To quantify potential regional variation in recombination rate within chromosomes, we estimated the recombination rate in 2 Mb non-overlapping windows along each individual chromosome. The average rate across windows was similar to both the global rate estimate across chromosomes (4.05\,+/-\,2.45 cM\,/\,Mb) and the overall chromosome level estimates (2.58\,-\,7.53 cM\,/\,Mb, W-chromosome excluded). The recombination rate estimates for individual windows ranged between 0\,-\,14.79 cM\,/\,Mb (Figure S3, Table S2) and visual inspection revealed a bi-modal distribution with reduced recombination rate in the center of chromosomes and towards chromosome ends (Figure~\ref{fig:4} E-H). To test this observation formally, we analyzed the difference in recombination rate between bins representing five relative distance intervals from the center of the chromosome for all chromosomes combined and found that the recombination rate was significantly lower in the center (first bin), significantly higher in the flanking terminal (fourth) regions and then again lower at the terminal end (Wilcoxon rank sum tests, p-values = 3.70$\times$10$^{-02}$ - 6.30$\times$10$^{-15}$; Figure S4).
+
+To assess potential relationships between the recombination rate and genomic features in more detail, we first investigated different associations between the window-based recombination rate estimates and variation in nucleotide composition and proportions of different TEs and genes. The W-chromosome was excluded from this analysis since it is non-recombining in Lepidoptera. We found that the GC-content increased towards the ends of chromosomes and was positively associated to the regional recombination rate ($\rho$\,=\,0.32, p-value\,=\,3.68$\times$10$^{-06}$). Gene density was homogeneous across chromosomes, with only a minor increase towards the chromosome center, and was negatively associated with the recombination rate ($\rho$\,=\,-0.19, p-value\,=\,7.27$\times$10$^{-03}$). We found a significant positive association between the overall repeat proportion and the recombination rate ($\rho$\,= 0.35, p-value \,=\,3.48$\times$10$^{-07}$; Figure~\ref{fig:5}), and this pattern was consistent for all repeat classes, but strongest for SINEs ($\rho$\,=\,0.42, p-value\,=\,2.63$\times$10$^{-10}$) and weakest for LTRs ($\rho$\,=\,0.14, p-value\,=\,4.04$\times$10$^{-02}$). The association between recombination rate and proportion of LTRs was, however, not significant when only including autosomes ($\rho$\,=\,0.11, p-value\,=\,11.04$\times$10$^{-02}$; Figure~\ref{fig:5}, Figure S5).
+
+To disentangle the relative strength of associations between the regional recombination rate and genomic features, a multiple linear model was implemented with recombination rate as the dependent variable. As explanatory variables we used chromosome length, chromosome type, GC-content, proportion of genes (CDS) and proportions of all different classes of TEs. We found that the regression model was significant ($df$\,=\,197, $F$\,=\,7.73, p-value\,=\,5.36$\times$10$^{-09}$) and explanatory variables in the model accounted for 21\% of the variation in recombination rate ($R2$\,=\,0.24, $adj R2$\,=\,0.21). Most of the variation was explained by the positive association with the proportion of SINEs (Estimate 1.59, p-value\,=\,9.75$\times$10$^{-04}$) and the negative association with chromosome size (Estimate -0.48, p-value\,=\,4.88$\times$10$^{-02}$; Figure~\ref{fig:5},  Table S3).
+
+Finally, we explored whether gene expansions could be associated with other genomic features, and we therefore compared TE abundance in the regions with and without gene gains. The mean densities of LTRs, LINEs and DNA transposons were higher in regions with gene gains (Wilcoxon rank sum test, p-value 3.1$\times$10$^{-03}$ - 6.0$\times$10$^{-04}$; Figure S6), as was mean GC-content (p-value 3.0$\times$10$^{-02}$). The gene densities or recombination rates did not differ between regions with or without gene gains (Wilcoxon rank sum tests, p-values = 9.1$\times$10$^{-01}$ - 8.0$\times$10$^{-01}$; Figure S6).
+
+\begin{figure*}[tb]
+    \centering
+\includegraphics[width=1.99\linewidth]{ShipilinaNasvallFig5opt.eps}
+    \caption{Correlation between recombination rate and density of genomic features. A) Summary of the linear model with regional recombination rate as the response variable. Each explanatory variable in the model is listed along the Y-axis and the relative estimated effect (X-axis), and error intervals are indicated with horizontal bars for each variable. B - H) Associations between the regional recombination rate and specific genomic features. Linear regression lines, Spearman's correlation coefficients ($\rho$) and the corresponding $\rho$-values for significant analyzes are given. Gray dots/lines indicate autosomal regions and turquoise dots/lines Z-chromosome linked regions
+}
+    \label{fig:5}
+\end{figure*}
+
+
+\section*{Discussion}
+\subsection*{The genome of the painted lady butterfly}
+Here we present detailed results on the genomic architecture and regional recombination rate variation in the painted lady. The data paves the way for understanding the interplay between molecular mechanisms and micro-evolutionary processes shaping the genome of butterflies in general and provide the first insights into the links between genomic features and the unique lifestyle of this species. The rapid technological advances and dropping costs of DNA-sequencing methods have led to a staggering development rate of high-quality genome assemblies, including many butterfly species \citep{celorio-manceraChromosomeLevelAssembly2021, guDichotomyDosageCompensation2019, liOutbredGenomeSequencing2015, smolanderImprovedChromosomelevelGenome2022, yangChromosomeLevelReference2020}, and the availability of genomic resources will probably increase almost exponentially in the near future, as a result of the Darwin tree of Life (\href{https://www.darwintreeoflife.org}{/https://www.darwintreeoflife.org/}), the European Reference Genome Atlas (ERGA; \href{https://www.erga-biodiversity.eu/}{https://www.erga-biodiversity.eu/}) and other similar initiatives. However, detailed and curated genome annotation data are more time-consuming and expensive to generate and therefore still limiting comparative/population genomic and genotype-phenotype association approaches, not the least in butterflies \citep{daveyNoEvidenceMaintenance2017, hillUnprecedentedReorganizationHolocentric2019, vanbelleghemComplexModularArchitecture2017}. Another limiting factor for understanding both genome architecture in general, the relative effects of random and selective forces on sequence evolution and maintenance/loss of genetic diversity is that detailed recombination rate data are both laborious and time-intensive to gain, especially for natural populations. As a consequence, high-density recombination maps are still lacking for the vast majority of wild species where genome assemblies are now available. The detailed annotation information and the high-density linkage map for the painted lady developed here, therefore provide opportunities for both comparative studies on genome structure organization, population genomic- and micro-evolutionary investigations in the entire Lepidoptera clade.
+
+Chromosome numbers have been shown to vary considerably between different butterfly and moth species; the haploid chromosome counts range from 5 to 223 \citep{lukhtanovBlueButterflyPolyommatus2015, devosSpeciationChromosomalFusion2020}. In agreement with previous data \citep{zhangHighQualityGenomeAssembly2021}, both the linkage map and the DToL genome assembly clearly showed that the painted lady has a total haploid chromosome count of 31. We confirmed high levels of synteny and gene order collinearity between the painted lady and the silkmoth, and the lineage specific chromosome fusions characterized before in the postman butterfly \citep{daveyNoEvidenceMaintenance2017}. Hence, similar to other nymphalid butterflies, the painted lady has retained the inferred ancestral lepidopteran karyotype \citep{aholaGlanvilleFritillaryGenome2014}. The annotation procedure revealed that the painted lady harbors a gene set (n\,=\,13,161) close to the suggested core set in Lepidoptera \citep{challiLepbaseLepidopteranGenome2016, liInsectGenomesProgress2019} and a relatively low overall TE content. However, the TE content was significantly higher and the gene density lower on smaller chromosomes. 
+
+\subsection*{Sex chromosomes}
+
+The assembly and annotation of sex-chromosomes, especially the non-recombining parts of sex-limited chromosomes (i.e. the W-chromosome in Lepidoptera), can be technically challenging due to the high density of repetitive elements. Up to date, there are only a few Lepidoptera species where the W-chromosome has been assembled and annotated \cite{mitaGenomeSequenceSilkworm2004}. Given the high-quality assembly we had access to, we performed annotation and manual curation of TEs and coding genes for the painted lady W-chromosome. In contrast to previous annotation \cite{lohse_genome_2021}, we could not confirm the presence of any protein coding genes. Gene models created on the preliminary annotation were not confirmed after manual curation and functional domain annotation. A lack of protein coding genes on the W-chromosome has also been observed in the silkmoth \cite{mitaGenomeSequenceSilkworm2004}. This apparent complete loss of protein coding genes on the Lepidoptera W-chromosome is obviously a consequence of the degradation process that has been well described for non-recombining parts of sex-chromosomes in many systems \cite{bachtrogChromosomeEvolutionEmerging2013}. While having a size equal to an average autosome, the W-chromosome also demonstrated a significantly higher overall proportion of TEs, a larger fraction of longer TEs, and a different distribution of repeat classes compared to other chromosomes.
+
+Similar to the silkmoth and julia heliconian (\textit{Dryas iulia}), the W-chromosome in the painted lady had a significantly higher proportion of LTRs and LINEs \citep{lewisDryasIuliaGenome2021, mitaGenomeSequenceSilkworm2004}. The proportion of SINEs was however much smaller on the W-chromosome than on the autosomes and the Z-chromosome. A lack of protein coding genes on the painted lady W-chromosome was also observed in the silkmoth \citep{abeIdentificationFemaledeterminingRegion2008,mitaGenomeSequenceSilkworm2004}, and is likely a consequence of the degradation process of the non-recombining sex-chromosome \citep{bachtrogChromosomeEvolutionEmerging2013}. The higher accumulation of TEs is also an expected consequence of recombination suppression and comparatively low effective population size ($N_e$) of the W-chromosome ($1/4$ of the autosomes at equal sex-ratios), both as a consequence of Müllers ratchet and since the overall efficiency of selection against TE insertion is reduced for non-recombining chromosomes \citep{bachtrogChromosomeEvolutionEmerging2013}. The Z-chromosome is generally highly conserved in Lepidoptera \citep{fraisseDeepConservationLepidoptera2017} and it is the largest of all the painted lady’s chromosomes. We did not find any significant differences in gene or TE content on the Z-chromosome compared to the autosomes.
+
+\subsection*{Gene family analysis}
+Gene family expansions can provide the raw material for both neo- and sub-functionalizing evolutionary directions, and the rate of gene duplication can be significantly higher than the rate of function-altering single nucleotide mutations \citep{lipinskiHighSpontaneousRate2011}. However, most gene duplication events are probably deleterious \citep{loehlinExpressionTandemGene2016} or effectively neutral, leading to a low probability of fixation of novel gene copies \citep{emersonNaturalSelectionShapes2008}. We found a comparatively low proportion of lineage-specific gene duplications in the painted lady, which could be a consequence of the large $N_e$ of the species \citep{garcia-berroGenomicDemographicInferenceinprep}, which translates to efficient selection against slightly deleterious variants. The majority of the significant gene expansions in the painted lady lineage clustered on single chromosomes - only a single gene family had expanded and dispersed across multiple chromosomes - suggesting that unequal crossing over has been the main mechanism behind gene family expansions.
+
+The painted lady has an extraordinary life-history and has become a quickly uprising complementary model organism for studying insect migration. Over most of the almost cosmopolitan distribution range \citep{shieldsJournalLepidopteristsSociety1992}, the painted ladies complete a multigenerational migratory circuit, where single individuals can migrate $>4,000$ kilometers during lifetime \citep{talaveraDiscoveryMassMigration2016}. In contrast to other migratory butterflies like the monarch and the red admiral (\textit{Vanessa atalanta}), the painted lady is non-diapausing \citep{shieldsJournalLepidopteristsSociety1992}. The genetic underpinnings of migratory behavior have only been preliminarily characterized for a handful of insect species \citep{kangAnalysisLargescaleGene2004, zhuDefiningBehavioralMolecular2009} and have not been studied in painted lady before. The dissection of potential associations between genetic (and epigenetic) variants and complex phenotypes like migratory behavior requires a combination of multiple approaches. 
+
+As the first step to understanding lineage-specific characteristics of the painted lady, we here focused on gene family evolution. Our results showed a limited number of genes with significant copy number expansions unique to the painted lady lineage. The expanded gene families were mainly associated with functions related to the transport of fatty acids, protein metabolism, and muscle structure and activity. Since migratory insects mainly use fat as an energy resource during migration \citep{landysMetabolicProfileLongdistance2005, murataUtilizationLipidFlight2013, srygleyOptimalStrategiesInsects2008, weberPhysiologyLongdistanceMigration2009}, both the capacity to build up fat deposits and efficient sequestration of fatty acids have likely been under strong selection in the painted lady. Likewise, enhanced muscle structure and function should be advantageous for long-distance migrants compared to sedentary species. Therefore, efficient fine-tuning and optimization of fatty acid metabolism and increased muscle sustainability during migration could have been aided by the expansion of specific gene sets involved in those processes.
+
+Long-range migrants benefit from utilizing a multitude of different host plants since they will encounter dramatically different habitats, both during the lifespan of single migratory individuals and between consecutive generations. In contrast to the monophagous monarch butterfly, the painted lady can utilize $>300$ different larval host-plants in 11 plant families \citep{celorio-manceraEvolutionaryHistoryHost2016, nylinHOSTPLANTUTILIZATION2014,ackery_hostplants_1988}. Two of the significantly expanded gene families in the painted lady (UDP-glycosyltransferase, carboxylesterase) were associated with polyphagy and detoxification \citep{breeschotenExpandingMenuAre2022, hatfieldCarboxylesterasesGeneralDetoxifying2016, nagareGlycosyltransferasesMultifacetedEnzymatic2021}. The UDP-glycosyltransferase superfamily includes Lepidoptera-specific subfamilies associated with a variety of functions, such as affinity for plant secondary metabolites \citep{huangUDPglucosyltransferaseMultigeneFamily2008, luqueCharacterizationNovelSilkworm2002}. In the painted lady larvae, one UDP-subfamily is upregulated in response to utilization of an extended range of hostplants \citep{celorio-manceraEvolutionaryHistoryHost2016}. Copy-number expansions of these detoxifying gene families could have allowed the painted lady to increase the range of host plants that can be utilized and consequently paved the way for developing the non-diapausing, multigenerational, long-distance migratory lifestyle. 
+
+The wide range of habitats that long-distance migratory species encounter also probably means that they are exposed to many more different pathogens than sedentary species. Our analysis revealed that the Lepidoptera-specific gene \textit{moricin}, associated with inducible antimicrobial peptides \citep{haraMoricinNovelType1995}, was significantly expanded in the painted lady. An increase in the number of \textit{moricin} copies could have increased the efficiency of defense against a larger suite of pathogens.
+
+Previous investigation of the genetic basis of migratory behavior in the monarch butterfly identified candidate genes associated with orientation, chemoreception and regulation of the circadian clock \citep{zhanGeneticsMonarchButterfly2014, zhuDefiningBehavioralMolecular2009}. Migratory behavior has evolved independently multiple times within the Papilionoidea clade \citep{chowdhuryMigrationButterfliesGlobal2021} and in the \textit{Vanessa} genus \citep{wahlbergVagilityVanessaLepidoptera2011}, and the life histories of the monarch butterfly and the painted lady are distinct. However, long-distance migration should put selective pressure on similar traits (e.g. navigation, energy metabolism, muscle endurance), and it is therefore possible that specific gene categories have been under selection in independent lineages. Significantly expanded gene families shared between the painted lady and the monarch were enriched for functions associated with various metabolic processes, defense against pathogens and neuronal activity, all of which can be associated with migratory behavior. One gene family with an especially pronounced expansion was vacuolar ATPases, ATP-dependent proton pumps involved in membrane ion transport \citep{wieczorekVacuolartypeProtonPumps2009}. Given the unique expansion of this gene family in both species, we speculate that copy number increase could be involved in flight muscle coordination and/or ion transport for maintenance of homeostasis during long periods of flight.
+
+In this study, we get a first glimpse of the specific genes that have undergone copy number expansions in the painted lady specifically and independently in the two migratory species. The functions associated with the expanded gene families can be coupled to the evolution of long-distance migratory behavior. However, further studies of independent migratory and sedentary sister species, in combination with detailed population genetic analysis and functional verification will be necessary to dissect the genetic underpinnings of migratory behavior in butterflies in detail.
+
+\subsection*{Patterns of recombination rate variation}
+
+Detailed data on recombination rate variation are crucial for understanding the relative effects of genetic drift and selection on levels of genetic diversity. Understanding how recombination breaks down linkage disequilibrium is also important for association studies aimed at coupling genetic variation to phenotypic traits. Despite their importance, detailed recombination maps are only available for a handful of butterfly species \citep{beldadeGeneBasedLinkageMap2009, celorio-manceraChromosomeLevelAssembly2021, daveyNoEvidenceMaintenance2017, rosserComplexBasisHybrid2022, smolanderImprovedChromosomelevelGenome2022, tunstromComplexInterplayBalancing2021}. In some butterfly species, linkage maps have been used to improve and/or verify the correctness of physical genome assemblies, but the recombination rate has not been assessed. Here we developed a high-density linkage map based on segregation information in a pedigree with 95 offspring. The map contained $> 1,300$ ordered markers and the overall density was $> 3$ markers per Mb. Despite being based on a single pedigree, the genetic map developed here revealed a recombination landscape in strong agreement with what has been observed in other butterflies \citep{daveyNoEvidenceMaintenance2017, martinRecombinationRateVariation2019}. This indicates that the painted lady genetic map accurately reflects the historical recombination landscape in the species. 
+
+We estimated the genome-wide average recombination rate in the painted lady to be 3.81\,-\,4.05 cM\,/\,Mb, dependent on the method applied. The global rate was in the lower end of recombination rate estimates from other Lepidoptera species, which have been in the range from 2.97\,-\,4.0 cM\,/\,Mb in the silkmoth \citep{yamamotoBACbasedIntegratedLinkage2008, yasukochiDenseGeneticMap1998} to 5.5\,-\,6.0 cM\,/\,Mb in different \textit{Heliconius} species \citep{jigginsGeneticLinkageMap2005, toblerFirstgenerationLinkageMap2005}. We found a significant negative association between chromosome length and the recombination rate in the painted lady. This is a consistent pattern found across many organism groups and likely a consequence of that at least one crossover event is necessary for correct segregation of chromosomes during meiotic division in the recombining sex, leading to a higher recombination rate per unit length for shorter chromosomes \citep{haenelMetaanalysisChromosomescaleCrossover2018, kawakamiWholegenomePatternsLinkage2017, martinRecombinationRateVariation2019}. 
+
+Butterflies and moths have holocentric chromosomes, i.e. they lack distinct centromere regions, which might lead to an expectation of a uniform distribution of recombination events. In the painted lady we observed a bimodal distribution of recombination events along chromosomes, with an increased recombination rate away from the center and significant drops at the chromosome ends. This distribution is in agreement with previous observations, both in Lepidoptera and in other animals with different centromere types \citep{haenelMetaanalysisChromosomescaleCrossover2018, martinRecombinationRateVariation2019}. A possible explanation for this pattern is mechanical or tension interference between chiasmata when $>1$ recombination event occurs on the same chromosome \citep{haenelMetaanalysisChromosomescaleCrossover2018}. However, in the holocentric \textit{Caenorhabditis elegans}, the number of recombination events is limited to precisely one per chromosome per meiosis, but there is still a strong bimodal pattern of recombination rate variation along chromosomes in this species \citep{barnesMeioticRecombinationNoncoding1995}. An alternative explanation could be that synaptonemal complexes are directed towards the flanking regions, when the telomeres attach to the nuclear wall \citep{scherthanCentromereTelomereMovements1996}. The reduced recombination rate at chromosome ends is also consistent with earlier observations and could potentially be attributed to selection against synaptonemal complex formation at chromosome ends, due to a higher risk of ectopic recombination in these generally repeat-rich regions \citep{smithNewSolutionsOld2020}.
+
+Since recombination is directly associated with the efficacy of selection, a negative correlation between the regional recombination rate and a number of repeats would be expected if TE insertions predominantly are deleterious. Such associations have been observed in many organisms, although the relationship between TE-abundance and the recombination rate varies to some extent across species and different TE-classes \cite{kentCoevolutionTransposableElements2017, rizzonRecombinationRateDistribution2002}. In the painted lady, we observed a significant positive association between TE-abundance and the regional recombination rate, predominantly driven by a strong effect of SINE density. An explanation for the strong association between SINE density and recombination rate could be SINE-mediated  recombination, as has for example been described in humans \cite{deiningerAluRepeatsHuman1999}. In addition to the strong positive association between SINE density and recombination rate on the autosomes and the Z-chromosome, the absence of SINEs on the non-recombining W-chromosome supports that SINEs might be able to hijack the recombination machinery. However, we can not exclude other factors affecting both the recombination rate and the proliferation efficiency of SINEs. For example, both synaptonemal complexes and SINE insertions might be directed towards regions of more open chromatin structure.
+
+In contrast with results from similar studies in other organism groups \citep{apuliInferringGenomicLandscape2020, kawakamiHighdensityLinkageMap2014}, we observed a negative association between the recombination rate and gene density. This is likely a consequence of the strong association between recombination rate and chromosome size, since the association with gene density was insignificant when chromosome size was included as an explanatory variable. The observed weak positive association between GC-content and recombination is in agreement with the limited effect of GC-biased gene conversion (gBGC) in butterflies \citep{bomanEffectsGCBiasedGene2021}. We did not find any association between recombination rate and the presence of extended orthogroups, which would be expected if gene duplication is associated with unequal crossing-over. This could possibly be a consequence of the more efficient removal of deleterious duplications in regions with higher recombination rate. However, repetitive elements can trigger ectopic recombination which can explain the observed significant positive association between gene gains and density of LTRs, LINEs and DNA elements in the painted lady.
+
+\section*{Conclusions}
+In this study, we present detailed annotation and recombination rate information for the painted lady butterfly (\textit{Vanessa cardui}), a species with a remarkable life-history traits such as long distance migration, continuous direct development and a capacity to utilize many different types of larval host plants. We analyzed lineage-specific gene family expansions and found that expanded genes were mainly associated with fat and protein metabolism, detoxification and defense against pathogens. A detailed TE-annotation revealed that several TE-classes were positively associated with the presence of gained genes, potentially indicating their involvement in ectopic recombination. Recombination rate variation was negatively associated with chromosome size and positively associated with the proportion of short interspersed elements (SINEs). We conclude that the genome structure of the painted lady has been shaped by a complex interplay between recombination, gene duplications and repeat activity and provide the first set of candidate genes potentially involved in the evolution of migratory behavior in this almost cosmopolitan butterfly species.
+
+\section*{Methods}
+\subsection*{Linkage map}
+\subsubsection*{Sampling and DNA-extraction}
+Offspring from one painted lady female were reared on thistles (\textit{Cirsium vulgare}) in the greenhouse until pupation. The bursa copulatrix of a female was examined and only one spermatophore was detected, indicating that a single male had sired all offspring. The offspring were snap frozen in liquid nitrogen and stored in $-20^\circ$C until DNA extraction. DNA was extracted from thorax tissue of the female and an abdominal segment of the offspring pupae, using a modified high salt extraction method \citep{aljanabiUniversalRapidSaltextraction1997}. The quality of the DNA was analyzed with Nanodrop (ThermoFischer Scientific) and the yield was quantified with Qubit (ThermoFischer Scientific). Extracted DNA was digested with the restriction enzyme EcoR1 according to the manufacturer's protocol, using 16 hours digestion time (ThermoFischer Scientific). DNA fragmentation was verified with standard gel electrophoresis. Digested DNA from 95 offspring with the highest yield and the dam was shipped to the National Genomics Infrastructure (NGI, see acknowledgements) in Stockholm for library preparation (standard protocol), individual barcoding and multiplex sequencing using $2\times151$ bp paired-end reads on one NovaSeq6000 S4 lane.
+
+\subsubsection*{Building the linkage map} 
+The quality of the raw reads was assessed with FastQC \citep{babrahambioinformaticsFastQCQualityControl2010}. The reads were filtered using the Stacks2 modules \texttt{clone\_filter} to remove PCR-duplicates and \texttt{process\_radtags} to filter for quality. We evaluated phredscore in sliding windows covering 15\% of the read length and removed reads with mean score below 10 \citep{catchenStacksAnalysisTool2013}. Removal of reads with unassigned bases and truncation to 125\,bp was done using option \texttt{-c}, and \texttt{--disable\_rad\_chec} was applied to keep reads with incomplete RAD-tags. 
+
+We mapped the filtered reads to the previously published genome assembly \citep{lohse_genome_2021} using the bwa mem algorithm \citep{liAligningSequenceReads2013} with default options.  Resulting bam files were sorted with samtools sort \citep{liSequenceAlignmentMap2009} and filtered with \texttt{samtools view $–$q 10} (only reads with mapping quality score above 10 were retained). A custom script was applied to retain reads with unique hits only. The mapping coverage was analyzed with Qualimap \citep{okonechnikovQualimapAdvancedMultisample2015}. The offspring were defined as females if the coverage on the Z-chromosome was $<$ 75\% of the average coverage over all chromosomes and as males if the coverage was $>75\%$. Samtools mpileup was used for variant calling using minimum mapping quality (\texttt{-q}) 10 and minimum base quality (\texttt{-Q}) 10 \citep{liSequenceAlignmentMap2009}. The variants were then converted to likelihoods with Pileup2Likelihoods in LepMap3 using default settings \citep{rastasLepMAP3RobustLinkage2017}. The LepMap3 protocol \citep{rastasLepMAP3RobustLinkage2017} with some modifications was used to construct the linkage map (Supplementary methods 1). 
+
+\subsection*{Genome annotation and whole genome statistics}
+\subsubsection*{Genome assembly statistics}
+With very few exceptions, the order of markers in the linkage map was in agreement with the physical order in the assembly. We therefore did not make any corrections to the physical assembly before further analysis. Standard genome assembly summary statistics were calculated for the genome assembly after linkage map verification, using the QUAST suite \citep{gurevichQUASTQualityAssessment2013}. For the subsequent analysis we excluded unassembled haplotigs from the genome assembly and retained all the other scaffolds. 
+
+We used MCScanX \citep{wangMCScanXToolkitDetection2012} to detect syntenic blocks between the painted lady genome assembly on the one hand and the silkmoth and the the postman butterfly on the other. We downloaded the annotation for the silkmoth assembly from SilkBase (\href{https://silkdb.bioinfotoolkits.net}{/https://silkdb.bioi\-nfotoolkits.net/}) and the 2.5-version of the postman annotation from LepBase (\href{download.lepbase.org/v4/}{download.lepbase.org/v4/}, downloaded 2021-06-21). BLAST was used for primary alignment and we used a custom script to select the five hits with the highest E-values and used them as input for the MCScanX. The CIRCOS library \citep{krzywinskiCircosInformationAesthetic2009} was used for visualization of the results.
+
+\subsection*{Gene and repeat annotation}
+The annotation of the painted lady genome assembly was performed using MAKER version 3.00.0 \citep{holtMAKER2AnnotationPipeline2011} iteratively in three steps. In the first step, we mapped previously available transcriptomic evidence data from the painted lady based on wing tissue  \citep{connahsTranscriptomeAnalysisPainted2016a}(accessed on 2020-05-15) and masked all known repeats. RepeatMasker version 4.0.3 \citep{smitRepeatMaskerOpen42013} was used within the MAKER pipeline with a manually curated Lepidoptera repeat library  \citep{tallaRapidIncreaseGenome2017} serving as a reference. The first MAKER round produced a set of gene models, which were quality controlled using Annotation Edit Distance (AED) statistics. AED quantifies congruency between a gene annotation and its supporting evidence. We discarded gene models with AED scores higher than 0.5 (50\% of the gene model length not matching the corresponding evidence sequence) using custom scripts. The retained gene models were provided as a training set for the second run of MAKER.
+
+The second iteration of MAKER was run to generate gene models using the \textit{ab initio} gene predicting algorithm implemented in SNAP \citep{korfGeneFindingNovel2004}. For the last step in the MAKER pipeline, gene models predicted by SNAP and additional protein evidence from the Uniprot database (https://www.uniprot.org/; accessed 2021-04-01) were used. A set of Lepidoptera proteins from the Swiss-prot section of the Uniprot database were downloaded and manually curated. All genes from the curated set were included while only fully sequenced nuclear proteins with predicted functions from the non-curated gene set were included (custom scripts were used for selection). This selection resulted in 36,907 proteins. Finally, all obtained evidence and \textit{ab initio} predicted genes were merged resulting in 18,860 gene models. Resulting genes were renamed using MAKER supplementary scripts.
+
+\subsection*{Manual curation}  
+The gene models constructed by MAKER were filtered based on standard options; discarding gene models with AED and eAED scores $<$ 0.5 and/or length $<$ 50 amino acids. To search for functional domains in putative genes, we used InterProScan with default settings \citep{jonesInterProScanGenomescaleProtein2014}. A number of TE-related domains were detected within gene models indicating a need for a more detailed transposable element annotation. The repeat library was extended by adding evidence from the current RepBase for all Arthoropoda \citep{baoRepbaseUpdateDatabase2015} and curated repeats from the monarch butterfly \citep{zhanMonarchBaseMonarchButterfly2013}. RepeatModeler and RepeatMasker \citep{holtMAKER2AnnotationPipeline2011} were thereafter run again with the updated repeat database.
+
+Coordinates of newly identified repeats were intersected with gene model positions using BEDTools \citep{quinlanBEDToolsFlexibleSuite2010} and we removed gene models that overlapped more than 50\% of the length of a repeat. We then searched for keywords in the InterProScan domain output and removed genes containing at least one TE domain. For the W-chromosome, we manually curated the InterProScan output and found no functional information for any genes. The filtering resulted in a total set of 13,161 genes, including 12,209 genes with preliminary assignments in eggnog \citep{huerta-cepasEggNOGHierarchicalFunctionally2019}. The entire painted lady gene set represented 89.9\% of the complete BUSCO arthropod gene set \citep{manniBUSCOUpdateNovel2021}.
+\subsection*{Gene family evolution}
+We investigated gene family evolution in the painted lady by comparing our obtained gene annotations with other annotated nymphalid genomes available on Lepbase. Protein fasta files for eight other nymphalid species - squinting bush brown (\textit{Bicyclus anynana}), monarch (\textit{Danaus plexippus}), postman (\textit{Heliconius melpomene melpomene}), red postman (\textit{Heliconius erato lativitta}), common buckeye (\textit{Junonia coenia}), ringlet (\textit{Maniola hyperantus}), speckled wood (\textit{Pararge aegeria}) and Kamehameha butterfly \textit{(Vanessa tamea\-mea)} - were downloaded from Lepbase (http://down\-load.\-lep\-base.org/v4/sequence/: accessed 2021-06-21; Supplementary Table S1). The annotated gene sets in each species were filtered to only include one transcript per gene. To cluster the annotated genes into orthogroups and infer species specific orthogroups and gene duplications, OrthoFinder/2.5.2 \citep{emmsOrthoFinderPhylogeneticOrthology2019} was used with default settings. The total gene counts for each orthogroup and species from OrthoFinder was used as input to estimate gene family expansions and contractions with the software BadiRate, using the maximum likelihood option and the birth/death/innovation (BDI) model \citep{libradoBadiRateEstimatingFamily2012}. We used the species tree obtained with OrthoFinder as input, with additional conversions using Tree as implemented in ete3 \citep{huerta-cepasETEReconstructionAnalysis2016}. 
+
+For each orthogroup identified in OrthoFinder, different models reflecting the evolution of the gene families were tested. The null model (Global rate model) assumes a uniform rate of gene gains/losses for all branches in the provided species tree. Alternative models were specified as follows; i) to detect gene family changes specific to the painted lady, a distinct branch rate was specified in the painted lady with all the other branches evolving at uniform, background rates, and, ii) the terminal branches of the two distinct migratory species, the painted lady and the monarch, were set at a common rate, differing from all other taxa in the data set. The rationale behind the last setting was to allow for identification of gene family expansions shared between the painted lady and monarch butterfly. Each model was run twice and the replicate with highest likelihood for each model was used for model comparisons.
+
+Likelihoods of all models were compared using Aikaike’s Information Criterion (AIC) \citep{akaikeNewLookStatistical1974}, calculated as $2K - 2\log{L}$, where $K$ is the number of parameters and $\log{L}$ is the logarithm of the likelihood of the model. The orthogroups where the alternative models in BadiRate inferred gene gains $>$ 0 with the lowest AIC, were used for analysis of functional enrichment. BadiRate was partly run with a modified version of the R-package BadiRateR (\href{https://palfalvi.github.io/badirater/articles/badirater.html}{BadiRate}) and custom scripts. We visualized the genomic location of genes belonging to extended orthogroups identified in BadiRate with custom bash scripts and PhenoGram \citep{wolfeVisualizingGenomicInformation2013}, using gene names and positions from the annotation gff file.
+\subsubsection*{Gene ontology enrichment}
+Potential enrichment of functional categories in the significantly expanded gene sets was analyzed using the Bioconductor package topGO version 2.44.0 \citep{alexaTopGOEnrichmentAnalysis2021} in R version 4.1.0 \citep{rcoreteam2021.LanguageEnvironmentStatistical}. A custom database was generated based on the annotated gene set with gene ontology (GO) terms associated to the categories biological process, cellular component and molecular function. Since the gene set of interest is based on gene counts, the enrichment test was performed with Fisher’s exact test using the default algorithm ("\texttt{weight01}") which accounts for the hierarchical structure of the GO-terms \citep{alexaImprovedScoringFunctional2006}. This means that the resulting tests were not completely independent and correcting for multiple testing might be over-conservative. We still adjusted the p-values with Benjamini-Hochberg’s method of multiple test correction \citep{benjaminiControllingFalseDiscovery1995}.
+\subsection*{Recombination rate analysis}
+\subsubsection*{Chromosome level analysis}
+Global and chromosome-specific recombination rates were estimated by dividing the linkage map length (unit\,=\,cM) with the physical length (bp) of the corresponding part (whole genome or individual chromosome) of the physical genome assembly. Regional recombination rates were estimated with local linear regression in 2\,Mb non-overlapping windows containing 2 or more markers using the R-package MareyMap \citep{rezvoyMareyMapRbasedTool2007}. 
+\subsubsection*{Window-based analysis}
+We quantified the spatial distribution of various genomic features along the painted lady genome using custom scripts (available on GitHub, see Data Accessibility). Positions of the specific TE classes were accessed from the RepeatMaker output file and positions of genes were taken from the annotation file from MAKER. For each 2 Mb window, we calculated the density (fraction of window covered by element\,/\,window length) of genes, TEs in total, LTRs, SINEs, LINEs and DNA-transposons with in-house developed scripts. For the genes belonging to extended orthogroups, we integrated the list of the extended orthogroups from BadiRate, gene names from OrthoFinder and positions from MAKER. All 2\,Mb windows of the genome were assigned to bins; one bin containing windows without gene gains and the other with windows containing at least one gained gene. Potential differences in densities of genomic features between bins were assessed with two-sided Wilcoxon rank sum tests in R \citep{bauerConstructingConfidenceSets1972}.
+
+To characterize the associations between recombination rate and specific genomic elements, correlation tests were performed with the cor.test function in R using Spearman’s rank correlation \citep{bestAlgorithm89Upper1975}, after testing for deviation from normal distribution with the Shapiro-Wilk normality test \citep{roystonExtensionShapiroWilk1982}. We then applied the \texttt{lm} function in R to explore the relationships between the recombination rate as response variable and chromosome length, relative position on the chromosome, density of genes, density of different repeat classes, and GC-content as explanatory variables. Prior to the latter analysis, explanatory variables were scaled and centered, by subtracting the mean and dividing by the standard deviation of the variable. We used the R-package \texttt{ggplot2} for visualizations \citep{wickhamGgplot2ElegantGraphics2009}.
+
+%\section*{Appendix}
+%Text for this section\ldots
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% Backmatter begins here                   %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{backmatter}
+
+\section*{Data access}%% if any
+All raw data have been submitted to the European Nucleotide Archive (ENA accession number XXXX). Scripts are available in the GitHub repository (GitHub LINK XXXXX).
+
+\section*{Competing interest statement}%% if any
+The authors declare no financial or other competing interests.
+
+\section*{Author contribution statement}%% if any
+\textbf{DS}: Conceptualization, Formal Analysis, Investigation, Data Curation, Writing, Visualization \\
+\textbf{KN}: Conceptualization, Formal Analysis, Investigation, Data Curation, Writing, Visualization \\
+\textbf{LH}: Conceptualization, Investigation, Writing - Review \& Editing \\
+\textbf{RV}: Conceptualization, Writing - Review \& Editing, Funding acquisition \\
+\textbf{GT}: Conceptualization, Writing - Review \& Editing, Funding acquisition \\
+\textbf{NB}: Conceptualization, Resources, Writing - Review \& Editing, Supervision, Project administration, Funding acquisition
+
+\section*{Acknowledgements}%% if any
+Financial support for this project was provided by FORMAS (Research grant 2019-00670 to N.B.) and The Swedish Collegium for Advanced Science (Natural Sciences Programme, Knut and Alice Wallenberg Foundation, Postdoc funding for D.S.). R.V. was supported by the grant PID2019-107078GB-I00 funded by MCIN/AEI/10.13039/501100011033. G.T. was supported by the grant PID2020-117739GA-I00 funded by MCIN/AEI/10.13039/501100011033 and by “La Caixa” Foundation (ID 100010434) through the grant LCF/BQ/PR19/11700004. The authors acknowledge support from the National Genomics Infrastructure in Stockholm funded by Science for Life Laboratory, the Knut and Alice Wallenberg Foundation and the Swedish Research Council, and SNIC/Uppsala Multidisciplinary Center for Advanced Computational Science for assistance with massively parallel sequencing and access to the UPPMAX computational infrastructure.
+
+%\bibliography{bmc_article}
+\begin{thebibliography}{xx}
+
+\harvarditem[Abe et~al.]{Abe, Fujii, Tanaka, Yokoyama, Kakehashi, Ajimura,
+  Mita, Banno, Yasukochi, Oshiki, Nenoi, Ishikawa \harvardand\
+  Shimada}{2008}{abeIdentificationFemaledeterminingRegion2008}
+Abe, H., Fujii, T., Tanaka, N., Yokoyama, T., Kakehashi, H., Ajimura, M., Mita,
+  K., Banno, Y., Yasukochi, Y., Oshiki, T., Nenoi, M., Ishikawa, T.
+  \harvardand\ Shimada, T.  \harvardyearleft 2008\harvardyearright ,
+  `Identification of the female-determining region of the {{W}} chromosome in
+  \textit{Bombyx mori}', {\em Genetica} {\bf 133}(3),~269--282.
+
+\harvarditem{Ackery}{1988}{ackery_hostplants_1988}
+Ackery, P.~R.  \harvardyearleft 1988\harvardyearright , `Hostplants and
+  classification: a review of nymphalid butterflies', {\em Biological Journal
+  of the Linnean Society} {\bf 33}(2),~95--203.
+
+\harvarditem[Ahola et~al.]{Ahola, Lehtonen, Somervuo, Salmela, Koskinen,
+  Rastas, Välimäki, Paulin, Kvist, Wahlberg, Tanskanen, Hornett, Ferguson,
+  Luo, Cao, de~Jong, Duplouy, Smolander, Vogel, McCoy, Qian, Chong, Zhang,
+  Ahmad, Haukka, Joshi, Salojärvi, Wheat, Grosse-Wilde, Hughes, Katainen,
+  Pitkänen, Ylinen, Waterhouse, Turunen, Vähärautio, Ojanen, Schulman,
+  Taipale, Lawson, Ukkonen, Mäkinen, Goldsmith, Holm, Auvinen, Frilander
+  \harvardand\ Hanski}{2014}{aholaGlanvilleFritillaryGenome2014}
+Ahola, V., Lehtonen, R., Somervuo, P., Salmela, L., Koskinen, P., Rastas, P.,
+  Välimäki, N., Paulin, L., Kvist, J., Wahlberg, N., Tanskanen, J., Hornett,
+  E.~A., Ferguson, L.~C., Luo, S., Cao, Z., de~Jong, M.~A., Duplouy, A.,
+  Smolander, O.-P., Vogel, H., McCoy, R.~C., Qian, K., Chong, W.~S., Zhang, Q.,
+  Ahmad, F., Haukka, J.~K., Joshi, A., Salojärvi, J., Wheat, C.~W.,
+  Grosse-Wilde, E., Hughes, D., Katainen, R., Pitkänen, E., Ylinen, J.,
+  Waterhouse, R.~M., Turunen, M., Vähärautio, A., Ojanen, S.~P., Schulman,
+  A.~H., Taipale, M., Lawson, D., Ukkonen, E., Mäkinen, V., Goldsmith, M.~R.,
+  Holm, L., Auvinen, P., Frilander, M.~J. \harvardand\ Hanski, I.
+  \harvardyearleft 2014\harvardyearright , `The {{Glanville}} fritillary genome
+  retains an ancient karyotype and reveals selective chromosomal fusions in
+  {{Lepidoptera}}', {\em Nature Communications} {\bf 5}(1),~4737.
+
+\harvarditem{Akaike}{1974}{akaikeNewLookStatistical1974}
+Akaike, H.  \harvardyearleft 1974\harvardyearright , `A new look at the
+  statistical model identification', {\em IEEE Transactions on Automatic
+  Control} {\bf 19}(6),~716--723.
+
+\harvarditem{Alexa \harvardand\
+  Rahnenfuhrer}{2021}{alexaTopGOEnrichmentAnalysis2021}
+Alexa, A. \harvardand\ Rahnenfuhrer, J.  \harvardyearleft 2021\harvardyearright
+  , `{{topGO}}: enrichment analysis for gene ontology'.
+
+\harvarditem[Alexa et~al.]{Alexa, Rahnenführer \harvardand\
+  Lengauer}{2006}{alexaImprovedScoringFunctional2006}
+Alexa, A., Rahnenführer, J. \harvardand\ Lengauer, T.  \harvardyearleft
+  2006\harvardyearright , `Improved scoring of functional groups from gene
+  expression data by decorrelating {{GO}} graph structure', {\em
+  Bioinformatics} {\bf 22}(13),~1600--1607.
+
+\harvarditem{Aljanabi}{1997}{aljanabiUniversalRapidSaltextraction1997}
+Aljanabi, S.  \harvardyearleft 1997\harvardyearright , `Universal and rapid
+  salt-extraction of high quality genomic {{DNA}} for {{PCR-}} based
+  techniques', {\em Nucleic Acids Research} {\bf 25}(22),~4692--4693.
+
+\harvarditem[Andrews et~al.]{Andrews, Krueger, {Segonds-Pichon}, Biggins,
+  Krueger \harvardand\
+  Wingett}{2012}{babrahambioinformaticsFastQCQualityControl2010}
+Andrews, S., Krueger, F., {Segonds-Pichon}, A., Biggins, L., Krueger, C.
+  \harvardand\ Wingett, S.  \harvardyearleft 2012\harvardyearright ,
+  `{{FastQC}}', Babraham Institute.
+
+\harvarditem[Apuli et~al.]{Apuli, Bernhardsson, Schiffthaler, Robinson,
+  Jansson, Street \harvardand\
+  Ingvarsson}{2020}{apuliInferringGenomicLandscape2020}
+Apuli, R.-P., Bernhardsson, C., Schiffthaler, B., Robinson, K.~M., Jansson, S.,
+  Street, N.~R. \harvardand\ Ingvarsson, P.~K.  \harvardyearleft
+  2020\harvardyearright , `Inferring the genomic landscape of recombination
+  rate variation in european aspen (\textit{Populus tremula})', {\em G3} {\bf
+  10}(1),~299--309.
+
+\harvarditem{Bachtrog}{2013}{bachtrogChromosomeEvolutionEmerging2013}
+Bachtrog, D.  \harvardyearleft 2013\harvardyearright , `Y chromosome evolution:
+  emerging insights into processes of {{Y}} chromosome degeneration', {\em
+  Nature reviews. Genetics} {\bf 14}(2),~113--124.
+
+\harvarditem[Bao et~al.]{Bao, Kojima \harvardand\
+  Kohany}{2015}{baoRepbaseUpdateDatabase2015}
+Bao, W., Kojima, K.~K. \harvardand\ Kohany, O.  \harvardyearleft
+  2015\harvardyearright , `Repbase update, a database of repetitive elements in
+  eukaryotic genomes', {\em Mobile DNA} {\bf 6}(1),~11.
+
+\harvarditem[Barnes et~al.]{Barnes, Kohara, Coulson \harvardand\
+  Hekimi}{1995}{barnesMeioticRecombinationNoncoding1995}
+Barnes, T.~M., Kohara, Y., Coulson, A. \harvardand\ Hekimi, S.
+  \harvardyearleft 1995\harvardyearright , `Meiotic recombination, noncoding
+  {{DNA}} and genomic organization in \textit{{{Caenorhabditis}} elegans}',
+  {\em Genetics} {\bf 141}(1),~159--179.
+
+\harvarditem{Bauer}{1972}{bauerConstructingConfidenceSets1972}
+Bauer, D.~F.  \harvardyearleft 1972\harvardyearright , `Constructing confidence
+  sets using rank statistics', {\em Journal of the American Statistical
+  Association} {\bf 67}(339),~687--690.
+
+\harvarditem[Beldade et~al.]{Beldade, Saenko, Pul \harvardand\
+  Long}{2009}{beldadeGeneBasedLinkageMap2009}
+Beldade, P., Saenko, S.~V., Pul, N. \harvardand\ Long, A.~D.  \harvardyearleft
+  2009\harvardyearright , `A {{gene-Based linkage map}} for
+  \textit{{{Bicyclus}} anynana} {{butterflies allows}} for a {{comprehensive
+  analysis}} of {{synteny}} with the {{lepidopteran reference genome}}', {\em
+  PLoS Genetics} {\bf 5}(2),~e1000366.
+
+\harvarditem{Benjamini \harvardand\
+  Hochberg}{1995}{benjaminiControllingFalseDiscovery1995}
+Benjamini, Y. \harvardand\ Hochberg, Y.  \harvardyearleft 1995\harvardyearright
+  , `Controlling the false discovery rate: a practical and powerful approach to
+  multiple testing', {\em Journal of the Royal Statistical Society. Series B
+  (Methodological)} {\bf 57}(1),~289--300.
+
+\harvarditem{Best \harvardand\ Roberts}{1975}{bestAlgorithm89Upper1975}
+Best, D.~J. \harvardand\ Roberts, D.~E.  \harvardyearleft 1975\harvardyearright
+  , `Algorithm {{AS}} 89: The upper tail probabilities of {{Spearman}}'s rho',
+  {\em Applied Statistics} {\bf 24}(3),~377.
+
+\harvarditem[Boman et~al.]{Boman, Mugal \harvardand\
+  Backström}{2021}{bomanEffectsGCBiasedGene2021}
+Boman, J., Mugal, C.~F. \harvardand\ Backström, N.  \harvardyearleft
+  2021\harvardyearright , `The effects of {{GC}}-biased gene conversion on
+  patterns of genetic diversity among and across butterfly genomes', {\em
+  Genome Biology and Evolution} {\bf 13}(5),~evab064.
+
+\harvarditem[Breeschoten et~al.]{Breeschoten, van~der Linden, Ros, Schranz
+  \harvardand\ Simon}{2022}{breeschotenExpandingMenuAre2022}
+Breeschoten, T., van~der Linden, C. F.~H., Ros, V. I.~D., Schranz, M.~E.
+  \harvardand\ Simon, S.  \harvardyearleft 2022\harvardyearright , `Expanding
+  the {{menu}}: {{are polyphagy}} and {{gene family expansions linked}} across
+  {{Lepidoptera}}?', {\em Genome Biology and Evolution} {\bf 14}(1),~evab283.
+
+\harvarditem[Catchen et~al.]{Catchen, Hohenlohe, Bassham, Amores \harvardand\
+  Cresko}{2013}{catchenStacksAnalysisTool2013}
+Catchen, J., Hohenlohe, P.~A., Bassham, S., Amores, A. \harvardand\ Cresko,
+  W.~A.  \harvardyearleft 2013\harvardyearright , `Stacks: An analysis tool set
+  for population genomics', {\em Molecular Ecology} {\bf 22}(11),~3124--3140.
+
+\harvarditem[Celorio-Mancera et~al.]{Celorio-Mancera, Rastas, Steward, Nylin
+  \harvardand\ Wheat}{2021}{celorio-manceraChromosomeLevelAssembly2021}
+Celorio-Mancera, M. d. l.~P., Rastas, P., Steward, R.~A., Nylin, S.
+  \harvardand\ Wheat, C.~W.  \harvardyearleft 2021\harvardyearright ,
+  `Chromosome level assembly of the comma butterfly (\textit{Polygonia
+  c-album})', {\em Genome Biology and Evolution} .
+
+\harvarditem[Celorio-Mancera et~al.]{Celorio-Mancera, Wheat, Huss, Vezzi,
+  Neethiraj, Reimegård, Nylin \harvardand\
+  Janz}{2016}{celorio-manceraEvolutionaryHistoryHost2016}
+Celorio-Mancera, M. d. l.~P., Wheat, C.~W., Huss, M., Vezzi, F., Neethiraj, R.,
+  Reimegård, J., Nylin, S. \harvardand\ Janz, N.  \harvardyearleft
+  2016\harvardyearright , `Evolutionary history of host use, rather than plant
+  phylogeny, determines gene expression in a generalist butterfly', {\em BMC
+  Evolutionary Biology} (1),~59.
+
+\harvarditem[Challi et~al.]{Challi, Kumar, Dasmahapatra, Jiggins \harvardand\
+  Blaxter}{2016}{challiLepbaseLepidopteranGenome2016}
+Challi, R.~J., Kumar, S., Dasmahapatra, K.~K., Jiggins, C.~D. \harvardand\
+  Blaxter, M.  \harvardyearleft 2016\harvardyearright , `Lepbase: The
+  {{Lepidopteran}} genome database',  p.~056994.
+
+\harvarditem[Chapman et~al.]{Chapman, Reynolds \harvardand\
+  Wilson}{2015}{chapmanLongrangeSeasonalMigration2015}
+Chapman, J.~W., Reynolds, D.~R. \harvardand\ Wilson, K.  \harvardyearleft
+  2015\harvardyearright , `Long-range seasonal migration in insects:
+  mechanisms, evolutionary drivers and ecological consequences', {\em Ecology
+  Letters} {\bf 18}(3),~287--302.
+
+\harvarditem[Chen et~al.]{Chen, Krinsky \harvardand\
+  Long}{2013}{chenNewGenesDrivers2013a}
+Chen, S., Krinsky, B.~H. \harvardand\ Long, M.  \harvardyearleft
+  2013\harvardyearright , `New genes as drivers of phenotypic evolution', {\em
+  Nature Reviews Genetics} {\bf 14}(9),~645--660.
+
+\harvarditem[Chowdhury et~al.]{Chowdhury, Fuller, Dingle, Chapman \harvardand\
+  Zalucki}{2021}{chowdhuryMigrationButterfliesGlobal2021}
+Chowdhury, S., Fuller, R.~A., Dingle, H., Chapman, J.~W. \harvardand\ Zalucki,
+  M.~P.  \harvardyearleft 2021\harvardyearright , `Migration in butterflies: a
+  global overview', {\em Biological Reviews} {\bf 96}(4),~1462--1483.
+
+\harvarditem[Connahs et~al.]{Connahs, Rhen \harvardand\
+  Simmons}{2016}{connahsTranscriptomeAnalysisPainted2016a}
+Connahs, H., Rhen, T. \harvardand\ Simmons, R.~B.  \harvardyearleft
+  2016\harvardyearright , `Transcriptome analysis of the painted lady
+  butterfly, \textit{Vanessa cardui} during wing color pattern development',
+  {\em BMC Genomics} {\bf 17}(1),~270.
+
+\harvarditem[Davey et~al.]{Davey, Barker, Rastas, Pinharanda, Martin, Durbin,
+  McMillan, Merrill \harvardand\ Jiggins}{2017}{daveyNoEvidenceMaintenance2017}
+Davey, J.~W., Barker, S.~L., Rastas, P.~M., Pinharanda, A., Martin, S.~H.,
+  Durbin, R., McMillan, W.~O., Merrill, R.~M. \harvardand\ Jiggins, C.~D.
+  \harvardyearleft 2017\harvardyearright , `No evidence for maintenance of a
+  sympatric \textit{Heliconius} species barrier by chromosomal inversions',
+  {\em Evolution Letters} {\bf 1}(3),~138--154.
+
+\harvarditem[de~Vos et~al.]{de~Vos, Augustijnen, Bätscher \harvardand\
+  Lucek}{2020}{devosSpeciationChromosomalFusion2020}
+de~Vos, J.~M., Augustijnen, H., Bätscher, L. \harvardand\ Lucek, K.
+  \harvardyearleft 2020\harvardyearright , `Speciation through chromosomal
+  fusion and fission in {{Lepidoptera}}', {\em Philosophical Transactions of
+  the Royal Society B: Biological Sciences} {\bf 375}(1806),~20190539.
+
+\harvarditem{Deininger \harvardand\ Batzer}{1999}{deiningerAluRepeatsHuman1999}
+Deininger, P.~L. \harvardand\ Batzer, M.~A.  \harvardyearleft
+  1999\harvardyearright , `Alu repeats and human disease', {\em Molecular
+  Genetics and Metabolism} {\bf 67}(3),~183--193.
+
+\harvarditem[Emerson et~al.]{Emerson, Cardoso-Moreira, Borevitz \harvardand\
+  Long}{2008}{emersonNaturalSelectionShapes2008}
+Emerson, J.~J., Cardoso-Moreira, M., Borevitz, J.~O. \harvardand\ Long, M.
+  \harvardyearleft 2008\harvardyearright , `Natural {{selection shapes
+  genome-wide patterns}} of {{copy-number polymorphism}} in
+  \textit{{{Drosophila}} melanogaster}', {\em Science} {\bf
+  320}(5883),~1629--1631.
+
+\harvarditem{Emms \harvardand\
+  Kelly}{2019}{emmsOrthoFinderPhylogeneticOrthology2019}
+Emms, D.~M. \harvardand\ Kelly, S.  \harvardyearleft 2019\harvardyearright ,
+  `{{OrthoFinder}}: Phylogenetic orthology inference for comparative genomics',
+  {\em Genome Biology} {\bf 20}(1),~238.
+
+\harvarditem[Fraïsse et~al.]{Fraïsse, Picard \harvardand\
+  Vicoso}{2017}{fraisseDeepConservationLepidoptera2017}
+Fraïsse, C., Picard, M. A.~L. \harvardand\ Vicoso, B.  \harvardyearleft
+  2017\harvardyearright , `The deep conservation of the {{Lepidoptera Z}}
+  chromosome suggests a non-canonical origin of the {{W}}', {\em Nature
+  Communications} {\bf 8}(1),~1486.
+
+\harvarditem[Garcìa-Berro et~al.]{Garcìa-Berro, Talla, Vila, Wai, Shipilina,
+  Chan, Pierce, Backström \harvardand\ Talavera}{in
+  prep}{garcia-berroGenomicDemographicInferenceinprep}
+Garcìa-Berro, A., Talla, V., Vila, R., Wai, H.~K., Shipilina, D., Chan, K.~G.,
+  Pierce, N.~E., Backström, N. \harvardand\ Talavera, G.  \harvardyearleft in
+  prep\harvardyearright , `Genomic demographic inference shows migratory
+  butterflies display higher heterozygosity and long-term effective population
+  size'.
+
+\harvarditem[Gu et~al.]{Gu, Reilly, Lewis, Reed, Andolfatto \harvardand\
+  Walters}{2019}{guDichotomyDosageCompensation2019}
+Gu, L., Reilly, P.~F., Lewis, J.~J., Reed, R.~D., Andolfatto, P. \harvardand\
+  Walters, J.~R.  \harvardyearleft 2019\harvardyearright , `Dichotomy of dosage
+  compensation along the neo z-chromosome of the monarch butterfly', {\em
+  Current Biology} {\bf 29}(23),~4071--4077.e3.
+
+\harvarditem[Guerra et~al.]{Guerra, Gegear \harvardand\
+  Reppert}{2014}{guerra_magnetic_2014}
+Guerra, P.~A., Gegear, R.~J. \harvardand\ Reppert, S.~M.  \harvardyearleft
+  2014\harvardyearright , `A magnetic compass aids monarch butterfly
+  migration', {\em Nature Communications} {\bf 5}(1),~4164.
+
+\harvarditem[Gurevich et~al.]{Gurevich, Saveliev, Vyahhi \harvardand\
+  Tesler}{2013}{gurevichQUASTQualityAssessment2013}
+Gurevich, A., Saveliev, V., Vyahhi, N. \harvardand\ Tesler, G.
+  \harvardyearleft 2013\harvardyearright , `{{QUAST}}: Quality assessment tool
+  for genome assemblies', {\em Bioinformatics} {\bf 29}(8),~1072--1075.
+
+\harvarditem[Haenel et~al.]{Haenel, Laurentino, Roesti \harvardand\
+  Berner}{2018}{haenelMetaanalysisChromosomescaleCrossover2018}
+Haenel, Q., Laurentino, T.~G., Roesti, M. \harvardand\ Berner, D.
+  \harvardyearleft 2018\harvardyearright , `Meta-analysis of chromosome-scale
+  crossover rate variation in eukaryotes and its significance to evolutionary
+  genomics', {\em Molecular Ecology} {\bf 27}(11),~2477--2497.
+
+\harvarditem{Hara \harvardand\ Yamakawa}{1995}{haraMoricinNovelType1995}
+Hara, S. \harvardand\ Yamakawa, M.  \harvardyearleft 1995\harvardyearright ,
+  `Moricin, a novel type of antibacterial peptide isolated from the silkworm,
+  \textit{{{Bombyx}} mori}', {\em The Journal of Biological Chemistry} {\bf
+  270}(50),~29923--29927.
+
+\harvarditem[Hatfield et~al.]{Hatfield, Umans, Hyatt, Edwards, Wierdl, Tsurkan,
+  Taylor \harvardand\
+  Potter}{2016}{hatfieldCarboxylesterasesGeneralDetoxifying2016}
+Hatfield, M.~J., Umans, R.~A., Hyatt, J.~L., Edwards, C.~C., Wierdl, M.,
+  Tsurkan, L., Taylor, M.~R. \harvardand\ Potter, P.~M.  \harvardyearleft
+  2016\harvardyearright , `Carboxylesterases: {{general}} detoxifying enzymes',
+  {\em Chemico-biological interactions} {\bf 259},~327--331.
+
+\harvarditem{Hedges \harvardand\
+  Deininger}{2007}{hedgesInvitingInstabilityTransposable2007}
+Hedges, D. \harvardand\ Deininger, P.  \harvardyearleft 2007\harvardyearright ,
+  `Inviting instability: transposable elements, double-strand breaks, and the
+  maintenance of genome integrity', {\em Mutation Research/Fundamental and
+  Molecular Mechanisms of Mutagenesis} {\bf 616}(1-2),~46--59.
+
+\harvarditem{Henikoff}{1997}{henikoffGeneFamiliesTaxonomy1997}
+Henikoff, S.  \harvardyearleft 1997\harvardyearright , `Gene families: the
+  taxonomy of protein paralogs and chimeras', {\em Science} {\bf
+  278}(5338),~609--614.
+
+\harvarditem[Hill et~al.]{Hill, Rastas, Hornett, Neethiraj, Clark, Morehouse,
+  de~la Paz Celorio-Mancera, Cols, Dircksen, Meslin, Keehnen, Pruisscher,
+  Sikkink, Vives, Vogel, Wiklund, Woronik, Boggs, Nylin \harvardand\
+  Wheat}{2019}{hillUnprecedentedReorganizationHolocentric2019}
+Hill, J., Rastas, P., Hornett, E.~A., Neethiraj, R., Clark, N., Morehouse, N.,
+  de~la Paz Celorio-Mancera, M., Cols, J.~C., Dircksen, H., Meslin, C.,
+  Keehnen, N., Pruisscher, P., Sikkink, K., Vives, M., Vogel, H., Wiklund, C.,
+  Woronik, A., Boggs, C.~L., Nylin, S. \harvardand\ Wheat, C.~W.
+  \harvardyearleft 2019\harvardyearright , `Unprecedented reorganization of
+  holocentric chromosomes provides insights into the enigma of lepidopteran
+  chromosome evolution', {\em Science Advances} {\bf 5}(6),~eaau3648.
+
+\harvarditem{Holt \harvardand\ Yandell}{2011}{holtMAKER2AnnotationPipeline2011}
+Holt, C. \harvardand\ Yandell, M.  \harvardyearleft 2011\harvardyearright ,
+  `{{MAKER2}}: An annotation pipeline and genome-database management tool for
+  second-generation genome projects', {\em BMC Bioinformatics} {\bf
+  12}(1),~491.
+
+\harvarditem[Huang et~al.]{Huang, Chai, Zhang, Liu, Dai, Lu \harvardand\
+  Xiang}{2008}{huangUDPglucosyltransferaseMultigeneFamily2008}
+Huang, F.-F., Chai, C.-L., Zhang, Z., Liu, Z.-H., Dai, F.-Y., Lu, C.
+  \harvardand\ Xiang, Z.-H.  \harvardyearleft 2008\harvardyearright , `The
+  {{UDP-glucosyltransferase}} multigene family in \textit{{{Bombyx}} mori}',
+  {\em BMC Genomics} {\bf 9},~563.
+
+\harvarditem[Huerta-Cepas et~al.]{Huerta-Cepas, Serra \harvardand\
+  Bork}{2016}{huerta-cepasETEReconstructionAnalysis2016}
+Huerta-Cepas, J., Serra, F. \harvardand\ Bork, P.  \harvardyearleft
+  2016\harvardyearright , `{{ETE}} 3: reconstruction, analysis, and
+  visualization of phylogenomic data', {\em Molecular Biology and Evolution}
+  {\bf 33}(6),~1635--1638.
+
+\harvarditem[Huerta-Cepas et~al.]{Huerta-Cepas, Szklarczyk, Heller,
+  Hernández-Plaza, Forslund, Cook, Mende, Letunic, Rattei, Jensen,
+  {von~Mering} \harvardand\
+  Bork}{2019}{huerta-cepasEggNOGHierarchicalFunctionally2019}
+Huerta-Cepas, J., Szklarczyk, D., Heller, D., Hernández-Plaza, A., Forslund,
+  S.~K., Cook, H., Mende, D.~R., Letunic, I., Rattei, T., Jensen, L.~J.,
+  {von~Mering}, C. \harvardand\ Bork, P.  \harvardyearleft
+  2019\harvardyearright , `{{eggNOG}} 5.0: A hierarchical, functionally and
+  phylogenetically annotated orthology resource based on 5090 organisms and
+  2502 viruses', {\em Nucleic Acids Research} {\bf 47}(D1),~D309--D314.
+
+\harvarditem[Jiggins et~al.]{Jiggins, Mavarez, Beltrán, McMillan, Johnston
+  \harvardand\ Bermingham}{2005}{jigginsGeneticLinkageMap2005}
+Jiggins, C.~D., Mavarez, J., Beltrán, M., McMillan, W.~O., Johnston, J.~S.
+  \harvardand\ Bermingham, E.  \harvardyearleft 2005\harvardyearright , `A
+  {{genetic linkage map}} of the {{mimetic butterfly}} \textit{Heliconius
+  melpomene}', {\em Genetics} {\bf 171}(2),~557--570.
+
+\harvarditem[Jones et~al.]{Jones, Binns, Chang, Fraser, Li, McAnulla,
+  McWilliam, Maslen, Mitchell, Nuka, Pesseat, Quinn, Sangrador-Vegas,
+  Scheremetjew, Yong, Lopez \harvardand\
+  Hunter}{2014}{jonesInterProScanGenomescaleProtein2014}
+Jones, P., Binns, D., Chang, H.-Y., Fraser, M., Li, W., McAnulla, C.,
+  McWilliam, H., Maslen, J., Mitchell, A., Nuka, G., Pesseat, S., Quinn, A.~F.,
+  Sangrador-Vegas, A., Scheremetjew, M., Yong, S.-Y., Lopez, R. \harvardand\
+  Hunter, S.  \harvardyearleft 2014\harvardyearright , `{{InterProScan}} 5:
+  genome-scale protein function classification', {\em Bioinformatics} {\bf
+  30}(9),~1236--1240.
+
+\harvarditem[Kang et~al.]{Kang, Chen, Zhou, Liu, Zheng, Li, Wang \harvardand\
+  Yu}{2004}{kangAnalysisLargescaleGene2004}
+Kang, L., Chen, X., Zhou, Y., Liu, B., Zheng, W., Li, R., Wang, J. \harvardand\
+  Yu, J.  \harvardyearleft 2004\harvardyearright , `The analysis of large-scale
+  gene expression correlated to the phase changes of the migratory locust',
+  {\em Proceedings of the National Academy of Sciences} {\bf
+  101}(51),~17611--17615.
+
+\harvarditem[Kawakami et~al.]{Kawakami, Mugal, Suh, Nater, Burri, Smeds
+  \harvardand\ Ellegren}{2017}{kawakamiWholegenomePatternsLinkage2017}
+Kawakami, T., Mugal, C.~F., Suh, A., Nater, A., Burri, R., Smeds, L.
+  \harvardand\ Ellegren, H.  \harvardyearleft 2017\harvardyearright ,
+  `Whole-genome patterns of linkage disequilibrium across flycatcher
+  populations clarify the causes and consequences of fine-scale recombination
+  rate variation in birds', {\em Molecular Ecology} {\bf 26}(16),~4158--4172.
+
+\harvarditem[Kawakami et~al.]{Kawakami, Smeds, Backström, Husby, Qvarnström,
+  Mugal, Olason \harvardand\ Ellegren}{2014}{kawakamiHighdensityLinkageMap2014}
+Kawakami, T., Smeds, L., Backström, N., Husby, A., Qvarnström, A., Mugal,
+  C.~F., Olason, P. \harvardand\ Ellegren, H.  \harvardyearleft
+  2014\harvardyearright , `A high-density linkage map enables a
+  second-generation collared flycatcher genome assembly and reveals the
+  patterns of avian recombination rate variation and chromosomal evolution',
+  {\em Molecular Ecology} {\bf 23}(16),~4035--4058.
+
+\harvarditem{Kazazian}{2004}{kazazianMobileElementsDrivers2004}
+Kazazian, H.~H.  \harvardyearleft 2004\harvardyearright , `Mobile elements:
+  drivers of genome evolution', {\em Science} {\bf 303}(5664),~1626--1632.
+
+\harvarditem[Kent et~al.]{Kent, Uzunović \harvardand\
+  Wright}{2017}{kentCoevolutionTransposableElements2017}
+Kent, T.~V., Uzunović, J. \harvardand\ Wright, S.~I.  \harvardyearleft
+  2017\harvardyearright , `Coevolution between transposable elements and
+  recombination', {\em Philosophical Transactions of the Royal Society B:
+  Biological Sciences} {\bf 372}(1736),~20160458.
+
+\harvarditem{Kidwell \harvardand\
+  Lisch}{1997}{kidwellTransposableElementsSources1997}
+Kidwell, M.~G. \harvardand\ Lisch, D.  \harvardyearleft 1997\harvardyearright ,
+  `Transposable elements as sources of variation in animals and plants', {\em
+  Proceedings of the National Academy of Sciences} {\bf 94}(15),~7704--7711.
+
+\harvarditem{Kondrashov}{2012}{kondrashovGeneDuplicationMechanism2012}
+Kondrashov, F.~A.  \harvardyearleft 2012\harvardyearright , `Gene duplication
+  as a mechanism of genomic adaptation to a changing environment', {\em
+  Proceedings of the Royal Society B: Biological Sciences} {\bf
+  279}(1749),~5048--5057.
+
+\harvarditem{Korf}{2004}{korfGeneFindingNovel2004}
+Korf, I.  \harvardyearleft 2004\harvardyearright , `Gene finding in novel
+  genomes', {\em BMC Bioinformatics} {\bf 5}(1),~59.
+
+\harvarditem[Krzywinski et~al.]{Krzywinski, Schein, Birol, Connors, Gascoyne,
+  Horsman, Jones \harvardand\
+  Marra}{2009}{krzywinskiCircosInformationAesthetic2009}
+Krzywinski, M., Schein, J., Birol, I., Connors, J., Gascoyne, R., Horsman, D.,
+  Jones, S.~J. \harvardand\ Marra, M.~A.  \harvardyearleft
+  2009\harvardyearright , `Circos: {{An}} information aesthetic for comparative
+  genomics', {\em Genome Research} {\bf 19}(9),~1639--1645.
+
+\harvarditem[Landys et~al.]{Landys, Piersma, Guglielmo, Jukema, Ramenofsky
+  \harvardand\ Wingfield}{2005}{landysMetabolicProfileLongdistance2005}
+Landys, M.~M., Piersma, T., Guglielmo, C.~G., Jukema, J., Ramenofsky, M.
+  \harvardand\ Wingfield, J.~C.  \harvardyearleft 2005\harvardyearright ,
+  `Metabolic profile of long-distance migratory flight and stopover in a
+  shorebird', {\em Proceedings of the Royal Society B: Biological Sciences}
+  {\bf 272}(1560),~295--302.
+
+\harvarditem[Lewis et~al.]{Lewis, Cicconardi, Martin, Reed, Danko \harvardand\
+  Montgomery}{2021}{lewisDryasIuliaGenome2021}
+Lewis, J.~J., Cicconardi, F., Martin, S.~H., Reed, R.~D., Danko, C.~G.
+  \harvardand\ Montgomery, S.~H.  \harvardyearleft 2021\harvardyearright , `The
+  \textit{Dryas iulia} {{genome supports multiple gains}} of a {{W chromosome}}
+  from a {{B chromosome}} in {{butterflies}}', {\em Genome Biology and
+  Evolution} {\bf 13}(7).
+
+\harvarditem[Li et~al.]{Li, Zhao, Li, He, Huang, Zhou, Li \harvardand\
+  Walters}{2019}{liInsectGenomesProgress2019}
+Li, F., Zhao, X., Li, M., He, K., Huang, C., Zhou, Y., Li, Z. \harvardand\
+  Walters, J.~R.  \harvardyearleft 2019\harvardyearright , `Insect genomes:
+  progress and challenges', {\em Insect Molecular Biology} {\bf
+  28}(6),~739--758.
+
+\harvarditem{Li}{2013}{liAligningSequenceReads2013}
+Li, H.  \harvardyearleft 2013\harvardyearright , `Aligning sequence reads,
+  clone sequences and assembly contigs with {{BWA-MEM}}'.
+
+\harvarditem[Li et~al.]{Li, Handsaker, Wysoker, Fennell, Ruan, Homer, Marth,
+  Abecasis, Durbin \harvardand\ {1000 Genome Project Data Processing
+  Subgroup}}{2009}{liSequenceAlignmentMap2009}
+Li, H., Handsaker, B., Wysoker, A., Fennell, T., Ruan, J., Homer, N., Marth,
+  G., Abecasis, G., Durbin, R. \harvardand\ {1000 Genome Project Data
+  Processing Subgroup}  \harvardyearleft 2009\harvardyearright , `The sequence
+  alignment/map format and {{SAMtools}}', {\em Bioinformatics (Oxford,
+  England)} {\bf 25}(16),~2078--2079.
+
+\harvarditem[Li et~al.]{Li, Fan, Zhang, Liu, Zhang, Zhao, Fang, Chen, Dong,
+  Chen, Ding, Zhao, Feng, Zhu, Feng, Jiang, Zhu, Xiang, Feng, Li, Wang, Zhang,
+  Kronforst \harvardand\ Wang}{2015}{liOutbredGenomeSequencing2015}
+Li, X., Fan, D., Zhang, W., Liu, G., Zhang, L., Zhao, L., Fang, X., Chen, L.,
+  Dong, Y., Chen, Y., Ding, Y., Zhao, R., Feng, M., Zhu, Y., Feng, Y., Jiang,
+  X., Zhu, D., Xiang, H., Feng, X., Li, S., Wang, J., Zhang, G., Kronforst,
+  M.~R. \harvardand\ Wang, W.  \harvardyearleft 2015\harvardyearright ,
+  `Outbred genome sequencing and crispr/cas9 gene editing in butterflies', {\em
+  Nature Communications} {\bf 6}(1),~8212.
+
+\harvarditem[Librado et~al.]{Librado, Vieira \harvardand\
+  Rozas}{2012}{libradoBadiRateEstimatingFamily2012}
+Librado, P., Vieira, F.~G. \harvardand\ Rozas, J.  \harvardyearleft
+  2012\harvardyearright , `{{BadiRate}}: estimating family turnover rates by
+  likelihood-based methods', {\em Bioinformatics} {\bf 28}(2),~279--281.
+
+\harvarditem[Lipinski et~al.]{Lipinski, Farslow, Fitzpatrick, Lynch, Katju
+  \harvardand\ Bergthorsson}{2011}{lipinskiHighSpontaneousRate2011}
+Lipinski, K.~J., Farslow, J.~C., Fitzpatrick, K.~A., Lynch, M., Katju, V.
+  \harvardand\ Bergthorsson, U.  \harvardyearleft 2011\harvardyearright , `High
+  {{spontaneous rate}} of {{gene duplication}} in \textit{{{Caenorhabditis}}
+  legans}', {\em Current biology : CB} {\bf 21}(4),~306--310.
+
+\harvarditem{Loehlin \harvardand\
+  Carroll}{2016}{loehlinExpressionTandemGene2016}
+Loehlin, D.~W. \harvardand\ Carroll, S.~B.  \harvardyearleft
+  2016\harvardyearright , `Expression of tandem gene duplicates is often
+  greater than twofold', {\em Proceedings of the National Academy of Sciences}
+  {\bf 113}(21),~5988--5992.
+
+\harvarditem[Lohse et~al.]{Lohse, Wright, Talavera, García-Berro, {Darwin Tree
+  of Life Barcoding collective}, {Wellcome Sanger Institute Tree of Life
+  programme}, {Wellcome Sanger Institute Scientific Operations: DNA Pipelines
+  collective}, {Tree of Life Core Informatics collective} \harvardand\ {Darwin
+  Tree of Life Consortium}}{2021}{lohse_genome_2021}
+Lohse, K., Wright, C., Talavera, G., García-Berro, A., {Darwin Tree of Life
+  Barcoding collective}, {Wellcome Sanger Institute Tree of Life programme},
+  {Wellcome Sanger Institute Scientific Operations: DNA Pipelines collective},
+  {Tree of Life Core Informatics collective} \harvardand\ {Darwin Tree of Life
+  Consortium}  \harvardyearleft 2021\harvardyearright , `The genome sequence of
+  the painted lady, \textit{Vanessa cardui} linnaeus 1758', {\em Wellcome Open
+  Research} {\bf 6},~324.
+
+\harvarditem{Lukhtanov}{2015}{lukhtanovBlueButterflyPolyommatus2015}
+Lukhtanov, V.  \harvardyearleft 2015\harvardyearright , `The blue butterfly
+  \textit{Polyommatus (plebicula) atlanticus} ({{Lepidoptera}}, {{Lycaenidae}})
+  holds the record of the highest number of chromosomes in the non-polyploid
+  eukaryotic organisms', {\em Comparative Cytogenetics} {\bf 9}(4),~683--690.
+
+\harvarditem[Luque et~al.]{Luque, Okano \harvardand\
+  O'Reilly}{2002}{luqueCharacterizationNovelSilkworm2002}
+Luque, T., Okano, K. \harvardand\ O'Reilly, D.~R.  \harvardyearleft
+  2002\harvardyearright , `Characterization of a novel silkworm
+  (\textit{{{Bombyx}} mori}) phenol {{UDP-glucosyltransferase}}', {\em European
+  Journal of Biochemistry} {\bf 269}(3),~819--825.
+
+\harvarditem[Manni et~al.]{Manni, Berkeley, Seppey, Simao \harvardand\
+  Zdobnov}{2021}{manniBUSCOUpdateNovel2021}
+Manni, M., Berkeley, M.~R., Seppey, M., Simao, F.~A. \harvardand\ Zdobnov,
+  E.~M.  \harvardyearleft 2021\harvardyearright , `Busco update: Novel and
+  streamlined workflows along with broader and deeper phylogenetic coverage for
+  scoring of eukaryotic, prokaryotic, and viral genomes', {\em Molecular
+  Biology and Evolution} {\bf 38}(10),~4647--4654.
+
+\harvarditem[Martin et~al.]{Martin, Davey, Salazar \harvardand\
+  Jiggins}{2019}{martinRecombinationRateVariation2019}
+Martin, S.~H., Davey, J.~W., Salazar, C. \harvardand\ Jiggins, C.~D.
+  \harvardyearleft 2019\harvardyearright , `Recombination rate variation shapes
+  barriers to introgression across butterfly genomes', {\em PLOS Biology} {\bf
+  17}(2),~e2006288.
+
+\harvarditem{McClintock}{1956}{mcclintockControllingElementsGene1956}
+McClintock, B.  \harvardyearleft 1956\harvardyearright , `Controlling elements
+  and the gene', {\em Cold Spring Harbor Symposia on Quantitative Biology} {\bf
+  21}(0),~197--216.
+
+\harvarditem[Menchetti et~al.]{Menchetti, Guéguen \harvardand\
+  Talavera}{2019}{menchetti_spatio-temporal_2019}
+Menchetti, M., Guéguen, M. \harvardand\ Talavera, G.  \harvardyearleft
+  2019\harvardyearright , `Spatio-temporal ecological niche modelling of
+  multigenerational insect migrations', {\em Proceedings of the Royal Society
+  B: Biological Sciences} {\bf 286}(1910),~20191583.
+
+\harvarditem{Merlin \harvardand\
+  Liedvogel}{2019}{merlinGeneticsEpigeneticsAnimal2019}
+Merlin, C. \harvardand\ Liedvogel, M.  \harvardyearleft 2019\harvardyearright ,
+  `The genetics and epigenetics of animal migration and orientation: birds,
+  butterflies and beyond', {\em Journal of experimental biology} {\bf 222}.
+
+\harvarditem[Mita et~al.]{Mita, Kasahara, Sasaki, Nagayasu, Yamada, Kanamori,
+  Namiki, Kitagawa, Yamashita, Yasukochi, Kadono-Okuda, Yamamoto, Ajimura,
+  Ravikumar, Shimomura, Nagamura, Shin-i, Abe, Shimada, Morishita \harvardand\
+  Sasaki}{2004}{mitaGenomeSequenceSilkworm2004}
+Mita, K., Kasahara, M., Sasaki, S., Nagayasu, Y., Yamada, T., Kanamori, H.,
+  Namiki, N., Kitagawa, M., Yamashita, H., Yasukochi, Y., Kadono-Okuda, K.,
+  Yamamoto, K., Ajimura, M., Ravikumar, G., Shimomura, M., Nagamura, Y.,
+  Shin-i, T., Abe, H., Shimada, T., Morishita, S. \harvardand\ Sasaki, T.
+  \harvardyearleft 2004\harvardyearright , `The {{genome sequence}} of
+  {{ilkworm}}, \textit{{{Bombyx}} mori}', {\em DNA Research} {\bf
+  11}(1),~27--35.
+
+\harvarditem{Murata \harvardand\ Tojo}{2013}{murataUtilizationLipidFlight2013}
+Murata, M. \harvardand\ Tojo, S.  \harvardyearleft 2013\harvardyearright ,
+  `Utilization of lipid for flight and reproduction in \textit{{{Spodoptera}}
+  litura} ({{Lepidoptera}}: {{Noctuidae}})', {\em EJE} {\bf 99}(2),~221--224.
+
+\harvarditem[Nagare et~al.]{Nagare, Ayachit, Agnihotri, Schwab \harvardand\
+  Joshi}{2021}{nagareGlycosyltransferasesMultifacetedEnzymatic2021}
+Nagare, M., Ayachit, M., Agnihotri, A., Schwab, W. \harvardand\ Joshi, R.
+  \harvardyearleft 2021\harvardyearright , `Glycosyltransferases: The
+  multifaceted enzymatic regulator in insects', {\em Insect Molecular Biology}
+  {\bf 30}(2),~123--137.
+
+\harvarditem[Nylin et~al.]{Nylin, Slove \harvardand\
+  Janz}{2014}{nylinHOSTPLANTUTILIZATION2014}
+Nylin, S., Slove, J. \harvardand\ Janz, N.  \harvardyearleft
+  2014\harvardyearright , `{{Host plant utilization}}, host range oscilations
+  and diversification in {{Nymphalid}} butterflies', {\em Evolution} {\bf
+  68}(1),~105--124.
+
+\harvarditem[Ojeda-López et~al.]{Ojeda-López, Marczuk-Rojas, Polushkina,
+  Purucker, Salinas \harvardand\
+  Carretero-Paulet}{2020}{ojeda-lopezEvolutionaryAnalysisMoringa2020}
+Ojeda-López, J., Marczuk-Rojas, J.~P., Polushkina, O.~A., Purucker, D.,
+  Salinas, M. \harvardand\ Carretero-Paulet, L.  \harvardyearleft
+  2020\harvardyearright , `Evolutionary analysis of the \textit{Moringa
+  oleifera} genome reveals a recent burst of plastid to nucleus gene
+  duplications', {\em Scientific Reports} {\bf 10}(1),~17646.
+
+\harvarditem[Okonechnikov et~al.]{Okonechnikov, Conesa \harvardand\
+  García-Alcalde}{2015}{okonechnikovQualimapAdvancedMultisample2015}
+Okonechnikov, K., Conesa, A. \harvardand\ García-Alcalde, F.  \harvardyearleft
+  2015\harvardyearright , `Qualimap 2: Advanced multi-sample quality control
+  for high-throughput sequencing data', {\em Bioinformatics} p.~btv566.
+
+\harvarditem{Peñalba \harvardand\
+  Wolf}{2020}{penalbaMoleculesPopulationsAppreciating2020}
+Peñalba, J.~V. \harvardand\ Wolf, J. B.~W.  \harvardyearleft
+  2020\harvardyearright , `From molecules to populations: appreciating and
+  estimating recombination rate variation', {\em Nature Reviews Genetics} {\bf
+  21}(8),~476--492.
+
+\harvarditem[Podsiadlowski et~al.]{Podsiadlowski, Tunström, Espeland
+  \harvardand\ Wheat}{2021}{podsiadlowskiGenomeAssemblyAnnotation2021}
+Podsiadlowski, L., Tunström, K., Espeland, M. \harvardand\ Wheat, C.~W.
+  \harvardyearleft 2021\harvardyearright , `The genome assembly and annotation
+  of the apollo butterfly \textit{Parnassius apollo}, a flagship species for
+  conservation biology', {\em Genome Biology and Evolution} {\bf
+  13}(8),~evab122.
+
+\harvarditem{Quinlan \harvardand\ Hall}{2010}{quinlanBEDToolsFlexibleSuite2010}
+Quinlan, A.~R. \harvardand\ Hall, I.~M.  \harvardyearleft 2010\harvardyearright
+  , `{{BEDTools}}: a flexible suite of utilities for comparing genomic
+  features', {\em Bioinformatics} {\bf 26}(6),~841--842.
+
+\harvarditem{{R Core Team
+  (2021)}}{2021}{rcoreteam2021.LanguageEnvironmentStatistical}
+{R Core Team (2021)}  \harvardyearleft 2021\harvardyearright , `R: A language
+  and environment for statistical computing.'.
+\newline\harvardurl{http://www.r-project.org/index.html}
+
+\harvarditem{Rastas}{2017}{rastasLepMAP3RobustLinkage2017}
+Rastas, P.  \harvardyearleft 2017\harvardyearright , `Lep-{{MAP3}}: Robust
+  linkage mapping even for low-coverage whole genome sequencing data', {\em
+  Bioinformatics} {\bf 33}(23),~3726--3732.
+
+\harvarditem[Ray et~al.]{Ray, Grimshaw, Halsey, Korstian, Osmanski, Sullivan,
+  Wolf, Reddy, Foley, Stevens, Knisbacher, Levy, Counterman, Edelman
+  \harvardand\ Mallet}{2019}{raySimultaneousTEAnalysis2019}
+Ray, D.~A., Grimshaw, J.~R., Halsey, M.~K., Korstian, J.~M., Osmanski, A.~B.,
+  Sullivan, K. A.~M., Wolf, K.~A., Reddy, H., Foley, N., Stevens, R.~D.,
+  Knisbacher, B.~A., Levy, O., Counterman, B., Edelman, N.~B. \harvardand\
+  Mallet, J.  \harvardyearleft 2019\harvardyearright , `Simultaneous te
+  analysis of 19 heliconiine butterflies yields novel insights into rapid
+  te-based genome diversification and multiple sine births and deaths', {\em
+  Genome Biology and Evolution} {\bf 11}(8),~2162--2177.
+
+\harvarditem[Rezvoy et~al.]{Rezvoy, Charif, Gueguen \harvardand\
+  Marais}{2007}{rezvoyMareyMapRbasedTool2007}
+Rezvoy, C., Charif, D., Gueguen, L. \harvardand\ Marais, G.~A.
+  \harvardyearleft 2007\harvardyearright , `{{MareyMap}}: an {{R-based}} tool
+  with graphical interface for estimating recombination rates', {\em
+  Bioinformatics} {\bf 23}(16),~2188--2189.
+
+\harvarditem[Rizzon et~al.]{Rizzon, Marais, Gouy \harvardand\
+  Biémont}{2002}{rizzonRecombinationRateDistribution2002}
+Rizzon, C., Marais, G., Gouy, M. \harvardand\ Biémont, C.  \harvardyearleft
+  2002\harvardyearright , `Recombination rate and the distribution of
+  transposable elements in the \textit{{{Drosophila}} melanogaster} genome',
+  {\em Genome Research} {\bf 12}(3),~400--407.
+
+\harvarditem[Rosser et~al.]{Rosser, Edelman, Queste, Nelson, Seixas,
+  Dasmahapatra \harvardand\ Mallet}{2022}{rosserComplexBasisHybrid2022}
+Rosser, N., Edelman, N.~B., Queste, L.~M., Nelson, M., Seixas, F.,
+  Dasmahapatra, K.~K. \harvardand\ Mallet, J.  \harvardyearleft
+  2022\harvardyearright , `Complex basis of hybrid female sterility and
+  {{Haldane}}'s rule in {{Heliconius}} butterflies: {{Z-linkage}} and
+  epistasis', {\em Molecular Ecology} (31).
+
+\harvarditem{Royston}{1982}{roystonExtensionShapiroWilk1982}
+Royston, J.~P.  \harvardyearleft 1982\harvardyearright , `An extension of
+  {{Shapiro}} and {{Wilk}}'s {{W}} test for normality to large samples', {\em
+  Applied Statistics} {\bf 31}(2),~115.
+
+\harvarditem[Scherthan et~al.]{Scherthan, Weich, Schwegler, Heyting, Härle
+  \harvardand\ Cremer}{1996}{scherthanCentromereTelomereMovements1996}
+Scherthan, H., Weich, S., Schwegler, H., Heyting, C., Härle, M. \harvardand\
+  Cremer, T.  \harvardyearleft 1996\harvardyearright , `Centromere and telomere
+  movements during early meiotic prophase of mouse and man are associated with
+  the onset of chromosome pairing.', {\em Journal of Cell Biology} {\bf
+  134}(5),~1109--1125.
+
+\harvarditem[Schwander et~al.]{Schwander, Libbrecht \harvardand\
+  Keller}{2014}{schwanderSupergenesComplexPhenotypes2014}
+Schwander, T., Libbrecht, R. \harvardand\ Keller, L.  \harvardyearleft
+  2014\harvardyearright , `Supergenes and complex phenotypes', {\em Current
+  Biology} {\bf 24}(7),~R288--R294.
+
+\harvarditem{Shields}{1992}{shieldsJournalLepidopteristsSociety1992}
+Shields, O.  \harvardyearleft 1992\harvardyearright , `World distribution of
+  the \textit{Vanessa cardui} group nymphalidae', {\em Journal of the
+  {{Lepidopterists}}' {{Society}}} {\bf 46},~235--238.
+
+\harvarditem[Smit et~al.]{Smit, Hubley \harvardand\
+  Green}{2015}{smitRepeatMaskerOpen42013}
+Smit, A., Hubley, R. \harvardand\ Green, P.  \harvardyearleft
+  2015\harvardyearright , `{{RepeatMasker Open-4}}.0'.
+\newline\harvardurl{http://www.repeatmasker.org}
+
+\harvarditem{Smith \harvardand\ Nambiar}{2020}{smithNewSolutionsOld2020}
+Smith, G.~R. \harvardand\ Nambiar, M.  \harvardyearleft 2020\harvardyearright ,
+  `New solutions to old problems: Molecular mechanisms of meiotic crossover
+  control', {\em Trends in genetics} {\bf 36}(5),~337--346.
+
+\harvarditem[Smolander et~al.]{Smolander, Blande, Ahola, Rastas, Tanskanen,
+  Kammonen, Oostra, Pellegrini, Ikonen, Dallas, DiLeo, Duplouy, Duru, Halimaa,
+  Kahilainen, Kuwar, Kärenlampi, Lafuente, Luo, Makkonen, Nair, de~la Paz
+  Celorio-Mancera, Pennanen, Ruokolainen, Sundell, Tervahauta, Twort, van
+  Bergen, Österman Udd, Paulin, Frilander, Auvinen \harvardand\
+  Saastamoinen}{2022}{smolanderImprovedChromosomelevelGenome2022}
+Smolander, O.-P., Blande, D., Ahola, V., Rastas, P., Tanskanen, J., Kammonen,
+  J.~I., Oostra, V., Pellegrini, L., Ikonen, S., Dallas, T., DiLeo, M.~F.,
+  Duplouy, A., Duru, I.~C., Halimaa, P., Kahilainen, A., Kuwar, S.~S.,
+  Kärenlampi, S.~O., Lafuente, E., Luo, S., Makkonen, J., Nair, A., de~la Paz
+  Celorio-Mancera, M., Pennanen, V., Ruokolainen, A., Sundell, T., Tervahauta,
+  A.~I., Twort, V., van Bergen, E., Österman Udd, J., Paulin, L., Frilander,
+  M.~J., Auvinen, P. \harvardand\ Saastamoinen, M.  \harvardyearleft
+  2022\harvardyearright , `Improved chromosome-level genome assembly of the
+  glanville fritillary butterfly (\textit{Melitaea cinxia}) integrating pacific
+  biosciences long reads and a high-density linkage map', {\em GigaScience}
+  {\bf 11}(1),~giab097.
+
+\harvarditem{Srygley \harvardand\
+  Dudley}{2008}{srygleyOptimalStrategiesInsects2008}
+Srygley, R.~B. \harvardand\ Dudley, R.  \harvardyearleft 2008\harvardyearright
+  , `Optimal strategies for insects migrating in the flight boundary layer:
+  mechanisms and consequences', {\em Integrative and Comparative Biology} {\bf
+  48}(1),~119--133.
+
+\harvarditem[Stapley et~al.]{Stapley, Feulner, Johnston, Santure \harvardand\
+  Smadja}{2017}{stapleyVariationRecombinationFrequency2017}
+Stapley, J., Feulner, P. G.~D., Johnston, S.~E., Santure, A.~W. \harvardand\
+  Smadja, C.~M.  \harvardyearleft 2017\harvardyearright , `Variation in
+  recombination frequency and distribution across eukaryotes: patterns and
+  processes', {\em Philosophical Transactions of the Royal Society of London.
+  Series B, Biological Sciences} {\bf 372}(1736),~20160455.
+
+\harvarditem[Talavera et~al.]{Talavera, Bataille, Benyamini, Gascoigne-Pees
+  \harvardand\ Vila}{2018}{talaveraRoundtripSaharaAfrotropical2018}
+Talavera, G., Bataille, C., Benyamini, D., Gascoigne-Pees, M. \harvardand\
+  Vila, R.  \harvardyearleft 2018\harvardyearright , `Round-trip across the
+  {{Sahara}}: {{afrotropical painted lady}} butterflies recolonize the
+  mediterranean in early spring', {\em Biology Letters} {\bf 14}(6),~20180274.
+
+\harvarditem{Talavera \harvardand\
+  Vila}{n.d.}{talaveraDiscoveryMassMigration2016}
+Talavera, G. \harvardand\ Vila, R.  \harvardyearleft 2016\harvardyearright ,
+  `Discovery of mass migration and breeding of the painted lady butterfly
+  \textit{Vanessa cardui} in the sub-sahara: the europe–africa migration
+  revisited', {\em Biological Journal of the Linnean Society} {\bf 120} (2),~274–285.
+
+\harvarditem[Talla et~al.]{Talla, Soler, Kawakami, Dincă, Vila, Friberg,
+  Wiklund \harvardand\ Backström}{2019}{tallaDissectingEffectsSelection2019}
+Talla, V., Soler, L., Kawakami, T., Dincă, V., Vila, R., Friberg, M., Wiklund,
+  C. \harvardand\ Backström, N.  \harvardyearleft 2019\harvardyearright ,
+  `Dissecting the effects of selection and mutation on genetic diversity in
+  three wood white (\textit{Leptidea}) butterfly species', {\em Genome Biology
+  and Evolution} {\bf 11}(10),~2875--2886.
+
+\harvarditem[Talla et~al.]{Talla, Suh, Kalsoom, Dincă, Vila, Friberg, Wiklund
+  \harvardand\ Backström}{2017}{tallaRapidIncreaseGenome2017}
+Talla, V., Suh, A., Kalsoom, F., Dincă, V., Vila, R., Friberg, M., Wiklund, C.
+  \harvardand\ Backström, N.  \harvardyearleft 2017\harvardyearright , `Rapid
+  increase in genome size as a consequence of transposable element
+  hyperactivity in wood-white (\textit{Leptidea}) butterflies', {\em Genome
+  Biology and Evolution} {\bf 9}(10),~2491--2505.
+
+\harvarditem{Tiley \harvardand\
+  Burleigh}{2015}{tileyRelationshipRecombinationRate2015}
+Tiley, G.~P. \harvardand\ Burleigh, J.~G.  \harvardyearleft
+  2015\harvardyearright , `The relationship of recombination rate, genome
+  structure, and patterns of molecular evolution across angiosperms', {\em BMC
+  Evolutionary Biology} {\bf 15}(1),~194.
+
+\harvarditem[Tobler et~al.]{Tobler, Kapan, Flanagan, Gonzalez, Peterson,
+  Jiggins, Johntson, Heckel \harvardand\
+  McMillan}{2005}{toblerFirstgenerationLinkageMap2005}
+Tobler, A., Kapan, D., Flanagan, N.~S., Gonzalez, C., Peterson, E., Jiggins,
+  C.~D., Johntson, J.~S., Heckel, D.~G. \harvardand\ McMillan, W.~O.
+  \harvardyearleft 2005\harvardyearright , `First-generation linkage map of the
+  warningly colored butterfly \textit{{{Heliconius}} erato}', {\em Heredity}
+  {\bf 94}(4),~408--417.
+
+\harvarditem[Tunström et~al.]{Tunström, Woronik, Hanly, Rastas, Chichvarkhin,
+  Warren, Kawahara, Schoville, Ficarrotta, Porter, Watt, Martin \harvardand\
+  Wheat}{2021}{tunstromComplexInterplayBalancing2021}
+Tunström, K., Woronik, A., Hanly, J.~J., Rastas, P., Chichvarkhin, A., Warren,
+  A.~D., Kawahara, A., Schoville, S.~D., Ficarrotta, V., Porter, A.~H., Watt,
+  W.~B., Martin, A. \harvardand\ Wheat, C.~W.  \harvardyearleft
+  2021\harvardyearright , `A complex interplay between balancing selection and
+  introgression maintains a genus-wide alternative life history strategy',
+  p.~2021.05.20.445023.
+
+\harvarditem[Van~Belleghem et~al.]{Van~Belleghem, Rastas, Papanicolaou, Martin,
+  Arias, Supple, Hanly, Mallet, Lewis, Hines, Ruiz, Salazar, Linares, Moreira,
+  Jiggins, Counterman, McMillan \harvardand\
+  Papa}{2017}{vanbelleghemComplexModularArchitecture2017}
+Van~Belleghem, S.~M., Rastas, P., Papanicolaou, A., Martin, S.~H., Arias,
+  C.~F., Supple, M.~A., Hanly, J.~J., Mallet, J., Lewis, J.~J., Hines, H.~M.,
+  Ruiz, M., Salazar, C., Linares, M., Moreira, G. R.~P., Jiggins, C.~D.,
+  Counterman, B.~A., McMillan, W.~O. \harvardand\ Papa, R.  \harvardyearleft
+  2017\harvardyearright , `Complex modular architecture around a simple toolkit
+  of wing pattern genes', {\em Nature Ecology \& Evolution} {\bf 1}(3),~1--12.
+
+\harvarditem[Van't~Hof et~al.]{Van't~Hof, Campagne, Rigden, Yung, Lingley,
+  Quail, Hall, Darby \harvardand\
+  Saccheri}{2016}{vanthofIndustrialMelanismMutation2016}
+Van't~Hof, A.~E., Campagne, P., Rigden, D.~J., Yung, C.~J., Lingley, J., Quail,
+  M.~A., Hall, N., Darby, A.~C. \harvardand\ Saccheri, I.~J.  \harvardyearleft
+  2016\harvardyearright , `The industrial melanism mutation in british peppered
+  moths is a transposable element', {\em Nature} {\bf 534}(7605),~102--105.
+
+\harvarditem{Wahlberg \harvardand\
+  Rubinoff}{2011}{wahlbergVagilityVanessaLepidoptera2011}
+Wahlberg, N. \harvardand\ Rubinoff, D.  \harvardyearleft 2011\harvardyearright
+  , `Vagility across \textit{{{Vanessa}}} ({{Lepidoptera}}: {{Nymphalidae}}):
+  mobility in butterfly species does not inhibit the formation and persistence
+  of isolated sister taxa', {\em Systematic Entomology} {\bf 36}(2),~362--370.
+
+\harvarditem[Wang et~al.]{Wang, Tang, Debarry, Tan, Li, Wang, Lee, Jin, Marler,
+  Guo, Kissinger \harvardand\ Paterson}{2012}{wangMCScanXToolkitDetection2012}
+Wang, Y., Tang, H., Debarry, J.~D., Tan, X., Li, J., Wang, X., Lee, T.-h., Jin,
+  H., Marler, B., Guo, H., Kissinger, J.~C. \harvardand\ Paterson, A.~H.
+  \harvardyearleft 2012\harvardyearright , `{{MCScanX}}: A toolkit for
+  detection and evolutionary analysis of gene synteny and collinearity', {\em
+  Nucleic Acids Research} {\bf 40}(7),~e49.
+
+\harvarditem{Weber}{2009}{weberPhysiologyLongdistanceMigration2009}
+Weber, J.-M.  \harvardyearleft 2009\harvardyearright , `The physiology of
+  long-distance migration: extending the limits of endurance metabolism', {\em
+  Journal of Experimental Biology} {\bf 212}(5),~593--597.
+
+\harvarditem{Wells \harvardand\ Feschotte}{2020}{wellsFieldGuideEukaryotic2020}
+Wells, J.~N. \harvardand\ Feschotte, C.  \harvardyearleft 2020\harvardyearright
+  , `A field guide to eukaryotic transposable elements', {\em Annual Review of
+  Genetics} {\bf 54}(1),~539--561.
+
+\harvarditem{Wickham}{2009}{wickhamGgplot2ElegantGraphics2009}
+Wickham, H.  \harvardyearleft 2009\harvardyearright , {\em {{ggplot2}}:
+  {{elegant}} {{graphics}} for {{data}} {{analysis}}}, Use {{R}}!,
+  {Springer-Verlag}, New York.
+
+\harvarditem[Wieczorek et~al.]{Wieczorek, Beyenbach, Huss \harvardand\
+  Vitavska}{2009}{wieczorekVacuolartypeProtonPumps2009}
+Wieczorek, H., Beyenbach, K.~W., Huss, M. \harvardand\ Vitavska, O.
+  \harvardyearleft 2009\harvardyearright , `Vacuolar-type proton pumps in
+  insect epithelia', {\em The Journal of Experimental Biology} {\bf
+  212}(11),~1611--1619.
+
+\harvarditem[Wolfe et~al.]{Wolfe, Dudek, Ritchie \harvardand\
+  Pendergrass}{2013}{wolfeVisualizingGenomicInformation2013}
+Wolfe, D., Dudek, S., Ritchie, M.~D. \harvardand\ Pendergrass, S.~A.
+  \harvardyearleft 2013\harvardyearright , `Visualizing genomic information
+  across chromosomes with {{PhenoGram}}', {\em BioData Mining} {\bf 6}(1),~18.
+
+\harvarditem[Yamamoto et~al.]{Yamamoto, Nohata, Kadono-Okuda, Narukawa,
+  Sasanuma, Sasanuma, Minami, Shimomura, Suetsugu, Banno, Osoegawa, de~Jong,
+  Goldsmith \harvardand\ Mita}{2008}{yamamotoBACbasedIntegratedLinkage2008}
+Yamamoto, K., Nohata, J., Kadono-Okuda, K., Narukawa, J., Sasanuma, M.,
+  Sasanuma, S.-i., Minami, H., Shimomura, M., Suetsugu, Y., Banno, Y.,
+  Osoegawa, K., de~Jong, P.~J., Goldsmith, M.~R. \harvardand\ Mita, K.
+  \harvardyearleft 2008\harvardyearright , `A {{BAC-based}} integrated linkage
+  map of the silkworm \textit{{{Bombyx}} mori}', {\em Genome Biology} {\bf
+  9}(1),~R21.
+
+\harvarditem[Yang et~al.]{Yang, Wan, Xie, Mao, Dong, Lu, He, Xie, Liu, Dai,
+  Chang, Zhao, Zhang, Wang, Zhang, Zhang, Wang \harvardand\
+  Li}{2020}{yangChromosomeLevelReference2020}
+Yang, J., Wan, W., Xie, M., Mao, J., Dong, Z., Lu, S., He, J., Xie, F., Liu,
+  G., Dai, X., Chang, Z., Zhao, R., Zhang, R., Wang, S., Zhang, Y., Zhang, W.,
+  Wang, W. \harvardand\ Li, X.  \harvardyearleft 2020\harvardyearright ,
+  `Chromosome‐level reference genome assembly and gene editing of the
+  dead‐leaf butterfly \textit{Kallima inachus}', {\em Molecular Ecology
+  Resources} {\bf 20}(4),~1080--1092.
+
+\harvarditem{Yasukochi}{1998}{yasukochiDenseGeneticMap1998}
+Yasukochi, Y.  \harvardyearleft 1998\harvardyearright , `A {{dense genetic
+  map}} of the {{silkworm}}, \textit{{{Bombyx}} mori}, {{covering all
+  chromosomes based}} on 1018 {{molecular markers}}', {\em Genetics} {\bf
+  150}(4),~1513--1525.
+
+\harvarditem{Zhan \harvardand\
+  Reppert}{2013}{zhanMonarchBaseMonarchButterfly2013}
+Zhan, S. \harvardand\ Reppert, S.~M.  \harvardyearleft 2013\harvardyearright ,
+  `{{MonarchBase}}: the monarch butterfly genome database', {\em Nucleic Acids
+  Research} {\bf 41}(D1),~D758--D763.
+
+\harvarditem[Zhan et~al.]{Zhan, Zhang, Niitepõld, Hsu, Haeger, Zalucki,
+  Altizer, de~Roode, Reppert \harvardand\
+  Kronforst}{2014}{zhanGeneticsMonarchButterfly2014}
+Zhan, S., Zhang, W., Niitepõld, K., Hsu, J., Haeger, J.~F., Zalucki, M.~P.,
+  Altizer, S., de~Roode, J.~C., Reppert, S.~M. \harvardand\ Kronforst, M.~R.
+  \harvardyearleft 2014\harvardyearright , `The genetics of monarch butterfly
+  migration and warning colouration', {\em Nature} {\bf 514}(7522),~317--321.
+
+\harvarditem{Zhang}{2003}{zhangDoesRecombinationShape2003}
+Zhang, L.  \harvardyearleft 2003\harvardyearright , `Does recombination shape
+  the distribution and evolution of tandemly arrayed genes (tags) in the
+  \textit{Arabidopsis thaliana} genome?', {\em Genome Research} {\bf
+  13}(12),~2533--2540.
+
+\harvarditem[Zhang et~al.]{Zhang, Steward, Wheat \harvardand\
+  Reed}{2021}{zhangHighQualityGenomeAssembly2021}
+Zhang, L., Steward, R.~A., Wheat, C.~W. \harvardand\ Reed, R.~D.
+  \harvardyearleft 2021\harvardyearright , `High-quality genome assembly and
+  comprehensive transcriptome of the painted lady butterfly \textit{Vanessa
+  cardui}', {\em Genome Biology and Evolution} {\bf 13}(7).
+
+\harvarditem[Zhu et~al.]{Zhu, Gegear, Casselman, Kanginakudru \harvardand\
+  Reppert}{2009}{zhuDefiningBehavioralMolecular2009}
+Zhu, H., Gegear, R.~J., Casselman, A., Kanginakudru, S. \harvardand\ Reppert,
+  S.~M.  \harvardyearleft 2009\harvardyearright , `Defining behavioral and
+  molecular differences between summer and migratory monarch butterflies', {\em
+  BMC Biology} {\bf 7}(1),~14.
+
+\end{thebibliography}
+
+
+\end{backmatter}
+\end{document}
+\end{document}
