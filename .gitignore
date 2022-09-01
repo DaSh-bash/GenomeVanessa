@@ -14,3 +14,10 @@ Figures/Figures_Main_Fig1.pdf
 Figures/Figure3.pdf
 Figures/Figures_Main_Fig3.pdf
 *.out
+NewWindows/100kb/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.bed
+NewWindows/2Mb/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.DNA.bed
+NewWindows/2Mb/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.LINE.bed
+NewWindows/2Mb/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.LTR.bed
+*.id
+*.gff
+NewWindows/2Mb/GCA_905220365.1_ilVanCard2.1_genomic_chroms.fna.SINE.bed
