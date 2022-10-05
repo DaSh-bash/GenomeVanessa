@@ -1,2 +1,0 @@
-sp	num.chr	map.length	markers
-vcar	31	1390.639	1913
