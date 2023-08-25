@@ -79,13 +79,13 @@ echo "chrom begin end count_gene length_gene" # count_SINE length_SINE count_DNA
 
 while IFS=$'\t' read -r -a myArray
 do
-	for line in "${myArray[0]}" 
+	for line in "${myArray[0]}"
 	do
 		begin="${myArray[1]}"
 		end="${myArray[2]}"
 #		echo "awk '$1 == a && $4>b && $5<c {print}'  a="$line" b="$begin" c="$end" $REP | wc -l"
 #		echo "$(awk '$1 == a && $4>b && $5<c {print}'  a="$line" b="$begin" c="$end" $REP | wc -l)"
-		count_gene=$(awk '$1 == a && $4>b && $5<c {print}'  a="$line" b="$begin" c="$end" $REP | wc -l)		
+		count_gene=$(awk '$1 == a && $4>b && $5<c {print}'  a="$line" b="$begin" c="$end" $REP | wc -l)
                 length_gene=$(awk '$1 == a && $4>b && $5<c {sum+=$5-$4} END {print sum}'  a="$line" b="$begin" c="$end" $REP)
 
 		echo "$line $begin $end $count_gene $length_gene"
