@@ -1,3 +1,4 @@
+##Badirate
 In this folder the important files for Badirate is kept
 
 badirate_mod.Rmd is the main file for running badirate, OBS needs manual checking and is not automated.

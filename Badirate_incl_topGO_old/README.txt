@@ -1,4 +1,4 @@
-In this folder the important files for Badirate is kept
+##In this folder the important files for Badirate is kept
 
 badirate_mod.Rmd is the main file for running badirate, OBS needs manual checking and is not automated.
 
@@ -13,7 +13,7 @@ get_best_model_gains.sh
 gene_selector_mod.sh
 
 result/ The summary output from all the models run in badirate, intermediate files and files for input to topGO. 
-The raw output are >14 000 files for each model and repl so they are not kept here. 
+The raw output are >14 000 files for each model and replicate so they are not kept here. 
 
 TopGO/
 GO_analysis of resulting gene gains from Badirate
